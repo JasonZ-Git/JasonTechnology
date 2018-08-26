@@ -1,0 +1,18 @@
+{
+  "name": "hello-test",
+  "version": "1.0.0",
+  "description": "This is a test of nodejs, created by Jason",
+  "main": "main.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "multer": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test-hello"
+  },
+  "author": "Jason",
+  "license": "ISC"
+}
