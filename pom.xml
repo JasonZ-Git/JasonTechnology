@@ -1,0 +1,64 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jason</groupId>
+	<artifactId>parent-pom</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+
+	<name>Jason Parent POM</name>
+	<description>Some defaults for Maven builds</description>
+	<url>it@github.com:JasonZ-Git/JasonTechnology.git</url>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>jason.zhang</id>
+			<name>Jason Zhang</name>
+			<email>zclok236@gmail.com</email>
+			<url>http://www.jasonzhang.com.au</url>
+			<organization>techgarden</organization>
+			<organizationUrl>http://www.jasonzhang.com.au</organizationUrl>
+			<roles>
+				<role>Architecture</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<powermock.version>1.4.10</powermock.version>
+		<junit-version>4.12</junit-version>
+	</properties>
+	
+	<modules>
+		<module>jason-util</module>
+	</modules>
+	
+	<build>
+		<plugins>
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>3.8.0</version>
+</plugin>
+    </plugins>
+        </build>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit-version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
