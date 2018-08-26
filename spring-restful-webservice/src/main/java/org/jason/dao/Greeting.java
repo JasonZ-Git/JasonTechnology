@@ -1,4 +1,4 @@
-package org.jason.restful;
+package org.jason.dao;
 
 /**
  * Greeting object
