@@ -41,7 +41,13 @@
 	<modules>
 		<module>jason-util</module>
 		<module>spring-restful</module>
+		<module>spring-restful-hibernate</module>
+		<module>spring-mvc</module>
                 <module>spring-websocket</module>
+		<module>jason-application</module>
+		<module>java-explore</module>
+                <module>spring-restful-web-application-demo</module>
+                <module>jsf-helloworld</module>
 	</modules>
 	
 	<build>

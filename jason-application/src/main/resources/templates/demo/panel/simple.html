@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<link rel="stylesheet" href="./w3.css">
+
+<style>
+.score-item{
+	width: 174px;
+	height: 228px;
+	margin-top: 3px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+	border:5px solid blue;
+	display:block;
+}
+
+.aside-item{
+	width: 174px;
+	height: 228px;
+	margin-top: 3px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+	border:5px solid blue;
+	display:none;
+}
+
+.score-item:hover{
+background-color:blue;
+}
+
+div.top-relative {
+	top: 15px;
+	left: 5px;
+	right: 5px;
+}
+
+div.bottom-relative {
+	bottom: 15px;
+	left: 5px;
+	right: 5px;
+}
+
+.font-bold {
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+	<div ng-app="mainApp" ng-controller="mainCtrl" class="">
+		<div id="mainPanel" ng-click="hideIt()"
+			class="w3-col w3-center score-item">
+			<div class="top-relative">
+				<h6 class="font-bold">See You Again</h6>
+			</div>
+			<div class="bottom-relative w3-hover-text-grey">
+				<h6>Standard</h6>
+			</div>
+		</div>
+		<aside id="asidePanel" class="w3-col w3-center aside-item">
+			<div>New Play List</div>
+			<input type="text" placeholder="playlist name">
+			<button type="submit">Summit</button>
+		</aside>
+	</div>
+
+
+	<script>
+    var mainApp = angular.module("mainApp", []);
+    mainApp.controller("mainCtrl", function($scope) {
+      $scope.hideIt = function() {
+        document.getElementById('mainPanel').style.display = "none";
+        document.getElementById('asidePanel').style.display = "block";
+      };
+    });
+  </script>
+</body>
+</html>
