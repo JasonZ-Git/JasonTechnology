@@ -1,0 +1,15 @@
+{
+  "name": "bravura-bot",
+  "version": "1.0.0",
+  "description": "This is a bravura bot programe.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test-bot"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.13.1",
+    "restify": "^6.3.4"
+  }
+}
