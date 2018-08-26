@@ -33,12 +33,14 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
 		<powermock.version>1.4.10</powermock.version>
 		<junit-version>4.12</junit-version>
 	</properties>
 	
 	<modules>
 		<module>jason-util</module>
+		<module>spring-restful-webservice</module>
 	</modules>
 	
 	<build>
