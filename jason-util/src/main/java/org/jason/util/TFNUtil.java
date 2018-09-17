@@ -6,17 +6,23 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.math3.util.MathArrays;
 
+/**
+ * This Utility is designed to process common logic related to TFN.
+ * 
+ * @author jason.zhang
+ */
+
 public final class TFNUtil {
 
 	private static final double[] factor = { 1, 4, 3, 7, 5, 8, 6, 9, 10};
 	
-	public static String generate() {
+	public static String generateTFN() {
 		
 		int[] randomInts = new Random().ints(9, 1, 10).toArray();
 		
 		if (isValidTFN(randomInts)) return Arrays.toString(randomInts);
 		
-		return generate();
+		return generateTFN();
 	}
 	
 	
@@ -37,6 +43,6 @@ public final class TFNUtil {
 	
 	public static void main(String[] args) {
 		
-		IntStream.range(1, 20).mapToObj(i -> generate()).forEach(System.out::println);
+		IntStream.range(1, 20).mapToObj(i -> generateTFN()).forEach(System.out::println);
 	}
 }
