@@ -25,7 +25,6 @@ public final class TFNUtil {
 		return generateTFN();
 	}
 	
-	;
 	public static boolean isValidTFN(String inputTFN) {
 		
 		return isValidTFN(inputTFN.chars().toArray());

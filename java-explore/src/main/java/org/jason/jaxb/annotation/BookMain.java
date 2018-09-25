@@ -35,13 +35,13 @@ public class BookMain {
     bookList.add(book2);
 
     // create bookstore, assigning book
-    Bookstore bookstore = new Bookstore();
+    BookStore bookstore = new BookStore();
     bookstore.setName("Fraport Bookstore");
     bookstore.setLocation("Frankfurt Airport");
     bookstore.setBookList(bookList);
 
     // create JAXB context and instantiate marshaller
-    JAXBContext context = JAXBContext.newInstance(Bookstore.class);
+    JAXBContext context = JAXBContext.newInstance(BookStore.class);
     Marshaller m = context.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
@@ -55,7 +55,7 @@ public class BookMain {
     System.out.println();
     System.out.println("Output from our XML File: ");
     Unmarshaller um = context.createUnmarshaller();
-    Bookstore bookstore2 = (Bookstore) um.unmarshal(new FileReader(BOOKSTORE_XML));
+    BookStore bookstore2 = (BookStore) um.unmarshal(new FileReader(BOOKSTORE_XML));
     ArrayList<Book> list = bookstore2.getBooksList();
     for (Book book : list) {
       System.out.println("Book: " + book.getName() + " from " + book.getAuthor());

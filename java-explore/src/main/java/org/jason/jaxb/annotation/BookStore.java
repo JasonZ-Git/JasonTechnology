@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 // This statement means that class "Bookstore.java" is the root-element of our example
 @XmlRootElement
-public class Bookstore {
+public class BookStore {
 
   // XmLElementWrapper generates a wrapper element around XML representation
   @XmlElementWrapper(name = "bookList")
