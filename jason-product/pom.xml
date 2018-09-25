@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>org.jason</groupId>
-	<artifactId>jason-application</artifactId>
+	<artifactId>jason-product</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
