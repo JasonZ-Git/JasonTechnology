@@ -3,7 +3,7 @@ package org.jason.event;
 import java.time.Period;
 import java.util.List;
 
-import org.jason.util.JasonCalendarUtil;
+import org.jason.util.JasonGoogleCalendarUtil;
 
 import com.google.api.services.calendar.model.Events;
 

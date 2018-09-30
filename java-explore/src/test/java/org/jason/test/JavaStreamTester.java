@@ -82,30 +82,31 @@ public class JavaStreamTester {
   public void testIterator() {
     Stream.iterate(1, i->i+1).limit(10).forEach(System.out::println);
   }
+
+  private static class Person {
+	private static int count = 9;
+
+	private String name = "hello";
+
+	public Person() {
+	}
+
+	public Person(String name) {
+  	  this.name = name;
+	}
+
+	public void changeName() {
+	  this.name = name + " === " + count--;
+	}
+
+	public String getName() {
+	  return this.name;
+	}
+
+	@Override
+	public String toString() {
+	  return this.name + count++;
+	}
+  }
 }
 
-
-class Person {
-  private static int count = 9;
-
-  private String name = "hello";
-
-  public Person() {}
-
-  public Person(String name) {
-    this.name = name;
-  }
-
-  public void changeName() {
-    this.name = name + " === " + count--;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  @Override
-  public String toString() {
-    return this.name + count++;
-  }
-}

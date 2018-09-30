@@ -25,12 +25,14 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 
 /**
+ * @TODO 1 This class needs to be moved to jason-util - Credential files should be kept within this moduled, only classed moved there.
+ * 
  * This Util class is used to operate calendar, including get, create events.
- *
+ * 
  * @author jason.zhang
  */
-public class JasonCalendarUtil {
-  private static final Logger logger = Logger.getLogger(JasonCalendarUtil.class);
+public class JasonGoogleCalendarUtil {
+  private static final Logger logger = Logger.getLogger(JasonGoogleCalendarUtil.class);
   /** Application name. */
   private static final String APPLICATION_NAME = "Google Calendar - Jason servant";
 
@@ -57,7 +59,7 @@ public class JasonCalendarUtil {
   static {
     try {
       DATA_STORE_DIR = new java.io.File(
-          JasonCalendarUtil.class.getClassLoader().getResource("credential").toURI());
+          JasonGoogleCalendarUtil.class.getClassLoader().getResource("credential").toURI());
       HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
       DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
     } catch (Throwable t) {
@@ -114,7 +116,7 @@ public class JasonCalendarUtil {
    */
   private static Credential authorize() throws IOException {
     // Load client secrets.
-    InputStream in = JasonCalendarUtil.class.getResourceAsStream("/credential/client_secret.json");
+    InputStream in = JasonGoogleCalendarUtil.class.getResourceAsStream("/credential/client_secret.json");
     GoogleClientSecrets clientSecrets =
         GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 

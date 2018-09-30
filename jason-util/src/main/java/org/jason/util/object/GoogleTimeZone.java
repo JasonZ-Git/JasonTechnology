@@ -5,7 +5,7 @@ package org.jason.util.object;
  * 
  * The original source is here: https://developers.google.com/maps/documentation/timezone/intro
  * 
- * @author jason
+ * @author Jason Zhang
  */
 public class GoogleTimeZone {
 	private int dstOffset;

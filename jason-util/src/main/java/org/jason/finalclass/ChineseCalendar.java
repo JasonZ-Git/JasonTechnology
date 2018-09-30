@@ -157,6 +157,15 @@ public final class ChineseCalendar extends GregorianCalendar {
     }
     return LocalDate.of(calendar.get(YEAR), calendar.get(MONTH) + 1, calendar.get(DATE));
   }
+  
+  public static ChineseCalendar fromLunar(int year, int month, int date) {
+	  ChineseCalendar calendar = new ChineseCalendar();
+	  calendar.set(CHINESE_YEAR, year);
+      calendar.set(CHINESE_MONTH, month);
+      calendar.set(CHINESE_DATE, date);
+      
+      return calendar;
+  }
 
   @Override
   public void set(int field, int value) {

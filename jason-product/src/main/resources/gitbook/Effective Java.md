@@ -1,5 +1,7 @@
 # Start writing my learning material from today.
 
+
+
 ## Item 41 - Use marker interfaces to define types
 
    This item explains the different between maker interface & maker annotation.

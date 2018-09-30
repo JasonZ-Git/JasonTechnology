@@ -1,61 +1,23 @@
 package org.jason.birthday;
 
-import java.time.LocalDate;
-
 import org.jason.finalclass.ChineseCalendar;
 
-public class Relative {
-  private String name;
-  private Birthday birthday;
-  private int birthYear;
+public enum Relative {
+  MOTHER("妈妈", ChineseCalendar.fromLunar(1957, 8, 5)), 
+  FATHER("爸爸", ChineseCalendar.fromLunar(1959, 12, 9)), 
+  GRANDMA("奶奶", ChineseCalendar.fromLunar(1929, 10, 12));
 
-  private Relative(String name, int birthYear, Birthday birthday) {
-    this.name = name;
-    this.birthYear = birthYear;
-    this.birthday = birthday;
-  }
+  private Person person;
 
-  public Relative(String name, int birthYear, int month, int date, boolean isChineseCalendar) {
-    this(name, birthYear, Birthday.from(month, date, isChineseCalendar));
-  }
-
-  public Birthday getBirthday() {
-    return this.birthday;
-  }
-
-  public int getAge() {
-    LocalDate now = LocalDate.now();
-    LocalDate birthDate = this.birthday.getBirthdayOfYear(now.getYear());
-    return birthDate.isAfter(now) ? now.getYear() - this.birthYear + 1
-        : now.getYear() - this.birthYear;
-  }
-
-  public int getFakeAge() {
-    return this.getAge() + 1;
+  private Relative(String name, ChineseCalendar lunarBirthday) {
+    this.person = new Person(name, lunarBirthday);
   }
 
   public String getName() {
-    return this.name;
-  }
-}
-
-
-class Birthday {
-  private int month;
-  private int date;
-  private boolean chineseCalendar;
-
-  private Birthday(int month, int date, boolean chineseCalendar) {
-    this.month = month;
-    this.date = date;
-    this.chineseCalendar = chineseCalendar;
+    return this.person.getName();
   }
 
-  public static Birthday from(int month, int date, boolean isChineseCalendar) {
-    return new Birthday(month, date, isChineseCalendar);
-  }
-
-  public LocalDate getBirthdayOfYear(int year) {
-    return ChineseCalendar.from(year, this.month, this.date, this.chineseCalendar);
+  public Birthday getBirthday() {
+    return this.person.getBirthday();
   }
 }
