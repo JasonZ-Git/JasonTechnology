@@ -1,27 +1,6 @@
-# This is used to record my idea of the design flaws of java and how to improve it.
+# Start writing my learning material from today.
 
-## Object.equals(Object o)
-### This method should be used as designed using an generic way, thus enhance type safety check at compile time instead of runtime when overriding it.
+## Item 41 - Use marker interfaces to define types
 
-    For example:
-    
-    public interface Equalable<T> {
-    	boolean equals(T t){}
-    }
-	
-	public class Object implements Equalalbe{
-	 ...
-	 @Override
-	 public boolean equals(Object o) {
-	 	...
-	 }
-	}
-    
-    Thus String should be override like this:
-    
-    
-## Get rid of all dummy interface, give them proper methods, for example: 
-
-### Clonable has a clone method, 
-### Serialiable has a serialize method.
-
+   This item explains the different between maker interface & maker annotation.
+   Maker interface could be used to define a type - in this scenario - interface is better than annoation.
