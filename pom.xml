@@ -34,6 +34,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<powermock.version>1.4.10</powermock.version>
 		<junit-version>4.12</junit-version>
 	</properties>
@@ -46,7 +48,6 @@
                 <module>spring-websocket</module>
 		<module>jason-product</module>
 		<module>java-explore</module>
-                <module>spring-restful-web-application-demo</module>
                 <module>jsf-helloworld</module>
 	</modules>
 	
