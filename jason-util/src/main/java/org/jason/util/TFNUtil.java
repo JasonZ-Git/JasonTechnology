@@ -1,8 +1,13 @@
 package org.jason.util;
 
+
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.annotation.Nonnull;
 
 import org.apache.commons.math3.util.MathArrays;
 
@@ -25,12 +30,17 @@ public final class TFNUtil {
 		return generateTFN();
 	}
 	
-	public static boolean isValidTFN(String inputTFN) {
-		
-		return isValidTFN(inputTFN.chars().toArray());
+	public static boolean isValidTFN(@Nonnull String inputTFN) {
+	    int[] tfnNumberArray = Stream.of(inputTFN.split("")).mapToInt(Integer::parseInt).toArray();
+		return isValidTFN(tfnNumberArray);
 	}
 	
 	public static boolean isValidTFN(int[] inputTFN) {
+	    Objects.requireNonNull(inputTFN);
+	    
+	    if (inputTFN.length != factor.length) {
+	        return false;
+	    }
 		
 		double[] inputArray  = Arrays.stream(inputTFN).mapToDouble(a -> (double)a).toArray();
 		
