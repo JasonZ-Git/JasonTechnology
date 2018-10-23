@@ -13,7 +13,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 /**
  * Test static method
  * 
- * @author Jason.zhang
+ * @author Jason Zhang
  * 
  */
 @RunWith(PowerMockRunner.class)

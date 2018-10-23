@@ -3,6 +3,7 @@ package org.jason.util;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.jason.util.object.GoogleTimeZone;
 
 import com.google.gson.Gson;
-import com.ibm.icu.util.Calendar;
 
 public class JasonTimeZoneUtil {
 

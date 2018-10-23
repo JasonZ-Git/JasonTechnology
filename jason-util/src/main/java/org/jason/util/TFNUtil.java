@@ -20,6 +20,8 @@ import org.apache.commons.math3.util.MathArrays;
 public final class TFNUtil {
 
 	private static final double[] factor = { 1, 4, 3, 7, 5, 8, 6, 9, 10};
+	
+	private static final int TFN_SIZE = factor.length;
 
 	public static String generateTFN() {
 		
@@ -31,6 +33,12 @@ public final class TFNUtil {
 	}
 	
 	public static boolean isValidTFN(@Nonnull String inputTFN) {
+	    Objects.requireNonNull(inputTFN, "Input TFN cannot be null");
+	    
+	    if(inputTFN.length() != TFN_SIZE) {
+	        return false;
+	    }
+	    
 	    int[] tfnNumberArray = Stream.of(inputTFN.split("")).mapToInt(Integer::parseInt).toArray();
 		return isValidTFN(tfnNumberArray);
 	}
