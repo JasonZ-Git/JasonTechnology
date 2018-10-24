@@ -2,11 +2,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jason</groupId>
-	<artifactId>jason-util</artifactId>
+	<artifactId>jason-code-challenge</artifactId>
 	<version>1.0</version>
 
-	<name>jason-utils</name>
-	<url>http://www.jason-zhang.org/jason-utils</url>
+	<name>Jason Code Challenge</name>
 
 	<licenses>
 		<license>
@@ -16,21 +15,6 @@
 			<comments>A business-friendly OSS license</comments>
 		</license>
 	</licenses>
-
-	<developers>
-		<developer>
-			<id>jason.zhang</id>
-			<name>jason.zhang</name>
-			<email>zclok236@gmail.com</email>
-			<url>http://www.jason-zhang.org</url>
-			<organization>techgarden</organization>
-			<organizationUrl>http://www.techgarden.com</organizationUrl>
-			<roles>
-				<role>developer</role>
-			</roles>
-			<timezone>-6</timezone>
-		</developer>
-	</developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -86,13 +70,11 @@
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
-			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -100,20 +82,5 @@
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-                               	<configuration>
-		<source>1.8</source>
-		<target>1.8</target>
-		<encoding>UTF-8</encoding>
-		<showWarnings>true</showWarnings>
-	</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
