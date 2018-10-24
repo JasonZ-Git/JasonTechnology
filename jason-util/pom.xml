@@ -9,6 +9,8 @@
 
 	<artifactId>jason-util</artifactId>
 
+	<name>Jason Util</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
