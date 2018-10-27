@@ -25,3 +25,4 @@
 ### Clonable has a clone method, 
 ### Serialiable has a serialize method.
 
+### Using 4 bytes to represent a character instead of 2 bytes.
