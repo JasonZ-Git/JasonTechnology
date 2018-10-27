@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.math3.util.MathArrays;
 
 /**
@@ -35,9 +35,10 @@ public final class TFNUtil {
 	public static boolean isValidTFN(@Nonnull String inputTFN) {
 	    Objects.requireNonNull(inputTFN, "Input TFN cannot be null");
 	    
-	    if(inputTFN.length() != TFN_SIZE) {
+	    if(inputTFN.length() != TFN_SIZE || !NumberUtils.isDigits(inputTFN)) {
 	        return false;
 	    }
+	    
 	    
 	    int[] tfnNumberArray = Stream.of(inputTFN.split("")).mapToInt(Integer::parseInt).toArray();
 		return isValidTFN(tfnNumberArray);
