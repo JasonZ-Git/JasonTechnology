@@ -2,7 +2,7 @@ package crack_code_interview;
 
 import java.util.Objects;
 
-public class Q3_String_Replace {
+public class Q1_3_String_Replace {
   public static String replaceSpace(String source) {
     Objects.requireNonNull(source);
     

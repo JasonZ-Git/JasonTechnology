@@ -2,7 +2,7 @@ package crack_code_interview;
 
 import java.util.Objects;
 
-public class Q1_Is_Unique {
+public class Q1_1_Is_Unique {
   
   private static final int COMPLETE_CHAR_LENGTH = Character.MAX_CODE_POINT + 1;
   private static final int ASCII_PRINTABLE_CHAR_LENGTH = 1<<7;

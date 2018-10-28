@@ -3,7 +3,7 @@ package crack_code_interview;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Q2_Is_Permutation {
+public class Q1_2_Is_Permutation {
   public static boolean isPermutationIWithOrder(String part, String whole) {
     Objects.requireNonNull(part);
     Objects.requireNonNull(whole);
