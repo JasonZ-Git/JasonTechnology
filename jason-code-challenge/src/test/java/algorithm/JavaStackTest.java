@@ -1,9 +1,8 @@
 package algorithm;
 
 import org.jason.algorithm.JavaStack;
+import org.junit.Assert;
 import org.junit.Test;
-
-import junit.framework.Assert;
 
 public class JavaStackTest {
 

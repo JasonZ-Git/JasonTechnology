@@ -1,9 +1,9 @@
 package algorithm;
 
 import org.jason.algorithm.JavaArrayQueue;
+import org.junit.Assert;
 import org.junit.Test;
 
-import junit.framework.Assert;
 
 public class JavaArrayQueueTest {
 

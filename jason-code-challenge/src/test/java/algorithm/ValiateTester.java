@@ -1,9 +1,8 @@
 package algorithm;
 
 import org.jason.algorithm.DataValidation;
+import org.junit.Assert;
 import org.junit.Test;
-
-import junit.framework.Assert;
 
 public class ValiateTester {
   @Test
