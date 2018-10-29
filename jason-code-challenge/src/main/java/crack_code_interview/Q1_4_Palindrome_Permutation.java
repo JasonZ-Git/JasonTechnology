@@ -3,8 +3,6 @@ package crack_code_interview;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class Q1_4_Palindrome_Permutation {
   
@@ -34,13 +32,15 @@ public class Q1_4_Palindrome_Permutation {
   }
   
   
-  @Test
-  public void testIsPalidrome() {
+
+  public void main(String[] args) {
     Object[][] data = new Object[][] {{"abcba",true},{"abccba", true},{"abcdba", false}, {"abcc b a", true}};
     List<Object[]> testData = Arrays.asList(data);
     
     for (Object[] current : testData) {
-      Assert.assertEquals(current[1], isPalidrome((String)current[0]));
+      if((boolean)current[1] != isPalidrome((String)current[0])) {
+          System.out.println("Test Fail");
+      }
     }
     
   }
