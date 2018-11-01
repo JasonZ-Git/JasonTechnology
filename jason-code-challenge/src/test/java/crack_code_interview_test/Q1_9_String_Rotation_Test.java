@@ -10,7 +10,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import crack_code_interview.Q1_5_One_Way;
 import crack_code_interview.Q1_9_String_Rotation;
 
 @RunWith(Parameterized.class)
