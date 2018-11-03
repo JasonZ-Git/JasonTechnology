@@ -30,7 +30,9 @@ public class LinkedListNode {
     
     public LinkedListNode(int d) {
         data = d;
-    }   
+    }
+    
+    public LinkedListNode() {}
     
     public String printForward() {
         if (next != null) {
@@ -49,6 +51,9 @@ public class LinkedListNode {
         return head2;
     }
     
+    public int getLength() {
+      return next == null ? 0 : next.getLength()+1;
+    }
     
     public LinkedListNode getPrev() {
         return prev;
@@ -86,6 +91,8 @@ public class LinkedListNode {
         if (head == null) {
            head = this;
            head.next = n;
+           
+           return;
         }
         
         next = n;
