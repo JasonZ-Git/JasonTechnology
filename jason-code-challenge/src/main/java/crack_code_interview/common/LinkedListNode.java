@@ -28,6 +28,8 @@ public class LinkedListNode {
         setPrevious(p);
     }
     
+    public LinkedListNode() {}
+    
     public LinkedListNode(int d) {
         data = d;
     }
