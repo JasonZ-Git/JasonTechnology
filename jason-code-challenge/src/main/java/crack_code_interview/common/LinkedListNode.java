@@ -88,20 +88,22 @@ public class LinkedListNode {
     }
 
     public void setNext(LinkedListNode n) {
-        if (head == null) {
-           head = this;
-           head.next = n;
+        if (this.head == null) {
+           this.head = this;
+           this.head.next = n;
+           n.prev = this;
            
            return;
         }
         
-        next = n;
-        if (this == tail) {
-            tail = n;
-        }
-        
-        if (n != null && n.prev != this) {
+        this.next = n;
+        n.next = this.next.next;
+        if (this == this.tail) {
+            this.tail = n;
             n.setPrevious(this);
+            return;
+        } else {
+            
         }
     }
     
