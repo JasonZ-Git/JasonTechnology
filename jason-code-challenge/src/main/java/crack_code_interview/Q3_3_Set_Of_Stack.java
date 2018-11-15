@@ -2,8 +2,6 @@ package crack_code_interview;
 
 import java.util.Stack;
 
-import crack_code_interview.common.LinkedListNode;
-
 public class Q3_3_Set_Of_Stack<T> {
     private static final int THRESH_HOLD = 100;
     
@@ -14,9 +12,13 @@ public class Q3_3_Set_Of_Stack<T> {
         
     }
     
-    public T pop() {}
+    public T pop() {
+      return null;
+    }
     
-    public T peel() {}
+    public T peel() {
+      return null;
+    }
     
 
     
