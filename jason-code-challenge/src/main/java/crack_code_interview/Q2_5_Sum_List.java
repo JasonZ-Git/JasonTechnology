@@ -3,7 +3,7 @@ package crack_code_interview;
 import crack_code_interview.common.LinkedListNode;
 
 public class Q2_5_Sum_List {
-  public static LinkedListNode sumList1(LinkedListNode first, LinkedListNode second) {
+  public static LinkedListNode sumList(LinkedListNode first, LinkedListNode second) {
     
     LinkedListNode result = new LinkedListNode();
     

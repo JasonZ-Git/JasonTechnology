@@ -3,7 +3,6 @@ package crack_code_interview_test;
 import org.junit.Assert;
 import org.junit.Test;
 
-import crack_code_interview.Q2_1_Remove_Duplidate;
 import crack_code_interview.Q2_5_Sum_List;
 import crack_code_interview.common.LinkedListNode;
 

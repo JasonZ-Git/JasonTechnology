@@ -25,7 +25,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 
 /**
- * @TODO 1 This class needs to be moved to jason-util - Credential files should be kept within this moduled, only classed moved there.
+ *  1 This class needs to be moved to jason-util - Credential files should be kept within this module, only classed moved there.
  * 
  * This Util class is used to operate calendar, including get, create events.
  * 
@@ -34,7 +34,7 @@ import com.google.api.services.calendar.model.Events;
 public class JasonGoogleCalendarUtil {
   private static final Logger logger = Logger.getLogger(JasonGoogleCalendarUtil.class);
   /** Application name. */
-  private static final String APPLICATION_NAME = "Google Calendar - Jason servant";
+  private static final String APPLICATION_NAME = "Google Calendar - Jason Relative";
 
   /** Directory to store user credentials for this application. */
   private static java.io.File DATA_STORE_DIR = null;
