@@ -36,7 +36,7 @@ public class Q2_5_Sum_List_Test {
         LinkedListNode next6 = new LinkedListNode(2);
         next5.setNext(next6);
         
-        LinkedListNode result = Q2_5_Sum_List.sumList1(first, second);
+        LinkedListNode result = Q2_5_Sum_List.sumList(first, second);
         
         Assert.assertEquals(result.getNext().getData(), 2);
         Assert.assertEquals(result.getNext().getNext().getData(), 1);
