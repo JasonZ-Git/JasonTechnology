@@ -1,9 +1,8 @@
 package crack_code_interview_test;
 
+import org.jason.code_practice.Q1_7_Rotate_Matrix;
 import org.junit.Assert;
 import org.junit.Test;
-
-import crack_code_interview.Q1_7_Rotate_Matrix;
 
 public class Q1_7_Rotate_Matrix_Test {
 

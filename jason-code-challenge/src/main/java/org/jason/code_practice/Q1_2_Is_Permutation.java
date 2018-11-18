@@ -1,4 +1,4 @@
-package crack_code_interview;
+package org.jason.code_practice;
 
 import java.util.Arrays;
 import java.util.Objects;

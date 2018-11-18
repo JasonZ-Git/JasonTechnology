@@ -1,4 +1,4 @@
-package crack_code_interview.common;
+package org.jason.code_practice.common;
 
 /**
  * This class is originally copied from somewhere else, and only used for crack code related algorithm.

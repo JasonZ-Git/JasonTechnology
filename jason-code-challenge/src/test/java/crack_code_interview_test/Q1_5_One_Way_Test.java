@@ -2,15 +2,13 @@ package crack_code_interview_test;
 
 import java.util.Arrays;
 import java.util.Collection;
-
+import org.jason.code_practice.Q1_5_One_Way;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-
-import crack_code_interview.Q1_5_One_Way;
 
 @RunWith(Parameterized.class)
 public class Q1_5_One_Way_Test {

@@ -1,4 +1,4 @@
-package crack_code_interview.common;
+package org.jason.code_practice.common;
 
 import java.util.EmptyStackException;
 

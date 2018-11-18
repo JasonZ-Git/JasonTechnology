@@ -1,10 +1,9 @@
 package crack_code_interview_test;
 
+import org.jason.code_practice.Q2_1_Remove_Duplidate;
+import org.jason.code_practice.common.LinkedListNode;
 import org.junit.Assert;
 import org.junit.Test;
-
-import crack_code_interview.Q2_1_Remove_Duplidate;
-import crack_code_interview.common.LinkedListNode;
 
 public class Q2_1_Remove_Duplicate_Test {
 

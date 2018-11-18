@@ -1,4 +1,4 @@
-package crack_code_interview;
+package org.jason.code_practice;
 
 public class Q3_1_Three_In_One<T> {
 

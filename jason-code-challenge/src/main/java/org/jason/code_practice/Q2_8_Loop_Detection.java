@@ -1,6 +1,6 @@
-package crack_code_interview;
+package org.jason.code_practice;
 
-import crack_code_interview.common.LinkedListNode;
+import org.jason.code_practice.common.LinkedListNode;
 
 public class Q2_8_Loop_Detection {
 

@@ -1,4 +1,4 @@
-package crack_code_interview;
+package org.jason.code_practice;
 
 public class Q1_9_String_Rotate {
   public static boolean isStringRotate(String whole, String part) {

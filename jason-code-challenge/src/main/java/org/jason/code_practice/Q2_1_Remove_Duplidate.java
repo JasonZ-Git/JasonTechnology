@@ -1,6 +1,6 @@
-package crack_code_interview;
+package org.jason.code_practice;
 
-import crack_code_interview.common.LinkedListNode;
+import org.jason.code_practice.common.LinkedListNode;
 
 public class Q2_1_Remove_Duplidate {
     public static void removeDuplicate(LinkedListNode node) {
