@@ -3,7 +3,7 @@ package org.jason.birthday;
 import java.io.IOException;
 import org.jason.util.calendar.JasonCalendarUtil;
 
-public class BirthdayApp {
+public class BirthdayApplication {
 
   public static void createCurrentYearBirthdayEvent(Relative relative) throws IOException {}
   

@@ -15,8 +15,12 @@ import java.util.List;
  *
  * @author Jason.zhang
  */
-public class JasonFileUtil {
+public final class JasonFileUtil {
 
+  private JasonFileUtil() {
+    throw new AssertionError("No " + JasonFileUtil.class + " instances for you!");
+  }
+  
   /**
    * Read file into lines, each line is a string object.
    * 

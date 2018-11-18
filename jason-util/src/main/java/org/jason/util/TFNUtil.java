@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.math3.util.MathArrays;
 
 /**
@@ -23,6 +23,10 @@ public final class TFNUtil {
 	
 	private static final int TFN_SIZE = factor.length;
 
+	private TFNUtil() {
+      throw new AssertionError("No " + TFNUtil.class + " instances for you!");
+	}
+	
 	public static String generateTFN() {
 		
 		int[] randomInts = new Random().ints(9, 1, 10).toArray();

@@ -1,4 +1,4 @@
-package org.jason.util;
+package org.jason.util.algorithm;
 
 public class FizzBuzzUtil {
 

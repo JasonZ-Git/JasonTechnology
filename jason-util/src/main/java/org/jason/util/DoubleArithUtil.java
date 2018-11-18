@@ -8,13 +8,13 @@ import java.math.BigDecimal;
  * @author Jason.zhang
  * 
  */
-public class DoubleArithUtil {
+public final class DoubleArithUtil {
 	// 默认除法运算精度
 	private static final int DEF_DIV_SCALE = 10;
 
 	// 这个类不能实例化
 	private DoubleArithUtil() {
-	;
+	  throw new AssertionError("No " + DoubleArithUtil.class + " instances for you!");
 	}
 
 	/**

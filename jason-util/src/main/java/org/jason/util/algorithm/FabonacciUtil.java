@@ -1,4 +1,4 @@
-package org.jason.algorithm;
+package org.jason.util.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;

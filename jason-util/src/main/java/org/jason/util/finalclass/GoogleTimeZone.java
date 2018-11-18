@@ -1,4 +1,4 @@
-package org.jason.util.object;
+package org.jason.util.finalclass;
 
 /**
  * This class represent the timezone object that is converted from json
@@ -7,7 +7,7 @@ package org.jason.util.object;
  * 
  * @author Jason Zhang
  */
-public class GoogleTimeZone {
+public final class GoogleTimeZone {
 	private int dstOffset;
 	private int rawOffset;
 	private String status;

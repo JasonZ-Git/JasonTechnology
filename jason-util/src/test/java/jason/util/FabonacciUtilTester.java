@@ -1,8 +1,7 @@
 package jason.util;
 
 import java.util.List;
-
-import org.jason.algorithm.FabonacciUtil;
+import org.jason.util.algorithm.FabonacciUtil;
 import org.junit.Test;
 
 import junit.framework.Assert;

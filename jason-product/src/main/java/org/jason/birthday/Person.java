@@ -1,8 +1,8 @@
 package org.jason.birthday;
 
 import java.time.LocalDate;
+import org.jason.util.finalclass.ChineseCalendar;
 
-import org.jason.finalclass.ChineseCalendar;
 
 public class Person {
   private String name;

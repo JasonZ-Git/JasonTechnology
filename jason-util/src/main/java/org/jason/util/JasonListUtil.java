@@ -9,7 +9,7 @@ package org.jason.util;
  * @param <T>
  * 
  */
-public class JasonListUtil {
+public final class JasonListUtil {
 	// public static final List<T> EMPTY_ARRAY_LIST = new ArrayList<T>();
 	//
 	// public T static List<T> getEmptyList() {

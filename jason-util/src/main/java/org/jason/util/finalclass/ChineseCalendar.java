@@ -1,4 +1,4 @@
-package org.jason.finalclass;
+package org.jason.util.finalclass;
 
 import java.time.LocalDate;
 import java.util.Calendar;

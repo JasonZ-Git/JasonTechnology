@@ -1,6 +1,5 @@
 package org.jason.birthday;
-
-import org.jason.finalclass.ChineseCalendar;
+import org.jason.util.finalclass.ChineseCalendar;
 
 public enum Relative {
   MOTHER("妈妈", ChineseCalendar.fromLunar(1957, 8, 5)), 

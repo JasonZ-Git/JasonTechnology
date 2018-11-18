@@ -23,7 +23,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.jason.util.ParameterUtil;
+import org.jason.util.ObjectsUtil;
 
 /**
  * This Util class is used to operate calendar, including get, create events.
@@ -40,7 +40,7 @@ public class JasonCalendarUtil {
    * previously saved tokens/ folder.
    */
   private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
-  private static final String CREDENTIALS_FILE_PATH = "token/credentials.json";
+  private static final String CREDENTIALS_FILE_PATH = "credentials.json";
 
   /**
    * Creates an authorized Credential object.
@@ -69,7 +69,7 @@ public class JasonCalendarUtil {
   }
 
   public static List<Event> getEvents(int maxNumber) throws GeneralSecurityException, IOException {
-    ParameterUtil.requireTrue(maxNumber <= 500);
+    ObjectsUtil.requireTrue(maxNumber <= 500);
 
     Calendar service = getService();
 

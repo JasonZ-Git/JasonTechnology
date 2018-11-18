@@ -8,18 +8,20 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.jason.util.object.GoogleTimeZone;
-
+import org.apache.commons.lang3.StringUtils;
+import org.jason.util.finalclass.GoogleTimeZone;
 import com.google.gson.Gson;
 
-public class JasonTimeZoneUtil {
+public final class JasonTimeZoneUtil {
 
 	/**
 	 *   Jason.Zhang has applied an API from google for this application
 	 */
 	private static final String GOOLE_TIMEZONE_API = "https://maps.googleapis.com/maps/api/timezone/json?location=%1s,%2s&timestamp=%3s&key=AIzaSyBjc0vgrHCJkwUMu7hjTh5V7PojvbWu_rU";
 
+	private JasonTimeZoneUtil() {
+      throw new AssertionError("No " + JasonTimeZoneUtil.class + " instances for you!");
+	}
 	/**
 	 * Get timezone from google api.
 	 * 

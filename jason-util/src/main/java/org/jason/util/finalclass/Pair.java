@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.jason.finalclass;
+package org.jason.util.finalclass;
 
 /**
  * 表示 两个 对象
