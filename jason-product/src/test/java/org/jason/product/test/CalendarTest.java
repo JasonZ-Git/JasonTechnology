@@ -1,4 +1,4 @@
-package org.jason.test;
+package org.jason.product.test;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

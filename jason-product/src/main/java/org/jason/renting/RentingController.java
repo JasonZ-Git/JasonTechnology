@@ -2,6 +2,7 @@ package org.jason.renting;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.jason.util.WebCrawlUtil;
 import org.jason.util.exception.PageNotFoundException;
 import org.jsoup.nodes.Document;
@@ -21,7 +22,7 @@ public class RentingController {
       
       List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
       
-      return RentingDataModel.toWebVO(items);
+      return items.stream().map(item -> item.toString()).collect(Collectors.joining("\n"));
       
     } catch (IOException e) {
       throw new PageNotFoundException();

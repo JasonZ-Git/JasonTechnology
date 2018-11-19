@@ -3,9 +3,13 @@ package org.jason.renting;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class RentingDataModel {
+
+  private Long price;
 
   private String source;
 
@@ -16,6 +20,8 @@ public class RentingDataModel {
   private String address;
 
   private String shortDescription;
+  
+  private String releaseTimeToNow;
 
   public RentingDataModel() {}
 
@@ -30,6 +36,11 @@ public class RentingDataModel {
 
   public RentingDataModel rentingStyle(String rentingStyle) {
     this.rentingStyle = rentingStyle;
+    return this;
+  }
+
+  public RentingDataModel price(String price) {
+    this.price = StringUtils.isNumeric(price) ? Long.parseLong(price) : null;
     return this;
   }
 
@@ -67,9 +78,15 @@ public class RentingDataModel {
   public String getShortDescription() {
     return shortDescription;
   }
-  
-  public static String toWebVO(List<RentingDataModel> items) {
-    Objects.requireNonNull(items);
-    return items.stream().map(ReflectionToStringBuilder::toString).collect(Collectors.joining("\n"));
+
+  public RentingDataModel releaseTime(String releaseTimeToNow) {
+    this.releaseTimeToNow = releaseTimeToNow;
+    return this;
   }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.NO_FIELD_NAMES_STYLE);
+  }
+
 }
