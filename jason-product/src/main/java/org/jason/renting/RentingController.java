@@ -22,7 +22,7 @@ public class RentingController {
       
       List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
       
-      return items.stream().map(item -> item.toString()).collect(Collectors.joining("\n"));
+      return items.stream().map(item -> item.toString()).collect(Collectors.joining("<br>"));
       
     } catch (IOException e) {
       throw new PageNotFoundException();

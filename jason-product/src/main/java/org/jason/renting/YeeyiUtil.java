@@ -17,6 +17,7 @@ public class YeeyiUtil {
   private static final String ADDRESS_SELECTOR = ".ptxt p:last-child";
   private static final String ADVERTISEMENT_SELECTOR = ".ptxt .pin";
   private static final String AD_KEYWORD = "置顶";
+  private static final String HOUSE_AD = "0室0卫";
 
   public static List<RentingDataModel> toDataModel(Document document) {
     Elements elements = document.select(ELEMENT_SELECTOR);
@@ -37,6 +38,10 @@ public class YeeyiUtil {
       String releaseTimeToNow = current.selectFirst(RELEASE_TIME_SELECTOR).text();
       RentingDataModel model = RentingDataModel.build().source(source).price(price).releaseTime(releaseTimeToNow).rentingStyle(rentingStyle).houseStyle(houseStyle).address(address)
           .shortDescription(shortDescription);
+      
+      if (houseStyle != null && houseStyle.contains(HOUSE_AD)){
+        continue;
+      }
       items.add(model);
     }
     return items;

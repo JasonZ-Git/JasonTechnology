@@ -86,7 +86,7 @@ public class RentingDataModel {
 
   @Override
   public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.NO_FIELD_NAMES_STYLE);
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.SIMPLE_STYLE);
   }
 
 }
