@@ -15,7 +15,7 @@ import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class YeeyiTest {
+public class YeeyiWebTest {
 
   @Test
   public void testParse() throws IOException, URISyntaxException {

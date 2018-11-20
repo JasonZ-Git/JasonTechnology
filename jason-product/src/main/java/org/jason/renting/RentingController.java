@@ -16,7 +16,7 @@ public class RentingController {
   private static final String DEFAULT_YEEYI_PAGE = "http://www.yeeyi.com/forum/index.php?app=forum&act=display&fid=142&rcity1=1";
 
   @RequestMapping("/crawlYeeyi")
-  public String crawlYeeyi(@RequestParam(value = "url", defaultValue = DEFAULT_YEEYI_PAGE) String url) throws PageNotFoundException {
+  public static String crawlYeeyi(@RequestParam(value = "url", defaultValue = DEFAULT_YEEYI_PAGE) String url) throws PageNotFoundException {
     try {
       Document document = WebCrawlUtil.crawlPage(url);
       
@@ -30,7 +30,7 @@ public class RentingController {
   }
 
   @RequestMapping("/")
-  public String defaultPage() {
+  public static String defaultPage() {
     return "<p>Please enter page url to be crawled:</p>"
 
     + "<p>Crawl only one page:</p>" 

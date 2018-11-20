@@ -1,11 +1,6 @@
 package org.jason.renting;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class RentingDataModel {
 
@@ -20,8 +15,13 @@ public class RentingDataModel {
   private String address;
 
   private String shortDescription;
-  
+
   private String releaseTimeToNow;
+
+  private static String JUST_NOW = "刚刚";
+  private static String MINUTES_AGO = "分钟前";
+  private static String HOURS_AGO = "小时前";
+  private static String DAYS_AGO = "天前";
 
   public RentingDataModel() {}
 
@@ -50,12 +50,17 @@ public class RentingDataModel {
   }
 
   public RentingDataModel houseStyle(String houseStyle) {
-    this.houseStyle = houseStyle;
+    this.houseStyle = houseStyle.replace("户型：", "");
     return this;
   }
 
   public RentingDataModel address(String address) {
-    this.address = address;
+    this.address = address.replace("地址：", "");
+    return this;
+  }
+
+  public RentingDataModel releaseTime(String releaseTimeToNow) {
+    this.releaseTimeToNow = releaseTimeToNow;
     return this;
   }
 
@@ -79,14 +84,37 @@ public class RentingDataModel {
     return shortDescription;
   }
 
-  public RentingDataModel releaseTime(String releaseTimeToNow) {
-    this.releaseTimeToNow = releaseTimeToNow;
-    return this;
+  public Long getPrice() {
+    return price;
+  }
+
+  public String getReleaseTimeToNow() {
+    return releaseTimeToNow;
+  }
+
+  public boolean isWithinDays(int days) {
+    if (releaseTimeToNow.contains(JUST_NOW) || releaseTimeToNow.contains(MINUTES_AGO) || releaseTimeToNow.contains(HOURS_AGO)) {
+      return true;
+    }
+
+    if (releaseTimeToNow.contains(DAYS_AGO)) {
+      String daysParsed = releaseTimeToNow.substring(0, releaseTimeToNow.indexOf(DAYS_AGO));
+      return Long.parseLong(daysParsed) <= days;
+    }
+
+    return false;
   }
 
   @Override
   public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.SIMPLE_STYLE);
+
+    StringBuilder builder = new StringBuilder();
+    builder.append("租金: $").append(price);
+    builder.append(" 发布时间: ").append(releaseTimeToNow);
+    builder.append(" 户型: ").append(houseStyle).append("\n");
+    builder.append("描述: ").append(shortDescription).append("\n");
+    builder.append("地址： ").append(address).append("\n");
+    return builder.toString();
   }
 
 }
