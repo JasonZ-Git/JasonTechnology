@@ -111,9 +111,9 @@ public class RentingDataModel {
     StringBuilder builder = new StringBuilder();
     builder.append("租金: $").append(price);
     builder.append(" 发布时间: ").append(releaseTimeToNow);
-    builder.append(" 户型: ").append(houseStyle).append("\n");
-    builder.append("描述: ").append(shortDescription).append("\n");
-    builder.append("地址： ").append(address).append("\n");
+    builder.append(" 户型: ").append(houseStyle);
+    builder.append(" 描述: ").append(shortDescription);
+    builder.append(" 地址： ").append(address);
     return builder.toString();
   }
 

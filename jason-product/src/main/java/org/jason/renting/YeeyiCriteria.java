@@ -25,6 +25,6 @@ public class YeeyiCriteria {
   }
   
   public String toString() {
-    return this.district.replaceAll(" ","%20");
+    return "district"+this.district;
   }
 }
