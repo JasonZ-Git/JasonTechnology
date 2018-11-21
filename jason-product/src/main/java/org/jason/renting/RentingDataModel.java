@@ -1,5 +1,7 @@
 package org.jason.renting;
 
+import java.util.Formatter;
+import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 
 public class RentingDataModel {
@@ -16,8 +18,11 @@ public class RentingDataModel {
 
   private String shortDescription;
 
+  private String link;
+  
   private String releaseTimeToNow;
 
+  
   private static String JUST_NOW = "刚刚";
   private static String MINUTES_AGO = "分钟前";
   private static String HOURS_AGO = "小时前";
@@ -40,7 +45,12 @@ public class RentingDataModel {
   }
 
   public RentingDataModel price(String price) {
-    this.price = StringUtils.isNumeric(price) ? Long.parseLong(price) : null;
+    if (price == null) {
+      this.price = 0L;
+    } else {
+      this.price = StringUtils.isNumeric(price) ? Long.parseLong(price) : 0L;
+    }
+
     return this;
   }
 
@@ -56,6 +66,11 @@ public class RentingDataModel {
 
   public RentingDataModel address(String address) {
     this.address = address.replace("地址：", "");
+    return this;
+  }
+  
+  public RentingDataModel link(String link) {
+    this.link = link;
     return this;
   }
 
@@ -84,6 +99,10 @@ public class RentingDataModel {
     return shortDescription;
   }
 
+  public String getLink() {
+    return link;
+  }
+  
   public Long getPrice() {
     return price;
   }
@@ -107,14 +126,17 @@ public class RentingDataModel {
 
   @Override
   public String toString() {
-
-    StringBuilder builder = new StringBuilder();
-    builder.append("租金: $").append(price);
-    builder.append(" 发布时间: ").append(releaseTimeToNow);
-    builder.append(" 户型: ").append(houseStyle);
-    builder.append(" 描述: ").append(shortDescription);
-    builder.append(" 地址： ").append(address);
-    return builder.toString();
+    Formatter formater = new Formatter(Locale.SIMPLIFIED_CHINESE);
+    formater.format("%s: %-8d", "租金", price);
+    formater.format("%s: %-10s", "发布时间", releaseTimeToNow);
+    formater.format("%s: %-12s", "户型", houseStyle);
+    formater.format("%s: %-55s", "描述", shortDescription);
+    formater.format("%s: %-35s", "地址", address);
+    formater.format("%s: %-30s", "详情", link);
+    String result = formater.toString();
+    formater.close();
+    
+    return result;
   }
 
 }

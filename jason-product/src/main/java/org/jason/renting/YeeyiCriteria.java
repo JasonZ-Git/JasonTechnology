@@ -25,6 +25,6 @@ public class YeeyiCriteria {
   }
   
   public String toString() {
-    return "district"+this.district;
+    return district + this.district;
   }
 }
