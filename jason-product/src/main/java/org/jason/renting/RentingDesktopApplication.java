@@ -1,7 +1,6 @@
 package org.jason.renting;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,16 +20,15 @@ public class RentingDesktopApplication {
   public static void printAll() throws IOException, InterruptedException {
 
     for (String current : DEFAULT_AREA) {
-      String extended = YeeyiCriteria.build().district(current).toString();
-      String url = BasicURL + URLEncoder.encode(extended, "utf-8");
+      String extended = YeeyiCriteria.build().district(current).getSearchCriteria();
+      String url = BasicURL + extended;
       Document document = WebCrawlUtil.crawlPage(url);
 
       List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
 
-      List<RentingDataModel> filteredItems = YeeyiUtil.filter(items, 20);
+      List<RentingDataModel> filteredItems = YeeyiUtil.filter(items, 50);
 
       String result = filteredItems.stream().map(item -> item.toString()).collect(Collectors.joining("\n"));
-      //TimeUnit.SECONDS.sleep(5);
       System.out.println("=====" + current + "=====");
       System.out.println(result);
       System.out.println();
