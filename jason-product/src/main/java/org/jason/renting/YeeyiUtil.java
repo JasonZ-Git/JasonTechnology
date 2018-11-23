@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class YeeyiUtil {
+public final class YeeyiUtil {
   private static final String ELEMENT_SELECTOR = "#qtcShow .qtc li";
   private static final String SHORT_DESC_SELECTOR = ".ptxt .zdtxt";
   private static final String SOURCE_SELECTOR = ".ptxt p span:nth-child(1)";
@@ -23,6 +23,10 @@ public class YeeyiUtil {
   private static final String HOUSE_AD = "0室0卫";
  
   private static final int DEFAULT_MAX = 10;
+  
+  private YeeyiUtil() {
+    throw new AssertionError("Not allowed");
+  }
   
   public static List<RentingDataModel> toDataModel(Document document) {
     Elements elements = document.select(ELEMENT_SELECTOR);

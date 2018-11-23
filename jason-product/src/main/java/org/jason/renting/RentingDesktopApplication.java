@@ -10,7 +10,8 @@ import org.jsoup.nodes.Document;
 
 public class RentingDesktopApplication {
 
-  private static final List<String> DEFAULT_AREA = Arrays.asList("malvern", "toorak", "south yarra", "glen iris", "prahran", "richmond", "hawthorn", "st kilda");
+  private static final List<String> DEFAULT_AREA = Arrays.asList("caulfield north", "elwood", "malvern", "toorak", "south yarra", "glen iris", "prahran", "richmond", "hawthorn", "st kilda");
+  
   private static final String BasicURL = "http://www.yeeyi.com/forum/index.php?app=forum&act=display&fid=142&rcity1=1&";
 
   public static void main(String[] args) throws IOException, InterruptedException {
