@@ -1,2 +1,3 @@
 src/main/java/org/jason/util/calendar/credentials.json
+src/main/java/org/jason/util/mail/mail_credentials.properties
 /target/

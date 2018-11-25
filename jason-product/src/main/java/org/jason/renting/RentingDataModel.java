@@ -19,10 +19,11 @@ public class RentingDataModel {
   private String shortDescription;
 
   private String link;
-  
+
   private String releaseTimeToNow;
 
-  
+  private Gender genderLimit;
+
   private static String JUST_NOW = "刚刚";
   private static String MINUTES_AGO = "分钟前";
   private static String HOURS_AGO = "小时前";
@@ -68,7 +69,7 @@ public class RentingDataModel {
     this.address = address.replace("地址：", "");
     return this;
   }
-  
+
   public RentingDataModel link(String link) {
     this.link = link;
     return this;
@@ -76,6 +77,25 @@ public class RentingDataModel {
 
   public RentingDataModel releaseTime(String releaseTimeToNow) {
     this.releaseTimeToNow = releaseTimeToNow;
+    return this;
+  }
+
+  public RentingDataModel genderLimit(String genderLimit) {
+    switch (genderLimit) {
+      case "男女不限":
+        this.genderLimit = Gender.NONE;
+        break;
+      case "限女生":
+        this.genderLimit = Gender.FEMALE;
+        break;
+      case "限男生":
+        this.genderLimit = Gender.MALE;
+        break;
+      default:
+        this.genderLimit = Gender.NONE;
+        break;
+    }
+
     return this;
   }
 
@@ -102,13 +122,17 @@ public class RentingDataModel {
   public String getLink() {
     return link;
   }
-  
+
   public Long getPrice() {
     return price;
   }
 
   public String getReleaseTimeToNow() {
     return releaseTimeToNow;
+  }
+  
+  public Gender getGenderLimit() {
+    return genderLimit;
   }
 
   public boolean isWithinDays(int days) {
@@ -135,8 +159,12 @@ public class RentingDataModel {
     formater.format("%s: %-30s", "详情", link);
     String result = formater.toString();
     formater.close();
-    
+
     return result;
+  }
+
+  public static enum Gender {
+    MALE, FEMALE, NONE, ALL;
   }
 
 }

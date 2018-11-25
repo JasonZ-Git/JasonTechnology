@@ -21,13 +21,15 @@ public final class YeeyiUtil {
   private static final String ADVERTISEMENT_SELECTOR = ".ptxt .pin";
   private static final String AD_KEYWORD = "置顶";
   private static final String HOUSE_AD = "0室0卫";
- 
+
   private static final int DEFAULT_MAX = 10;
-  
+  private static final int DEFAULT_SHOW_DAYS = 2;
+  private static final String DEFAULT_FILTER_OUT_WORD = "短租";
+
   private YeeyiUtil() {
     throw new AssertionError("Not allowed");
   }
-  
+
   public static List<RentingDataModel> toDataModel(Document document) {
     Elements elements = document.select(ELEMENT_SELECTOR);
 
@@ -46,8 +48,8 @@ public final class YeeyiUtil {
       String price = current.selectFirst(PRICE_SELECTOR).text();
       String releaseTimeToNow = current.selectFirst(RELEASE_TIME_SELECTOR).text();
       String link = current.selectFirst(LINK_SELECTOR).attr("href");
-      RentingDataModel model =
-          RentingDataModel.build().source(source).price(price).link(link).releaseTime(releaseTimeToNow).rentingStyle(rentingStyle).houseStyle(houseStyle).address(address).shortDescription(shortDescription);
+      RentingDataModel model = RentingDataModel.build().source(source).price(price).link(link).releaseTime(releaseTimeToNow).rentingStyle(rentingStyle).houseStyle(houseStyle).address(address)
+          .shortDescription(shortDescription);
 
       if (houseStyle != null && houseStyle.contains(HOUSE_AD)) {
         continue;
@@ -60,14 +62,12 @@ public final class YeeyiUtil {
   public static List<RentingDataModel> defaultFilter(List<RentingDataModel> items) {
     Objects.requireNonNull(items);
 
-    return items.stream().filter(item -> !item.getShortDescription().contains("短租")).filter(item -> item.isWithinDays(2)).limit(10).collect(Collectors.toList());
+    return filter(items, DEFAULT_FILTER_OUT_WORD, DEFAULT_SHOW_DAYS, DEFAULT_MAX);
   }
-  
-  public static List<RentingDataModel> filter(List<RentingDataModel> items, int maximum) {
+
+  public static List<RentingDataModel> filter(List<RentingDataModel> items, String filterOutTitleWord, int releaseDaysToNow, int maximum) {
     Objects.requireNonNull(items);
 
-    return items.stream().filter(item -> !item.getShortDescription().contains("短租")).filter(item -> item.isWithinDays(2)).limit(maximum).collect(Collectors.toList());
+    return items.stream().filter(item -> !item.getShortDescription().contains(filterOutTitleWord)).filter(item -> item.isWithinDays(releaseDaysToNow)).limit(maximum).collect(Collectors.toList());
   }
-  
-  
 }
