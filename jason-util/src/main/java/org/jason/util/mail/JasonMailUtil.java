@@ -1,6 +1,8 @@
 package org.jason.util.mail;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
@@ -43,7 +45,8 @@ public final class JasonMailUtil {
 
   private static Properties load() throws IOException {
     Properties properties = new Properties();
-    properties.load(JasonMailUtil.class.getResourceAsStream("mail_credentials.properties"));
+    InputStream in = JasonMailUtil.class.getClassLoader().getResourceAsStream("mail_credentials.properties");
+    properties.load(in);
     return properties;
   }
 }

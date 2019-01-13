@@ -22,7 +22,7 @@ public final class YeeyiUtil {
   private static final String AD_KEYWORD = "置顶";
   private static final String HOUSE_AD = "0室0卫";
 
-  private static final int DEFAULT_MAX = 10;
+  private static final int DEFAULT_MAX = 30;
   private static final int DEFAULT_SHOW_DAYS = 2;
   private static final String DEFAULT_FILTER_OUT_WORD = "短租";
 

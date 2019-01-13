@@ -32,6 +32,7 @@ public final class WebCrawlUtil {
     Objects.requireNonNull(url); 
     
     Connection connection = Jsoup.connect(url).userAgent(USER_AGENT);
+    connection.timeout(300_000);
     Document htmlDocument = connection.get();
 
     // If response not valid, return null. (Do not throw out exception, let the spider class to decide what to do)

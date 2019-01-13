@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.mail.EmailException;
 import org.jason.util.WebCrawlUtil;
-import org.jason.util.mail.JasonMailUtil;
 import org.jsoup.nodes.Document;
 
 
 public class RentingDesktopApplication {
 
-  private static final List<String> DEFAULT_AREA = Arrays.asList("caulfield north", "elwood", "malvern", "toorak", "south yarra", "glen iris", "prahran", "richmond", "hawthorn", "st kilda");
+  private static final List<String> DEFAULT_AREA = Arrays.asList("camberwell","Burwood","surrey hill", "caulfield", "malvern", "Toorak", "south yarra", "glen iris", "richmond", "hawthorn");
 
   private static final String BasicURL = "http://www.yeeyi.com/forum/index.php?app=forum&act=display&fid=142&rcity1=1&";
 
@@ -24,7 +23,6 @@ public class RentingDesktopApplication {
   
   public static void printAll() throws IOException, InterruptedException, EmailException {
 
-    String result = "";
     for (String current : DEFAULT_AREA) {
       String extended = YeeyiCriteria.build().district(current).getSearchCriteria();
       String url = BasicURL + extended;
@@ -33,6 +31,8 @@ public class RentingDesktopApplication {
       List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
 
       List<RentingDataModel> filteredItems = YeeyiUtil.defaultFilter(items);
+      
+      filteredItems = filteredItems.stream().filter(item -> Integer.parseInt(item.getHouseStyle().substring(0, 1)) <= 4).collect(Collectors.toList());
 
       String content = filteredItems.stream().map(item -> item.toString()).collect(Collectors.joining("\n"));
 
@@ -40,14 +40,12 @@ public class RentingDesktopApplication {
       builder.append("=====" + current + "=====").append("\n");
       builder.append(content).append("\n\n");
 
-      result += builder.toString();
-
       System.out.println(builder.toString());
     }
     
-    for (String current : MAIL_TO_SEND) {
+    /*for (String current : MAIL_TO_SEND) {
       JasonMailUtil.sendMail(current, result);
       System.out.println("Send to Mail: " + current);
-    }
+    }*/
   }
 }
