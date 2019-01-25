@@ -30,10 +30,10 @@ public final class YeeyiUtil {
     throw new AssertionError("Not allowed");
   }
 
-  public static List<RentingDataModel> toDataModel(Document document) {
+  public static List<RentingVO> toDataModel(Document document) {
     Elements elements = document.select(ELEMENT_SELECTOR);
 
-    List<RentingDataModel> items = new ArrayList<>();
+    List<RentingVO> items = new ArrayList<>();
     for (Element current : elements) {
       Element advertisement = current.selectFirst(ADVERTISEMENT_SELECTOR);
       if (advertisement != null && advertisement.text().equals(AD_KEYWORD)) {
@@ -48,7 +48,7 @@ public final class YeeyiUtil {
       String price = current.selectFirst(PRICE_SELECTOR).text();
       String releaseTimeToNow = current.selectFirst(RELEASE_TIME_SELECTOR).text();
       String link = current.selectFirst(LINK_SELECTOR).attr("href");
-      RentingDataModel model = RentingDataModel.build().source(source).price(price).link(link).releaseTime(releaseTimeToNow).rentingStyle(rentingStyle).houseStyle(houseStyle).address(address)
+      RentingVO model = RentingVO.build().source(source).price(price).link(link).releaseTime(releaseTimeToNow).rentingStyle(rentingStyle).houseStyle(houseStyle).address(address)
           .shortDescription(shortDescription);
 
       if (houseStyle != null && houseStyle.contains(HOUSE_AD)) {
@@ -59,13 +59,13 @@ public final class YeeyiUtil {
     return items;
   }
 
-  public static List<RentingDataModel> defaultFilter(List<RentingDataModel> items) {
+  public static List<RentingVO> defaultFilter(List<RentingVO> items) {
     Objects.requireNonNull(items);
 
     return filter(items, DEFAULT_FILTER_OUT_WORD, DEFAULT_SHOW_DAYS, DEFAULT_MAX);
   }
 
-  public static List<RentingDataModel> filter(List<RentingDataModel> items, String filterOutTitleWord, int releaseDaysToNow, int maximum) {
+  public static List<RentingVO> filter(List<RentingVO> items, String filterOutTitleWord, int releaseDaysToNow, int maximum) {
     Objects.requireNonNull(items);
 
     return items.stream().filter(item -> !item.getShortDescription().contains(filterOutTitleWord)).filter(item -> item.isWithinDays(releaseDaysToNow)).limit(maximum).collect(Collectors.toList());

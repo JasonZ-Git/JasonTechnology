@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.jason.renting.RentingDataModel;
+import org.jason.renting.RentingVO;
 import org.jason.renting.YeeyiCriteria;
 import org.jason.renting.YeeyiUtil;
 import org.jason.util.WebCrawlUtil;
@@ -28,7 +28,7 @@ public class YeeyiControllerTest {
       String url = basicURL + extended;
       Document document = WebCrawlUtil.crawlPage(url);
 
-      List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
+      List<RentingVO> items = YeeyiUtil.toDataModel(document);
 
       String result = items.stream().filter(item -> !item.getShortDescription().contains("短租")).limit(10).map(item -> item.toString()).collect(Collectors.joining("\n"));
 

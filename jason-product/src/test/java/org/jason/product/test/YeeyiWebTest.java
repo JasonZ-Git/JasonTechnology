@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.jason.renting.RentingDataModel;
+import org.jason.renting.RentingVO;
 import org.jason.renting.YeeyiUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +24,7 @@ public class YeeyiWebTest {
     String htmlContent = reader.lines().collect(Collectors.joining());
     Document document = Jsoup.parse(htmlContent);
 
-    List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
+    List<RentingVO> items = YeeyiUtil.toDataModel(document);
 
     Assert.assertTrue(items != null);
     Assert.assertTrue(items.size() > 10);

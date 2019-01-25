@@ -20,7 +20,7 @@ public class RentingController {
     try {
       Document document = WebCrawlUtil.crawlPage(url);
       
-      List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
+      List<RentingVO> items = YeeyiUtil.toDataModel(document);
       
       return items.stream().map(item -> item.toString()).collect(Collectors.joining("<br>"));
       

@@ -1,10 +1,11 @@
 package org.jason.renting;
 
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 
-public class RentingDataModel {
+public class RentingVO {
 
   private Long price;
 
@@ -13,39 +14,41 @@ public class RentingDataModel {
   private String rentingStyle;
 
   private String houseStyle;
-
+  
   private String address;
 
   private String shortDescription;
 
-  private String link;
+  private String detailLink;
 
   private String releaseTimeToNow;
 
-  private Gender genderLimit;
+  private Gender genderRestriction;
+
+  private List<UserComment> comments;
 
   private static String JUST_NOW = "刚刚";
   private static String MINUTES_AGO = "分钟前";
   private static String HOURS_AGO = "小时前";
   private static String DAYS_AGO = "天前";
 
-  public RentingDataModel() {}
+  public RentingVO() {}
 
-  public static RentingDataModel build() {
-    return new RentingDataModel();
+  public static RentingVO build() {
+    return new RentingVO();
   }
 
-  public RentingDataModel source(String source) {
+  public RentingVO source(String source) {
     this.source = source;
     return this;
   }
 
-  public RentingDataModel rentingStyle(String rentingStyle) {
+  public RentingVO rentingStyle(String rentingStyle) {
     this.rentingStyle = rentingStyle;
     return this;
   }
 
-  public RentingDataModel price(String price) {
+  public RentingVO price(String price) {
     if (price == null) {
       this.price = 0L;
     } else {
@@ -55,44 +58,44 @@ public class RentingDataModel {
     return this;
   }
 
-  public RentingDataModel shortDescription(String shortDescription) {
+  public RentingVO shortDescription(String shortDescription) {
     this.shortDescription = shortDescription;
     return this;
   }
 
-  public RentingDataModel houseStyle(String houseStyle) {
+  public RentingVO houseStyle(String houseStyle) {
     this.houseStyle = houseStyle.replace("户型：", "");
     return this;
   }
 
-  public RentingDataModel address(String address) {
+  public RentingVO address(String address) {
     this.address = address.replace("地址：", "");
     return this;
   }
 
-  public RentingDataModel link(String link) {
-    this.link = link;
+  public RentingVO link(String link) {
+    this.detailLink = link;
     return this;
   }
 
-  public RentingDataModel releaseTime(String releaseTimeToNow) {
+  public RentingVO releaseTime(String releaseTimeToNow) {
     this.releaseTimeToNow = releaseTimeToNow;
     return this;
   }
 
-  public RentingDataModel genderLimit(String genderLimit) {
+  public RentingVO genderLimit(String genderLimit) {
     switch (genderLimit) {
       case "男女不限":
-        this.genderLimit = Gender.NONE;
+        this.genderRestriction = Gender.NONE;
         break;
       case "限女生":
-        this.genderLimit = Gender.FEMALE;
+        this.genderRestriction = Gender.FEMALE;
         break;
       case "限男生":
-        this.genderLimit = Gender.MALE;
+        this.genderRestriction = Gender.MALE;
         break;
       default:
-        this.genderLimit = Gender.NONE;
+        this.genderRestriction = Gender.NONE;
         break;
     }
 
@@ -120,7 +123,7 @@ public class RentingDataModel {
   }
 
   public String getLink() {
-    return link;
+    return detailLink;
   }
 
   public Long getPrice() {
@@ -132,7 +135,7 @@ public class RentingDataModel {
   }
   
   public Gender getGenderLimit() {
-    return genderLimit;
+    return genderRestriction;
   }
 
   public boolean isWithinDays(int days) {
@@ -156,7 +159,7 @@ public class RentingDataModel {
     formater.format("%s: %-12s", "户型", houseStyle);
     formater.format("%s: %-55s", "描述", shortDescription);
     formater.format("%s: %-35s", "地址", address);
-    formater.format("%s: %-30s", "详情", link);
+    formater.format("%s: %-30s", "详情", detailLink);
     String result = formater.toString();
     formater.close();
 

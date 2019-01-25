@@ -28,9 +28,9 @@ public class RentingDesktopApplication {
       String url = BasicURL + extended;
       Document document = WebCrawlUtil.crawlPage(url);
 
-      List<RentingDataModel> items = YeeyiUtil.toDataModel(document);
+      List<RentingVO> items = YeeyiUtil.toDataModel(document);
 
-      List<RentingDataModel> filteredItems = YeeyiUtil.defaultFilter(items);
+      List<RentingVO> filteredItems = YeeyiUtil.defaultFilter(items);
       
       filteredItems = filteredItems.stream().filter(item -> Integer.parseInt(item.getHouseStyle().substring(0, 1)) <= 4).collect(Collectors.toList());
 
