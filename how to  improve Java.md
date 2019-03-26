@@ -17,3 +17,9 @@ So in model design, we use HTML, JS, CSS these 3 standards to provide UI solutio
 
 So we should depends on template from the beginning, get rid of Swing and AWT, use web to do the UI.
 
+## Using Generic from the beginning - make it a must not just recommendataion.
+
+## Redesign Serialization and Clonable interface
+These 2 interfaces are doesn't are dummy interfaces, and jvm secretly do operation on there subclasses. Best to use annotation to replace these kind of interfaces.
+
+## 
