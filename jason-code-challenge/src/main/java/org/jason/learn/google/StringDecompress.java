@@ -1,5 +1,44 @@
 package org.jason.learn.google;
 
+/**
+ * Question from Google Advanced Programming, Solution designed by Jason
+ * 
+ * <p><strong>The Challenge</strong>
+ * 
+ * In this exercise, you're going to decompress a compressed string.
+ * 
+ * Your input is a compressed string of the format number[string] and the decompressed output form should be the string written number times. 
+ * 
+ * <p>For example:
+ * 
+ * The input
+ * 
+ * <tt>3[abc]4[ab]c</tt>
+ * 
+ * Would be output as
+ * 
+ * <tt>abcabcabcababababc</tt>
+ * 
+ * <p><strong>Other rules</strong>
+ * Number can have more than one digit. For example, <tt>10[a]</tt> is allowed, and just means <tt>aaaaaaaaaa</tt>
+ * 
+ * One repetition can occur inside another. For example, <tt>2[3[a]b]</tt> decompresses into aaabaaab
+ * 
+ * Characters allowed as input include digits, small English letters and brackets <tt>[ ]</tt>.
+ * 
+ * Digits are only to represent amount of repetitions.
+ * 
+ * Letters are just letters.
+ * 
+ * Brackets are only part of syntax of writing repeated substring.
+ * 
+ * Input is always valid, so no need to check its validity.
+ * 
+ * 
+ * @author Jason Zhang
+ *
+ */
+
 public class StringDecompress {
 
     public static String decompress(String input) {
