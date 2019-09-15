@@ -4,6 +4,9 @@
 *.settings
 *.project
 
+# Node JS modules
+node_modules/
+
 # Compiled class file
 *.class
 
