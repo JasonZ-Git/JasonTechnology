@@ -3,6 +3,7 @@ package org.jason.renting;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.mail.EmailException;
 import org.jason.util.WebCrawlUtil;
@@ -39,7 +40,8 @@ public class RentingDesktopApplication {
       StringBuilder builder = new StringBuilder();
       builder.append("=====" + current + "=====").append("\n");
       builder.append(content).append("\n\n");
-
+      TimeUnit.SECONDS.sleep(2);
+      
       System.out.println(builder.toString());
     }
     

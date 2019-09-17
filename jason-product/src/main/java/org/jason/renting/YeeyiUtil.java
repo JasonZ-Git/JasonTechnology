@@ -21,6 +21,7 @@ public final class YeeyiUtil {
   private static final String ADVERTISEMENT_SELECTOR = ".ptxt .pin";
   private static final String AD_KEYWORD = "置顶";
   private static final String HOUSE_AD = "0室0卫";
+  private static final String NO_INFORMATION = "未找到符合条件的信息";
 
   private static final int DEFAULT_MAX = 30;
   private static final int DEFAULT_SHOW_DAYS = 2;
@@ -35,6 +36,9 @@ public final class YeeyiUtil {
 
     List<RentingVO> items = new ArrayList<>();
     for (Element current : elements) {
+      if (current.text().equals(NO_INFORMATION))
+        break;
+      
       Element advertisement = current.selectFirst(ADVERTISEMENT_SELECTOR);
       if (advertisement != null && advertisement.text().equals(AD_KEYWORD)) {
         continue;

@@ -14,7 +14,7 @@ public final class WebCrawlUtil {
   private static final Logger logger  = Logger.getLogger(WebCrawlUtil.class);
   
   // Use google bot as agent string.
-  private static final String USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
+  private static final String USER_AGENT = "Mozilla/5.0";
 
   private WebCrawlUtil() {
     throw new AssertionError("No " + WebCrawlUtil.class + " instances for you!");
@@ -37,7 +37,7 @@ public final class WebCrawlUtil {
 
     // If response not valid, return null. (Do not throw out exception, let the spider class to decide what to do)
     if (!checkResponse(connection.response())) {
-      return null;
+      throw new IOException(connection.response().statusMessage());
     }
 
     return htmlDocument;
