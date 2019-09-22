@@ -21,6 +21,8 @@ public class YeeyiSpiderTask implements Runnable {
   
   private Logger logger = Logger.getLogger(this.getClass());
   
+  private int intervalInSeconds = 20;
+  
   @Autowired
   private YeeyiServiceImpl yeeyiService;
   
@@ -30,13 +32,15 @@ public class YeeyiSpiderTask implements Runnable {
     thread.start();
   }
   
-  
-
-  private void sleepInSeconds(int i) {
+  private void smartSleep(int newRecords, int totalRecordsFound) {
+    
+    intervalInSeconds = intervalInSeconds * totalRecordsFound / newRecords - 5;
+    
+    intervalInSeconds = Math.max(intervalInSeconds, 20);
     
     System.out.println("=========================== Sleep Started ==================================");
     try {
-      TimeUnit.SECONDS.sleep(10);
+      TimeUnit.SECONDS.sleep(intervalInSeconds);
     } catch (InterruptedException e) {
       logger.error(e);
     }
@@ -44,12 +48,9 @@ public class YeeyiSpiderTask implements Runnable {
     System.out.println("=========================== Sleep Over ==================================");
   }
 
-
-
-  private void saveRecords(List<RentRecordDO> rentRecords) {
-    yeeyiService.saveRentRecords(rentRecords);
+  private int saveRecords(List<RentRecordDO> rentRecords) {
+    return yeeyiService.saveRentRecords(rentRecords);
   }
-
 
   private Document readYeeyi() {
     Document yeeyiRentPage =  null;
@@ -63,8 +64,6 @@ public class YeeyiSpiderTask implements Runnable {
     return yeeyiRentPage;
   }
 
-
-
   @Override
   public void run() {
 
@@ -76,9 +75,9 @@ public class YeeyiSpiderTask implements Runnable {
       
       List<RentRecordDO> rentRecords = YeeyiUtil.toRentingDO(document);
       
-      saveRecords(rentRecords);
+      int newRecords = saveRecords(rentRecords);
       
-      sleepInSeconds(20);
+      smartSleep(newRecords, rentRecords.size());
     }
   }
   

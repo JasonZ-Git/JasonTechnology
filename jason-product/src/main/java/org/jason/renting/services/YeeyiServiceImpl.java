@@ -1,5 +1,7 @@
 package org.jason.renting.services;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.jason.renting.dao.RentRecordDO;
 import org.jason.renting.dao.YeeyiDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,18 @@ public class YeeyiServiceImpl /* implements YeeyiService */ {
         return this.yeeyiDAO.getRentRecords();
     }
     
-    public void saveRentRecords(List<RentRecordDO> rentRecords){
-      this.yeeyiDAO.save(rentRecords);
+    public int saveRentRecords(List<RentRecordDO> rentRecords){
+      
+      List<RentRecordDO> existingRecords = yeeyiDAO.getExising(rentRecords);
+      
+      Set<String> existingUrls = existingRecords.stream().map(item -> item.getPageUrl()).collect(Collectors.toSet());
+      
+      List<RentRecordDO> newRecords = rentRecords.stream().filter(item -> !existingUrls.contains(item.getPageUrl())).collect(Collectors.toList());
+      
+      this.yeeyiDAO.save(newRecords);
+      
+      return newRecords.size();
+      
     }
 
 }

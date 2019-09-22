@@ -37,7 +37,7 @@ public class RentRecordDO {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "page_url", nullable = false)
+  @Column(name = "page_url", unique = true, nullable = false)
   private String pageUrl;
 
   @Column(name = "page_content", nullable = false)

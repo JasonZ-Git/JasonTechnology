@@ -74,13 +74,18 @@ public final class YeeyiUtil {
       item.setPageUrl(link);
       item.setPageContent("");
       item.setTitle(shortDescription);
-      item.setPrice(Long.valueOf(price));
+      item.setPrice(getPrice(price));
       item.setReleaseDateTime(getReleaseDateTime(releaseTimeToNow));
       
       items.add(item);
     }
     return items;
   }
+
+  private static Long getPrice(String price) {
+    return Double.valueOf(price).longValue();
+  }
+
 
   private static String getRentType(String rentType) {
     

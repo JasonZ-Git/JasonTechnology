@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS RentRecord (
     district varchar(20) not null,
     address varchar(100) not null,
     title varchar(100) not null,
-    page_url varchar(200) not null,
+    page_url varchar(180) not null,
     release_date datetime not null,
     page_content varchar(1000) not null,
     gender_limit varchar(10) not null,
