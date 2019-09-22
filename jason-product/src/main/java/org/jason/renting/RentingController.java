@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RentingController {
 
   private static final String DEFAULT_YEEYI_PAGE = "http://www.yeeyi.com/forum/index.php?app=forum&act=display&fid=142&rcity1=1";
-
+  
   @RequestMapping("/crawlYeeyi")
   public static String crawlYeeyi(@RequestParam(value = "url", defaultValue = DEFAULT_YEEYI_PAGE) String url) throws PageNotFoundException {
     try {
       Document document = WebCrawlUtil.crawlPage(url);
       
-      List<RentingVO> items = YeeyiUtil.toDataModel(document);
+      List<RentingVO> items = YeeyiUtil.toRentingVO(document);
       
       return items.stream().map(item -> item.toString()).collect(Collectors.joining("<br>"));
       
@@ -30,7 +30,7 @@ public class RentingController {
   }
 
   @RequestMapping("/")
-  public static String defaultPage() {
+  public String defaultPage() {
     return "<p>Please enter page url to be crawled:</p>"
 
     + "<p>Crawl only one page:</p>" 

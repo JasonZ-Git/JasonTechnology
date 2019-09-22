@@ -24,7 +24,7 @@ public class YeeyiWebTest {
     String htmlContent = reader.lines().collect(Collectors.joining());
     Document document = Jsoup.parse(htmlContent);
 
-    List<RentingVO> items = YeeyiUtil.toDataModel(document);
+    List<RentingVO> items = YeeyiUtil.toRentingVO(document);
 
     Assert.assertTrue(items != null);
     Assert.assertTrue(items.size() > 10);

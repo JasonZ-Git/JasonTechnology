@@ -1,4 +1,4 @@
-package org.jason.renting;
+package org.jason.renting.application;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.mail.EmailException;
+import org.jason.renting.RentingVO;
+import org.jason.renting.YeeyiCriteria;
+import org.jason.renting.YeeyiUtil;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 
@@ -29,7 +32,7 @@ public class RentingDesktopApplication {
       String url = BasicURL + extended;
       Document document = WebCrawlUtil.crawlPage(url);
 
-      List<RentingVO> items = YeeyiUtil.toDataModel(document);
+      List<RentingVO> items = YeeyiUtil.toRentingVO(document);
 
       List<RentingVO> filteredItems = YeeyiUtil.defaultFilter(items);
       

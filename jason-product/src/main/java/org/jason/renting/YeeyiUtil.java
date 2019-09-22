@@ -1,9 +1,14 @@
 package org.jason.renting;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.jason.renting.dao.RentRecordDO;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -30,8 +35,97 @@ public final class YeeyiUtil {
   private YeeyiUtil() {
     throw new AssertionError("Not allowed");
   }
+  
+  
+  public static List<RentRecordDO> toRentingDO(Document document) {
 
-  public static List<RentingVO> toDataModel(Document document) {
+    Elements elements = document.select(ELEMENT_SELECTOR);
+
+    List<RentRecordDO> items = new ArrayList<>();
+    for (Element current : elements) {
+      if (current.text().equals(NO_INFORMATION))
+        break;
+      
+      Element advertisement = current.selectFirst(ADVERTISEMENT_SELECTOR);
+      if (advertisement != null && advertisement.text().equals(AD_KEYWORD)) {
+        continue;
+      }
+
+      String shortDescription = current.selectFirst(SHORT_DESC_SELECTOR).text();
+      String sourceType = current.selectFirst(SOURCE_SELECTOR).text();
+      String rentType = current.selectFirst(RENTING_STYLE_SELECTOR).text();
+      String houseType = current.selectFirst(HOUSE_STYLE_SELECTOR).text();
+      String address = current.selectFirst(ADDRESS_SELECTOR).text();
+      String price = current.selectFirst(PRICE_SELECTOR).text();
+      String releaseTimeToNow = current.selectFirst(RELEASE_TIME_SELECTOR).text();
+      String link = current.selectFirst(LINK_SELECTOR).attr("href");
+      
+      if (houseType == null || houseType.contains(HOUSE_AD)) {
+        houseType = "";
+      }
+      
+      RentRecordDO item = new RentRecordDO();
+      item.setAddress(address);
+      item.setDistrict("");
+      item.setSourceType(getSourceType(sourceType));
+      item.setRentType(getRentType(rentType));
+      item.setHouseType(getHouseType(houseType));
+      item.setGenderLimit("");
+      item.setPageUrl(link);
+      item.setPageContent("");
+      item.setTitle(shortDescription);
+      item.setPrice(Long.valueOf(price));
+      item.setReleaseDateTime(getReleaseDateTime(releaseTimeToNow));
+      
+      items.add(item);
+    }
+    return items;
+  }
+
+  private static String getRentType(String rentType) {
+    
+    return rentType.replace("出租方式：", "").trim();
+  }
+
+
+  private static String getHouseType(String houseType) {
+    return houseType.replace("户型：", "").trim();
+  }
+
+  private static String getSourceType(String sourceType) {
+    return sourceType.replace("来源：", "").trim();
+  }
+
+  private static Date getReleaseDateTime(String releaseTimeToNow) {
+    final String NOW = "刚刚";
+    final String DAYS_AGO = "天前";
+    final String HOURS_AGO = "小时前";
+    final String MINUTES_GAO = "分钟前";
+    
+    Date now = new Date();
+    
+    Date result = null;
+    
+    Calendar current = Calendar.getInstance();
+    current.setTime(now);
+    if (StringUtils.isEmpty(releaseTimeToNow) || releaseTimeToNow.equals(NOW)) {
+      result = now;
+    } else if (releaseTimeToNow.endsWith(DAYS_AGO)) {
+      int daysAgo = Integer.parseInt(releaseTimeToNow.replace(DAYS_AGO, ""));
+      result = DateUtils.addDays(now, daysAgo * -1);
+    } else if (releaseTimeToNow.endsWith(HOURS_AGO)) {
+      int hoursAgo = Integer.parseInt(releaseTimeToNow.replace(HOURS_AGO, ""));
+      result = DateUtils.addHours(now, hoursAgo * -1);
+    } else if (releaseTimeToNow.endsWith(MINUTES_GAO)) {
+      int minutesAgo = Integer.parseInt(releaseTimeToNow.replace(MINUTES_GAO, ""));
+      result = DateUtils.addMinutes(now, minutesAgo * -1);
+    }
+      
+    return result;
+  }
+
+
+  public static List<RentingVO> toRentingVO(Document document) {
     Elements elements = document.select(ELEMENT_SELECTOR);
 
     List<RentingVO> items = new ArrayList<>();

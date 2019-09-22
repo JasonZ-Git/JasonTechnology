@@ -28,7 +28,7 @@ public class YeeyiControllerTest {
       String url = basicURL + extended;
       Document document = WebCrawlUtil.crawlPage(url);
 
-      List<RentingVO> items = YeeyiUtil.toDataModel(document);
+      List<RentingVO> items = YeeyiUtil.toRentingVO(document);
 
       String result = items.stream().filter(item -> !item.getShortDescription().contains("短租")).limit(10).map(item -> item.toString()).collect(Collectors.joining("\n"));
 
