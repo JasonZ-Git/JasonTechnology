@@ -1,4 +1,4 @@
-package org.jason.renting;
+package org.jason.renting.utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.jason.renting.controller.RentingVO;
 import org.jason.renting.dao.RentRecordDO;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -45,7 +46,7 @@ public final class YeeyiUtil {
     for (Element current : elements) {
       if (current.text().equals(NO_INFORMATION))
         break;
-      
+
       Element advertisement = current.selectFirst(ADVERTISEMENT_SELECTOR);
       if (advertisement != null && advertisement.text().equals(AD_KEYWORD)) {
         continue;
@@ -59,11 +60,11 @@ public final class YeeyiUtil {
       String price = current.selectFirst(PRICE_SELECTOR).text();
       String releaseTimeToNow = current.selectFirst(RELEASE_TIME_SELECTOR).text();
       String link = current.selectFirst(LINK_SELECTOR).attr("href");
-      
+
       if (houseType == null || houseType.contains(HOUSE_AD)) {
         houseType = "";
       }
-      
+
       RentRecordDO item = new RentRecordDO();
       item.setAddress(address);
       item.setDistrict("");
@@ -76,7 +77,7 @@ public final class YeeyiUtil {
       item.setTitle(shortDescription);
       item.setPrice(getPrice(price));
       item.setReleaseDateTime(getReleaseDateTime(releaseTimeToNow));
-      
+
       items.add(item);
     }
     return items;

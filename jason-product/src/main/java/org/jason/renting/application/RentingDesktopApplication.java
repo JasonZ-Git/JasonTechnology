@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.mail.EmailException;
-import org.jason.renting.RentingVO;
-import org.jason.renting.YeeyiCriteria;
-import org.jason.renting.YeeyiUtil;
+import org.jason.renting.controller.RentingVO;
+import org.jason.renting.utils.YeeyiCriteria;
+import org.jason.renting.utils.YeeyiUtil;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 

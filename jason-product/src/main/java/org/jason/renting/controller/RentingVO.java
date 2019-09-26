@@ -1,9 +1,9 @@
-package org.jason.renting;
+package org.jason.renting.controller;
 
 import java.util.Formatter;
-import java.util.List;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
+import org.jason.renting.dao.RentRecordDO;
 
 public class RentingVO {
 
@@ -24,8 +24,6 @@ public class RentingVO {
   private String releaseTimeToNow;
 
   private Gender genderRestriction;
-
-  private List<UserComment> comments;
 
   private static String JUST_NOW = "刚刚";
   private static String MINUTES_AGO = "分钟前";
@@ -149,6 +147,13 @@ public class RentingVO {
     }
 
     return false;
+  }
+  
+  public static RentingVO from(RentRecordDO rentingDO) {
+    RentingVO vo = new RentingVO();
+    vo.address(rentingDO.getAddress()).link(rentingDO.getPageUrl()).houseStyle(rentingDO.getHouseType()).price(rentingDO.getPrice().toString()).shortDescription(rentingDO.getTitle()).releaseTime(rentingDO.getReleaseDate().toString());
+    
+    return vo;
   }
 
   @Override

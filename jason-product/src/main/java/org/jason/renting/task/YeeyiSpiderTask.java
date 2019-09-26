@@ -1,4 +1,4 @@
-package org.jason.renting;
+package org.jason.renting.task;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.jason.renting.dao.RentRecordDO;
 import org.jason.renting.services.YeeyiServiceImpl;
+import org.jason.renting.utils.YeeyiUtil;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,34 @@ public class YeeyiSpiderTask implements Runnable {
     thread.start();
   }
   
+  @Override
+  public void run() {
+    
+    System.out.println("=========================== Spring Started ==================================");
+    
+    while (true) {
+      
+      Document document =  readYeeyi();
+      
+      List<RentRecordDO> rentRecords = YeeyiUtil.toRentingDO(document);
+      
+      int newRecords = saveRecords(rentRecords);
+      
+      smartSleep(newRecords, rentRecords.size());
+    }
+  }
+  
   private void smartSleep(int newRecords, int totalRecordsFound) {
     
-    intervalInSeconds = intervalInSeconds * totalRecordsFound / newRecords - 5;
+    // this.intervalInSeconds = this.intervalInSeconds * totalRecordsFound / newRecords - 5;
     
-    intervalInSeconds = Math.max(intervalInSeconds, 20);
+    // this.intervalInSeconds = Math.max(this.intervalInSeconds, 20);
     
-    System.out.println("=========================== Sleep Started ==================================");
+    int random = (int) (Math.random() * 10);
+    
+    System.out.println("=========================== Sleep Started ================================== " + intervalInSeconds);
     try {
-      TimeUnit.SECONDS.sleep(intervalInSeconds);
+      TimeUnit.SECONDS.sleep(10 + random);
     } catch (InterruptedException e) {
       logger.error(e);
     }
@@ -64,22 +84,6 @@ public class YeeyiSpiderTask implements Runnable {
     return yeeyiRentPage;
   }
 
-  @Override
-  public void run() {
-
-    System.out.println("=========================== Spring Started ==================================");
-    
-    while (true) {
-      
-      Document document =  readYeeyi();
-      
-      List<RentRecordDO> rentRecords = YeeyiUtil.toRentingDO(document);
-      
-      int newRecords = saveRecords(rentRecords);
-      
-      smartSleep(newRecords, rentRecords.size());
-    }
-  }
   
 
 }

@@ -1,4 +1,4 @@
-package org.jason.renting;
+package org.jason.renting.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
