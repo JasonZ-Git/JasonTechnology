@@ -8,7 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This file is designed to parse a text file.
@@ -43,14 +45,15 @@ public final class JasonFileUtil {
   
   
   public static void main(String[] args) throws IOException {
-    List<String> source = JasonFileUtil.readFile("/home/jason/score.txt");
+    List<String> source = JasonFileUtil.readFile("C:/Temp/test.txt");
     
-    List<String>dest = new ArrayList<String>();
-    for(String current : source) {
-      String newStr = "<div class=\"music-note-container shake-rotate\">" + current +
-      "<span class=\"material-icons w3-text-grey w3-hover-text-black w3-small delete-score-btn\" onclick=\"removeElement(this)\">close</span></div>";
-      dest.add(newStr);
-    }
-    Files.write(Paths.get("/home/jason/out.txt"), dest);
+    
+    List<String>dest = source.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
+    writeFile("C:/Temp/result.txt", String.join("\r\n", dest));
+    
+    System.out.println(dest.stream().collect(Collectors.joining("\n")));
+    System.out.println("----");
+    System.out.println(String.join("\r\n", dest));
+    //Files.write(Paths.get("/home/jason/out.txt"), dest);
   }
 }

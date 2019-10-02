@@ -22,13 +22,9 @@ public final class JasonTimeZoneUtil {
 	private JasonTimeZoneUtil() {
       throw new AssertionError("No " + JasonTimeZoneUtil.class + " instances for you!");
 	}
+	
 	/**
-	 * Get timezone from google api.
-	 * 
-	 * @param latitude
-	 * @param longi
-	 * @return A java class that is converted from Json
-	 * @throws IOException
+	 * Get timezone from google API.
 	 */
 	public static GoogleTimeZone getTimeZone(String latitude, String longitude) throws IOException {
 		Calendar now = Calendar.getInstance();
