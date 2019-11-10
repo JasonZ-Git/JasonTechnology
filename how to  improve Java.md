@@ -1,5 +1,9 @@
 This is my thinking of improving java
 
+## Date & Calendar improvement
+Date as has been replaced by LocalDate LocalTime new API will not comment more - Improved with timezone & Make new LocalDate unchangable.
+For Calendar, there is problem as well: month starts from 0 instead of 1 which is wired.
+
 ## double & float issue
 First, float should be removed, and only keep double.
 Second, float & double cannot be precisely represented decimal number, while we usually use decimal to do calculation.
