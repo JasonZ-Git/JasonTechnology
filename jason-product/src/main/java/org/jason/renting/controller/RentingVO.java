@@ -21,7 +21,7 @@ public class RentingVO {
 
   private String detailLink;
 
-  private String releaseTimeToNow;
+  private String releaseTime;
 
   private Gender genderRestriction;
 
@@ -77,7 +77,7 @@ public class RentingVO {
   }
 
   public RentingVO releaseTime(String releaseTimeToNow) {
-    this.releaseTimeToNow = releaseTimeToNow;
+    this.releaseTime = releaseTimeToNow;
     return this;
   }
 
@@ -129,7 +129,7 @@ public class RentingVO {
   }
 
   public String getReleaseTimeToNow() {
-    return releaseTimeToNow;
+    return releaseTime;
   }
   
   public Gender getGenderLimit() {
@@ -137,12 +137,12 @@ public class RentingVO {
   }
 
   public boolean isWithinDays(int days) {
-    if (releaseTimeToNow.contains(JUST_NOW) || releaseTimeToNow.contains(MINUTES_AGO) || releaseTimeToNow.contains(HOURS_AGO)) {
+    if (releaseTime.contains(JUST_NOW) || releaseTime.contains(MINUTES_AGO) || releaseTime.contains(HOURS_AGO)) {
       return true;
     }
 
-    if (releaseTimeToNow.contains(DAYS_AGO)) {
-      String daysParsed = releaseTimeToNow.substring(0, releaseTimeToNow.indexOf(DAYS_AGO));
+    if (releaseTime.contains(DAYS_AGO)) {
+      String daysParsed = releaseTime.substring(0, releaseTime.indexOf(DAYS_AGO));
       return Long.parseLong(daysParsed) <= days;
     }
 
@@ -160,7 +160,7 @@ public class RentingVO {
   public String toString() {
     Formatter formater = new Formatter(Locale.SIMPLIFIED_CHINESE);
     formater.format("%s: %-8d", "租金", price);
-    formater.format("%s: %-10s", "发布时间", releaseTimeToNow);
+    formater.format("%s: %-10s", "发布时间", releaseTime);
     formater.format("%s: %-12s", "户型", houseStyle);
     formater.format("%s: %-55s", "描述", shortDescription);
     formater.format("%s: %-35s", "地址", address);

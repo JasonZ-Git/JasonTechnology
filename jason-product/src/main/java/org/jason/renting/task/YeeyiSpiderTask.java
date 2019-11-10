@@ -17,9 +17,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class YeeyiSpiderTask implements Runnable {
 
-  // Only Melbourne for now
-  private static final String YeeyiRentingURL = "http://www.yeeyi.com/forum/index.php?app=forum&act=display&fid=142&rcity1=1";
-  
   private Logger logger = Logger.getLogger(this.getClass());
   
   private int intervalInSeconds = 20;
@@ -76,14 +73,13 @@ public class YeeyiSpiderTask implements Runnable {
     Document yeeyiRentPage =  null;
     
     try {
-      yeeyiRentPage = WebCrawlUtil.crawlPage(YeeyiRentingURL);
+      yeeyiRentPage = WebCrawlUtil.crawlPage(YeeyiUtil.YeeyiRentingURL);
     } catch (IOException e) {
       logger.error(e);
     }
     
     return yeeyiRentPage;
   }
-
   
 
 }

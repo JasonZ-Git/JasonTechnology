@@ -15,6 +15,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public final class YeeyiUtil {
+  
+  public static final String YeeyiRentingURL = "http://www.yeeyi.com/forum/index.php?app=forum&act=display&fid=142&rcity1=1&page=1";
+  
   private static final String ELEMENT_SELECTOR = "#qtcShow .qtc li";
   private static final String SHORT_DESC_SELECTOR = ".ptxt .zdtxt";
   private static final String SOURCE_SELECTOR = ".ptxt p span:nth-child(1)";
