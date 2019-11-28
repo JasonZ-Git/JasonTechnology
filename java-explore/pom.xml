@@ -33,11 +33,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jason</groupId>
+			<artifactId>jason-util</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
