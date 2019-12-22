@@ -41,7 +41,7 @@ public class BookMain {
     bookstore.setBookList(bookList);
 
     // create JAXB context and instantiate marshaller
-    JAXBContext context = JAXBContext.newInstance(BookStore.class);
+    JAXBContext context = JAXBContext.newInstance(BookStore.class.getName());
     Marshaller m = context.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
