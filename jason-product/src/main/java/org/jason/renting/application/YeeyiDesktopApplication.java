@@ -13,7 +13,7 @@ import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 
 
-public class RentingDesktopApplication {
+public class YeeyiDesktopApplication {
 
   private static final List<String> DEFAULT_AREA = Arrays.asList("camberwell","Burwood","surrey hill", "caulfield", "malvern", "Toorak", "south yarra", "glen iris", "richmond", "hawthorn");
 

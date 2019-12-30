@@ -1,13 +1,11 @@
 package org.jason.renting.task;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.jason.renting.dao.RentRecordDO;
 import org.jason.renting.services.YeeyiServiceImpl;
 import org.jason.renting.utils.YeeyiUtil;
-import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -37,7 +35,7 @@ public class YeeyiSpiderTask implements Runnable {
     
     while (true) {
       
-      Document document =  readYeeyi();
+      Document document =  YeeyiUtil.readYeeyiRentingPage();
       
       List<RentRecordDO> rentRecords = YeeyiUtil.toRentingDO(document);
       
@@ -68,18 +66,4 @@ public class YeeyiSpiderTask implements Runnable {
   private int saveRecords(List<RentRecordDO> rentRecords) {
     return yeeyiService.saveRentRecords(rentRecords);
   }
-
-  private Document readYeeyi() {
-    Document yeeyiRentPage =  null;
-    
-    try {
-      yeeyiRentPage = WebCrawlUtil.crawlPage(YeeyiUtil.YeeyiRentingURL);
-    } catch (IOException e) {
-      logger.error(e);
-    }
-    
-    return yeeyiRentPage;
-  }
-  
-
 }
