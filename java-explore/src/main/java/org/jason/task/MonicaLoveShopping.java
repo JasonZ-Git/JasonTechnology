@@ -5,209 +5,211 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import javax.annotation.concurrent.ThreadSafe;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-
 @ThreadSafe
 public class MonicaLoveShopping {
 
-	private static int Two_Dollor_ToPrice = 5;
+  public static void main(String[] args) throws InterruptedException, IOException {
 
-	public static void main(String[] args) throws InterruptedException, IOException {
+    crawlMyDealAndReport();
 
-		crawlMyDealAndReport();
+  }
 
-	}
+  public static List<String> crawlMyDealCategoryPages() throws IOException {
 
-	public static List<String> crawlMyDealPageByCategory() throws IOException {
+    return new MydealCategoryPageSpider().crawl();
+  }
 
-		return new MydealSpider().crawl();
-	}
+  public static void crawlMyDealAndReport() throws IOException, InterruptedException {
 
-	public static void crawlMyDealAndReport() throws IOException, InterruptedException {
+    List<String> categoryPages = crawlMyDealCategoryPages();
 
-		List<String> urls = crawlMyDealPageByCategory();
+    List<String> itmePages = getItemsFromCategoryPage(categoryPages);
 
-		Map<String, Integer> pagesWithPrice = getAllPagesWithLowPrice(urls);
+    report(itmePages);
+  }
 
-		report(pagesWithPrice);
+  public static void report(List<String> pageWithPrices) throws InterruptedException {
 
-	}
+    for (String url : pageWithPrices) {
+      System.out.println(url);
+    }
+  }
 
-	public static void report(Map<String, Integer> pageWithPrices) throws InterruptedException {
+  public static List<String> getItemsFromCategoryPage(List<String> childCategories) throws InterruptedException {
 
-		Map<String, Integer> result = new HashMap<>();
+    ExecutorService threadSerivice = Executors.newCachedThreadPool();
 
-		for (Entry<String, Integer> current : pageWithPrices.entrySet()) {
-			if (!result.keySet().contains(current.getKey())) {
-				System.out.println("########## New Deal Found #############");
+    List<Callable<List<String>>> callableTasks = new ArrayList<>();
 
-				System.out.println("$" + current.getValue() + " found on page " + current.getKey());
+    for (final String currentCategory : childCategories) {
+      Callable<List<String>> callableTask = new MyDealCategoryTask(currentCategory).setToPrice(new BigDecimal(100));
 
-				result.put(current.getKey(), current.getValue());
-			}
-		}
-	}
+      callableTasks.add(callableTask);
+    }
 
-	public static Map<String, Integer> getAllPagesWithLowPrice(List<String> urls) throws InterruptedException {
+    List<Future<List<String>>> itemPagesWithPrice = threadSerivice.invokeAll(callableTasks, 100, TimeUnit.SECONDS);
 
-		List<String> potentialPages = new ArrayList<>();
-		Map<String, Integer> potentialPagesMap = new ConcurrentHashMap<String, Integer>();
+    List<String> result = itemPagesWithPrice.stream().flatMap(item -> {
+      try {
+        return item.get().stream();
+      } catch (InterruptedException | ExecutionException e) {
+        System.out.println(e.getMessage());
+      }
+      
+      return null;
+    }).distinct().collect(Collectors.toList());
+    
+    threadSerivice.shutdown();
 
-		ExecutorService threadSerivices = Executors.newFixedThreadPool(100);
+    return result;
+  }
 
-		List<Callable<String>> callableTasks = new ArrayList<>();
+  public static class MyDealCategoryTask implements Callable<List<String>> {
 
-		for (final String currentPage : urls) {
-			Callable<String> callableTask = () -> {
-				List<Integer> prices = selectPriceOfPage(currentPage);
+    private final String categoryPage;
 
-				if (prices.isEmpty())
-					return "";
+    private static final String CATEGORY_SEARCH = "?sort=recommended&fromPrice=%d&toPrice=%d&tagId=2733&filter=0&filteredTagId=0&pageSize=5000&usr=1";
 
-				potentialPages.add(currentPage);
-				potentialPagesMap.put(currentPage, prices.get(0));
+    public MyDealCategoryTask(String categoryPage) {
+      this.categoryPage = categoryPage;
+    }
 
-				return "Task's execution";
-			};
+    private BigDecimal fromPrice = BigDecimal.ZERO;
 
-			callableTasks.add(callableTask);
-		}
+    public MyDealCategoryTask setFromPrice(BigDecimal fromPrice) {
+      this.fromPrice = fromPrice;
+      return this;
+    }
 
-		threadSerivices.invokeAll(callableTasks);
+    private BigDecimal toPrice = new BigDecimal(Integer.MAX_VALUE);
 
-		threadSerivices.shutdown();
+    public MyDealCategoryTask setToPrice(BigDecimal toPrice) {
+      this.toPrice = toPrice;
+      return this;
+    }
 
-		return potentialPagesMap;
-	}
+    @Override
+    public List<String> call() throws Exception {
 
-	public static Map<String, Integer> sortMap(Map<String, Integer> sourceMap) {
-		Comparator<Entry<String, Integer>> valueComparator = new Comparator<Entry<String, Integer>>() {
+      String categoryToSearch = getChildCategoryPageUrlWithPriceFilter();
 
-			@Override
-			public int compare(Entry<String, Integer> e1, Entry<String, Integer> e2) {
-				Integer v1 = e1.getValue();
-				Integer v2 = e2.getValue();
-				return v1.compareTo(v2);
-			}
-		};
+      List<String> items = crawlCategoryForItems(categoryToSearch);
 
-		// Sort method needs a List, so let's first convert Set to List in Java
-		List<Entry<String, Integer>> listOfEntries = new ArrayList<Entry<String, Integer>>(sourceMap.entrySet());
+      return items;
+    }
 
-		// sorting HashMap by values using comparator
-		Collections.sort(listOfEntries, valueComparator);
+    private String getChildCategoryPageUrlWithPriceFilter() {
+      String searchStr = String.format(CATEGORY_SEARCH, fromPrice.intValue(), toPrice.intValue());
 
-		LinkedHashMap<String, Integer> sortedByValue = new LinkedHashMap<String, Integer>(listOfEntries.size());
+      return this.categoryPage + searchStr;
+    }
 
-		// copying entries from List to Map
-		for (Entry<String, Integer> entry : listOfEntries) {
-			sortedByValue.put(entry.getKey(), entry.getValue());
-		}
+    private List<String> crawlCategoryForItems(String categoryPage) throws IOException {
 
-		return sortedByValue;
-	}
+      Document categoryPageDoc = WebCrawlUtil.crawlPage(categoryPage);
 
-	public static List<Integer> selectPriceOfPage(String sourePageURL) throws IOException {
-		Document myDealPage = WebCrawlUtil.crawlPage(sourePageURL);
+      Elements gridItems = categoryPageDoc.select(".grid-item");
 
-		String oneDollorSuperDealSelector = "[itemprop=price]";
+      List<String> items = new ArrayList<>();
 
-		Elements oneDollorSuperResult = myDealPage.select(oneDollorSuperDealSelector);
+      for (Element currentGrid : gridItems) {
 
-		List<Integer> prices = new ArrayList<>();
+        Elements priceEles = currentGrid.select(".grid-item .numericSpan .mainPriceSpan");
 
-		for (Element current : oneDollorSuperResult) {
-			Double value = Double.valueOf(current.text());
+        if (priceEles.isEmpty() || priceEles.size() != 1)
+          continue;
 
-			if (value.intValue() <= Two_Dollor_ToPrice) {
-				String originalPrice = current.parent().select(".rrp").text().replace("RRP $", "").trim();
+        Element currentPrice = priceEles.get(0);
 
-				if (Double.valueOf(originalPrice) > 100) {
-					System.out.println("################################################");
-					System.out.println("Super Deal found " + sourePageURL);
-					System.out.println("################################################");
-				}
+        String price = currentPrice.text();
+        if (StringUtils.isNumeric(price)) {
+          String itemUrl = currentGrid.select(".ellipsis a[href]").get(0).attr("href");
+          items.add(MydealCategoryPageSpider.MY_DEAL_MAIN + itemUrl);
+        }
+      }
 
-				prices.add(value.intValue());
-			}
-		}
+      return items;
+    }
+  }
 
-		//
-		Elements result = myDealPage.select(".numericSpan .mainPriceSpan");
+  public static Map<String, Integer> sortMap(Map<String, Integer> sourceMap) {
+    Comparator<Entry<String, Integer>> valueComparator = new Comparator<Entry<String, Integer>>() {
 
-		for (Element current : result) {
-			String dotNumber = current.nextElementSibling().text();
-			current.nextElementSibling().text();
-			if (StringUtils.isNumeric(current.text()) && StringUtils.isBlank(dotNumber.trim())) {
-				prices.add(Integer.valueOf(current.text()));
-			}
-		}
+      @Override
+      public int compare(Entry<String, Integer> e1, Entry<String, Integer> e2) {
+        Integer v1 = e1.getValue();
+        Integer v2 = e2.getValue();
+        return v1.compareTo(v2);
+      }
+    };
 
-		return prices;
-	}
-	
-	public static interface PageSpider {
-		public List<String> crawl() throws IOException;
-	}
-	
-	public static class MydealSpider implements PageSpider {
-		
-		private static final String MY_DEAL_CATEGORIES = "https://www.mydeal.com.au/categories";
+    // Sort method needs a List, so let's first convert Set to List in Java
+    List<Entry<String, Integer>> listOfEntries = new ArrayList<Entry<String, Integer>>(sourceMap.entrySet());
 
-		private static final String MY_DEAL_CATEGORY_CLASS = ".category-panel-body .category-item";
+    // sorting HashMap by values using comparator
+    Collections.sort(listOfEntries, valueComparator);
 
-		private static final String MY_DEAL_SEARCH = "https://www.mydeal.com.au/%s?sort=recommended&fromPrice=1&toPrice=%d&tagId=2733&filter=0&filteredTagId=0&pageSize=48&usr=1";
+    LinkedHashMap<String, Integer> sortedByValue = new LinkedHashMap<String, Integer>(listOfEntries.size());
 
-		
-		@Override
-		public List<String> crawl() throws IOException {
+    // copying entries from List to Map
+    for (Entry<String, Integer> entry : listOfEntries) {
+      sortedByValue.put(entry.getKey(), entry.getValue());
+    }
 
-			Document myDealPage = WebCrawlUtil.crawlPage(MY_DEAL_CATEGORIES);
+    return sortedByValue;
+  }
 
-			Elements newSearchEles = myDealPage.select(MY_DEAL_CATEGORY_CLASS);
+  public static interface PageSpider {
+    public List<String> crawl() throws IOException;
+  }
 
-			// Using Set to remove duplication automatically.
-			Set<String> urls = new HashSet<>();
+  /**
+   * This Spider will get all child category page URL
+   * 
+   * @author jason
+   *
+   */
+  public static class MydealCategoryPageSpider implements PageSpider {
 
-			for (Element current : newSearchEles) {
+    public static final String MY_DEAL_MAIN = "https://www.mydeal.com.au";
+    private static final String MY_DEAL_CATEGORIES = "https://www.mydeal.com.au/categories";
 
-				String hrefCategory = current.child(0).getElementsByAttribute("href").attr("href");
+    private static final String MY_DEAL_CATEGORY_CLASS = ".category-panel-body .category-item";
 
-				String url = String.format(MY_DEAL_SEARCH, hrefCategory, priceLimit);
+    @Override
+    public List<String> crawl() throws IOException {
 
-				urls.add(url);
-			}
+      Document myDealCategoryPage = WebCrawlUtil.crawlPage(MY_DEAL_CATEGORIES);
 
-			return new ArrayList<String>(urls);
-		
-		}
+      Elements categories = myDealCategoryPage.select(MY_DEAL_CATEGORY_CLASS);
 
-		private BigDecimal priceLimit = new BigDecimal(Integer.MAX_VALUE);
-		public MydealSpider setPriceLimit(BigDecimal priceLimit) {this.priceLimit = priceLimit; return this;}
-	}
-	
-	public static enum WebSite {
-		YeeYi,
-		MyDeal;
-	}
+      List<String> categoryList = categories.stream().map(item -> item.child(0).getElementsByAttribute("href").attr("href")).collect(Collectors.toList());
 
+      return categoryList.stream().map(item -> MY_DEAL_MAIN + "/" + item).collect(Collectors.toList());
+
+    }
+
+  }
+
+  public static enum WebSite {
+    YeeYi, MyDeal;
+  }
 }
