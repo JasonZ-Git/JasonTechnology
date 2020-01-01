@@ -1,5 +1,6 @@
 package org.jason.renting.utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,8 +9,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.log4j.Logger;
 import org.jason.renting.controller.RentingVO;
 import org.jason.renting.dao.RentRecordDO;
+import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -36,10 +39,23 @@ public final class YeeyiUtil {
   private static final int DEFAULT_SHOW_DAYS = 2;
   private static final String DEFAULT_FILTER_OUT_WORD = "短租";
 
+  private static final Logger logger =  Logger.getLogger(YeeyiUtil.class);
+  
   private YeeyiUtil() {
     throw new AssertionError("Not allowed");
   }
   
+  public static Document readYeeyiRentingPage() {
+    Document yeeyiRentPage =  null;
+    
+    try {
+      yeeyiRentPage = WebCrawlUtil.crawlPage(YeeyiRentingURL);
+    } catch (IOException e) {
+      logger.error(e);
+    }
+    
+    return yeeyiRentPage;
+  }
   
   public static List<RentRecordDO> toRentingDO(Document document) {
 

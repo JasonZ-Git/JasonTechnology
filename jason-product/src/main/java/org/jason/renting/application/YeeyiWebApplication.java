@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({"org.jason.renting"})
-public class RentingWebApplication {
+public class YeeyiWebApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(RentingWebApplication.class, args);
+    SpringApplication.run(YeeyiWebApplication.class, args);
   }
 }

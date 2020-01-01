@@ -4,9 +4,15 @@ Volatile guaranteed visibility of variables across different threads, but no ato
 Volatile is most used for flag variables as the operations on these variables are atomitic.
 
 
-#ConcurrentHashMap & CopyOnWriteArrayList
+# ConcurrentHashMap
 ConcurentHashMap locks by segement instead of locking the whole map thus provides much better performance.
 It is much better than HashTable or synchronisedMap(Collections.synchronisedMap)
+
+
+# CopyOnWriteArrayList
+This list, as indicate by its name, will create a new one if modifies thus ensures multiple thread safety.
+However, as the java doc said, it is usually costly unless the traversal operations are much more than mutable operations.
+So only use this collection when there are much more operation for traversal.
 
 
 # Atomic 
