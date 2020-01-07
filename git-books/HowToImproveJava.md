@@ -14,7 +14,7 @@ From Java 8, however, there is a new date API introduced which addresses all abo
 This is a great - though not widely accepted so far for 2 reasons: 
 -- There are too much legacy code using Date.
 -- The new Date seems assume people with start fresh.
-So my suggestion is: for green field applications, use LocalDate is convenient; for legacy code, it is really needs careful planning to switch to this new API
+So my suggestion is: for green field applications, use LocalDate is convenient; for legacy code, it is really needs careful planning to switch to this new API.
 
 # double & float issue
 First, float should be removed, and only keep double.

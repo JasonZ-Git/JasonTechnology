@@ -1,6 +1,9 @@
-## This file is used to record my random thinking come across with
+This file is used to record my random thinking come across with
 
-## 10 Feb, 2019
+10 Feb, 2019
+============
+
+
 Gson and Jackson can both be used to parse Json String & Objects  - What is the difference?
 
 These days, I use GraphQL as it is required by workflow innovation project. GraphQL seems promising, however, there is no utility 
