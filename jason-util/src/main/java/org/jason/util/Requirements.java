@@ -22,6 +22,14 @@ public final class Requirements {
     }
   }
   
+  public static void requireFalse(boolean parameter) {
+    requireTrue(!parameter);
+  }
+  
+  public static void requireFalse(boolean parameter, String message) {
+    requireTrue(!parameter, message);
+  }
+  
   public static <T> void requireEqual(T left, T right) {
     if (left == null || right == null) throw new NullPointerException();
     

@@ -1,9 +1,9 @@
-package org.jason.renting.controller;
+package org.jason.spider.yeeyi.controller;
 
 import java.util.Formatter;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
-import org.jason.renting.dao.RentRecordDO;
+import org.jason.spider.yeeyi.dao.RentRecordDO;
 
 public class RentingVO {
 

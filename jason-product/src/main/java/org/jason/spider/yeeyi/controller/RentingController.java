@@ -1,11 +1,11 @@
-package org.jason.renting.controller;
+package org.jason.spider.yeeyi.controller;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.jason.renting.dao.RentRecordDO;
-import org.jason.renting.services.YeeyiServiceImpl;
-import org.jason.renting.utils.YeeyiUtil;
+import org.jason.spider.yeeyi.YeeyiServiceImpl;
+import org.jason.spider.yeeyi.YeeyiUtil;
+import org.jason.spider.yeeyi.dao.RentRecordDO;
 import org.jason.util.WebCrawlUtil;
 import org.jason.util.exception.PageNotFoundException;
 import org.jsoup.nodes.Document;

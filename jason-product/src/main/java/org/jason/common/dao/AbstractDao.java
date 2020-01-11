@@ -1,4 +1,4 @@
-package org.jason.renting.dao;
+package org.jason.common.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

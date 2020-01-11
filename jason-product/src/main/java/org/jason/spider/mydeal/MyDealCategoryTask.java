@@ -1,4 +1,4 @@
-package org.jason.spider;
+package org.jason.spider.mydeal;
 
 import java.io.IOException;
 import java.math.BigDecimal;

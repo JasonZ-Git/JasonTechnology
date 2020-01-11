@@ -60,7 +60,7 @@ The stream API is great to simplify simple loops and make java cool again
 However, it is not perfect, There are 2 pain points
 -- The code is hard to read, however, it ensures easy usage - so it is not really bad.
 -- Stream is hard to be debugged, and what's more, and not quite friendly picked by eclipse - there are some work to do.
--- The main problem lies with exception - if an operation within stream throws exception, it cann't be catched outside, it must be handled within the stream - this is really bad - TODO - I need to invest more time into it and check whether it is possible to design a solution for it.
+-- The main problem lies with exception - if an operation within stream throws exception, it cann't be caught outside, it must be handled within the stream - this is really bad - TODO - I need to invest more time into it and check whether it is possible to design a solution for it.
 
 # Assert 
 Assert is a wired design - maybe good at the start when there is no good TDD.
@@ -70,9 +70,9 @@ One more suggestion is that there should be a new class added for Parameter chec
 There are several ways - Introducing a new utility class - Requirements, this class can server as parameter check or other check purpose"
 
 public final class Requirements {
-	nonNull();
-	isNull();
-	isTrue();
-	isEquals();
-	isFaluse();
+	requireNonNull();
+	requireNull();
+	requireTrue();
+	requireEquals();
+	requireFalse();
 }

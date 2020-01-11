@@ -1,4 +1,4 @@
-package org.jason.renting.application;
+package org.jason.spider.yeeyi.application;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.mail.EmailException;
-import org.jason.renting.controller.RentingVO;
-import org.jason.renting.utils.YeeyiCriteria;
-import org.jason.renting.utils.YeeyiUtil;
+import org.jason.spider.yeeyi.YeeyiCriteria;
+import org.jason.spider.yeeyi.YeeyiUtil;
+import org.jason.spider.yeeyi.controller.RentingVO;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 

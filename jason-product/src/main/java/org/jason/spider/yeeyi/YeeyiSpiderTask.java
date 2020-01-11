@@ -1,11 +1,9 @@
-package org.jason.renting.task;
+package org.jason.spider.yeeyi;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
-import org.jason.renting.dao.RentRecordDO;
-import org.jason.renting.services.YeeyiServiceImpl;
-import org.jason.renting.utils.YeeyiUtil;
+import org.jason.spider.yeeyi.dao.RentRecordDO;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

@@ -1,9 +1,10 @@
-package org.jason.renting.dao;
+package org.jason.spider.yeeyi.dao;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.jason.common.dao.AbstractDao;
 import org.springframework.stereotype.Repository;
 
 @Repository

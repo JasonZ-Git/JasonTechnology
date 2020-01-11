@@ -1,4 +1,4 @@
-package org.jason.renting.utils;
+package org.jason.spider.yeeyi;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
-import org.jason.renting.controller.RentingVO;
-import org.jason.renting.dao.RentRecordDO;
+import org.jason.spider.yeeyi.controller.RentingVO;
+import org.jason.spider.yeeyi.dao.RentRecordDO;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
