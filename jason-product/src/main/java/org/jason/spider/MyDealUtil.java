@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import org.apache.log4j.Logger;
-import org.jason.util.ObjectsUtil;
+import org.jason.util.Requirements;
 
 @ThreadSafe
 public class MyDealUtil {
@@ -53,7 +53,7 @@ public class MyDealUtil {
 
   public static List<String> getItemPages(@Nonnull Integer priceLimt) {
 
-    ObjectsUtil.requireTrue(priceLimt >= 1L);
+    Requirements.requireTrue(priceLimt >= 1L);
 
     List<String> categoryPages;
     try {

@@ -16,6 +16,23 @@ This is a great - though not widely accepted so far for 2 reasons:
 -- The new Date seems assume people with start fresh.
 So my suggestion is: for green field applications, use LocalDate is convenient; for legacy code, it is really needs careful planning to switch to this new API.
 
+# Enhance switch
+Switch has been enhanced to handle Enum, int and String, but it should be enhanced for more.
+- One way is use hashCode so that JVM don't need to handle extra rules.
+- Another way is to introduce an interface - Switchable, that interface should contain a single method which returns an int value(it should be a default method, which returns the hashCode value), every class that implements the interface can be used for switch.
+
+interface Switchable {
+
+	default int switchValue() {
+		return this.hashCode();
+	}
+}
+
+# Enum
+Every enum type extends Enum implicitly, but there is a secretly added method values() and valueOf by compiler.
+That should be a way to use the standard Enum class, instead of secretly doing this doggy. - @TODO Futher action needed.
+Enum should be an interface, instead of abstract class.
+
 # double & float issue
 First, float should be removed, and only keep double.
 Second, float & double cannot be precisely represented decimal number, while we usually use decimal to do calculation.
@@ -27,11 +44,11 @@ More thinking: when Java is designed, memory is expensive, so a lot of considera
 AWT is a terrible, Swing also fails to satisfy people.
 The fundamental reason is that using code to draw UI is low efficient.
 Now we know that we should reply on template, to handle static part,  JS to control dynamic part, and CSS to control the style.
-So in model design, we use HTML, JS, CSS these 3 standards to provide UI solution which is handled by Swiing & AWT -- that is too heavy a task.
+So in model design, we use HTML, JS, CSS these 3 standards to provide UI solution which is handled by Swing & AWT -- that is too heavy a task.
 
 So we should depends on template from the beginning, get rid of Swing and AWT, use web to do the UI.
 
-# Using Generic from the beginning - make it a must not just recommendataion.
+# Using Generic from the beginning - make it a must not just recommendation.
 
 
 # Redesign Serialization and Clonable interface
@@ -44,3 +61,18 @@ However, it is not perfect, There are 2 pain points
 -- The code is hard to read, however, it ensures easy usage - so it is not really bad.
 -- Stream is hard to be debugged, and what's more, and not quite friendly picked by eclipse - there are some work to do.
 -- The main problem lies with exception - if an operation within stream throws exception, it cann't be catched outside, it must be handled within the stream - this is really bad - TODO - I need to invest more time into it and check whether it is possible to design a solution for it.
+
+# Assert 
+Assert is a wired design - maybe good at the start when there is no good TDD.
+Now with TDD, we can use it more gracefully than the wired assert.
+So I think this feature should be removed from Java.
+One more suggestion is that there should be a new class added for Parameter check or result value check purpose.
+There are several ways - Introducing a new utility class - Requirements, this class can server as parameter check or other check purpose"
+
+public final class Requirements {
+	nonNull();
+	isNull();
+	isTrue();
+	isEquals();
+	isFaluse();
+}
