@@ -23,7 +23,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.jason.util.ObjectsUtil;
+import org.jason.util.Requirements;
 
 /**
  * This Util class is used to operate calendar, including get, create events.
@@ -69,7 +69,7 @@ public class JasonCalendarUtil {
   }
 
   public static List<Event> getEvents(int maxNumber) throws GeneralSecurityException, IOException {
-    ObjectsUtil.requireTrue(maxNumber <= 500);
+    Requirements.requireTrue(maxNumber <= 500);
 
     Calendar service = getService();
 

@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.StringUtils;
-import org.jason.util.ObjectsUtil;
+import org.jason.util.Requirements;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,7 +30,7 @@ public class MyDealCategoryTask implements Callable<List<String>> {
     
     Objects.requireNonNull(categoryPage);
     
-    ObjectsUtil.requireTrue(categoryPage.startsWith(MyDealUtil.MY_DEAL_MAIN));
+    Requirements.requireTrue(categoryPage.startsWith(MyDealUtil.MY_DEAL_MAIN));
     
     this.categoryPage = categoryPage;
   }
