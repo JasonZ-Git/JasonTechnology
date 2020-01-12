@@ -6,7 +6,7 @@ package org.jason.util.finalclass;
 /**
  * 表示 两个 对象
  * 
- * @author Jason.zhang
+ * @author Jason Zhang
  * 
  */
 public class Pair<T, U> {

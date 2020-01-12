@@ -1,8 +1,25 @@
 This file is used to record my random thinking come across with
+==============================================================
+
+12 Jan, 2020
+------------
+Restrictions has been used in Hibernate - not too bad though.
+
+
+11 Jan, 2020
+------------
+I have created class which is very useful for Parameter Check and used to enhance Objects, functions should be:
+	-- requireNonnull, requireNull, requireEquals, requireNotEquals, requireSameDay.
+
+It should be used for Parameter and result check of a call.
+I considered several names for it, Parameters and Requirements
+	-- Parameters would indicate it is used for Parameters check only; 
+	-- Requirements seem better, but would be duplicate to the function name;
+	-- Restrictions could be best 
+
 
 10 Feb, 2019
-============
-
+------------
 
 Gson and Jackson can both be used to parse Json String & Objects  - What is the difference?
 
