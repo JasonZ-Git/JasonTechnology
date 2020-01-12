@@ -31,13 +31,22 @@ public final class Requirements {
   }
   
   public static <T> void requireEqual(T left, T right) {
-    if (left == null || right == null) throw new NullPointerException();
-    
-    if (!left.equals(right)) throw new ParameterNotEqualException();
-
+	  requireEqual(left, right, null);
   }
   
-  @SuppressWarnings("serial")
-  private static class ParameterNotEqualException extends RuntimeException{}
+  public static <T> void requireEqual(T left, T right, String message) {
+    if (left == null || right == null) throw new NullPointerException(message);
+	    
+	if (!left.equals(right)) throw new RuntimeException(message);
+  }
   
+  public static <T> void requireNotEqual(T left, T right) {
+	  requireNotEqual(left, right, null);
+  }
+  
+  public static <T> void requireNotEqual(T left, T right, String message) {
+    if (left == null || right == null) throw new NullPointerException(message);
+	    
+	if (left.equals(right)) throw new RuntimeException(message);
+  }
 }
