@@ -1,4 +1,4 @@
-package org.jason.renting.dao;
+package org.jason.spider.yeeyi.dao;
 
 import java.util.Date;
 import javax.persistence.Column;

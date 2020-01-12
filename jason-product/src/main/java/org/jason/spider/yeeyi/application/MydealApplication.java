@@ -1,4 +1,4 @@
-package org.jason.renting.application;
+package org.jason.spider.yeeyi.application;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.commons.mail.EmailException;
-import org.jason.spider.MyDealUtil;
+import org.jason.spider.mydeal.MyDealUtil;
 
 
 public class MydealApplication {
@@ -35,6 +35,7 @@ public class MydealApplication {
 
     System.out.printf("Total items are: %s%n", itemPages.size());
     System.out.printf("With %s, the run time is %s seconds %n%n", "single thread pool", stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
     
     // -- Test 10 threadS --
     stopWatch = StopWatch.createStarted();
@@ -46,7 +47,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
-
+    executor.shutdown();
 
     // -- Test 20 threadS --
     stopWatch = StopWatch.createStarted();
@@ -58,6 +59,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
 
     
     // -- Test 50 threadS --
@@ -70,8 +72,9 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
 
-
+    
     // -- Test 100 threadS --
     stopWatch = StopWatch.createStarted();
 
@@ -82,7 +85,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
-
+    executor.shutdown();
 
     // -- Test 200 threads --
     stopWatch = StopWatch.createStarted();
@@ -94,6 +97,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
 
     // -- Test 500 threads --
     stopWatch = StopWatch.createStarted();
@@ -105,6 +109,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
 
     // -- Test 1000 threads --
     stopWatch = StopWatch.createStarted();
@@ -116,6 +121,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %d threads, the run time is %s seconds %n%n", threadPoolSize, stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
 
     
     // -- Test cached thread pool, there are 1300 threads --
@@ -127,6 +133,7 @@ public class MydealApplication {
     stopWatch.stop();
 
     System.out.printf("With %s, the run time is %s seconds %n%n", "cached thread pool(1300 threads in this test case)", stopWatch.getTime(TimeUnit.SECONDS));
+    executor.shutdown();
 
 
     /**

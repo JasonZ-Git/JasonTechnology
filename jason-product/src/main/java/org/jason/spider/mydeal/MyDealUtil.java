@@ -1,26 +1,21 @@
-package org.jason.spider;
+package org.jason.spider.mydeal;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import org.apache.log4j.Logger;
+import org.jason.spider.PageSpider;
 import org.jason.util.Requirements;
 
 @ThreadSafe
@@ -30,6 +25,8 @@ public class MyDealUtil {
 
   public static final String MY_DEAL_MAIN = "https://www.mydeal.com.au";
   public static final String MY_DEAL_CATEGORIES = MY_DEAL_MAIN + "/categories";
+  
+  public static final int DEFAULT_THREAD_NUMBER = 100;
 
   private static final Logger logger = Logger.getLogger(MyDealUtil.class);
 
@@ -37,7 +34,7 @@ public class MyDealUtil {
     throw new Exception("Init not allowed for utiliy class");
   }
 
-  public static List<String> getItemPages() {
+  public static List<String> getPages() {
 
     try {
       List<String> categoryPages = crawlMyDealCategoryPages();
@@ -49,6 +46,20 @@ public class MyDealUtil {
     }
 
     return null;
+  }
+  
+  public static Integer getPagesNonBlocking(CompletionService<List<String>> completionService) {
+    List<String> categoryPages = null;
+    try {
+      categoryPages = crawlMyDealCategoryPages();
+      
+      submitCategoryTasks(categoryPages, completionService);
+      
+    } catch (InterruptedException | IOException e) {
+      logger.error(e);
+    }
+    
+    return categoryPages.size();    
   }
 
   public static List<String> getItemPages(@Nonnull Integer priceLimt) {
@@ -86,34 +97,47 @@ public class MyDealUtil {
     return SPIDER.crawl();
   }
 
-  private static List<String> getItemsFromCategoryPage(@Nonnull List<String> childCategories, @Nullable ExecutorService executorService, @Nullable Integer priceLimt) throws InterruptedException {
+  private static List<String> getItemsFromCategoryPage(@Nonnull List<String> childCategories, @Nullable ExecutorService executorService, @Nullable Integer priceLimt) throws InterruptedException, ExecutionException {
 
     ExecutorService threadSerivice = executorService == null ? Executors.newFixedThreadPool(100) : executorService;
 
-    List<Callable<List<String>>> callableTasks = new ArrayList<>();
+    List<MyDealCategoryTask> callableTasks = constructTasks(childCategories, priceLimt);
 
-    for (final String currentCategory : childCategories) {
-      MyDealCategoryTask callableTask = new MyDealCategoryTask(currentCategory);
-      if (priceLimt != null)
-        callableTask.setToPrice(new BigDecimal(priceLimt));
+    List<Future<List<String>>> itemPagesWithPrice = threadSerivice.invokeAll(callableTasks);
 
-      callableTasks.add(callableTask);
+    List<String> result = new ArrayList<>();
+    for (Future<List<String>> current : itemPagesWithPrice){
+      result.addAll(current.get());
     }
-
-    List<Future<List<String>>> itemPagesWithPrice = threadSerivice.invokeAll(callableTasks);// , 100, TimeUnit.SECONDS);
-
-    List<String> result = itemPagesWithPrice.stream().flatMap(item -> {
-      try {
-        return item.get().stream();
-      } catch (Exception e) {
-        // logger.error(e);
-      }
-
-      return null;
-    }).distinct().collect(Collectors.toList());
 
     threadSerivice.shutdown();
 
     return result;
   }
+  
+  private static void submitCategoryTasks(@Nonnull List<String> childCategories, @Nullable CompletionService<List<String>> executorService) throws InterruptedException {
+    
+    List<MyDealCategoryTask> callableTasks = constructTasks(childCategories);
+    
+    callableTasks.stream().forEach(item -> executorService.submit(item));
+  }
+  
+  private static List<MyDealCategoryTask> constructTasks (List<String> childCategories){
+    return constructTasks(childCategories, null);
+  }
+  
+  private static List<MyDealCategoryTask> constructTasks (List<String> childCategories, Integer priceLimit){
+    List<MyDealCategoryTask> callableTasks = new ArrayList<>();
+
+    for (final String currentCategory : childCategories) {
+      MyDealCategoryTask callableTask = new MyDealCategoryTask(currentCategory);
+      
+      if (priceLimit != null) callableTask.setToPrice(new BigDecimal(priceLimit));
+
+      callableTasks.add(callableTask);
+    }
+    
+    return callableTasks;
+  }
+  
 }

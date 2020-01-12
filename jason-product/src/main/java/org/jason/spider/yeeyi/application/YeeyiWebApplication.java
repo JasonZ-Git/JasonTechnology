@@ -1,4 +1,4 @@
-package org.jason.renting.application;
+package org.jason.spider.yeeyi.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

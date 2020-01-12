@@ -1,8 +1,9 @@
-package org.jason.spider;
+package org.jason.spider.mydeal;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.jason.spider.PageSpider;
 import org.jason.util.WebCrawlUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

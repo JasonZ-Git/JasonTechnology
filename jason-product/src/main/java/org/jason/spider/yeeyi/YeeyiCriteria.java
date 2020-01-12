@@ -1,4 +1,4 @@
-package org.jason.renting.utils;
+package org.jason.spider.yeeyi;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -1,4 +1,4 @@
-package org.jason.renting.hibernate;
+package org.jason.common.hibernate;
 
 import java.util.Properties;
 
