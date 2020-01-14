@@ -49,3 +49,8 @@ This facility is used to wait until other threads finish, two common scenarios:
 Executor framework is better in 2 ways:
 	It supports callable interface thus could get return value and throw exception.
 	It separates task definition and task executing, thus code are easier to be modularized.
+	
+# ThreadLocal
+It is a confusing design to have TheadLocal, because it is multiple threading scenario while trying to avoid lock(synchronization)
+Why not just create the variable in task itself?
+Never use ThreadLocal!!!
