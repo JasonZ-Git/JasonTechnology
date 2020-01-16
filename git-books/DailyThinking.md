@@ -1,6 +1,21 @@
 This file is used to record my random thinking come across with
 ==============================================================
 
+15 Jan, 2020
+------------
+Serializable interface
+There is no method in this interface, and if to modify the default serializable method, we need to provide readObject and writeObject method, and are called secretly!!!
+There is a benefit: If an Object implements Serializable, then it is easy to implements the Clone method using ByteArrayInputStream and ByteArrayOutputStream.
+
+
+15 Jan, 2020
+------------
+Clonable interface 
+Clonable interface is ridiculous design, there is no interface, but once you implements it, we need to override the clone() method of Object - Bad Design !!!
+What we should do is to remove the clone method in Object class and add it to Clonable.
+
+Java needs to maintain backward compatibility so there is no easy way to change fundamental class Object.
+
 14 Jan, 2020
 ------------
 ThreadLocal seems a bad design, it is best not use it.

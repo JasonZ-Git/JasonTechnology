@@ -53,4 +53,6 @@ Executor framework is better in 2 ways:
 # ThreadLocal
 It is a confusing design to have TheadLocal, because it is multiple threading scenario while trying to avoid lock(synchronization)
 Why not just create the variable in task itself?
-Never use ThreadLocal!!!
+Do not use ThreadLocal!!!
+
+# 
