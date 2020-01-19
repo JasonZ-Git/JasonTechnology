@@ -1,5 +1,7 @@
 # This file records my thinking of improving java language, including the design issue & JDK libraries
 
+# ZipConstants should not be an interface, it should be a final class.
+
 # Date & Calendar improvement
 Date has long been an issue for Java, the main problem for Date API are:
 -- Date is mutable - which causes potential safety issues.
