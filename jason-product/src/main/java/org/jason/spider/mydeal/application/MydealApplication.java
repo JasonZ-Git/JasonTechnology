@@ -9,12 +9,14 @@ import java.util.concurrent.Executors;
 import org.jason.spider.mydeal.MyDealUtil;
 
 public class MydealApplication {
+  
   public static void main(String[] args) {
+    
     ExecutorService executor = Executors.newFixedThreadPool(100);
     
     CompletionService<List<String>> complesionService = new ExecutorCompletionService<List<String>>(executor);
     
-    Integer count = MyDealUtil.getPagesNonBlocking(complesionService);
+    Integer count = MyDealUtil.getPages(complesionService);
     
     int totalCount = 0;
     
