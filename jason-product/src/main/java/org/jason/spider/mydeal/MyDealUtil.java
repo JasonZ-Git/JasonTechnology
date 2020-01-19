@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -48,7 +47,7 @@ public class MyDealUtil {
     return null;
   }
   
-  public static Integer getPagesNonBlocking(CompletionService<List<String>> completionService) {
+  public static Integer getPages(CompletionService<List<String>> completionService) {
     List<String> categoryPages = null;
     try {
       categoryPages = crawlMyDealCategoryPages();
@@ -62,7 +61,7 @@ public class MyDealUtil {
     return categoryPages.size();    
   }
 
-  public static List<String> getItemPages(@Nonnull Integer priceLimt) {
+  public static List<String> getPages(@Nonnull Integer priceLimt) {
 
     Requirements.requireTrue(priceLimt >= 1L);
 
@@ -77,7 +76,7 @@ public class MyDealUtil {
     return null;
   }
 
-  public static List<String> getItemPages(@Nonnull ExecutorService executorService) {
+  public static List<String> getPages(@Nonnull ExecutorService executorService) {
 
     Objects.requireNonNull(executorService);
 

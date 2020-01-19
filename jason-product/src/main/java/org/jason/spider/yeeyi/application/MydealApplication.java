@@ -24,12 +24,11 @@ public class MydealApplication {
     List<String> itemPages = null;
     int threadPoolSize = 1;
     
-
     // -- Test single thread pool --
     stopWatch = StopWatch.createStarted();
 
     executor = Executors.newSingleThreadExecutor();
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -42,7 +41,7 @@ public class MydealApplication {
 
     threadPoolSize = 10;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -54,7 +53,7 @@ public class MydealApplication {
 
     threadPoolSize = 20;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -67,7 +66,7 @@ public class MydealApplication {
 
     threadPoolSize = 50;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -80,7 +79,7 @@ public class MydealApplication {
 
     threadPoolSize = 100;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -92,7 +91,7 @@ public class MydealApplication {
 
     threadPoolSize = 200;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -104,7 +103,7 @@ public class MydealApplication {
 
     threadPoolSize = 500;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -116,7 +115,7 @@ public class MydealApplication {
 
     threadPoolSize = 1000;
     executor = Executors.newFixedThreadPool(threadPoolSize);
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
@@ -128,7 +127,7 @@ public class MydealApplication {
     stopWatch = StopWatch.createStarted();
 
     executor = Executors.newCachedThreadPool();
-    itemPages = MyDealUtil.getItemPages(executor);
+    itemPages = MyDealUtil.getPages(executor);
 
     stopWatch.stop();
 
