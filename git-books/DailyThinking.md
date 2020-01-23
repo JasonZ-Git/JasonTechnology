@@ -1,10 +1,68 @@
 This file is used to record my random thinking come across with
-==============================================================
-23 Jan, 2019
+===============================================================
+
+23 Jan, 2020
+------------
+
+  -- SAX - Simple API for XML, also known as Streaming XML.
+	     - An event-driven online algorithm for parsing XML documents.
+	     - SAX parsers operate on each piece of the XML document sequentially.
+	     - SAX is Part of JDK(SAXParseFactory)
+  -- StAX - Streaming API for XML
+          - It is originated from Java Community, not managed by W3C.
+          - It is similar to SAX, but will pull information itself, not like SAX which push data through handle.
+          - StAX is easier for programming purpose.
+          - StAX is Part of JDK(XMLInputFactory)
+
+
+22 Jan, 2020
+------------
+
+XML has quite a few technologies around it  - XQuery, Xpath, Dom, SAX, XSL, XSLT, JAXB, dtd, xsd,
+The following technologies are around XML and managed by W3C
+
+  -- XML - eXtensible Markup Language - 
+  		 - Simple, flexible text format derived from SGML
+  		 - Originally designed to meet the challenges of large-scale electronic publishing
+  		 - Also playing an increasingly important role in the exchange of a wide variety of data on the Web and elsewhere
+  		 - Managed by W3C
+  		 
+  -- DOM - Document Object Model 
+  		 - A programming API for HTML and XML documents
+		 - Managed by W3C
+		 
+  -- XSL - eXtensible Stylesheet Language for XML
+         - A family of recommendations for defining XML document transformation and presentation including XSLT, XPath, XSL-FO
+         
+  -- XSLT - eXtensible Stylesheet Language Transformations
+		  - A language for transforming XML documents into other XML documents or other formats such as HTML for web pages, plain text or XSL Formatting Objects
+		  - XSLT uses XPath to identify subsets of the source document tree and perform calculations
+		  - XSLT 1.0 support basic operations, XSLT 2.0 support date, time and regex for String, XSLT 3.0 support Streaming XML
+		  - Managed by W3C
+		  
+  -- XPath - XML Path Language.
+  		   - A query language for selecting nodes from an XML document.
+  		   - May also be used to compute values From XML document.
+  		   - XPath 2.0 is built around the XQuery and XDM, XPath 3.0 support functions as first class value., XPath 3.1 add map and array type so to support JSON
+  		   - Managed by W3C		   
+  
+  -- XQuery - XML Query
+            - XQuery is the language to query XML.
+            - XQuery is a standardized language for combining documents, databases and Web pages
+            - XQuery is a query and functional programming language that queries and transforms collections of structured and unstructured data such as XML, JSON and even database.
+            - Provide flexible query facilities to extract data from real and virtual documents on the World Wide Web.
+  		    - XQuery is to XML what SQL to databases.
+  		    - Managed by W3C
+  		    
+  -- XDM - XQuery and XPath Data Model -- TODO
+         - Managed by W3C
+
+
+
+21 Jan, 2020
 ------------
 Tree Parser such as DOM parse(include Document, DocumentBuilder, DocumentBuilderFactory)treat XML as a tree structure and is suitable for most XML analysis.
 Streaming Parser such as SAX Parser and StAX parser generate event when reading the file, so it is suitable for big and simple XML analysis.
- 
 
 
 
