@@ -1,8 +1,22 @@
 This file is used to record my random thinking come across with
 ===============================================================
 
+24 Jan, 2020
+------------
+Common XML libraries with Java
+	-- JDK - It provides Reading and writing XML files through DOM, SAX and StAX
+		   - It uses Apache xerces inside.
+	-- JAXB - Java Architecture for XML Binding
+			- It deals with mapping between Java classes and XML files
+			- It has been removed from JDK from Java11, and one popular implementation is com.sun.xml.bind-jaxb-impl (JAXBContext Unmarshaller, Marshaller)
+	-- Xalan - Apache Xalan Project
+		     - implements XLST 1.0 and XPath1.0
+    -- Saxon - Implements XLST 2.0 3.x and XPath 2.0, 3.x, XQuery 3.x
+
+
 23 Jan, 2020
 ------------
+DOM is a tree structure parsing XML, there is another way: Streaming XML SAX and StAX
 
   -- SAX - Simple API for XML, also known as Streaming XML.
 	     - An event-driven online algorithm for parsing XML documents.
@@ -39,6 +53,8 @@ The following technologies are around XML and managed by W3C
 		  - XSLT uses XPath to identify subsets of the source document tree and perform calculations
 		  - XSLT 1.0 support basic operations, XSLT 2.0 support date, time and regex for String, XSLT 3.0 support Streaming XML
 		  - Managed by W3C
+  -- XSD - XML Schema Definition 
+         - Validate the structure of another XML
 		  
   -- XPath - XML Path Language.
   		   - A query language for selecting nodes from an XML document.
@@ -56,7 +72,6 @@ The following technologies are around XML and managed by W3C
   		    
   -- XDM - XQuery and XPath Data Model -- TODO
          - Managed by W3C
-
 
 
 21 Jan, 2020
