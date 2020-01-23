@@ -1,5 +1,18 @@
 This file is used to record my random thinking come across with
 ==============================================================
+23 Jan, 2019
+------------
+Tree Parser such as DOM parse(include Document, DocumentBuilder, DocumentBuilderFactory)treat XML as a tree structure and is suitable for most XML analysis.
+Streaming Parser such as SAX Parser and StAX parser generate event when reading the file, so it is suitable for big and simple XML analysis.
+ 
+
+
+
+19 Jan, 2020
+------------
+FileChannel is used for memory-mapping, which can be used
+
+
 
 15 Jan, 2020
 ------------
