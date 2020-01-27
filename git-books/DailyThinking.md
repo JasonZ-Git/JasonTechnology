@@ -31,8 +31,8 @@ There are 4 types of JDBC Driver
 24 Jan, 2020
 ------------
 Common XML libraries with Java
-	-- JDK - It provides Reading and writing XML files through DOM, SAX and StAX
-		   - It uses Apache xerces inside.
+	-- JDK - DOMm SAX StAX - JDK provides Reading and writing XML files through DOM, SAX and StAX, default one is Apache xerces inside.
+		   - XSLT - JDK provide TransformerFactory, the default one is Apache Xalan, but could be modified to Saxon.
 	-- JAXB - Java Architecture for XML Binding
 			- It deals with mapping between Java classes and XML files
 			- It has been removed from JDK from Java11, and one popular implementation is com.sun.xml.bind-jaxb-impl (JAXBContext Unmarshaller, Marshaller)
@@ -80,8 +80,10 @@ The following technologies are around XML and managed by W3C
 		  - XSLT uses XPath to identify subsets of the source document tree and perform calculations
 		  - XSLT 1.0 support basic operations, XSLT 2.0 support date, time and regex for String, XSLT 3.0 support Streaming XML
 		  - Managed by W3C
+		  
   -- XSD - XML Schema Definition 
          - Validate the structure of another XML
+         - Managed by W3C
 		  
   -- XPath - XML Path Language.
   		   - A query language for selecting nodes from an XML document.
@@ -113,6 +115,16 @@ Streaming Parser such as SAX Parser and StAX parser generate event when reading 
 FileChannel is used for memory-mapping, which can be used
 
 
+18 Jan, 2020
+------------
+Regex is very powerful and I used in some scenarios during daily work.
+However, seems I never get a point to fully understand it.
+It is time now - Master Regex in one Week.
+
+
+17 Jan, 2020
+------------
+CyclicBarrier is similar to CountdownLatch, but can be used repeatedly once released.
 
 15 Jan, 2020
 ------------
@@ -120,9 +132,6 @@ Serializable interface
 There is no method in this interface, and if to modify the default serializable method, we need to provide readObject and writeObject method, and are called secretly!!!
 There is a benefit: If an Object implements Serializable, then it is easy to implements the Clone method using ByteArrayInputStream and ByteArrayOutputStream.
 
-
-15 Jan, 2020
-------------
 Clonable interface 
 Clonable interface is ridiculous design, there is no interface, but once you implements it, we need to override the clone() method of Object - Bad Design !!!
 What we should do is to remove the clone method in Object class and add it to Clonable.
