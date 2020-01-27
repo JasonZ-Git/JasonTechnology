@@ -1,6 +1,33 @@
 This file is used to record my random thinking come across with
 ===============================================================
 
+27 Jan, 2020
+------------
+There are 4 types of JDBC Driver
+	-- Type 1 
+		- JDBC-ODBC Bridge Driver
+		- It converts JDBC to ODBC call 
+		- Not recommended to use
+	-- Type 2 
+		- JDBC-Native API Driver
+		- It is partly java, and converts to native code. 
+		- jdbc:oracle:oci is this type
+		- Not recommended
+	-- Type 3 
+		- JDBC-Network Protocol Driver
+		- Pure Java implementation
+		- Client code just needs to use standard Java, all the implementation is within server which connects to DB
+		- Partly Recommended - If there is no type 4 available, then use type 3
+	-- Type 4
+		- JDBC-Database Protocol Driver
+		- Also called thin driver
+		- Pure Java implementation
+		- MySQL support it: jdbc:mysql://<HOST>:<PORT>/<DATABASE_NAME>     com.mysql.jdbc.Driver
+		- Oracle support it: jdbc:oracle:thin@<HOST>:<PORT>:<DATABASE_NAME>     oracle.jdbc.driver.OracleDriver
+		- Recommended - Most DB system supports this thin type, though some doesn't contain thin in the name.
+		
+
+
 24 Jan, 2020
 ------------
 Common XML libraries with Java
