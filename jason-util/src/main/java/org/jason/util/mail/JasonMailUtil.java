@@ -1,6 +1,5 @@
 package org.jason.util.mail;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

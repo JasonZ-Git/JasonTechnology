@@ -1,5 +1,29 @@
-This file is used to record my random thinking come across with
+This file is used to record my random brain storm
 ===============================================================
+30 Jan, 2020
+------------
+Why are we still using abstract class (java.time.clock)
+
+
+29 Jan, 2020
+------------
+The problem of old java.util.Date
+
+
+New time API: java.time.
+LocalDate, LocalTime, Period, Duration, ZonedDateTime, DateTime, Instant, DateTimeFormatter, ZoneId, Clock
+TemporalAdjusters. TemporalAmount, TemporalAdjuster -- Needs more in deep check -- TODO
+
+
+28 Jan, 2020
+------------
+Java DB project is directly from Apache Derby, it was originally contained within JDK 6 and removed from JDK 8.
+Apache Derby is actively developed and is a embedded DB that is pure Java, support JDBC and support standard SQL.
+
+HSQLDB is another embedded DB system, which seems gain more popularity(Used by LibreOffice and OpenOffice).
+	-- HSQLDB support JDBC 4 and closely to SQL2011 standard.
+	-- HSQLDB support table level locking.
+	-- jdbc:hsqldb:hsql://<HOST>/testdb   org.hsqldb.jdbc.JDBCDriver
 
 27 Jan, 2020
 ------------
@@ -24,8 +48,7 @@ There are 4 types of JDBC Driver
 		- Pure Java implementation
 		- MySQL support it: jdbc:mysql://<HOST>:<PORT>/<DATABASE_NAME>     com.mysql.jdbc.Driver
 		- Oracle support it: jdbc:oracle:thin@<HOST>:<PORT>:<DATABASE_NAME>     oracle.jdbc.driver.OracleDriver
-		- Recommended - Most DB system supports this thin type, though some doesn't contain thin in the name.
-		
+		- Recommended - Most DB system supports this thin type, though some doesn't contain thin in the name
 
 
 24 Jan, 2020
@@ -107,7 +130,6 @@ The following technologies are around XML and managed by W3C
 ------------
 Tree Parser such as DOM parse(include Document, DocumentBuilder, DocumentBuilderFactory)treat XML as a tree structure and is suitable for most XML analysis.
 Streaming Parser such as SAX Parser and StAX parser generate event when reading the file, so it is suitable for big and simple XML analysis.
-
 
 
 19 Jan, 2020
