@@ -7,10 +7,14 @@ Why are we still using abstract class (java.time.clock)
 
 29 Jan, 2020
 ------------
-The problem of old java.util.Date
+Summary the bad design of old java Date
+	-- Date is mutable, which makes it not safe.
+	-- Date constructor Date(year, month, day), the year is actually (year - 1900), month is (month - 1)
+	-- Calendar
+	-- 
+	
 
-
-New time API: java.time.
+New time API: java.time
 LocalDate, LocalTime, Period, Duration, ZonedDateTime, DateTime, Instant, DateTimeFormatter, ZoneId, Clock
 TemporalAdjusters. TemporalAmount, TemporalAdjuster -- Needs more in deep check -- TODO
 

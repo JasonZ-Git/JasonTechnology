@@ -4,25 +4,29 @@
 package org.jason.util.finalclass;
 
 /**
- * 表示 两个 对象
+ * Two objects
  * 
  * @author Jason Zhang
  * 
  */
 public class Pair<T, U> {
-	private final T first;
-	private final U second;
+	private final T left;
+	private final U right;
 
-	public Pair(T t, U u) {
-		this.first = t;
-		this.second = u;
+	private Pair(T t, U u) {
+		this.left = t;
+		this.right = u;
+	}
+	
+	public static <T, U> Pair<T,U> of(T t, U u) {
+		return new Pair<>(t, u);
 	}
 
-	public T getFirst() {
-		return this.first;
+	public T getLeft() {
+		return this.left;
 	}
 
-	public U getSecond() {
-		return this.second;
+	public U getRight() {
+		return this.right;
 	}
 }
