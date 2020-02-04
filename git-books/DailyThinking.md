@@ -1,8 +1,39 @@
 This file is used to record my random brain storm
 ===============================================================
+
+TODO List
+---------
+  -- Regex
+  -- Think a way to perfectly support JSON in Java
+  -- PrintWriter, Scanner
+  -- URL & URI
+  -- HTTP/2
+  -- GraphQL
+
+
+05 Feb, 2020
+------------
+From Java 9, finially complete in Java 11, new Http Client is more user friendly.
+It is specially designed for HTTP, and support HTTP/2, related classes are:
+HttpClient, HttpRequest, HttpResponse, HttpRequest.BodyPublisher, HttpRequest.BodyPublishers
+
+
+04 Feb, 2020
+------------
+Git Advanced:
+	Alias a branch name: git symbolic-ref refs/heads/trunk refs/heads/master
+	Delete a symbolic created above: git symbolic-ref -d refs/heads/trunk    -- Do not use git branch -d to delete a symbolic
+	
+
+03 Feb, 2020
+------------
+Data sharing - Datapool, interface - TODO
+
+
 30 Jan, 2020
 ------------
-Why are we still using abstract class (java.time.clock)
+Why are we still using abstract class?? - TODO
+ (java.time.clock)
 
 
 29 Jan, 2020
@@ -28,6 +59,7 @@ HSQLDB is another embedded DB system, which seems gain more popularity(Used by L
 	-- HSQLDB support JDBC 4 and closely to SQL2011 standard.
 	-- HSQLDB support table level locking.
 	-- jdbc:hsqldb:hsql://<HOST>/testdb   org.hsqldb.jdbc.JDBCDriver
+
 
 27 Jan, 2020
 ------------
@@ -151,6 +183,7 @@ It is time now - Master Regex in one Week.
 17 Jan, 2020
 ------------
 CyclicBarrier is similar to CountdownLatch, but can be used repeatedly once released.
+
 
 15 Jan, 2020
 ------------
