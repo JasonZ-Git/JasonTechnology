@@ -10,6 +10,13 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+/**
+ * This class should be refactored using the new HttpClient which is available from Java 11
+ * 
+ * @author Jason Zhang
+ *
+ */
+
 public final class WebCrawlUtil {
   private static final Logger logger  = Logger.getLogger(WebCrawlUtil.class);
   

@@ -9,25 +9,52 @@ TODO List
   -- URL & URI
   -- HTTP/2
   -- GraphQL
+  -- Java Memory Model
 
 
 05 Feb, 2020
 ------------
-From Java 9, finially complete in Java 11, new Http Client is more user friendly.
-It is specially designed for HTTP, and support HTTP/2, related classes are:
-HttpClient, HttpRequest, HttpResponse, HttpRequest.BodyPublisher, HttpRequest.BodyPublishers
+Java Network
+	-- Socket
+			- Socket is quite fundamental level
+			- Socket, ServerSocket together with InputStream OutputStream
+	-- Connection
+			- Connection Level is build on top of Socket.
+			- URL, URLConnection, HttpURLConnection
+	-- HttpClient
+			- From Java 9, complete in Java 11
+			- Support Http/2
+			- Specially designed for HTTP
+			- HttpClient, HttpRequest, HttpResponse, HttpRequest.BodyPublisher, HttpRequest.BodyPublishers
+
+    Common facility - InetAddress - Convert IP adress and domain name
 
 
 04 Feb, 2020
 ------------
 Git Advanced:
-	Alias a branch name: git symbolic-ref refs/heads/trunk refs/heads/master
-	Delete a symbolic created above: git symbolic-ref -d refs/heads/trunk    -- Do not use git branch -d to delete a symbolic
+	git symbolic-ref refs/heads/trunk refs/heads/master -- Alias a branch name
+	git symbolic-ref -d refs/heads/trunk                -- Do not use git branch -d to delete a symbolic -- Delete a symbolic created above: 
+	git merge-base branch_one branch_two                -- Find a common base of 2 branches(or commits): 
+	git diff commit1 commit2                            -- Find difference between commits, not include the first commit, to include use commit1^()
 	
 
 03 Feb, 2020
 ------------
-Data sharing - Datapool, interface - TODO
+Data sharing technology in Java
+There are 3 different level of Data exchange technologies:
+Information Exchange
+    -- CPU Level - CPU Cache - Can be regarded the same as Memory Level data share.
+    -- Memory Level - Variable (Object) 
+    	- Memory Level is more efficient than efficient than Disc and Internet Level due to speed.
+    	- All disc level & Internet Level information will be exchanged via its own memory.
+    -- Disc Level - File, Database
+    -- Internet Level - WebService, or 
+
+Different processes(programmes) can share data through Disc Level and Internet Level.
+Different threads within the same process can share data through Memory Level, Disc level and Internet level.
+
+As Memory Level is far more efficient than Disc Level and Internet Level, thus provide the
 
 
 30 Jan, 2020
@@ -39,7 +66,7 @@ Why are we still using abstract class?? - TODO
 29 Jan, 2020
 ------------
 Summary the bad design of old java Date
-	-- Date is mutable, which makes it not safe.
+    -- Date is mutable, which makes it not safe.
 	-- Date constructor Date(year, month, day), the year is actually (year - 1900), month is (month - 1)
 	-- Calendar
 	-- 
