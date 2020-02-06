@@ -1,4 +1,9 @@
 # This file records my thinking of improving java language, including the design issue & JDK libraries
+-----------------------------------------------------------------------------------------------------------------------------------
+
+# Currency should have predefined values like Locale. 
+
+
 
 # ZipConstants should not be an interface, it should be a final class.
 
@@ -31,7 +36,7 @@ interface Switchable {
 }
 
 # Enum
-Every enum type extends Enum implicitly, but there is a secretly added method values() and valueOf by compiler.
+Every enum type extends Enum implicitly, but there are 2 methods secretly added in compile time: values() and valueOf by compiler.
 That should be a way to use the standard Enum class, instead of secretly doing this doggy. - @TODO Futher action needed.
 Enum should be an interface, instead of abstract class.
 

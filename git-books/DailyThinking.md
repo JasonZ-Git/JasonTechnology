@@ -12,6 +12,16 @@ TODO List
   -- Java Memory Model
 
 
+06 Feb, 2020
+------------
+Several Locale related classes
+    Locale -- country & language
+    Currency - getInstance
+    NumberFormat -  getCurrencyInstance, getNumberInstance, getIntegerInstance, getPercentInstance.
+    Collator - Collator.getInstance - localized comparator
+	ResourceBundle - getBundle, 
+
+
 05 Feb, 2020
 ------------
 Java Network
@@ -27,7 +37,8 @@ Java Network
 			- Specially designed for HTTP
 			- HttpClient, HttpRequest, HttpResponse, HttpRequest.BodyPublisher, HttpRequest.BodyPublishers
 
-    Common facility - InetAddress - Convert IP adress and domain name
+Common facility 
+    -- InetAddress - Convert IP address and domain name
 
 
 04 Feb, 2020
@@ -35,8 +46,8 @@ Java Network
 Git Advanced:
 	git symbolic-ref refs/heads/trunk refs/heads/master -- Alias a branch name
 	git symbolic-ref -d refs/heads/trunk                -- Do not use git branch -d to delete a symbolic -- Delete a symbolic created above: 
-	git merge-base branch_one branch_two                -- Find a common base of 2 branches(or commits): 
-	git diff commit1 commit2                            -- Find difference between commits, not include the first commit, to include use commit1^()
+	git merge-base branch_one branch_two                -- Find a common base of 2 branches(or commits)
+	git diff commit1 commit2 --name-only               -- Find difference between commits, not include the first commit, to include use commit1^()
 	
 
 03 Feb, 2020
