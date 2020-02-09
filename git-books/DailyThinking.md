@@ -5,7 +5,6 @@ TODO List
 ---------
   -- Regex
   -- Think a way to perfectly support JSON in Java
-  -- PrintWriter, Scanner
   -- URL & URI
   -- HTTP/2
   -- GraphQL
@@ -70,8 +69,27 @@ As Memory Level is far more efficient than Disc Level and Internet Level, thus p
 
 30 Jan, 2020
 ------------
-Why are we still using abstract class?? - TODO
- (java.time.clock)
+Why are we still using abstract class??
+This is the comparison:
+	-- Interface can only has public static final variables, while abstract class can have.
+	-- Interface can only has public methods, while abstract class can have all 4 types.
+	-- Interface can not have final methods while abstract class can have.
+	-- Interface cannot have constructor while abstract class could have(cannot instance one though).
+
+![difference](images/interface_abstract_comparation.png)
+
+So there are 2 type of coding philosophy:
+	-- Using Abstract class to do everything (java.util.Calendar, java.time.Clock):
+		 - Create a concrete classes internally (through factory methods Calendar)
+		 - provide facilities(static class)
+		 - provide internal implementation through internal class
+	-- Using Interface and a final tool class (java.nio.Path, java.nio.Paths)
+		 - Interface provide factory method to construct concrete instance from default configuration or system. 
+		 - Provide common interface methods.
+		 - Provide default methods.
+		 - Tool class is just provide some convenient methods.
+
+From my mind, if I redesign a new language, abstract class should be removed.
 
 
 29 Jan, 2020
