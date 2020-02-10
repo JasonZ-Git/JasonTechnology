@@ -2,6 +2,11 @@ package org.jason.util;
 
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.apache.log4j.Logger;
@@ -22,6 +27,11 @@ public final class WebCrawlUtil {
   
   // Use google bot as agent string.
   private static final String USER_AGENT = "Mozilla/5.0";
+  
+  private static final String USER_AGENT_KEY = "User-Agent";
+  
+  
+  private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(Version.HTTP_2).build();
 
   private WebCrawlUtil() {
     throw new AssertionError("No " + WebCrawlUtil.class + " instances for you!");
@@ -48,6 +58,17 @@ public final class WebCrawlUtil {
     }
 
     return htmlDocument;
+  }
+  
+  // TODO Test -- Needs to test
+  public static HttpResponse<String> crawlPage2 (@Nonnull final String url) throws IOException, InterruptedException {
+	  Objects.requireNonNull(url); 
+	  
+	  HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).setHeader(USER_AGENT_KEY, USER_AGENT).build();
+	  
+	  var response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+	  
+	  return response;
   }
 
   /**

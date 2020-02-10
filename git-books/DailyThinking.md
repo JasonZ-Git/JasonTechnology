@@ -31,6 +31,10 @@ However, there are a lot of objections in java community - Anti pattern,
 ------------
 HTTP/2 is released in 2015 and 
 
+07 Feb, 2020
+------------
+ScriptEngine, JavaCompiler
+
 
 06 Feb, 2020
 ------------
@@ -67,8 +71,9 @@ Git Advanced:
 	git symbolic-ref refs/heads/trunk refs/heads/master -- Alias a branch name
 	git symbolic-ref -d refs/heads/trunk                -- Do not use git branch -d to delete a symbolic -- Delete a symbolic created above: 
 	git merge-base branch_one branch_two                -- Find a common base of 2 branches(or commits)
-	git diff commit1 commit2 --name-only               -- Find difference between commits, not include the first commit, to include use commit1^()
-	
+	git diff commit1 commit2 --name-only                -- Find difference between commits, not include the first commit, to include use commit1^()
+	git log -- folder                                   -- Logs of files within a folder 
+	git cherry-pick commit1^..commit2                   -- pick all commits from commit1 to commit2
 
 03 Feb, 2020
 ------------
@@ -115,12 +120,12 @@ From my mind, if I redesign a new language, abstract class should be removed.
 
 29 Jan, 2020
 ------------
-Summary the bad design of old java Date
+Summary the bad design of old java Date -- TODO
     -- Date is mutable, which makes it not safe.
 	-- Date constructor Date(year, month, day), the year is actually (year - 1900), month is (month - 1)
 	-- Calendar
 	-- 
-	
+
 
 New time API: java.time
 LocalDate, LocalTime, Period, Duration, ZonedDateTime, DateTime, Instant, DateTimeFormatter, ZoneId, Clock
