@@ -24,12 +24,37 @@ Annotation is a great feature, gain success in enterprise application developmen
 In core Java, seems all the mandatory annotations are still processed at compile time, such as Override.
 Runtime level annotations are still servers as an explanation instead of mandatory. Such as @Nonnull, @Nullable
 
-However, there are a lot of objections in java community - Anti pattern, 
+However, there are a lot of objections in java community - Anti pattern. 
+
+
+14 Feb, 2020
+------------
+JxBrowser is a library that allows web browser into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
+
+
+12 Feb, 2020
+------------
+Annotation 
+	-- JSR-175
+	-- JSR-269
+	-- JSR-305
+
+Is it possible to - TODO
 
 
 09 Feb, 2020
 ------------
 HTTP/2 is released in 2015 and 
+  	 - HTTP, HTTP/2, HTTP/3
+  	 - Parse HTTP page in Java
+  -- GraphQL
+  -- Java Memory Model
+  -- Is it possible to turn on runtime check and fail if exception occur for JVM? for example Nonnull.
+  -- keycloak - what is used for? theory behind it.
+  -- ANTLR is an interesting tool, needs more investigation.
+  -- Worth a whole check about all different JSRs.
+  -- ASM library is used to modify java class file.
+  -- Spriting is a technical to merge small images into a big one and then extract them out by small one.
 
 07 Feb, 2020
 ------------
@@ -42,8 +67,8 @@ Several Locale related classes
     Locale -- country & language
     Currency - getInstance
     NumberFormat -  getCurrencyInstance, getNumberInstance, getIntegerInstance, getPercentInstance.
-    Collator - Collator.getInstance - localized comparator
-	ResourceBundle - getBundle, 
+    Collator - Collator.getInstance - localized comparator.
+	ResourceBundle - getBundle - deal with resource files automatically according to 
 
 
 05 Feb, 2020

@@ -54,13 +54,14 @@ Now we know that we should reply on template, to handle static part,  JS to cont
 So in model design, we use HTML, JS, CSS these 3 standards to provide UI solution which is handled by Swing & AWT -- that is too heavy a task.
 
 So we should depends on template from the beginning, get rid of Swing and AWT, use web to do the UI.
+There is a JxBrowser library which build an inner browser within Java UI(panel?) and allows applications like in the web.
 
 # Using Generic from the beginning - make it a must not just recommendation.
 
 
 # Redesign Serialization and Clonable interface
 These 2 interfaces are doesn't are dummy interfaces, and jvm secretly do operation on there subclasses. Best to use annotation to replace these kind of interfaces.
-
+The idea of 'Replace Serializable interface with Annotation' is also supported by book 'Core Java' 
 
 # New Stream API - TODO - Think how to improve it from language level
 The stream API is great to simplify simple loops and make java cool again
