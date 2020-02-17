@@ -11,6 +11,21 @@ TODO List
   -- HTTP / handshake
   -- GraphQL
   -- Java Memory Model
+  -- More thinking about annotation
+
+17 Feb, 2020
+------------
+Annotation is a great feature, gain success in enterprise application development, the most successful usage of annotation are:
+	 - Scenarios which requires data transformation between java and other type systems - like database, XML - to avoid extra mapping.
+	 - Scenarios which require extra configuration to link the code and intend - such as web restful URL mapping.
+	 - Scenarios which rely on code convention to finish a function - such as unit test.
+	 - Scenarios which needs extra code ensure an common function, which has been features in other languages such as @Nonnull @Nullable
+	 
+In core Java, seems all the mandatory annotations are still processed at compile time, such as Override.
+Runtime level annotations are still servers as an explanation instead of mandatory. Such as @Nonnull, @Nullable
+
+However, there are a lot of objections in java community - Anti pattern, 
+
 
 09 Feb, 2020
 ------------
