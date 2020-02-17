@@ -7,8 +7,14 @@ TODO List
   -- Think a way to perfectly support JSON in Java
   -- URL & URI
   -- HTTP/2
+  -- HTTP/3
+  -- HTTP / handshake
   -- GraphQL
   -- Java Memory Model
+
+09 Feb, 2020
+------------
+HTTP/2 is released in 2015 and 
 
 
 06 Feb, 2020
