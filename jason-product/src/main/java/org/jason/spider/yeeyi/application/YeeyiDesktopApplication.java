@@ -9,7 +9,7 @@ import org.apache.commons.mail.EmailException;
 import org.jason.spider.yeeyi.YeeyiCriteria;
 import org.jason.spider.yeeyi.YeeyiUtil;
 import org.jason.spider.yeeyi.controller.RentingVO;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 
 
@@ -30,7 +30,7 @@ public class YeeyiDesktopApplication {
     for (String current : DEFAULT_AREA) {
       String extended = YeeyiCriteria.build().district(current).getSearchCriteria();
       String url = BasicURL + extended;
-      Document document = WebCrawlUtil.crawlPage(url);
+      Document document = SpiderUtil.crawlPage(url);
 
       List<RentingVO> items = YeeyiUtil.toRentingVO(document);
 

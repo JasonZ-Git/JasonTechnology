@@ -12,7 +12,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jason.spider.yeeyi.controller.RentingVO;
 import org.jason.spider.yeeyi.dao.RentRecordDO;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -49,7 +49,7 @@ public final class YeeyiUtil {
     Document yeeyiRentPage =  null;
     
     try {
-      yeeyiRentPage = WebCrawlUtil.crawlPage(YeeyiRentingURL);
+      yeeyiRentPage = SpiderUtil.crawlPage(YeeyiRentingURL);
     } catch (IOException e) {
       logger.error(e);
     }

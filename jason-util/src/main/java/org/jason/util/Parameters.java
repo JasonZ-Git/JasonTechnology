@@ -3,7 +3,7 @@ package org.jason.util;
 /**
  * This class is to enhance java.util.Objects
  * 
- * @author jason zhang
+ * @author Jason Zhang
  *
  */
 public final class Parameters {

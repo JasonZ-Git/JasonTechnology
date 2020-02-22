@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.annotation.concurrent.ThreadSafe;
 import org.apache.commons.lang3.StringUtils;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -124,7 +124,7 @@ public class MonicaLoveShopping {
 
     private List<String> crawlCategoryForItems(String categoryPage) throws IOException {
 
-      Document categoryPageDoc = WebCrawlUtil.crawlPage(categoryPage);
+      Document categoryPageDoc = SpiderUtil.crawlPage(categoryPage);
 
       Elements gridItems = categoryPageDoc.select(".grid-item");
 
@@ -197,7 +197,7 @@ public class MonicaLoveShopping {
     @Override
     public List<String> crawl() throws IOException {
 
-      Document myDealCategoryPage = WebCrawlUtil.crawlPage(MY_DEAL_CATEGORIES);
+      Document myDealCategoryPage = SpiderUtil.crawlPage(MY_DEAL_CATEGORIES);
 
       Elements categories = myDealCategoryPage.select(MY_DEAL_CATEGORY_CLASS);
 

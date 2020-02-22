@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.jason.spider.PageSpider;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -21,7 +21,7 @@ public class MyDealCategoryPageSpider implements PageSpider<String> {
   @Override
   public List<String> crawl() throws IOException {
 
-    Document myDealCategoryPage = WebCrawlUtil.crawlPage(MyDealUtil.MY_DEAL_CATEGORIES);
+    Document myDealCategoryPage = SpiderUtil.crawlPage(MyDealUtil.MY_DEAL_CATEGORIES);
 
     Elements categories = myDealCategoryPage.select(MY_DEAL_CATEGORY_CLASS);
 

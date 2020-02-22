@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.jason.spider.yeeyi.YeeyiCriteria;
 import org.jason.spider.yeeyi.YeeyiUtil;
 import org.jason.spider.yeeyi.controller.RentingVO;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jason.util.exception.PageNotFoundException;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class YeeyiControllerTest {
     for (String current : areas) {
       String extended = YeeyiCriteria.build().district(current).toString();
       String url = basicURL + extended;
-      Document document = WebCrawlUtil.crawlPage(url);
+      Document document = SpiderUtil.crawlPage(url);
 
       List<RentingVO> items = YeeyiUtil.toRentingVO(document);
 

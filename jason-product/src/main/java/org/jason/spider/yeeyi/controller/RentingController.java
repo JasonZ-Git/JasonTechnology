@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.jason.spider.yeeyi.YeeyiServiceImpl;
 import org.jason.spider.yeeyi.YeeyiUtil;
 import org.jason.spider.yeeyi.dao.RentRecordDO;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jason.util.exception.PageNotFoundException;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class RentingController {
   @RequestMapping("/crawlYeeyi")
   public String crawlYeeyi(@RequestParam(value = "url", defaultValue = DEFAULT_YEEYI_PAGE) String url) throws PageNotFoundException {
     try {
-      Document document = WebCrawlUtil.crawlPage(url);
+      Document document = SpiderUtil.crawlPage(url);
       
       List<RentingVO> items = YeeyiUtil.toRentingVO(document);
       

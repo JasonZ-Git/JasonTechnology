@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.StringUtils;
 import org.jason.util.Requirements;
-import org.jason.util.WebCrawlUtil;
+import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -70,7 +70,7 @@ public class MyDealCategoryTask implements Callable<List<String>> {
 
   private List<String> crawlCategoryForItems(String categoryPage) throws IOException {
 
-    Document categoryPageDoc = WebCrawlUtil.crawlPage(categoryPage);
+    Document categoryPageDoc = SpiderUtil.crawlPage(categoryPage);
 
     Elements gridItems = categoryPageDoc.select(".grid-item");
 
