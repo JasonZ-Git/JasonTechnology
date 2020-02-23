@@ -12,6 +12,15 @@ TODO List
   -- GraphQL
   -- Java Memory Model
   -- More thinking about annotation
+  -- Apache Kafka
+
+
+18 Feb, 2020
+------------
+
+
+
+
 
 17 Feb, 2020
 ------------
@@ -29,7 +38,9 @@ However, there are a lot of objections in java community - Anti pattern.
 
 14 Feb, 2020
 ------------
-JxBrowser is a library that allows web browser into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
+JxBrowser is a library that allows web technology into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
+It uses v8 js engine(chrome engine) to drive the web.
+A pretty cool technology.
 
 
 12 Feb, 2020
