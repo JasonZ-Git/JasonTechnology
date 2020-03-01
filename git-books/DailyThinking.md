@@ -12,6 +12,47 @@ TODO List
   -- GraphQL
   -- Java Memory Model
   -- More thinking about annotation
+  -- Apache Kafka
+  -- JFrog
+  -- Kotlin
+  -- Swift
+  -- swagger
+  -- keycloak
+  -- batik
+  -- org.apache.cxf
+  -- jakarta-regexp
+  -- Apache Mina
+  -- Apache Cassandra
+  -- junit-jupiter-engine
+  -- jsoup
+
+
+24 Feb, 2020
+------------
+Java Module provides a package level encapsulation.
+It is useful for controlling the visibility of classes hence further decouple modules.
+	-- It is useful for framework like JDK, Apache and SpringFramework which has a limited classes (thousands or 10s of thousands)
+	-- Encapsulation of Internal Packages
+	-- Startup Detection of missing modules - Instead of runtime detection.
+	-- It is easy to read code in module within Eclipse.
+	-- It is a good practice to encourage developers to think more carefully when creating new packages.
+
+Whether it is useful for general java system is still questionable for 2 reasons:
+	-- For back capacity, it only existing code by allowing all to be exposed as a default behavior.
+	-- It is useful when the whole system is using module.
+	-- It doesn't have version control.
+
+
+Useful tools for Java Module
+    -- Recommended module name is the root Java package contained in the module - reversed domain name - for example, com.bravura, org.jason
+	-- java --list-modules  == This is used to list all modules
+
+
+18 Feb, 2020
+------------
+
+
+
 
 17 Feb, 2020
 ------------
@@ -29,7 +70,9 @@ However, there are a lot of objections in java community - Anti pattern.
 
 14 Feb, 2020
 ------------
-JxBrowser is a library that allows web browser into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
+JxBrowser is a library that allows web technology into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
+It uses v8 js engine(chrome engine) to drive the web.
+A pretty cool technology.
 
 
 12 Feb, 2020
