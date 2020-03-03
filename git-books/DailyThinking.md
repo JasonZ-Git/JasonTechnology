@@ -25,12 +25,24 @@ TODO List
   -- Apache Cassandra
   -- junit-jupiter-engine
   -- jsoup
+
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
 
 1 March, 2020
 ------------
 The key design difference between Java, NodeJS, Python
+  -- widefly
+  -- class loader of java
+
+28 Feb, 2020
+-----------
+There is a dom4j issue today, finially found it is caused by maven dependency scope:
+There are 3 classpaths in maven: compile, test and runtime, there are different scopes and availability:
+	-- compile - it is default scope, 'compile' scope dependencies are available for all 3 classpaths - transitive.
+	-- provided - 'provided' scope dependencies are available compile & test classpath only, not available in runtime classpath - not transitive.
+	-- runtime - 'runtime' scope dependencies are available in runtime and test classpath, but not available in compile classpath - transitive
+	-- test - 'test' scope dependencies are available on test classpath only - not transitive.
 
 
 24 Feb, 2020
