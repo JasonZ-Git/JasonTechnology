@@ -6,14 +6,10 @@ import java.util.List;
 import org.jason.dao.ShoppingDAO;
 import org.jason.dao.ShoppingItem;
 import org.jason.service.ShoppingServiceImpl;
-import org.junit.Assert;
-import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.MockitoAnnotations;
-import org.junit.Before;
 
 /**
  * Test class for shoppingService

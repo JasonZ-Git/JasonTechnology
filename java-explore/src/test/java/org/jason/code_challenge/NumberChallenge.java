@@ -1,4 +1,4 @@
-package org.jason.codechallenge;
+package org.jason.code_challenge;
 
 import java.util.Arrays;
 import java.util.Collections;

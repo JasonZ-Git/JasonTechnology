@@ -25,6 +25,12 @@ TODO List
   -- Apache Cassandra
   -- junit-jupiter-engine
   -- jsoup
+  -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
+  -- selenium can be used for automation testing - How can it be used to run test without starting browser.
+
+1 March, 2020
+------------
+The key design difference between Java, NodeJS, Python
 
 
 24 Feb, 2020
@@ -240,7 +246,7 @@ There are 4 types of JDBC Driver
 24 Jan, 2020
 ------------
 Common XML libraries with Java
-	-- JDK - DOMm SAX StAX - JDK provides Reading and writing XML files through DOM, SAX and StAX, default one is Apache xerces inside.
+	-- JDK - DOM SAX StAX - JDK provides Reading and writing XML files through DOM, SAX and StAX, default one is Apache xerces inside.
 		   - XSLT - JDK provide TransformerFactory, the default one is Apache Xalan, but could be modified to Saxon.
 	-- JAXB - Java Architecture for XML Binding
 			- It deals with mapping between Java classes and XML files
