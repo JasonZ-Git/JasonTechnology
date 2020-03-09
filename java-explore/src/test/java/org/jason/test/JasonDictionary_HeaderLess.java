@@ -3,9 +3,7 @@ package org.jason.test;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
@@ -14,6 +12,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class JasonDictionary_HeaderLess {
 
+  private static final String Google_Translate_URL = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=world";
+  
   @Ignore
   public void htmlUnit_Test() throws Exception {
       try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
@@ -31,7 +31,7 @@ public class JasonDictionary_HeaderLess {
   @Ignore
   public void googleTranslate_Test() throws Exception {
       try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
-          final HtmlPage page = webClient.getPage("https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=world");
+          final HtmlPage page = webClient.getPage(Google_Translate_URL);
           Assert.assertEquals("HtmlUnit – Welcome to HtmlUnit", page.getTitleText());
 
           final String pageAsXml = page.asXml();
@@ -43,7 +43,7 @@ public class JasonDictionary_HeaderLess {
   }
   
   @Test
-  public void headless_SeleniumTest (){
+  public void headless_SeleniumTest (){ 
       
     HtmlUnitDriver driver = new HtmlUnitDriver();
     driver.setJavascriptEnabled(true); 
@@ -51,11 +51,12 @@ public class JasonDictionary_HeaderLess {
      
     System.out.println("Title of the page is" + driver.getTitle());
      
+    driver.get(Google_Translate_URL);
+    System.out.println("Title of the page is" + driver.getTitle());
+    
     //WebElement java = driver.findElement(By.name("q"));
     //java.sendKeys("Java Code Geeks");
     //java.submit();
- 
-    System.out.println("Title of the page now is " + driver.getTitle());
   }
   
   @Ignore

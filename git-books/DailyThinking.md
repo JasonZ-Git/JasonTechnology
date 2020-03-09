@@ -29,6 +29,30 @@ TODO List
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
 
+8 March, 2020
+------------
+HTML Renders available in Java
+	-- CSSBox 
+		- HTML/CSS rendering engine.
+		- It can render css and html only.
+		- Doesn't support JS.
+	-- JxBrowser
+		- It contains a browser inside a Java Swing application.
+		- Utilize the browser to render web within UI.
+		- Doesn't support headless mode.
+	-- HtmlUnit 
+		- A pure Java Engine.
+		- Headless engine.
+		- 
+	-- Headless Chrome
+		- Chrome browser support 
+
+6 March, 2020
+------------
+As a summary of the work in the past month - Raumati Branch Picture
+
+
+
 1 March, 2020
 ------------
 The key design difference between Java, NodeJS, Python
