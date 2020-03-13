@@ -28,6 +28,8 @@ TODO List
 
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
+  -- IntelliJ & Eclipse
+
 
 13 March, 2020
 ------------
