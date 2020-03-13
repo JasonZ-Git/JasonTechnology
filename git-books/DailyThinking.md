@@ -25,7 +25,6 @@ TODO List
   -- Apache Cassandra
   -- junit-jupiter-engine
   -- jsoup
-
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
   -- IntelliJ & Eclipse
@@ -33,6 +32,22 @@ TODO List
 
 13 March, 2020
 ------------
+Eclipse & IntelliJ IDEA
+I have using Eclipse from 2010, and IntelliJ for 1 week.
+As recommended by ex-fellow from Alibaba and Architecture from my current company, I decided to try IntelliJ IDEA.
+By far, I have managed to run our product. 
+Currently still in the stage of mastering useful hotkey of IntelliJ.
+I haven't notice things that are declared by other 'Far Better' - seems all the things IntelliJ can do, eclipse do it well, as Eclipse is just community driven, while IntelliJ is developed by a company, so I doubt is it just because IntelliJ put more money on advertisement?
+There are many comments against Eclipse which seems they compare a old eclipse version or that they are using eclipse instead of Eclipse Java EE version.
+
+Eclipse does a pretty good job - Really great design - plugin driven framework.
+
+Eclipse used to be unstable, but now it is very stable.
+There are 2 points which seems IntelliJ is better:
+	- Debug variable value is more direct.
+	- Using Vim-Simulator as the editor is good.
+	
+I will try some more time for IntelliJ and then decide to whether to keep on eclipse or totally switch to IntelliJ.
 
 
 8 March, 2020
