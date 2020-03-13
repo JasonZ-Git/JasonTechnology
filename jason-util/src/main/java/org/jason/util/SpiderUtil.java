@@ -10,14 +10,14 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jason.annotation.ReplacedBy;
 import org.jason.annotation.ToRefactor;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import com.google.gson.annotations.Since;
 
 /**
  * This class should be refactored using the new HttpClient which is available from Java 11 @TODO
@@ -28,7 +28,7 @@ import com.google.gson.annotations.Since;
 
 @ToRefactor("Using HttpClient from Java 11 to refactor")
 public final class SpiderUtil {
-  private static final Logger logger = Logger.getLogger(SpiderUtil.class);
+  private static final Logger logger = LogManager.getLogger(SpiderUtil.class);
 
   // Use google bot as agent string.
   private static final String USER_AGENT = "Mozilla/5.0";

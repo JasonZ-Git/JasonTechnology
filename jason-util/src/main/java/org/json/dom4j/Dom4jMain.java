@@ -1,9 +1,8 @@
 package org.json.dom4j;
 
 import java.io.InputStream;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -19,11 +18,9 @@ import org.dom4j.io.SAXReader;
  * 
  */
 public class Dom4jMain {
-	private static Logger log = Logger.getLogger("dom4jLogger");
+	private static Logger log = LogManager.getLogger("dom4jLogger");
 
 	public static void main(String[] args) throws DocumentException {
-		PropertyConfigurator.configure(Dom4jMain.class.getClassLoader()
-				.getResource("log4j.properties"));
 
 		log.info("started");
 		Dom4jMain main = new Dom4jMain();

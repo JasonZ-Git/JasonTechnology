@@ -2,7 +2,8 @@ package org.jason.spider.yeeyi;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.jason.spider.yeeyi.dao.RentRecordDO;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class YeeyiSpiderTask implements Runnable {
 
-  private Logger logger = Logger.getLogger(this.getClass());
+  private Logger logger = LogManager.getLogger(this.getClass());
   
   private int intervalInSeconds = 20;
   

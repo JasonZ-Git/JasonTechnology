@@ -22,7 +22,8 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jason.util.Parameters;
 
 
@@ -35,7 +36,7 @@ public class JasonCalendarUtil {
   private static final String APPLICATION_NAME = "Jason Calendar";
   private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
   private static final String TOKENS_DIRECTORY_PATH = "calendar-generate-token";
-  private static final Logger logger = Logger.getLogger(JasonCalendarUtil.class);
+  private static final Logger logger = LogManager.getLogger(JasonCalendarUtil.class);
   /**
    * Global instance of the scopes required by this quickstart. If modifying these scopes, delete your
    * previously saved tokens/ folder.

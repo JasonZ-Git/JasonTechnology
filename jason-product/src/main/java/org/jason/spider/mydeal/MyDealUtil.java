@@ -13,7 +13,8 @@ import java.util.concurrent.Future;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.jason.spider.PageSpider;
 import org.jason.util.Requirements;
 
@@ -27,7 +28,7 @@ public class MyDealUtil {
   
   public static final int DEFAULT_THREAD_NUMBER = 100;
 
-  private static final Logger logger = Logger.getLogger(MyDealUtil.class);
+  private static final Logger logger = LogManager.getLogger(MyDealUtil.class);
 
   private MyDealUtil() throws Exception {
     throw new Exception("Init not allowed for utiliy class");

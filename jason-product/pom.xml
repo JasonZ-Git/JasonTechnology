@@ -11,7 +11,7 @@
 
 	<artifactId>jason-product</artifactId>
 
-	<name>Self service system by jason</name>
+	<name>Jason Product</name>
 	<url>http://www.jason-zhang.org</url>
 
 	<properties>
@@ -20,6 +20,7 @@
 		<hibernate.version>4.3.6.Final</hibernate.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
 		<joda-time.version>2.3</joda-time.version>
+		<spring.boot.mainclass>org.jason.spider.mydeal.application.MydealApplication</spring.boot.mainclass>
 	</properties>
 
 	<dependencies>
@@ -39,7 +40,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -121,6 +122,9 @@
 						<goals>
 							<goal>repackage</goal>
 						</goals>
+						<configuration>
+							<mainClass>${spring.boot.mainclass}</mainClass>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

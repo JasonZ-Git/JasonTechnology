@@ -29,9 +29,14 @@ TODO List
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
 
+13 March, 2020
+------------
+
+
 8 March, 2020
 ------------
-HTML Renders available in Java
+Rendering HTML is kind of difficult, the best way for now is relying on a browser to do it.
+HTML Renders available in Java:
 	-- CSSBox 
 		- HTML/CSS rendering engine.
 		- It can render css and html only.

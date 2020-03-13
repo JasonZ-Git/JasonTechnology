@@ -9,7 +9,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.jason.spider.yeeyi.controller.RentingVO;
 import org.jason.spider.yeeyi.dao.RentRecordDO;
 import org.jason.util.SpiderUtil;
@@ -39,7 +40,7 @@ public final class YeeyiUtil {
   private static final int DEFAULT_SHOW_DAYS = 2;
   private static final String DEFAULT_FILTER_OUT_WORD = "短租";
 
-  private static final Logger logger =  Logger.getLogger(YeeyiUtil.class);
+  private static final Logger logger =  LogManager.getLogger(YeeyiUtil.class);
   
   private YeeyiUtil() {
     throw new AssertionError("Not allowed");
