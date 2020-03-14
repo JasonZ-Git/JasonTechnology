@@ -23,7 +23,7 @@ public class WordTranslationSpider implements PageSpider<String> {
 
   @Override
   public List<String> crawl() throws IOException {
-    ExecutorService executor = Executors.newFixedThreadPool(100);
+    ExecutorService executor = Executors.newFixedThreadPool(10);
 
     List<WordTranslationSpiderTask> translationTasks = new ArrayList<>();
     for (String word : this.wordsToTranslate) {

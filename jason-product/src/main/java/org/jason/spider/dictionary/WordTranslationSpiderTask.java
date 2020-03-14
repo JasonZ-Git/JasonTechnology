@@ -11,13 +11,12 @@ public class WordTranslationSpiderTask implements Callable<String> {
   private static final String English_To_Chinese_Google_Translation = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
 
   private static final String Word_Translation_Format = "%s=%s";
-  
+
   private String word;
 
   static {
     System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
   }
-
 
   public WordTranslationSpiderTask(String word) {
     this.word = word;
@@ -26,8 +25,6 @@ public class WordTranslationSpiderTask implements Callable<String> {
   @Override
   public String call() throws Exception {
 
-    System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-    
     WebDriver driver = new ChromeDriver();
 
     driver.get(English_To_Chinese_Google_Translation + this.word);

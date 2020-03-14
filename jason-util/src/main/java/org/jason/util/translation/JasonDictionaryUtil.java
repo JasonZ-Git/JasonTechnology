@@ -11,7 +11,7 @@ public final class JasonDictionaryUtil {
   public static List<String> filterRealWords(@Nonnull List<String> words){
     Objects.requireNonNull(words);
     
-    return words.parallelStream().filter(StringUtils::isAlpha).filter(StringUtils::isAllLowerCase).filter(item -> item.length() >=2).collect(Collectors.toList());
+    return words.parallelStream().filter(StringUtils::isAlpha).filter(StringUtils::isAllLowerCase).filter(item -> item.length() >=2).distinct().collect(Collectors.toList());
   }
 
   public static List<String> getWords(@Nonnull List<String> existingWordsLines) {

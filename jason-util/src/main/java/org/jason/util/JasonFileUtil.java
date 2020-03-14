@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,5 +61,12 @@ public final class JasonFileUtil {
    */
   public static void writeFile(String outputFile, String fileContent) throws IOException {
     Files.write(Paths.get(outputFile), Arrays.asList(fileContent));
+  }
+  
+  /**
+   * Write file content into a file.
+   */
+  public static void appendToFile(String outputFile, String fileContent) throws IOException {
+    Files.write(Paths.get(outputFile), Arrays.asList(fileContent), StandardOpenOption.APPEND);
   }
 }
