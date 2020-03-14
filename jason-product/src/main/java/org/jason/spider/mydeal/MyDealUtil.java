@@ -101,7 +101,7 @@ public class MyDealUtil {
 
     ExecutorService threadSerivice = executorService == null ? Executors.newFixedThreadPool(100) : executorService;
 
-    List<MyDealCategoryTask> callableTasks = constructTasks(childCategories, priceLimt);
+    List<MyDealCategorySpiderTask> callableTasks = constructTasks(childCategories, priceLimt);
 
     List<Future<List<String>>> itemPagesWithPrice = threadSerivice.invokeAll(callableTasks);
 
@@ -117,20 +117,20 @@ public class MyDealUtil {
   
   private static void submitCategoryTasks(@Nonnull List<String> childCategories, @Nullable CompletionService<List<String>> executorService) throws InterruptedException {
     
-    List<MyDealCategoryTask> callableTasks = constructTasks(childCategories);
+    List<MyDealCategorySpiderTask> callableTasks = constructTasks(childCategories);
     
     callableTasks.stream().forEach(item -> executorService.submit(item));
   }
   
-  private static List<MyDealCategoryTask> constructTasks (List<String> childCategories){
+  private static List<MyDealCategorySpiderTask> constructTasks (List<String> childCategories){
     return constructTasks(childCategories, null);
   }
   
-  private static List<MyDealCategoryTask> constructTasks (List<String> childCategories, Integer priceLimit){
-    List<MyDealCategoryTask> callableTasks = new ArrayList<>();
+  private static List<MyDealCategorySpiderTask> constructTasks (List<String> childCategories, Integer priceLimit){
+    List<MyDealCategorySpiderTask> callableTasks = new ArrayList<>();
 
     for (final String currentCategory : childCategories) {
-      MyDealCategoryTask callableTask = new MyDealCategoryTask(currentCategory);
+      MyDealCategorySpiderTask callableTask = new MyDealCategorySpiderTask(currentCategory);
       
       if (priceLimit != null) callableTask.setToPrice(new BigDecimal(priceLimit));
 

@@ -6,9 +6,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.jason.annotation.Application;
 import org.jason.spider.mydeal.MyDealUtil;
 
-public class MydealApplication {
+@Application(name = "MyDeal Application - Craw MyDeal")
+public class MyDealApplication {
   
   public static void main(String[] args) {
     

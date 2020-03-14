@@ -15,18 +15,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * This class is specific designed for crawling one category page.
+ * This class is specific designed for crawling one category page of MyDeal
  * 
  * @author Jason Zhang
  *
  */
-public class MyDealCategoryTask implements Callable<List<String>> {
+public class MyDealCategorySpiderTask implements Callable<List<String>> {
 
   private static final String CATEGORY_SEARCH = "?sort=price_low_to_high&fromPrice=%d&toPrice=%d&pageSize=%d";
 
   private final String categoryPage;
   
-  public MyDealCategoryTask(String categoryPage) {
+  public MyDealCategorySpiderTask(String categoryPage) {
     
     Objects.requireNonNull(categoryPage);
     
@@ -40,14 +40,14 @@ public class MyDealCategoryTask implements Callable<List<String>> {
 
   @Nonnull
   private BigDecimal fromPrice = BigDecimal.ZERO;
-  public MyDealCategoryTask setFromPrice(BigDecimal fromPrice) {
+  public MyDealCategorySpiderTask setFromPrice(BigDecimal fromPrice) {
     this.fromPrice = fromPrice;
     return this;
   }
 
   @Nonnull
   private BigDecimal toPrice = new BigDecimal(Integer.MAX_VALUE);
-  public MyDealCategoryTask setToPrice(BigDecimal toPrice) {
+  public MyDealCategorySpiderTask setToPrice(BigDecimal toPrice) {
     this.toPrice = toPrice;
     return this;
   }

@@ -3,13 +3,13 @@ package org.jason.test;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Pattern;
-
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.junit.platform.runner.JUnitPlatform;
 
-@RunWith(Parameterized.class)
+@RunWith(JUnitPlatform.class)
 public class NumberStringTest {
   
   private String toTest;
@@ -20,7 +20,7 @@ public class NumberStringTest {
     this.flag = flag;
   }
   
-  @Parameterized.Parameters
+  @Parameters
   public static Collection primeNumbers(){
     return Arrays.asList(new Object[][]{
       {"1234", true},{"1234a", false}
@@ -31,6 +31,6 @@ public class NumberStringTest {
   public void isNumber(){
     boolean result = Pattern.compile("\\d+").matcher(this.toTest).matches();
     System.out.println("To test String " + this.toTest + " " + result);
-    Assert.assertEquals(result, this.flag);
+    Assertions.assertEquals(result, this.flag);
   }
 }

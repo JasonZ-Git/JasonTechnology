@@ -27,7 +27,11 @@ TODO List
   -- jsoup
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
-  -- IntelliJ & Eclipse
+  -- IntelliJ & Eclipse -- 13 March, 2020
+
+
+14 March, 2020
+------------
 
 
 13 March, 2020

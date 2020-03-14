@@ -3,9 +3,9 @@ package org.jason.code_challenge;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Assert;
-import org.junit.Test;
 
 public class NumberChallenge {
   
@@ -24,7 +24,7 @@ public class NumberChallenge {
     
     String result = reverserStr(hello);
     
-    Assert.assertEquals("", result, "olleH");
+    Assertions.assertEquals("", result, "olleH");
     
     assert(2>1);
   }

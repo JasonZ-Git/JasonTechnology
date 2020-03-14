@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.jason.java8.functioninterface.JasonPredicate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Java8LamdaFeature {
 

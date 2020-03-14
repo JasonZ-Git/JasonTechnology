@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.mail.EmailException;
+import org.jason.annotation.Application;
 import org.jason.spider.yeeyi.YeeyiCriteria;
 import org.jason.spider.yeeyi.YeeyiUtil;
 import org.jason.spider.yeeyi.controller.RentingVO;
 import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 
-
+@Application(name = "Yeeyi Application - Crawl Yeeyi")
 public class YeeyiDesktopApplication {
 
   private static final List<String> DEFAULT_AREA = Arrays.asList("camberwell","Burwood","surrey hill", "caulfield", "malvern", "Toorak", "south yarra", "glen iris", "richmond", "hawthorn");

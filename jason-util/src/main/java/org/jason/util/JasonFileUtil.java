@@ -4,10 +4,10 @@
 package org.jason.util;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +17,12 @@ import java.util.stream.Collectors;
  * @author Jason.zhang
  */
 public final class JasonFileUtil {
+  private final static String SPLIT_NON_ALPHA = "\\P{Alpha}+";
 
   private JasonFileUtil() {
     throw new AssertionError("No " + JasonFileUtil.class + " instances for you!");
   }
-  
+
   /**
    * Read file into lines, each line is a string object.
    * 
@@ -36,23 +37,28 @@ public final class JasonFileUtil {
   }
 
   /**
+   * inputFile file of classpath
+   * 
+   * @param inputFile
+   * @return
+   * @throws IOException
+   */
+  public static List<String> readFileFromClasspathIntoWord(String inputFile) throws IOException {
+    try {
+      List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(inputFile).toURI()));
+      
+      String[] words = lines.stream().collect(Collectors.joining(",")).split(SPLIT_NON_ALPHA);
+      
+      return Arrays.asList(words);
+    } catch (URISyntaxException e) {
+      throw new IOException(e);
+    }
+  }
+  
+  /**
    * Write file content into a file.
    */
   public static void writeFile(String outputFile, String fileContent) throws IOException {
     Files.write(Paths.get(outputFile), Arrays.asList(fileContent));
-  }
-  
-  
-  public static void main(String[] args) throws IOException {
-    List<String> source = JasonFileUtil.readFile("C:/Temp/test.txt");
-    
-    
-    List<String>dest = source.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
-    writeFile("C:/Temp/result.txt", String.join("\r\n", dest));
-    
-    System.out.println(dest.stream().collect(Collectors.joining("\n")));
-    System.out.println("----");
-    System.out.println(String.join("\r\n", dest));
-    //Files.write(Paths.get("/home/jason/out.txt"), dest);
   }
 }
