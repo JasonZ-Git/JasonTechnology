@@ -9,16 +9,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.annotation.Nonnull;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jason.spider.PageSpider;
 
 public class WordTranslationSpider implements PageSpider<String> {
 
   private List<String> wordsToTranslate;
+  private static final Logger logger = LogManager.getLogger();
 
   public WordTranslationSpider(@Nonnull List<String> toTranslate) {
     Objects.requireNonNull(toTranslate);
     
-    this.wordsToTranslate = toTranslate;
+    this.wordsToTranslate = toTranslate;     
   }
 
   @Override
@@ -35,9 +38,8 @@ public class WordTranslationSpider implements PageSpider<String> {
     try {
       translations = executor.invokeAll(translationTasks);
     } catch (InterruptedException e) {
-      System.out.println(e);
+      logger.warn(e);
     }
-
 
     List<String> result = new ArrayList<>();
     for (Future<String> current : translations) {

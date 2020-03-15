@@ -11,11 +11,11 @@ import org.jason.util.translation.JasonDictionaryUtil;
 
 @Application(name = "Translation Application")
 public class TranslationApplication {
-  
+
   private static final String SourceFile = "dictionary/source.txt";
-  
+
   private static final String Dictionary_File = "dictionary/dictionary.properties";
-  
+
   private static final String temp_dictionary_file = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/dictionary.properties";
 
   public static void main(String[] args) throws IOException {
@@ -28,6 +28,8 @@ public class TranslationApplication {
 
     List<String> existingWords = JasonDictionaryUtil.getWords(existingWordsLines);
 
+    System.out.println("Existing Dictionary Words: " + existingWords);
+
     realWords.removeIf(existingWords::contains);
 
     System.out.printf("Total Words to translate %s - %s ", realWords.size(), realWords);
@@ -35,9 +37,9 @@ public class TranslationApplication {
     PageSpider<String> spider = new WordTranslationSpider(realWords);
 
     List<String> result = spider.crawl();
-    
+
     String newWordTranslation = result.stream().distinct().collect(Collectors.joining(System.lineSeparator()));
-    
+    // newWordTranslation = StringUtils.join(newWordTranslation, System.lineSeparator());
     JasonFileUtil.appendToFile(temp_dictionary_file, newWordTranslation);
 
     System.out.println(result);

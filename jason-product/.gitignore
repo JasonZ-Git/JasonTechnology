@@ -1,3 +1,4 @@
 calendar-generate-token
 /target/
 /bin/
+src/main/resources/dictionary/*
