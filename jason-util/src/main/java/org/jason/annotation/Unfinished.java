@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Unfinished {
 	String dueDate() default "today";
+	String todo() default "A lot";
 
 }

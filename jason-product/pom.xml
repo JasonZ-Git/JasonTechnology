@@ -16,8 +16,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<start-class>org.jason.config.JarApplication</start-class>
-		<spring.boot.mainclass>org.jason.spider.mydeal.application.MydealApplication</spring.boot.mainclass>
+		<start-class>org.jason.spider.dictionary.application.TranslationApplication</start-class>
+		<spring.boot.mainclass>org.jason.spider.dictionary.application.TranslationApplication</spring.boot.mainclass>
 	</properties>
 
 	<dependencies>
@@ -122,16 +122,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<mainClass>${spring.boot.mainclass}</mainClass>
-						</configuration>
-					</execution>
-				</executions>
+				<configuration>
+					<mainClass>${spring.boot.mainclass}</mainClass>
+				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
