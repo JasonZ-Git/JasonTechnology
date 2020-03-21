@@ -63,7 +63,7 @@ public class TranslationApplication {
     logger.info("Total running time is:{} seconds  ", watch.getTime(TimeUnit.SECONDS));
   }
 
-  
+
   private static void removeUnvalidTranslation() throws IOException {
     List<String> sourceWords = JasonFileUtil.readFile(Target_Dictionary_File);
 

@@ -3,10 +3,7 @@ package org.jason.spider.dictionary;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.StringUtils;
@@ -90,7 +87,7 @@ public class WordTranslationSpiderTask implements Callable<String> {
       driver.quit();
     }
   }
-  
+
   private WebDriver getWebDriver() {
 
     WebDriver driver = webDriverPool.isEmpty() ? new ChromeDriver() : webDriverPool.poll();

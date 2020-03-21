@@ -3,6 +3,7 @@
 *.classpath
 *.settings
 *.project
+*.orig
 
 # Node JS modules
 node_modules/

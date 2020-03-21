@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingDeque;
 import javax.annotation.Nonnull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +18,7 @@ import org.jason.spider.PageSpider;
 import org.openqa.selenium.WebDriver;
 
 /**
- * Version 1 - With shared pool - soft limit the number of the ThreadDriver; 
- * Version 2 - There should be hard way to limit the WebDriver number and block for new ones to come
+ * Version 1 - With shared pool - soft limit the number of the ThreadDriver; Version 2 - There should be hard way to limit the WebDriver number and block for new ones to come
  * 
  * @author Jason Zhang
  */
@@ -58,6 +55,7 @@ public class WordTranslationSpider implements PageSpider<String> {
     } catch (InterruptedException e) {
       logger.warn(e);
     }
+
 
     List<String> result = new ArrayList<>();
     for (Future<String> current : translations) {
