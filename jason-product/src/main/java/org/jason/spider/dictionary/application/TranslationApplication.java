@@ -1,14 +1,21 @@
 package org.jason.spider.dictionary.application;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.Application;
 import org.jason.spider.PageSpider;
+import org.jason.spider.dictionary.TranslationResult;
 import org.jason.spider.dictionary.WordTranslationSpider;
 import org.jason.util.JasonFileUtil;
 import org.jason.util.translation.JasonDictionaryUtil;
@@ -20,19 +27,24 @@ public class TranslationApplication {
 
   private static final String Dictionary_File = "dictionary/dictionary.properties";
 
-  private static final String Target_Dictionary_File = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/dictionary.properties";
+  private static final String BASE_DICIONARY_DIR = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/";
+  
+  private static final String Target_Dictionary_File = BASE_DICIONARY_DIR + "dictionary.properties";
 
-  private static final String Temporary_Dictionary_File = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/temporary_dictionary.properties";
-
+  private static final String Temporary_Dictionary_File = BASE_DICIONARY_DIR + "temporary_dictionary.properties";
+  
+  private static final String PRONOUNCE_DIR = BASE_DICIONARY_DIR + "pronounce/";
+  
+  private static final String MP3_FORMAT = ".mp3";
 
   private static final Logger logger = LogManager.getLogger();
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, URISyntaxException {
     runTranslationApp();
     // removeUnvalidTranslation();
   }
 
-  private static void runTranslationApp() throws IOException {
+  private static void runTranslationApp() throws IOException, URISyntaxException {
 
     StopWatch watch = StopWatch.createStarted();
 
@@ -46,15 +58,19 @@ public class TranslationApplication {
 
     sourceWordsToTranslate.removeIf(existingWords::contains);
 
-    List<String> limitedWords = sourceWordsToTranslate.stream().limit(500).collect(Collectors.toList());
+    List<String> limitedWords = sourceWordsToTranslate.stream().limit(1).collect(Collectors.toList());
 
-    PageSpider<String> spider = new WordTranslationSpider(limitedWords);
+    PageSpider<TranslationResult> spider = new WordTranslationSpider(limitedWords);
 
-    List<String> result = spider.crawl();
+    List<TranslationResult> result = spider.crawl();
 
-    String newWordTranslation = result.stream().distinct().collect(Collectors.joining(System.lineSeparator()));
-    // newWordTranslation = StringUtils.join(newWordTranslation, System.lineSeparator());
+    String newWordTranslation = result.stream().map(item -> item.wordWithTranslation()).distinct().collect(Collectors.joining(System.lineSeparator()));
     JasonFileUtil.appendToFile(Target_Dictionary_File, newWordTranslation);
+
+    // Save Pronounce File
+    for (TranslationResult current : result) {
+      FileUtils.copyURLToFile(current.getPronounceURL(), new File(PRONOUNCE_DIR, current.getWord()+ MP3_FORMAT));
+    }
 
     watch.stop();
 
