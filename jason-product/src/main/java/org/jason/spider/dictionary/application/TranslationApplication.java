@@ -35,13 +35,15 @@ public class TranslationApplication {
   
   private static final String PRONOUNCE_DIR = BASE_DICIONARY_DIR + "pronounce/";
   
+  private static final String PROUNOUCE_URL_FILE = PRONOUNCE_DIR + "pronounce_url.properties";
+  
   private static final String MP3_FORMAT = ".mp3";
 
   private static final Logger logger = LogManager.getLogger();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
-    runTranslationApp();
-    // removeUnvalidTranslation();
+    //runTranslationApp();
+    removeUnvalidTranslation();
   }
 
   private static void runTranslationApp() throws IOException, URISyntaxException {
@@ -58,7 +60,7 @@ public class TranslationApplication {
 
     sourceWordsToTranslate.removeIf(existingWords::contains);
 
-    List<String> limitedWords = sourceWordsToTranslate.stream().limit(1).collect(Collectors.toList());
+    List<String> limitedWords = sourceWordsToTranslate.stream().limit(500).collect(Collectors.toList());
 
     PageSpider<TranslationResult> spider = new WordTranslationSpider(limitedWords);
 
@@ -66,10 +68,13 @@ public class TranslationApplication {
 
     String newWordTranslation = result.stream().map(item -> item.wordWithTranslation()).distinct().collect(Collectors.joining(System.lineSeparator()));
     JasonFileUtil.appendToFile(Target_Dictionary_File, newWordTranslation);
-
+    
+    String newWordProunouceURL =  result.stream().map(item -> item.getWord() + "="+item.getPronounceURL()).collect(Collectors.joining(System.lineSeparator()));
+    JasonFileUtil.appendToFile(PROUNOUCE_URL_FILE, newWordProunouceURL);
+    
     // Save Pronounce File
     for (TranslationResult current : result) {
-      FileUtils.copyURLToFile(current.getPronounceURL(), new File(PRONOUNCE_DIR, current.getWord()+ MP3_FORMAT));
+      //FileUtils.copyURLToFile(current.getPronounceURL(), new File(PRONOUNCE_DIR, current.getWord()+ MP3_FORMAT));
     }
 
     watch.stop();
@@ -86,9 +91,9 @@ public class TranslationApplication {
     logger.info(sourceWords.size());
     logger.info(sourceWords);
     String targetContent = sourceWords.stream().peek(item -> {
-      if (item.contains("..."))
+      if (item.contains("=null"))
         System.out.println(item);
-    }).filter(item -> !item.contains("...")).collect(Collectors.joining(System.lineSeparator()));
+    }).filter(item -> !item.contains("=null")).collect(Collectors.joining(System.lineSeparator()));
 
     JasonFileUtil.writeFile(Temporary_Dictionary_File, targetContent);
     logger.info("Finished");

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -32,14 +33,11 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
 
   private static final String English_To_Chinese_Google_Translation = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
 
-  private static final String Word_Translation_Format = "%s=%s";
-
   private static Logger logger = LogManager.getLogger();
 
   private Queue<WebDriver> webDriverPool;
 
   private String word;
-
 
   static {
     System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -63,10 +61,10 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
       driver = getWebDriver();
 
       driver.get(English_To_Chinese_Google_Translation + this.word);
-
+      TimeUnit.MILLISECONDS.sleep(500);
       translations = getWordTranslation(driver);
 
-      pronouceURL = getWordPronounceURL(driver);
+      pronouceURL = getWordPronounceURL(driver);  
       
       pushToPoolOrDestroy(driver);
 
@@ -124,11 +122,11 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
   }
 
   private void pushToPoolOrDestroy(WebDriver driver) {
-    if (webDriverPool.size() <= 10) {
-      webDriverPool.add(driver);
-    } else {
+    //if (webDriverPool.size() <= 10) {
+    //  webDriverPool.add(driver);
+    //} else {
       driver.quit();
-    }
+    //}
   }
 
   private WebDriver getWebDriver() {
@@ -143,7 +141,7 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
     ChromeOptions options = new ChromeOptions();
     options.merge(caps);
     
-    WebDriver driver = webDriverPool.isEmpty() ? new ChromeDriver(options) : webDriverPool.poll();
+    WebDriver driver = new ChromeDriver(options);//webDriverPool.isEmpty() ? new ChromeDriver(options) : webDriverPool.poll();
 
     return driver;
   }
