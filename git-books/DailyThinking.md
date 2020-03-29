@@ -29,6 +29,11 @@ TODO List
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
   -- IntelliJ & Eclipse -- 13 March, 2020
 
+29 March, 2020
+-----------
+Selenium is good for web test, but there is big limitation about functions such as 'Save As'
+The reason is that 'Save As' function are system level functions, are for security reason, browser(Chrome & Firefox) didn't provide a direct simulation.
+
 
 14 March, 2020
 ------------
