@@ -13,7 +13,7 @@ public class Pair<T, U> {
 	private final T left;
 	private final U right;
 
-	private Pair(T t, U u) {
+	protected Pair(T t, U u) {
 		this.left = t;
 		this.right = u;
 	}

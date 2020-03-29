@@ -11,6 +11,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This file is designed to parse a text file.
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
  */
 public final class JasonFileUtil {
   private final static String SPLIT_NON_ALPHA = "\\P{Alpha}+";
+
+  private static final Logger logger = LogManager.getLogger();
 
   private JasonFileUtil() {
     throw new AssertionError("No " + JasonFileUtil.class + " instances for you!");

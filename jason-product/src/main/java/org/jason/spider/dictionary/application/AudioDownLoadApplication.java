@@ -1,78 +1,76 @@
 package org.jason.spider.dictionary.application;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import org.apache.commons.lang3.StringUtils;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.Application;
 import org.jason.spider.dictionary.DictionaryConstants;
-import org.jason.util.JasonThreadUtil;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.jason.spider.dictionary.StringPair;
+import org.jason.util.JasonFileUtil;
+import org.jason.util.finalclass.Pair;
 
 @Application(name = "Translation Application")
 public class AudioDownLoadApplication {
 
   private static final Logger logger = LogManager.getLogger();
 
-  static {
-    System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-    System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
-    // Turn off debug log
-    System.setProperty("webdriver.chrome.verboseLogging", "false");
-  }
+  private static final String DOWNLAOD_VEDIO_FORMAT = "downloadvedio -o %s%s.mp3 '%s'";
 
-  public static void main(String[] args) throws IOException, URISyntaxException {
+  public static void main(String[] args) throws IOException {
     downloadAudio();
   }
 
-  private static void downloadAudio() throws IOException, URISyntaxException {
-    final String DEMO_URL = "https://translate.google.com/translate_tts?ie=UTF-8&q=mix&tl=en&total=1&idx=0&textlen=3&tk=91477.512718&client=webapp&prev=input";
-    WebDriver driver = getWebDriver("chrome");
+  private static void downloadAudio() throws IOException {
+    List<String> pronounceList = JasonFileUtil.readFile(DictionaryConstants.PRONOUNCE_FILE);
 
-    driver.navigate().to(DEMO_URL);
+    List<String> existingMP3Files = getExistingMP3Files();
 
-    new Actions(driver).sendKeys(Keys.chord(Keys.CONTROL, "s")).build().perform();
+    List<StringPair> pronouceToLoad = pronounceList.parallelStream().map(item -> toPair(item)).filter(item -> !existingMP3Files.contains(item.getLeft())).collect(Collectors.toList());
 
-    new Actions(driver).keyDown(Keys.CONTROL).sendKeys("s").keyUp(Keys.CONTROL).build().perform();
+    pronouceToLoad.parallelStream().limit(20).forEach(item -> loadSingleAudio(item));
+  }
+
+  private static StringPair toPair(String pronouceLine) {
+    int splitPos = pronouceLine.indexOf("=");
     
-    JasonThreadUtil.sleepQuietlyInSeconds(5);
+    return StringPair.of(pronouceLine.substring(0, splitPos), pronouceLine.substring(splitPos + 1));
+  }
+
+  private static void loadSingleAudio(StringPair item) {
+    String word = item.getLeft();
+    String pronounceUrl = item.getRight();
+
+    ProcessBuilder processBuilder = new ProcessBuilder();
+
+    String downloadVedioCommand = String.format(DOWNLAOD_VEDIO_FORMAT, DictionaryConstants.PRONOUNCE_DIR, word, pronounceUrl);
+    processBuilder.command("sh", "-c", downloadVedioCommand);
+
+    try {
+      Process process = processBuilder.start();
+
+      BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+      String s;
+      while ((s = br.readLine()) != null)
+        System.out.println("line: " + s);
+    } catch (IOException e) {
+      logger.error(e);
+    }
+  }
+
+  private static List<String> getExistingMP3Files() throws IOException {
+    Path pronounceDir = Paths.get(DictionaryConstants.PRONOUNCE_DIR);
     
-    driver.quit();
+    List<String> mp3Files = Files.walk(pronounceDir).filter(Files::isRegularFile).map(item -> item.getFileName().toString()).filter(item -> item.endsWith(".mp3")).map(item ->item.replace(".mp3", "")).collect(Collectors.toList());
+
+    return mp3Files;
   }
-
-  private static WebDriver getWebDriver(String exployerType) {
-    if (StringUtils.equals("firefox", exployerType))
-      return getFirefoxWebDriver();
-
-    return getChromeWebDriver();
-  }
-
-  private static WebDriver getChromeWebDriver() {
-
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--start-maximized");
-
-    HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-    chromePrefs.put("profile.default_content_settings.popups", 0);
-    chromePrefs.put("download.default_directory", DictionaryConstants.PRONOUNCE_DIR);
-    options.setExperimentalOption("prefs", chromePrefs);
-
-
-    WebDriver driver = new ChromeDriver(options);
-
-    return driver;
-  }
-
-  private static WebDriver getFirefoxWebDriver() {
-    WebDriver driver = new FirefoxDriver();
-    return driver;
-  }
-
 }
