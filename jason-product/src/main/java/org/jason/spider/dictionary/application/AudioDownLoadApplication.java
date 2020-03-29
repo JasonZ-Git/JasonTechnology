@@ -7,17 +7,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.Application;
+import org.jason.annotation.Unfinished;
 import org.jason.spider.dictionary.DictionaryConstants;
 import org.jason.spider.dictionary.StringPair;
 import org.jason.util.JasonFileUtil;
-import org.jason.util.finalclass.Pair;
 
+@Unfinished(todo = "Load Audio should be taken out as a util")
 @Application(name = "Translation Application")
 public class AudioDownLoadApplication {
 
@@ -29,6 +28,7 @@ public class AudioDownLoadApplication {
     downloadAudio();
   }
 
+  @Unfinished(todo = "Use Multiple Threading to download files")
   private static void downloadAudio() throws IOException {
     List<String> pronounceList = JasonFileUtil.readFile(DictionaryConstants.PRONOUNCE_FILE);
 
@@ -36,12 +36,12 @@ public class AudioDownLoadApplication {
 
     List<StringPair> pronouceToLoad = pronounceList.parallelStream().map(item -> toPair(item)).filter(item -> !existingMP3Files.contains(item.getLeft())).collect(Collectors.toList());
 
-    pronouceToLoad.parallelStream().limit(20).forEach(item -> loadSingleAudio(item));
+    pronouceToLoad.parallelStream().limit(8000).forEach(item -> loadSingleAudio(item));
   }
 
   private static StringPair toPair(String pronouceLine) {
     int splitPos = pronouceLine.indexOf("=");
-    
+
     return StringPair.of(pronouceLine.substring(0, splitPos), pronouceLine.substring(splitPos + 1));
   }
 
@@ -51,7 +51,7 @@ public class AudioDownLoadApplication {
 
     ProcessBuilder processBuilder = new ProcessBuilder();
 
-    String downloadVedioCommand = String.format(DOWNLAOD_VEDIO_FORMAT, DictionaryConstants.PRONOUNCE_DIR, word, pronounceUrl);
+    String downloadVedioCommand = String.format(DOWNLAOD_VEDIO_FORMAT, DictionaryConstants.PRONOUNCE_MP3_DIR, word, pronounceUrl);
     processBuilder.command("sh", "-c", downloadVedioCommand);
 
     try {
@@ -67,9 +67,10 @@ public class AudioDownLoadApplication {
   }
 
   private static List<String> getExistingMP3Files() throws IOException {
-    Path pronounceDir = Paths.get(DictionaryConstants.PRONOUNCE_DIR);
-    
-    List<String> mp3Files = Files.walk(pronounceDir).filter(Files::isRegularFile).map(item -> item.getFileName().toString()).filter(item -> item.endsWith(".mp3")).map(item ->item.replace(".mp3", "")).collect(Collectors.toList());
+    Path pronounceDir = Paths.get(DictionaryConstants.PRONOUNCE_MP3_DIR);
+
+    List<String> mp3Files = Files.walk(pronounceDir).filter(Files::isRegularFile).map(item -> item.getFileName().toString()).filter(item -> item.endsWith(".mp3")).map(item -> item.replace(".mp3", ""))
+        .collect(Collectors.toList());
 
     return mp3Files;
   }

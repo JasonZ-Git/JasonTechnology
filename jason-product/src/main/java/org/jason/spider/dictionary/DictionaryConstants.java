@@ -9,6 +9,7 @@ public final class DictionaryConstants {
   public static final String TEMPORARY_DICTIONARY_FILE = DICIONARY_DIR + "temporary_dictionary.properties";
 
   public static final String PRONOUNCE_DIR = BASE_DIR + "pronounce/";
+  public static final String PRONOUNCE_MP3_DIR = PRONOUNCE_DIR + "mp3/";
   public static final String PRONOUNCE_FILE = PRONOUNCE_DIR + "pronounce.properties";
   public static final String TEMPORARY_PRONOUNCE_FILE = PRONOUNCE_DIR + "temporary_pronounce.properties";
 

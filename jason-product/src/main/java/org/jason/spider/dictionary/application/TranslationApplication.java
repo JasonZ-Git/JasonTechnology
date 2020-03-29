@@ -18,13 +18,13 @@ import static org.jason.spider.dictionary.DictionaryConstants.*;
 
 @Application(name = "Translation Application")
 public class TranslationApplication {
-  
+
   private static final Logger logger = LogManager.getLogger();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
     runTranslationApp();
   }
-  
+
   private static void runTranslationApp() throws IOException, URISyntaxException {
 
     StopWatch watch = StopWatch.createStarted();
@@ -47,16 +47,12 @@ public class TranslationApplication {
 
     String newWordTranslation = result.stream().map(item -> item.wordWithTranslation()).distinct().collect(Collectors.joining(System.lineSeparator()));
     JasonFileUtil.appendToFile(DICTIONARY_FILE, newWordTranslation);
-    
-    List<String>existingPronounceUrls = JasonFileUtil.readFile(PRONOUNCE_FILE);
-    
-    String newWordProunouceURL =  result.stream().map(item -> item.getWord() + "="+item.getPronounceURL()).filter(item -> !existingPronounceUrls.contains(item)).distinct().collect(Collectors.joining(System.lineSeparator()));
+
+    List<String> existingPronounceUrls = JasonFileUtil.readFile(PRONOUNCE_FILE);
+
+    String newWordProunouceURL =
+        result.stream().map(item -> item.getWord() + "=" + item.getPronounceURL()).filter(item -> !existingPronounceUrls.contains(item)).distinct().collect(Collectors.joining(System.lineSeparator()));
     JasonFileUtil.appendToFile(PRONOUNCE_FILE, newWordProunouceURL);
-    
-    // Save Pronounce File
-    for (TranslationResult current : result) {
-      //FileUtils.copyURLToFile(current.getPronounceURL(), new File(PRONOUNCE_DIR, current.getWord()+ MP3_FORMAT));
-    }
 
     watch.stop();
 

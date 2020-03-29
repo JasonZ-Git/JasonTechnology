@@ -17,11 +17,11 @@ public class DictionaryCleaningApplication {
   private static final Logger logger = LogManager.getLogger();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
-    removeUnvalidTranslation();
-    removeUnvalidAudioUrl();
+    cleanUpDictionary();
+    cleanUpPronounceUrl();
   }
 
-  private static void removeUnvalidAudioUrl() throws IOException {
+  private static void cleanUpPronounceUrl() throws IOException {
     List<String> pronounceList = JasonFileUtil.readFile(PRONOUNCE_FILE);
 
     String pronounceResult = pronounceList.parallelStream().filter(DictionaryCleaningApplication::keepProunouce).distinct().collect(Collectors.joining(System.lineSeparator()));
@@ -33,7 +33,7 @@ public class DictionaryCleaningApplication {
     logger.info("Pronounce Cleaning Finished {} items cleaned", pronounceList.size() - pronounceResultSize);
   }
 
-  private static void removeUnvalidTranslation() throws IOException {
+  private static void cleanUpDictionary() throws IOException {
     List<String> sourceWords = JasonFileUtil.readFile(DICTIONARY_FILE);
 
     String targetContent = sourceWords.stream().filter(DictionaryCleaningApplication::keepTranslation).distinct().collect(Collectors.joining(System.lineSeparator()));
@@ -44,7 +44,7 @@ public class DictionaryCleaningApplication {
 
     logger.info("Dictionary Cleaning Finished, {} items cleaned", sourceWords.size() - resultDictionarySize);
   }
-  
+
   private static boolean keepProunouce(String pronounceItem) {
     if (pronounceItem.split("=").length == 1)
       return false;
