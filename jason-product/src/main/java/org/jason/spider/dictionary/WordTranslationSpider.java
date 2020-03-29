@@ -1,25 +1,18 @@
 package org.jason.spider.dictionary;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.annotation.Nonnull;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.Unfinished;
 import org.jason.spider.PageSpider;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Version 1 - With shared pool - soft limit the number of the ThreadDriver; Version 2 - There should be hard way to limit the WebDriver number and block for new ones to come
@@ -34,13 +27,10 @@ public class WordTranslationSpider implements PageSpider<TranslationResult> {
 
   private static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors() * 2;
 
-  private Queue<WebDriver> driverPool;
-
   public WordTranslationSpider(@Nonnull List<String> toTranslate) {
     Objects.requireNonNull(toTranslate);
 
     this.wordsToTranslate = toTranslate;
-    driverPool = new ConcurrentLinkedQueue<WebDriver>();
   }
 
   @Override
@@ -49,7 +39,7 @@ public class WordTranslationSpider implements PageSpider<TranslationResult> {
 
     List<WordTranslationSpiderTask> translationTasks = new ArrayList<>();
     for (String word : this.wordsToTranslate) {
-      WordTranslationSpiderTask wordTranslationTask = new WordTranslationSpiderTask(driverPool, word);
+      WordTranslationSpiderTask wordTranslationTask = new WordTranslationSpiderTask(word);
       translationTasks.add(wordTranslationTask);
     }
 
@@ -70,8 +60,6 @@ public class WordTranslationSpider implements PageSpider<TranslationResult> {
     }
 
     executor.shutdown();
-
-    driverPool.parallelStream().forEach(WebDriver::quit);
 
     return result;
   }

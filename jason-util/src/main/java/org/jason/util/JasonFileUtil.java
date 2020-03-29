@@ -44,25 +44,33 @@ public final class JasonFileUtil {
    * @return
    * @throws IOException
    */
-  public static List<String> readFileFromClasspathIntoWord(String inputFile) throws IOException {
+  public static List<String> readClasspathFileIntoWords(String inputFile) throws IOException {
     try {
       List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(inputFile).toURI()));
-      
+
       String[] words = lines.stream().collect(Collectors.joining(",")).split(SPLIT_NON_ALPHA);
-      
+
       return Arrays.asList(words);
     } catch (URISyntaxException e) {
       throw new IOException(e);
     }
   }
-  
+
+  public static List<String> readFileIntoWords(String inputFile) throws IOException {
+    List<String> lines = Files.readAllLines(Paths.get(inputFile));
+
+    String[] words = lines.stream().collect(Collectors.joining(",")).split(SPLIT_NON_ALPHA);
+
+    return Arrays.asList(words);
+  }
+
   /**
    * Write file content into a file.
    */
   public static void writeFile(String outputFile, String fileContent) throws IOException {
     Files.write(Paths.get(outputFile), Arrays.asList(fileContent));
   }
-  
+
   /**
    * Write file content into a file.
    */

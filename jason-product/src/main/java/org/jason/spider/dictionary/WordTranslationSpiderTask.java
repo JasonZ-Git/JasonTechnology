@@ -2,16 +2,13 @@ package org.jason.spider.dictionary;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,18 +32,16 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
 
   private static Logger logger = LogManager.getLogger();
 
-  private Queue<WebDriver> webDriverPool;
-
   private String word;
 
   static {
     System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+    System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
     // Turn off debug log
     System.setProperty("webdriver.chrome.verboseLogging", "false");
   }
 
-  public WordTranslationSpiderTask(Queue<WebDriver> webDriverPool, String word) {
-    this.webDriverPool = webDriverPool;
+  public WordTranslationSpiderTask( String word) {
     this.word = word;
   }
 
@@ -61,16 +56,18 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
       driver = getWebDriver();
 
       driver.get(English_To_Chinese_Google_Translation + this.word);
+      
       TimeUnit.MILLISECONDS.sleep(500);
+      
       translations = getWordTranslation(driver);
 
       pronouceURL = getWordPronounceURL(driver);  
       
-      pushToPoolOrDestroy(driver);
+      destroyDriver(driver);
 
     } catch (Exception e) {
       logger.warn("No translation found for " + word, e);
-      driver.quit();
+      destroyDriver(driver);
       
       return TranslationResult.build(this.word, null, null);
     }
@@ -121,12 +118,8 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
     return getTranslation(translations, primaryTranslation);
   }
 
-  private void pushToPoolOrDestroy(WebDriver driver) {
-    //if (webDriverPool.size() <= 10) {
-    //  webDriverPool.add(driver);
-    //} else {
-      driver.quit();
-    //}
+  private void destroyDriver(WebDriver driver) {
+    driver.quit();
   }
 
   private WebDriver getWebDriver() {
@@ -141,7 +134,7 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
     ChromeOptions options = new ChromeOptions();
     options.merge(caps);
     
-    WebDriver driver = new ChromeDriver(options);//webDriverPool.isEmpty() ? new ChromeDriver(options) : webDriverPool.poll();
+    WebDriver driver = new ChromeDriver(options);
 
     return driver;
   }
@@ -155,7 +148,7 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
     if (translations.contains(primaryTranslation))
       return translations;
 
-    return primaryTranslation;
+    return String.format("%s,%s", primaryTranslation, translations);
 
   }
 
