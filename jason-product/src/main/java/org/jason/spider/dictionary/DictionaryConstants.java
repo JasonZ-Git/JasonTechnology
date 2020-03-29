@@ -4,7 +4,7 @@ public final class DictionaryConstants {
 
   private static final String BASE_DIR = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/";
 
-  private static final String DICIONARY_DIR = BASE_DIR + "target/";
+  private static final String DICIONARY_DIR = BASE_DIR + "result/";
   public static final String DICTIONARY_FILE = DICIONARY_DIR + "dictionary.properties";
   public static final String TEMPORARY_DICTIONARY_FILE = DICIONARY_DIR + "temporary_dictionary.properties";
 
