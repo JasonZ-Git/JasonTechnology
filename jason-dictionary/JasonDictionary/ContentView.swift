@@ -10,11 +10,33 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            MapView()
+                .edgesIgnoringSafeArea(.top)
+                .frame(height:300)
+            
+            CircleImage().offset(y:-130)
+                .padding(.bottom, -130)
+            
+            VStack(alignment: .leading) {
+                Text("Botanic Garden")
+                        .font(.title)
+            
+                HStack {
+                    Text("Melbourne Park")
+                        .font(.subheadline)
+                    Spacer()
+                    Text("Melbourne")
+                }
+            }
+            .padding()
+            
+            Spacer()
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {	
     static var previews: some View {
         ContentView()
     }

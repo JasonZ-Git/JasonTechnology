@@ -15,6 +15,8 @@
 		A8240700242B60E400FE75B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A82406FE242B60E400FE75B3 /* LaunchScreen.storyboard */; };
 		A824070B242B60E400FE75B3 /* JasonDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A824070A242B60E400FE75B3 /* JasonDictionaryTests.swift */; };
 		A8240716242B60E400FE75B3 /* JasonDictionaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8240715242B60E400FE75B3 /* JasonDictionaryUITests.swift */; };
+		A8373545243871890053C71A /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8373544243871890053C71A /* CircleImage.swift */; };
+		A8373547243876520053C71A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8373546243876520053C71A /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		A8240711242B60E400FE75B3 /* JasonDictionaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JasonDictionaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8240715242B60E400FE75B3 /* JasonDictionaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JasonDictionaryUITests.swift; sourceTree = "<group>"; };
 		A8240717242B60E400FE75B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8373544243871890053C71A /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		A8373546243876520053C71A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				A82406F5242B60E100FE75B3 /* SceneDelegate.swift */,
 				A82406F7242B60E100FE75B3 /* ContentView.swift */,
 				A82406F9242B60E400FE75B3 /* Assets.xcassets */,
+				A8373544243871890053C71A /* CircleImage.swift */,
+				A8373546243876520053C71A /* MapView.swift */,
 				A82406FE242B60E400FE75B3 /* LaunchScreen.storyboard */,
 				A8240701242B60E400FE75B3 /* Info.plist */,
 				A82406FB242B60E400FE75B3 /* Preview Content */,
@@ -268,6 +274,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A82406F4242B60E100FE75B3 /* AppDelegate.swift in Sources */,
+				A8373545243871890053C71A /* CircleImage.swift in Sources */,
+				A8373547243876520053C71A /* MapView.swift in Sources */,
 				A82406F6242B60E100FE75B3 /* SceneDelegate.swift in Sources */,
 				A82406F8242B60E100FE75B3 /* ContentView.swift in Sources */,
 			);
@@ -436,6 +444,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JasonDictionary/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JasonDictionary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -445,7 +454,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.jason.JasonDictionary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -455,6 +464,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JasonDictionary/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JasonDictionary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -464,7 +474,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.jason.JasonDictionary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
