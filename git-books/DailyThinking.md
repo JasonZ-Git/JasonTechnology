@@ -29,6 +29,14 @@ TODO List
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
   -- IntelliJ & Eclipse -- 13 March, 2020
 
+13 April, 2020
+--------------
+Swift is a nice language, with modern features which Java can learn.
+Seems like the third generation (C, C++ ->Java, C# -> Swift, Kotlin) introduces a much natural way of writing programe.
+Java is simply and nice, with poor UI though.
+Swift is great at making the UI development so attractive, especially for Annimation part.
+Concultion - Spending more time on it and think how to improve Java using features from Swift.
+
 29 March, 2020
 -----------
 Selenium is good for web test, but there is big limitation about functions such as 'Save As'
