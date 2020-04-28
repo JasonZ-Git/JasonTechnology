@@ -4,6 +4,7 @@
 *.settings
 *.project
 *.orig
+*.iml
 
 # Node JS modules
 node_modules/

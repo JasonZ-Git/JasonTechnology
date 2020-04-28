@@ -29,13 +29,28 @@ TODO List
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
   -- IntelliJ & Eclipse -- 13 March, 2020
 
+31 May, 2020
+--------------
+Comparision between Java & Swift
+
+
+28 April, 2020
+--------------
+I have tried swift for several weeks, and it proves to be an interesting & expressive language.
+After finishing the online material from Apple, I decide to read 'The Swift Programming Language(Swift 5.2)'
+The outcome should be:
+    -- A comprehensive compration between Jave & Swift, thus can get a deep understanding of the new generation programming language
+    -- A simple application - Dictionary which should meet my daily usage.
+This book should be finished by the end of May.
+
+
 13 April, 2020
 --------------
 Swift is a nice language, with modern features which Java can learn.
 Seems like the third generation (C, C++ ->Java, C# -> Swift, Kotlin) introduces a much natural way of writing programe.
 Java is simply and nice, with poor UI though.
 Swift is great at making the UI development so attractive, especially for Annimation part.
-Concultion - Spending more time on it and think how to improve Java using features from Swift.
+Conclusion - Spending more time on it and think how to improve Java using features from Swift.
 
 29 March, 2020
 -----------
