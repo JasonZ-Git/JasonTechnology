@@ -15,7 +15,7 @@ TODO List
   -- Apache Kafka
   -- JFrog
   -- Kotlin
-  -- Swift
+  -- Swift - To finish by 31 May
   -- swagger
   -- keycloak
   -- batik
@@ -28,11 +28,33 @@ TODO List
   -- The default eclipse writing check function is not good enough as there is no correctness indication, should enhance it.
   -- selenium can be used for automation testing - How can it be used to run test without starting browser.
   -- IntelliJ & Eclipse -- 13 March, 2020
+  -- Swift from Stanford University online teaching material.
+  -- JWT - JSON Web Token
 
-31 May, 2020
+2 May, 2020
 --------------
 Comparision between Java & Swift
-
+    -- Constructor - Swift use init & deinit as constructor - I am neutral of this difference
+        > There is no deinit in Java - As JVM will do garbage collection automatically.
+        > Using init seems to be good, as every class can use the same name, and it doesn't need to declare return type.
+    -- Getter & Setter - Swift beautifully combines the famous getter & setter to its associated variable, and it is implicitly accessed by dot -- Interesting feature.
+        > get, set, willSet & didSet are good feature, still not simple enough - There is potential room to simplify them further?
+        > I am not quite comfortable with the variable to be 'public' by default - It could be because of legacy from Object-C(In C++ struct, variable are public default)
+    -- Enum 
+        > Enumerattions can initilize int or double from the starting value.
+        > Enum could use variant parameters.
+    -- Protocols - protocol to Swift is interface to Java
+    -- struct & class
+        > Swift uses both Struct & Class, using struct as value type while class as reference type.
+        > I don't see much benefit of struct so far, as value & reference type is a legacy feature from C++(probably Object-C as well), it is a low-level concept.
+        > Seems it is not necessary to keep struct - I would think get rid of struct and keep class as what Java did is better.
+    -- extension
+        > It is quite a surprise for me of due to 
+    -- error handling
+        > try? is a real joy for me as I really hate try catch block in Java, the best programme should run from the first line to the end with no noodling-jumping
+          It is great to convert the result automatically and get the result so succinctly.
+        > 
+        
 
 28 April, 2020
 --------------
