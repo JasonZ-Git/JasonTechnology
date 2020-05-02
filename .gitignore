@@ -5,6 +5,7 @@
 *.project
 *.orig
 *.iml
+*/.idea/*
 
 # Node JS modules
 node_modules/
