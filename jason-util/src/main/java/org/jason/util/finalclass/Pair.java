@@ -4,7 +4,10 @@
 package org.jason.util.finalclass;
 
 /**
- * Two objects
+ * Two objects, this class is original a final class, later on there are some scenarios which required extend it(For example, T and U are of same type)
+ * So the final keyword is removed and it is allowed to be extended.
+ *
+ * If follows the design Pattern of JKD: UnaryOperator extends Function
  * 
  * @author Jason Zhang
  * 

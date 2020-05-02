@@ -6,7 +6,7 @@ TODO List
   -- Regex
   -- Think a way to perfectly support JSON in Java
   -- URL & URI
-  -- HTTP/2
+  -- HTTP/2 - (Java 12)
   -- HTTP/3
   -- HTTP / handshake
   -- GraphQL
@@ -14,7 +14,7 @@ TODO List
   -- More thinking about annotation
   -- Apache Kafka
   -- JFrog
-  -- Kotlin
+  -- Kotlin - Planned for 2021
   -- Swift - To finish by 31 May
   -- swagger
   -- keycloak
@@ -30,10 +30,68 @@ TODO List
   -- IntelliJ & Eclipse -- 13 March, 2020
   -- Swift from Stanford University online teaching material.
   -- JWT - JSON Web Token
+  -- no-sql (MongoDB?)
+  -- cmder & git bash
+  -- 
+  
+4 May, 2020
+-----------
+
+3 May, 2020
+--------------
+I strongly feel the limitation of **define type** first before using it both in programing language & relational database.
+In programming language, define type first is unconvenient, as it may be used just once. Similarly, in Database, define the table before using it is a limitation as well.
+Probably good to have a look at no-sql DB system like MongoDB.
+
 
 2 May, 2020
 --------------
 Comparision between Java & Swift
+    -- Declare varialb & constants
+        > It is encouraged to declare var without type - This is a convenient feature and used in Java 11
+        > let keyword is used as final to java and const to c++
+    -- It is not mandatory to add comment to end a line.
+        > In case of multiple line code, compiler needs to be smart to recognise whether it is one or multiple line - Seems swift is doing well.
+    -- Float & Double
+        > Sadly, float is still kept, it should be removed as it bring more problems than benefit.
+    -- typealias
+        > it is a good feature as it is useful in many cases.
+        > type alias is supported in oracle db which is very useful.
+    -- control flow
+        > swift only allow boolean to be the condition which is better than Java which allows confusing int(0 is false, 1 or other is true).
+        > if and while can accept optional, if optional has a value then, it can even return the value to an temporary var; if convert fails then go to false - very interesting.
+           The idea is that if and while is success(true)/failure(false) based, not value bases 1(true) 0(false)
+    -- ?? is short cut of a != nil ? a : b - Good feature as it is used a lot.
+    -- ... and ..<
+        > Full-Closed and Half-Closed
+        > In Java, there is IntStream.rangeClosed() & range()
+    -- optional (? and !)
+        > swift uses ? for an optional value, Java use keyword Optional as a wrapper.
+    -- for loop
+        > swift slightly improves by allowing ..< and ..
+        > Java's foreach loop is good enough with new var.
+    -- text block
+        > both Swift and Java(13) support """ as the text block symbol.
+        > Java treat everything inside text block as string, while Swift will ignore some space due to format.
+    -- Single Interpolation
+        > Swift support variable within a string directly by \(vaiable) and support calculation within it.
+        > I would think $variable is a more natural way than \(, why they use \(?? Is it because $ as a string is used more frequently or because it has to have a space to separate the variable? Maybe both.
+    -- Array
+        > The Array of Swift is actually the combination of Array, ArrayList and ListUtil of Java
+    -- Dictionary
+        > Dictionary of Swift is HashMap of Java.
+        > The key of Dictionary must implement Hashable Interface, this is very good, as in Java, there is no mandatory must just a coding convention to implement hash() and equals()
+        > In Java, it is still possible to introduce this rule - Create an interface, make key Hashable, and give a default implementation, implement this interface for String, Integer.
+        {code}
+            interface Hashable {
+                default boolean uniqueHash(){return false;} -- More consideration needed to combine hash() and equals() method
+            }
+        {code}
+     -- function in swift is the first level member as class and struct.
+        > In Java 8, functional interface has much releases of Java to be updated with functional programming.
+        > It proves pure OO is not idea, function is still simple and easy to use. As print() in Swift is simpler than System.out.println()
+        > Pass funtion as a parameter seems powerful - Didn't see much use by far.
+        
     -- Constructor - Swift use init & deinit as constructor - I am neutral of this difference
         > There is no deinit in Java - As JVM will do garbage collection automatically.
         > Using init seems to be good, as every class can use the same name, and it doesn't need to declare return type.
@@ -54,7 +112,6 @@ Comparision between Java & Swift
         > try? is a real joy for me as I really hate try catch block in Java, the best programme should run from the first line to the end with no noodling-jumping
           It is great to convert the result automatically and get the result so succinctly.
         > 
-        
 
 28 April, 2020
 --------------
@@ -66,6 +123,16 @@ The outcome should be:
 This book should be finished by the end of May.
 
 
+18 April, 2020
+--------------
+Git bash is a nice tool which simulate linux command and satisfying performance.
+However,  git bash doesn't support screen split - This is a much needed feature for me.
+Hence, I made some investigation and finally find **cmder** is a perfect tool.
+    -- It supports split screen vertically or horizontally.
+    -- It includes a Git Bash and uses the latest Git Core(2.24.1), and has a much attractive UI - The font and color is great.
+    -- Maybe I should suggest the whole company to use it.
+
+
 13 April, 2020
 --------------
 Swift is a nice language, with modern features which Java can learn.
@@ -73,6 +140,7 @@ Seems like the third generation (C, C++ ->Java, C# -> Swift, Kotlin) introduces 
 Java is simply and nice, with poor UI though.
 Swift is great at making the UI development so attractive, especially for Annimation part.
 Conclusion - Spending more time on it and think how to improve Java using features from Swift.
+
 
 29 March, 2020
 -----------
@@ -86,7 +154,7 @@ The reason is that 'Save As' function are system level functions, are for securi
 
 13 March, 2020
 ------------
-Eclipse & IntelliJ IDEA
+**Eclipse & IntelliJ IDEA**
 I have using Eclipse from 2010, and IntelliJ for 1 week.
 As recommended by ex-fellow from Alibaba and Architecture from my current company, I decided to try IntelliJ IDEA.
 By far, I have managed to run our product. 
@@ -106,7 +174,7 @@ I will try some more time for IntelliJ and then decide to whether to keep on ecl
 
 8 March, 2020
 ------------
-Rendering HTML is kind of difficult, the best way for now is relying on a browser to do it.
+**Rendering HTML** is kind of difficult, the best way for now is relying on a browser to do it.
 HTML Renders available in Java:
 	-- CSSBox 
 		- HTML/CSS rendering engine.
@@ -123,11 +191,11 @@ HTML Renders available in Java:
 	-- Headless Chrome
 		- Chrome browser support 
 
+
 6 March, 2020
 ------------
 As a summary of the work in the past month - Raumati Branch Picture
-
-
+(Chart is drawn with email sent out)
 
 1 March, 2020
 ------------
@@ -135,10 +203,11 @@ The key design difference between Java, NodeJS, Python
   -- widefly
   -- class loader of java
 
+
 28 Feb, 2020
 -----------
-There is a dom4j issue today, finially found it is caused by maven dependency scope:
-There are 3 classpaths in maven: compile, test and runtime, there are different scopes and availability:
+There is a dom4j issue today, finally found it is caused by maven dependency scope:
+There are 3 **classpaths** in maven: compile, test and runtime, there are different **scopes** and availability:
 	-- compile - it is default scope, 'compile' scope dependencies are available for all 3 classpaths - transitive.
 	-- provided - 'provided' scope dependencies are available compile & test classpath only, not available in runtime classpath - not transitive.
 	-- runtime - 'runtime' scope dependencies are available in runtime and test classpath, but not available in compile classpath - transitive
@@ -147,7 +216,7 @@ There are 3 classpaths in maven: compile, test and runtime, there are different 
 
 24 Feb, 2020
 ------------
-Java Module provides a package level encapsulation.
+**Java Module** (Java 9) provides a package level encapsulation.
 It is useful for controlling the visibility of classes hence further decouple modules.
 	-- It is useful for framework like JDK, Apache and SpringFramework which has a limited classes (thousands or 10s of thousands)
 	-- Encapsulation of Internal Packages
@@ -169,12 +238,9 @@ Useful tools for Java Module
 18 Feb, 2020
 ------------
 
-
-
-
 17 Feb, 2020
 ------------
-Annotation is a great feature, gain success in enterprise application development, the most successful usage of annotation are:
+**Annotation** is a great feature, gain success in enterprise application development, the most successful usage of annotation are:
 	 - Scenarios which requires data transformation between java and other type systems - like database, XML - to avoid extra mapping.
 	 - Scenarios which require extra configuration to link the code and intend - such as web restful URL mapping.
 	 - Scenarios which rely on code convention to finish a function - such as unit test.
@@ -188,7 +254,7 @@ However, there are a lot of objections in java community - Anti pattern.
 
 14 Feb, 2020
 ------------
-JxBrowser is a library that allows web technology into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
+**JxBrowser** is a library that allows web technology into Java Swing application, so that HTLM, CSS and JS can work in Java UI application.
 It uses v8 js engine(chrome engine) to drive the web.
 A pretty cool technology.
 
@@ -205,7 +271,7 @@ Is it possible to - TODO
 
 09 Feb, 2020
 ------------
-HTTP/2 is released in 2015 and 
+**HTTP/2** is released in 2015 and 
   	 - HTTP, HTTP/2, HTTP/3
   	 - Parse HTTP page in Java
   -- GraphQL
@@ -216,6 +282,7 @@ HTTP/2 is released in 2015 and
   -- Worth a whole check about all different JSRs.
   -- ASM library is used to modify java class file.
   -- Spriting is a technical to merge small images into a big one and then extract them out by small one.
+
 
 07 Feb, 2020
 ------------
@@ -234,7 +301,7 @@ Several Locale related classes
 
 05 Feb, 2020
 ------------
-Java Network
+**Java Network**
 	-- Socket
 			- Socket is quite fundamental level
 			- Socket, ServerSocket together with InputStream OutputStream
@@ -253,7 +320,7 @@ Common facility
 
 04 Feb, 2020
 ------------
-Git Advanced:
+**Git** Advanced:
 	git symbolic-ref refs/heads/trunk refs/heads/master -- Alias a branch name
 	git symbolic-ref -d refs/heads/trunk                -- Do not use git branch -d to delete a symbolic -- Delete a symbolic created above: 
 	git merge-base branch_one branch_two                -- Find a common base of 2 branches(or commits)
@@ -261,9 +328,10 @@ Git Advanced:
 	git log -- folder                                   -- Logs of files within a folder 
 	git cherry-pick commit1^..commit2                   -- pick all commits from commit1 to commit2
 
+
 03 Feb, 2020
 ------------
-Data sharing technology in Java
+**Data sharing** technology in Java
 There are 3 different level of Data exchange technologies:
 Information Exchange
     -- CPU Level - CPU Cache - Can be regarded the same as Memory Level data share.
@@ -271,7 +339,7 @@ Information Exchange
     	- Memory Level is more efficient than efficient than Disc and Internet Level due to speed.
     	- All disc level & Internet Level information will be exchanged via its own memory.
     -- Disc Level - File, Database
-    -- Internet Level - WebService, or 
+    -- Internet Level - WebService, or Rest Service
 
 Different processes(programmes) can share data through Disc Level and Internet Level.
 Different threads within the same process can share data through Memory Level, Disc level and Internet level.
@@ -282,10 +350,10 @@ As Memory Level is far more efficient than Disc Level and Internet Level, thus p
 30 Jan, 2020
 ------------
 Why are we still using abstract class??
-This is the comparison:
-	-- Interface can only has public static final variables, while abstract class can have.
+This is the comparison of **interface & abstract class**
+	-- Interface can only has public static final variables, while abstract class can have non-static var
 	-- Interface can only has public methods, while abstract class can have all 4 types.
-	-- Interface can not have final methods while abstract class can have.
+	-- Interface cannot have final methods while abstract class can have.
 	-- Interface cannot have constructor while abstract class could have(cannot instance one though).
 
 ![difference](images/interface_abstract_comparation.png)
@@ -306,12 +374,11 @@ From my mind, if I redesign a new language, abstract class should be removed.
 
 29 Jan, 2020
 ------------
-Summary the bad design of old java Date -- TODO
+Summary the bad design of old **java Date** -- TODO
     -- Date is mutable, which makes it not safe.
 	-- Date constructor Date(year, month, day), the year is actually (year - 1900), month is (month - 1)
 	-- Calendar
 	-- 
-
 
 New time API: java.time
 LocalDate, LocalTime, Period, Duration, ZonedDateTime, DateTime, Instant, DateTimeFormatter, ZoneId, Clock
@@ -331,7 +398,7 @@ HSQLDB is another embedded DB system, which seems gain more popularity(Used by L
 
 27 Jan, 2020
 ------------
-There are 4 types of JDBC Driver
+There are 4 types of **JDBC Driver**
 	-- Type 1 
 		- JDBC-ODBC Bridge Driver
 		- It converts JDBC to ODBC call 
@@ -357,7 +424,7 @@ There are 4 types of JDBC Driver
 
 24 Jan, 2020
 ------------
-Common XML libraries with Java
+**Common XML** libraries of Java EE
 	-- JDK - DOM SAX StAX - JDK provides Reading and writing XML files through DOM, SAX and StAX, default one is Apache xerces inside.
 		   - XSLT - JDK provide TransformerFactory, the default one is Apache Xalan, but could be modified to Saxon.
 	-- JAXB - Java Architecture for XML Binding
@@ -370,7 +437,7 @@ Common XML libraries with Java
 
 23 Jan, 2020
 ------------
-DOM is a tree structure parsing XML, there is another way: Streaming XML SAX and StAX
+**DOM** is a tree structure parsing XML, there is another way: Streaming XML SAX and StAX
 
   -- SAX - Simple API for XML, also known as Streaming XML.
 	     - An event-driven online algorithm for parsing XML documents.
@@ -385,8 +452,7 @@ DOM is a tree structure parsing XML, there is another way: Streaming XML SAX and
 
 22 Jan, 2020
 ------------
-
-XML has quite a few technologies around it  - XQuery, Xpath, Dom, SAX, XSL, XSLT, JAXB, dtd, xsd,
+**XML** has quite a few technologies around it  - XQuery, Xpath, Dom, SAX, XSL, XSLT, JAXB, dtd, xsd,
 The following technologies are around XML and managed by W3C
 
   -- XML - eXtensible Markup Language - 
@@ -481,7 +547,7 @@ This week, I plan to finish the first chapter - About Stream.
 
 12 Jan, 2020
 ------------
-Restrictions has been used in Hibernate - not too bad though.
+Restrictions have been used in **Hibernate** - not too bad though - TODO
 
 
 11 Jan, 2020
@@ -498,8 +564,7 @@ I considered several names for it, Parameters and Requirements
 
 10 Feb, 2019
 ------------
-
-Gson and Jackson can both be used to parse Json String & Objects  - What is the difference?
+Gson and Jackson can both be used to parse **Json** String & Objects  - What is the difference?
 
 These days, I use GraphQL as it is required by workflow innovation project. GraphQL seems promising, however, there is no utility 
 to convert between JSON string and GraphQL query - Is it possible to write a utility?
