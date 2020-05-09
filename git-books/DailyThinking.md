@@ -32,8 +32,36 @@ TODO List
   -- JWT - JSON Web Token
   -- no-sql (MongoDB?)
   -- cmder & git bash
-  -- 
-  
+  -- Java EE 8 Technology Summary - By 30 May
+
+
+9 May,2020
+-----------
+Summary of JPA Technologies of different version
+
+JPA consist of 
+    API - which exists in javax.persistence package
+    JPQL - Java Persistence Query Language
+    RRM - Object-Relational Metadata
+
+JPA 2.0
+	-- Released in 2009 under JSR_317
+	-- Support Collection, List and Many-To-One relationship for ORM
+	-- Criteria API
+	-- Support Validation
+JPA 2.1
+        -- Released in 2013 under JSR_338
+	-- Allow customer converter between Database and Java Object
+        -- Enhance JPQL/Criteria for sub-query, join ON, generic DB function and TREAT(?? TODO)
+	-- Stored Procedures
+JPA 2.2
+        -- Released in 2017 under JSR_338
+	-- CDI support for AttributeConverter
+	-- Some annotation become @Repeatalbe (such as NamedQuery)
+	-- Support Java 8 new Data Time
+	-- Allow Stream a query Result
+
+
 4 May, 2020
 -----------
 
