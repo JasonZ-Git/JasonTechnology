@@ -37,6 +37,7 @@ TODO List
   -- Dagger
   -- Docker
   -- Servlet 4
+  -- Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
 
 
 10 May, 2020
