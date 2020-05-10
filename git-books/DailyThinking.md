@@ -33,6 +33,23 @@ TODO List
   -- no-sql (MongoDB?)
   -- cmder & git bash
   -- Java EE 8 Technology Summary - By 30 May
+  -- MicroProfile (MicroService)
+  -- Dagger
+  -- Docker
+  -- Servlet 4
+
+
+10 May, 2020
+-----------
+Clarification of CDI and DI
+CDI/DI - CDI is a java ee specification, while DI is a common term as well as a java specification.
+DI is a subset of CDI
+CDI 2.0 includes DI 1.0
+The main difference is CDI includes lifetime management such as constuct/destroy a class, state, scope management.
+
+Spring only implements DI 1.0 while doesn't implement CDI2, and they will not do it as confirmed by Jouger Holler.
+Although Spring doesn't implement JavaEE CDI2, it has all the features of it - life cycle, state, scope management.
+
 
 
 9 May,2020
@@ -50,12 +67,12 @@ JPA 2.0
 	-- Criteria API
 	-- Support Validation
 JPA 2.1
-        -- Released in 2013 under JSR_338
+    -- Released in 2013 under JSR_338
 	-- Allow customer converter between Database and Java Object
-        -- Enhance JPQL/Criteria for sub-query, join ON, generic DB function and TREAT(?? TODO)
+    -- Enhance JPQL/Criteria for sub-query, join ON, generic DB function and TREAT(?? TODO)
 	-- Stored Procedures
 JPA 2.2
-        -- Released in 2017 under JSR_338
+    -- Released in 2017 under JSR_338
 	-- CDI support for AttributeConverter
 	-- Some annotation become @Repeatalbe (such as NamedQuery)
 	-- Support Java 8 new Data Time
