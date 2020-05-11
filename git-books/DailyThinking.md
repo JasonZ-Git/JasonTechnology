@@ -15,7 +15,7 @@ TODO List
   -- Apache Kafka
   -- JFrog
   -- Kotlin - Planned for 2021
-  -- Swift - To finish by 31 May
+  -- Swift - To finish by 31 May - Summary the programming model difference between SwiftUI and Java MVC
   -- swagger
   -- keycloak
   -- batik
@@ -39,6 +39,17 @@ TODO List
   -- Servlet 4
   -- Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
 
+
+
+
+11 May, 2019
+------------
+SwiftUI can be regarded as the UI framework to Swift.
+As UI is a key part for App development, SwiftUI is highly emphsised.
+	@State - Bind a View to a varialble, one direction
+	@Binding
+        @ObjectBinding 
+          
 
 10 May, 2020
 -----------
