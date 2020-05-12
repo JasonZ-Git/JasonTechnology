@@ -28,7 +28,7 @@ struct TranslationView: View {
             VStack(alignment: .leading) {
                 
                 HStack {
-                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $name)
+                    TextField("Word To Go", text: $name)
                     Button("Go"){
                         self.transalationText = self.wordDictionary[self.name] ?? "Not Found"
                     }
@@ -36,6 +36,7 @@ struct TranslationView: View {
 
                 Text("\(transalationText)")
                 Spacer()
+                Text("\(translationData.count) in total")
             }
             .navigationBarTitle("Jason Dictionary")
             .padding()

@@ -7,6 +7,8 @@
 *.iml
 */.idea/*
 
+*/dictionary.json
+
 # Node JS modules
 node_modules/
 

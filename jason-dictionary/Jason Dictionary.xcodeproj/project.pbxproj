@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A875BE8A246ADF5E00496F64 /* dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = A875BE89246ADF5E00496F64 /* dictionary.json */; };
 		A8EFC34424683FBD001CB715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFC34324683FBD001CB715 /* AppDelegate.swift */; };
 		A8EFC34624683FBD001CB715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFC34524683FBD001CB715 /* SceneDelegate.swift */; };
 		A8EFC34924683FBD001CB715 /* Jason_Dictionary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8EFC34724683FBD001CB715 /* Jason_Dictionary.xcdatamodeld */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A875BE89246ADF5E00496F64 /* dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dictionary.json; sourceTree = "<group>"; };
 		A8EFC34024683FBD001CB715 /* Jason Dictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jason Dictionary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8EFC34324683FBD001CB715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8EFC34524683FBD001CB715 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				A8EFC34724683FBD001CB715 /* Jason_Dictionary.xcdatamodeld */,
 				A8EFC34E24683FBF001CB715 /* Preview Content */,
 				A8EFC35C2469731C001CB715 /* Data.swift */,
+				A875BE89246ADF5E00496F64 /* dictionary.json */,
 				A8EFC35E246973B1001CB715 /* translations.json */,
 				A8EFC360246973EB001CB715 /* WordTranslation.swift */,
 			);
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8EFC35324683FBF001CB715 /* LaunchScreen.storyboard in Resources */,
+				A875BE8A246ADF5E00496F64 /* dictionary.json in Resources */,
 				A8EFC35024683FBF001CB715 /* Preview Assets.xcassets in Resources */,
 				A8EFC34D24683FBF001CB715 /* Assets.xcassets in Resources */,
 				A8EFC35F246973B1001CB715 /* translations.json in Resources */,
