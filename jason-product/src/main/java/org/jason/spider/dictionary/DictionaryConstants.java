@@ -2,11 +2,12 @@ package org.jason.spider.dictionary;
 
 public final class DictionaryConstants {
 
-  private static final String BASE_DIR = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/";
+    private static final String BASE_DIR = "/home/jason/projects/jason-technology/jason-product/src/main/resources/dictionary/";
 
-  private static final String DICIONARY_DIR = BASE_DIR + "result/";
-  public static final String DICTIONARY_FILE = DICIONARY_DIR + "dictionary.properties";
-  public static final String TEMPORARY_DICTIONARY_FILE = DICIONARY_DIR + "temporary_dictionary.properties";
+  private static final String DICTIONARY_DIR = BASE_DIR + "result/";
+  public static final String DICTIONARY_FILE = DICTIONARY_DIR + "dictionary.properties";
+  public static final String DICTIONARY_JSON_FILE = DICTIONARY_DIR + "dictionary.json";;
+  public static final String TEMPORARY_DICTIONARY_FILE = DICTIONARY_DIR + "temporary_dictionary.properties";
 
   public static final String PRONOUNCE_DIR = BASE_DIR + "pronounce/";
   public static final String PRONOUNCE_MP3_DIR = PRONOUNCE_DIR + "mp3/";
