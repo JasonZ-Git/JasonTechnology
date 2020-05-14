@@ -8,6 +8,7 @@
 */.idea/*
 
 */dictionary.json
+*/project.pbxproj
 
 # Node JS modules
 node_modules/

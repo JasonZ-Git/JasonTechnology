@@ -30,7 +30,9 @@ struct TranslationView: View {
                 HStack {
                     TextField("Word To Go", text: $name)
                     Button("Go"){
-                        self.transalationText = self.wordDictionary[self.name] ?? "Not Found"
+                        let tempTrans = self.wordDictionary[self.name] ?? "Not Found";
+
+                        self.transalationText = tempTrans.split(separator: ",").joined(separator: "\n")
                     }
                 }
 

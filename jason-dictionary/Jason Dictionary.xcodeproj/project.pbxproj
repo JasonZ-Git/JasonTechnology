@@ -17,7 +17,6 @@
 		A8EFC35324683FBF001CB715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8EFC35124683FBF001CB715 /* LaunchScreen.storyboard */; };
 		A8EFC35B2468402B001CB715 /* TranslationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFC35A2468402B001CB715 /* TranslationView.swift */; };
 		A8EFC35D2469731C001CB715 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFC35C2469731C001CB715 /* Data.swift */; };
-		A8EFC35F246973B1001CB715 /* translations.json in Resources */ = {isa = PBXBuildFile; fileRef = A8EFC35E246973B1001CB715 /* translations.json */; };
 		A8EFC361246973EB001CB715 /* WordTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EFC360246973EB001CB715 /* WordTranslation.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +33,6 @@
 		A8EFC35424683FBF001CB715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8EFC35A2468402B001CB715 /* TranslationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationView.swift; sourceTree = "<group>"; };
 		A8EFC35C2469731C001CB715 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		A8EFC35E246973B1001CB715 /* translations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = translations.json; sourceTree = "<group>"; };
 		A8EFC360246973EB001CB715 /* WordTranslation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTranslation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +77,6 @@
 				A8EFC34E24683FBF001CB715 /* Preview Content */,
 				A8EFC35C2469731C001CB715 /* Data.swift */,
 				A875BE89246ADF5E00496F64 /* dictionary.json */,
-				A8EFC35E246973B1001CB715 /* translations.json */,
 				A8EFC360246973EB001CB715 /* WordTranslation.swift */,
 			);
 			path = "Jason Dictionary";
@@ -155,7 +152,6 @@
 				A875BE8A246ADF5E00496F64 /* dictionary.json in Resources */,
 				A8EFC35024683FBF001CB715 /* Preview Assets.xcassets in Resources */,
 				A8EFC34D24683FBF001CB715 /* Assets.xcassets in Resources */,
-				A8EFC35F246973B1001CB715 /* translations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
