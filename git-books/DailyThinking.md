@@ -38,11 +38,18 @@ TODO List
   -- Docker
   -- Servlet 4
   -- Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
+  -- Bean Validation - How to improve the cross-paramter validation.
+  
+  
+14 May, 2020
+------------
+Bean Validation 2 is part of JaveEE8
+The build in validation for single-parameter is great and easy.
+However, the cross-parameter is not very useful, because of 2 reasons:
+  -- the validator needs to know the parameter from context.
+  -- It is not quite straight forward for user experience.
 
-
-
-
-11 May, 2019
+11 May, 2020
 ------------
 SwiftUI can be regarded as the UI framework to Swift.
 As UI is a key part for App development, SwiftUI is highly emphsised.
