@@ -9,6 +9,8 @@
 
 */dictionary.json
 */project.pbxproj
+*/xcodeproj/*
+*.xcodeproj/*
 
 # Node JS modules
 node_modules/
