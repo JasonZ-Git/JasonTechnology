@@ -70,7 +70,6 @@ Spring only implements DI 1.0 while doesn't implement CDI2, and they will not do
 Although Spring doesn't implement JavaEE CDI2, it has all the features of it - life cycle, state, scope management.
 
 
-
 9 May,2020
 -----------
 Summary of JPA Technologies of different version
@@ -97,9 +96,6 @@ JPA 2.2
 	-- Support Java 8 new Data Time
 	-- Allow Stream a query Result
 
-
-4 May, 2020
------------
 
 3 May, 2020
 --------------
@@ -155,7 +151,6 @@ Comparision between Java & Swift
         > In Java 8, functional interface has much releases of Java to be updated with functional programming.
         > It proves pure OO is not idea, function is still simple and easy to use. As print() in Swift is simpler than System.out.println()
         > Pass funtion as a parameter seems powerful - Didn't see much use by far.
-        
     -- Constructor - Swift use init & deinit as constructor - I am neutral of this difference
         > There is no deinit in Java - As JVM will do garbage collection automatically.
         > Using init seems to be good, as every class can use the same name, and it doesn't need to declare return type.
@@ -175,7 +170,7 @@ Comparision between Java & Swift
     -- error handling
         > try? is a real joy for me as I really hate try catch block in Java, the best programme should run from the first line to the end with no noodling-jumping
           It is great to convert the result automatically and get the result so succinctly.
-        > 
+
 
 28 April, 2020
 --------------
@@ -212,13 +207,9 @@ Selenium is good for web test, but there is big limitation about functions such 
 The reason is that 'Save As' function are system level functions, are for security reason, browser(Chrome & Firefox) didn't provide a direct simulation.
 
 
-14 March, 2020
-------------
-
-
 13 March, 2020
 ------------
-**Eclipse & IntelliJ IDEA**
+**Eclipse & IntelliJ IDEA 1**
 I have using Eclipse from 2010, and IntelliJ for 1 week.
 As recommended by ex-fellow from Alibaba and Architecture from my current company, I decided to try IntelliJ IDEA.
 By far, I have managed to run our product. 
@@ -231,9 +222,33 @@ Eclipse does a pretty good job - Really great design - plugin driven framework.
 Eclipse used to be unstable, but now it is very stable.
 There are 2 points which seems IntelliJ is better:
 	- Debug variable value is more direct.
-	- Using Vim-Simulator as the editor is good.
+	- Using Vim-Simulator as the editor is good - (No it is bad now, nightmare)
 	
 I will try some more time for IntelliJ and then decide to whether to keep on eclipse or totally switch to IntelliJ.
+
+**Eclipse & IntelliJ IDEA 2** Update on 15 May:
+I fell in love with IntelliJ now
+The original issue is sourced from Vim-Simulator - This is a disaster.
+Although Vi is very good, the Vim-Simulaor editor is bad experience:
+-- By default, it is read-only mode.
+-- Many hotkey are conflicted with the System which is very headache.
+
+It is strongly recommended to remove Vim-Simulator from IntelliJ.
+
+
+Version 2020.1 is a perfect version.
+The main advantages are:
+-- The default editor is nice to use.
+-- The hotkeys are more useful than eclipse.
+-- The search function is much better.
+-- Parameter indication is very useful.
+-- Debug time value is easy to show.
+-- Dictionary is better.
+
+The main disadvantage are:
+  -- The default builder sometimes failed to build the project - Properties files are not build - Not sure why - The workaroud is to use maven(or maven plugin) to rebuild it.
+  -- The maven plugin is good, but is not treated as the first-class member as what Eclipse does.
+  -- It consumes more memory than Eclipse.
 
 
 8 March, 2020
