@@ -38,9 +38,21 @@ TODO List
   -- Docker
   -- Servlet 4
   -- Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
-  -- Bean Validation - How to improve the cross-paramter validation.
+  -- Bean Validation - How to improve the cross-parameter validation.
   
-  
+
+15 May, 2020
+------------
+JSON-B & JSON-P
+Json-P and Json-B are too small but great library(API)
+Before this 2, Jackson, Gson and a banch of other json libraries out there.
+With Jasn-B and Json-P as the standard, I feel free and can rely on it now.
+
+It is very easy to use(Json-B), quite nicely designed.
+Json-P is simple but not enough, because it only provide a stream parse, and lack of facilities as what Xpath3 provides.
+Luckily, Saxon provides an implementation meets w3c standard.
+I still hope there is a JSR for the flexible query using XPath.
+
 14 May, 2020
 ------------
 Bean Validation 2 is part of JaveEE8

@@ -24,12 +24,12 @@ struct TranslationView: View {
 
     var body: some View {
         
-        return NavigationView{
+        return NavigationView {
             VStack(alignment: .leading) {
                 
                 HStack {
                     TextField("Word To Go", text: $name)
-                    Button("Go"){
+                    Button("Go") {
                         let tempTrans = self.wordDictionary[self.name] ?? "Not Found";
 
                         self.transalationText = tempTrans.split(separator: ",").joined(separator: "\n")
