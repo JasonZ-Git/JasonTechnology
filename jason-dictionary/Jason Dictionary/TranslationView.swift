@@ -10,17 +10,9 @@ import SwiftUI
 
 struct TranslationView: View {
     
-    var wordDictionary : [String:String] = [:]
-    
     @State private var transalationText = ""
     
     @State private var name = ""
-    
-    init() {
-        for current in translationData {
-            self.wordDictionary[current.word] = current.translation;
-        }
-    }
 
     var body: some View {
         
@@ -30,15 +22,16 @@ struct TranslationView: View {
                 HStack {
                     TextField("Word To Go", text: $name)
                     Button("Go") {
-                        let tempTrans = self.wordDictionary[self.name] ?? "Not Found";
+                        let tempTrans = wordDictionary[self.name.lowercased()] ?? "...";
 
                         self.transalationText = tempTrans.split(separator: ",").joined(separator: "\n")
                     }
                 }
 
-                Text("\(transalationText)")
+                Text("\(self.transalationText)")
                 Spacer()
-                Text("\(translationData.count) in total")
+                Text("\(wordDictionary.count) in total")
+               // Text("\(translatonProperty.count)")
             }
             .navigationBarTitle("Jason Dictionary")
             .padding()

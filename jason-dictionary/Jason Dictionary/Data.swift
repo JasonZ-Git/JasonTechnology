@@ -10,9 +10,33 @@ import UIKit
 import SwiftUI
 import CoreLocation
 
-let translationData: [WordTranslation] = load("dictionary.json");
+let wordDictionary : [String : String] = loadProperty("dictionary")
 
-func load<T: Decodable>(_ filename: String) -> T {
+
+func loadProperty(_ filename : String) -> [String : String] {
+    let path = Bundle.main.path(forResource: filename, ofType: "properties")
+    
+    var text : String! = ""
+    do {
+        text = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+    } catch {
+        print(error)
+    }
+    
+    let lines : [String] = text.components(separatedBy: "\n")
+    
+    var resultDict : [String:String] = [:]
+    for line in lines {
+        if line.contains("=") {
+            let tempStr = line.components(separatedBy: "=")
+            resultDict[tempStr[0]] = tempStr[1]
+        }
+    }
+    
+    return resultDict
+}
+
+func loadJSON<T: Decodable>(_ filename: String) -> T {
     let data: Data
     
     guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
@@ -31,33 +55,5 @@ func load<T: Decodable>(_ filename: String) -> T {
         return try decoder.decode(T.self, from: data)
     } catch {
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-    }
-}
-
-// let tempDictionary : [String:String] = load("translations.plist")
-
-//func loadPropertyToDictionary (_ filename: String) ->[String : String] {
-//    var config: [String: String]?
-//    // var dictData : [String : String]
-//    if let infoPlistPath = Bundle.main.url(forResource: filename, withExtension: "plist") {
-//        do {
-//            let infoPlistData = try Data(contentsOf: infoPlistPath)
-//
-//            if let dict = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: String] {
-//                config = dict
-//            }
-//
-//        } catch {
-//            print(error)
-//        }
-//
-//    }
-//
-//    return config ?? ["hello":"bad luck"]
-//}
-
-struct Data_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
