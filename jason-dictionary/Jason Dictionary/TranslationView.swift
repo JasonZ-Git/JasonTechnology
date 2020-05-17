@@ -16,22 +16,27 @@ struct TranslationView: View {
 
     var body: some View {
         
+        let binding = Binding<String>(get: {
+            self.name
+        }, set: {
+            self.name = $0
+            
+            let tempTrans = wordDictionary[self.name.lowercased()] ?? "...";
+
+            self.transalationText = tempTrans.split(separator: ",").joined(separator: "\n")
+            
+        })
+        
         return NavigationView {
             VStack(alignment: .leading) {
                 
                 HStack {
-                    TextField("Word To Go", text: $name)
-                    Button("Go") {
-                        let tempTrans = wordDictionary[self.name.lowercased()] ?? "...";
-
-                        self.transalationText = tempTrans.split(separator: ",").joined(separator: "\n")
-                    }
+                    TextField("Word To Go", text: binding)
                 }
 
-                Text("\(self.transalationText)")
+                Text("\(transalationText)")
                 Spacer()
                 Text("\(wordDictionary.count) in total")
-               // Text("\(translatonProperty.count)")
             }
             .navigationBarTitle("Jason Dictionary")
             .padding()

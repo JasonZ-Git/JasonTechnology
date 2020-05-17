@@ -10,6 +10,9 @@
 */dictionary.json
 */project.pbxproj
 */*.xcodeproj/*
+*/dictionary.properties
+
+jason-dictionary/Jason Dictionary.xcodeproj/project.pbxproj/*
 
 # Node JS modules
 node_modules/
