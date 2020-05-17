@@ -8,33 +8,37 @@
 
 import SwiftUI
 
+
+class TranslationBinding: ObservableObject {
+    
+    @Published var translation = "" {
+        didSet{}
+    }
+    
+    @Published var word = "" {
+        didSet {
+            
+            let tempTrans = wordDictionary[self.word.lowercased()] ?? "...";
+
+            self.translation = tempTrans.split(separator: ",").joined(separator: "\n")
+        }
+    }
+}
+
 struct TranslationView: View {
     
-    @State private var transalationText = ""
-    
-    @State private var name = ""
+    @ObservedObject var translation = TranslationBinding()
 
     var body: some View {
-        
-        let binding = Binding<String>(get: {
-            self.name
-        }, set: {
-            self.name = $0
-            
-            let tempTrans = wordDictionary[self.name.lowercased()] ?? "...";
-
-            self.transalationText = tempTrans.split(separator: ",").joined(separator: "\n")
-            
-        })
         
         return NavigationView {
             VStack(alignment: .leading) {
                 
                 HStack {
-                    TextField("Word To Go", text: binding)
+                    TextField("Word To Go", text: $translation.word)
                 }
 
-                Text("\(transalationText)")
+                Text("\(translation.translation)")
                 Spacer()
                 Text("\(wordDictionary.count) in total")
             }
@@ -43,6 +47,8 @@ struct TranslationView: View {
         }
     }
 }
+
+
 
 struct TranslationView_Previews: PreviewProvider {
     static var previews: some View {
