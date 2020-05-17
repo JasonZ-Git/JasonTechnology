@@ -7,12 +7,9 @@
 *.iml
 */.idea/*
 
-*/dictionary.json
-*/project.pbxproj
-*/*.xcodeproj/*
-*/dictionary.properties
-
-jason-dictionary/Jason Dictionary.xcodeproj/project.pbxproj/*
+**/project.pbxproj
+**/*.xcodeproj/*
+**/dictionary.properties
 
 # Node JS modules
 node_modules/
