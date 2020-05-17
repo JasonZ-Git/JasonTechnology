@@ -44,14 +44,14 @@ TODO List
 15 May, 2020
 ------------
 JSON-B & JSON-P
-Json-P and Json-B are too small but great library(API)
-Before this 2, Jackson, Gson and a banch of other json libraries out there.
-With Jasn-B and Json-P as the standard, I feel free and can rely on it now.
+JSON-P and JSON-B are too small but great library(API)
+Before this 2, Jackson, Gson and a banch of other JSON libraries out there.
+With Jasn-B and JSON-P as the standard, I feel free and can rely on it now.
 
-It is very easy to use(Json-B), quite nicely designed.
-Json-P is simple but not enough, because it only provide a stream parse, and lack of facilities as what Xpath3 provides.
+It is very easy to use(JSON-B), quite nicely designed.
+JSON-P is simple but not enough, because it only provide a stream parse, and lack of facilities as what XPath3 provides.
 Luckily, Saxon provides an implementation meets w3c standard.
-I still hope there is a JSR for the flexible query using XPath.
+I still hope there is a JSR for the flexible query using XPath - Needs to check more about whether there is existing JSR in progress - May be I can write one for JCP --
 
 14 May, 2020
 ------------
