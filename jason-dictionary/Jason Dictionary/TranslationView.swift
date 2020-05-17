@@ -18,7 +18,7 @@ class TranslationBinding: ObservableObject {
     @Published var word = "" {
         didSet {
             
-            let tempTrans = wordDictionary[self.word.lowercased()] ?? "...";
+            let tempTrans = wordDictionary[self.word.lowercased().trimmingCharacters(in: .whitespaces)] ?? "...";
 
             self.translation = tempTrans.split(separator: ",").joined(separator: "\n")
         }
@@ -42,7 +42,7 @@ struct TranslationView: View {
                 Spacer()
                 Text("\(wordDictionary.count) in total")
             }
-            .navigationBarTitle("Jason Dictionary")
+            .navigationBarTitle("Koala Go")
             .padding()
         }
     }
