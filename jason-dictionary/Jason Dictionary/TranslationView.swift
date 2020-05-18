@@ -25,6 +25,17 @@ class TranslationBinding: ObservableObject {
     }
 }
 
+struct TitleBarImage : View {
+    var body: some View {
+        VStack {
+            Image("TitleImageKoala")
+        }
+        .frame(width: 400, height: 400, alignment: .center)
+        .background(Color.clear)
+    }
+}
+
+
 struct TranslationView: View {
     
     @ObservedObject var translation = TranslationBinding()
@@ -42,7 +53,7 @@ struct TranslationView: View {
                 Spacer()
                 Text("\(wordDictionary.count) in total")
             }
-            .navigationBarTitle("Koala Go")
+            .navigationBarTitle("Koala")
             .padding()
         }
     }

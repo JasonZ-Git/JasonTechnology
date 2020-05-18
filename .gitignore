@@ -10,6 +10,8 @@
 **/project.pbxproj
 **/*.xcodeproj/*
 **/dictionary.properties
+**/AppIcon.appiconset/*
+**/Koala.png
 
 # Node JS modules
 node_modules/
