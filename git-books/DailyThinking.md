@@ -15,7 +15,7 @@ TODO List
   -- Apache Kafka
   -- JFrog
   -- Kotlin - Planned for 2021
-  -- Swift - To finish by 31 May
+  -- Swift - To finish by 31 May - Summary the programming model difference between SwiftUI and Java MVC
   -- swagger
   -- keycloak
   -- batik
@@ -33,6 +33,53 @@ TODO List
   -- no-sql (MongoDB?)
   -- cmder & git bash
   -- Java EE 8 Technology Summary - By 30 May
+  -- MicroProfile (MicroService)
+  -- Dagger
+  -- Docker
+  -- Servlet 4
+  -- Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
+  -- Bean Validation - How to improve the cross-parameter validation.
+  
+
+15 May, 2020
+------------
+JSON-B & JSON-P
+JSON-P and JSON-B are too small but great library(API)
+Before this 2, Jackson, Gson and a banch of other JSON libraries out there.
+With Jasn-B and JSON-P as the standard, I feel free and can rely on it now.
+
+It is very easy to use(JSON-B), quite nicely designed.
+JSON-P is simple but not enough, because it only provide a stream parse, and lack of facilities as what XPath3 provides.
+Luckily, Saxon provides an implementation meets w3c standard.
+I still hope there is a JSR for the flexible query using XPath - Needs to check more about whether there is existing JSR in progress - May be I can write one for JCP --
+
+14 May, 2020
+------------
+Bean Validation 2 is part of JaveEE8
+The build in validation for single-parameter is great and easy.
+However, the cross-parameter is not very useful, because of 2 reasons:
+  -- the validator needs to know the parameter from context.
+  -- It is not quite straight forward for user experience.
+
+11 May, 2020
+------------
+SwiftUI can be regarded as the UI framework to Swift.
+As UI is a key part for App development, SwiftUI is highly emphsised.
+	@State - Bind a View to a varialble, one direction
+	@Binding
+        @ObjectBinding 
+          
+
+10 May, 2020
+-----------
+Clarification of CDI and DI
+CDI/DI - CDI is a java ee specification, while DI is a common term as well as a java specification.
+DI is a subset of CDI
+CDI 2.0 includes DI 1.0
+The main difference is CDI includes lifetime management such as constuct/destroy a class, state, scope management.
+
+Spring only implements DI 1.0 while doesn't implement CDI2, and they will not do it as confirmed by Jouger Holler.
+Although Spring doesn't implement JavaEE CDI2, it has all the features of it - life cycle, state, scope management.
 
 
 9 May,2020
@@ -50,20 +97,17 @@ JPA 2.0
 	-- Criteria API
 	-- Support Validation
 JPA 2.1
-        -- Released in 2013 under JSR_338
+    -- Released in 2013 under JSR_338
 	-- Allow customer converter between Database and Java Object
-        -- Enhance JPQL/Criteria for sub-query, join ON, generic DB function and TREAT(?? TODO)
+    -- Enhance JPQL/Criteria for sub-query, join ON, generic DB function and TREAT(?? TODO)
 	-- Stored Procedures
 JPA 2.2
-        -- Released in 2017 under JSR_338
+    -- Released in 2017 under JSR_338
 	-- CDI support for AttributeConverter
 	-- Some annotation become @Repeatalbe (such as NamedQuery)
 	-- Support Java 8 new Data Time
 	-- Allow Stream a query Result
 
-
-4 May, 2020
------------
 
 3 May, 2020
 --------------
@@ -119,7 +163,6 @@ Comparision between Java & Swift
         > In Java 8, functional interface has much releases of Java to be updated with functional programming.
         > It proves pure OO is not idea, function is still simple and easy to use. As print() in Swift is simpler than System.out.println()
         > Pass funtion as a parameter seems powerful - Didn't see much use by far.
-        
     -- Constructor - Swift use init & deinit as constructor - I am neutral of this difference
         > There is no deinit in Java - As JVM will do garbage collection automatically.
         > Using init seems to be good, as every class can use the same name, and it doesn't need to declare return type.
@@ -139,7 +182,7 @@ Comparision between Java & Swift
     -- error handling
         > try? is a real joy for me as I really hate try catch block in Java, the best programme should run from the first line to the end with no noodling-jumping
           It is great to convert the result automatically and get the result so succinctly.
-        > 
+
 
 28 April, 2020
 --------------
@@ -176,13 +219,9 @@ Selenium is good for web test, but there is big limitation about functions such 
 The reason is that 'Save As' function are system level functions, are for security reason, browser(Chrome & Firefox) didn't provide a direct simulation.
 
 
-14 March, 2020
-------------
-
-
 13 March, 2020
 ------------
-**Eclipse & IntelliJ IDEA**
+**Eclipse & IntelliJ IDEA 1**
 I have using Eclipse from 2010, and IntelliJ for 1 week.
 As recommended by ex-fellow from Alibaba and Architecture from my current company, I decided to try IntelliJ IDEA.
 By far, I have managed to run our product. 
@@ -195,9 +234,33 @@ Eclipse does a pretty good job - Really great design - plugin driven framework.
 Eclipse used to be unstable, but now it is very stable.
 There are 2 points which seems IntelliJ is better:
 	- Debug variable value is more direct.
-	- Using Vim-Simulator as the editor is good.
+	- Using Vim-Simulator as the editor is good - (No it is bad now, nightmare)
 	
 I will try some more time for IntelliJ and then decide to whether to keep on eclipse or totally switch to IntelliJ.
+
+**Eclipse & IntelliJ IDEA 2** Update on 15 May:
+I fell in love with IntelliJ now
+The original issue is sourced from Vim-Simulator - This is a disaster.
+Although Vi is very good, the Vim-Simulaor editor is bad experience:
+-- By default, it is read-only mode.
+-- Many hotkey are conflicted with the System which is very headache.
+
+It is strongly recommended to remove Vim-Simulator from IntelliJ.
+
+
+Version 2020.1 is a perfect version.
+The main advantages are:
+-- The default editor is nice to use.
+-- The hotkeys are more useful than eclipse.
+-- The search function is much better.
+-- Parameter indication is very useful.
+-- Debug time value is easy to show.
+-- Dictionary is better.
+
+The main disadvantage are:
+  -- The default builder sometimes failed to build the project - Properties files are not build - Not sure why - The workaroud is to use maven(or maven plugin) to rebuild it.
+  -- The maven plugin is good, but is not treated as the first-class member as what Eclipse does.
+  -- It consumes more memory than Eclipse.
 
 
 8 March, 2020

@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.jason.annotation.Application;
 import org.jason.annotation.Unfinished;
 import org.jason.spider.dictionary.DictionaryConstants;
-import org.jason.spider.dictionary.StringPair;
+import org.jason.util.finalclass.StringPair;
 import org.jason.util.JasonFileUtil;
 
 @Unfinished(todo = "Load Audio should be taken out as a util")

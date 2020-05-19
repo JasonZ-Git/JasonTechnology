@@ -1,8 +1,7 @@
-package org.jason.spider.dictionary;
+package org.jason.util.finalclass;
 
-import org.jason.util.finalclass.Pair;
+public final class StringPair extends Pair<String, String> {
 
-public class StringPair extends Pair<String, String> {
   private StringPair(String left, String right) {
     super(left, right);
   }
