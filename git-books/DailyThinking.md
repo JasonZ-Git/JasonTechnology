@@ -42,11 +42,21 @@ TODO List
   -- JSR 365 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 
 
-24 May,2020
------------
-JSR-365 - Java API for WebSocket - Summary & Thinking
+24 May, 2020
+------------
+JSR-356 - Java API for WebSocket - Summary & Thinking
+There are 2 parts of WebSocket Standard, server and client;
+First, use WebSocket to connect - Handshake.
+Second, communicate using the socket.
 
-  
+It contains: 
+Server - which can push message to Client;
+Client - Which can push message to Server; It could be Web, or Java or others.
+
+Client is responsible to connect to server.
+After connect is established, they will listen to each other.
+Encoder/Decoder - Which converts message between Java Object and Text;
+
 
 15 May, 2020
 ------------

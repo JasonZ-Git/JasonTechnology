@@ -39,7 +39,9 @@ public class TranslationApplication {
 
     sourceWordsToTranslate.removeIf(existingWords::contains);
 
-    List<String> limitedWords = sourceWordsToTranslate.stream().limit(1000).collect(Collectors.toList());
+    System.out.printf("Total words to translate is %d", sourceWordsToTranslate.size());
+
+    List<String> limitedWords = sourceWordsToTranslate.stream().limit(40000).collect(Collectors.toList());
 
     PageSpider<TranslationResult> spider = new WordTranslationSpider(limitedWords);
 
