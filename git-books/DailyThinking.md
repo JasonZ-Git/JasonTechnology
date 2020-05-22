@@ -39,7 +39,15 @@ TODO List
   -- Servlet 4
   -- Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
   -- Bean Validation - How to improve the cross-parameter validation.
-  -- JSR 365 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
+  -- JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
+  -- JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+
+25 May, 2020
+-----------
+The more I checked about JavaEE CDI2, the stronger I feel that Spring may not be the most suitable framework for us.
+Spring has departed from JavaEE quite far and it is hard for them to come back.
+It is reasonable to check more about Seam which is the reference implemention of CDI 2
 
 
 24 May, 2020
