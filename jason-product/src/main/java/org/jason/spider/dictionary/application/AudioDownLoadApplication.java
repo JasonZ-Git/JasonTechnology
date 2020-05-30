@@ -36,7 +36,7 @@ public class AudioDownLoadApplication {
 
     List<StringPair> pronouceToLoad = pronounceList.parallelStream().map(item -> toPair(item)).filter(item -> !existingMP3Files.contains(item.getLeft())).collect(Collectors.toList());
 
-    pronouceToLoad.parallelStream().limit(8000).forEach(item -> loadSingleAudio(item));
+    pronouceToLoad.parallelStream().limit(8000).forEach(item -> downLoadSingleAudio(item));
   }
 
   private static StringPair toPair(String pronouceLine) {
@@ -45,7 +45,7 @@ public class AudioDownLoadApplication {
     return StringPair.of(pronouceLine.substring(0, splitPos), pronouceLine.substring(splitPos + 1));
   }
 
-  private static void loadSingleAudio(StringPair item) {
+  private static void downLoadSingleAudio(StringPair item) {
     String word = item.getLeft();
     String pronounceUrl = item.getRight();
 
