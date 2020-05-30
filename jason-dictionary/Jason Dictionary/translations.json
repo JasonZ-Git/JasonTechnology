@@ -1,0 +1,12 @@
+[
+    {
+        "word": "hello",
+        "translation": "Ni Hao",
+        "id": 1001,
+    },
+    {
+        "word": "world",
+        "translation": "Shi Jie",
+        "id": 1002,
+    }
+]
