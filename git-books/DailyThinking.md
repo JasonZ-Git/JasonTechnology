@@ -43,6 +43,11 @@ TODO List
   -- JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
 
+1 Jun, 2020
+----------
+It is not surprising if I release a book related to JavaEE technology within 2 years
+
+
 25 May, 2020
 -----------
 The more I checked about JavaEE CDI2, the stronger I feel that Spring may not be the most suitable framework for us.
