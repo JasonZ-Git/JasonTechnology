@@ -47,7 +47,7 @@ TODO List
 -----------
 The more I checked about JavaEE CDI2, the stronger I feel that Spring may not be the most suitable framework for us.
 Spring has departed from JavaEE quite far and it is hard for them to come back.
-It is reasonable to check more about Seam which is the reference implemention of CDI 2
+It is reasonable to check more about Seam which is the reference implemention of CDI 2, and use seam's feature in my library
 
 
 24 May, 2020
