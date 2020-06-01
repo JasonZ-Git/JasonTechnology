@@ -80,3 +80,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension UINavigationBar {
+    func customNavigationBar() {
+        // color for button images, indicators and etc.
+        self.tintColor = UIColor.blue
+
+        // color for background of navigation bar
+        // but if you use larget titles, then in viewDidLoad must write
+        // navigationController?.view.backgroundColor = // your color
+        self.barTintColor = .white
+        self.isTranslucent = false
+
+        // for larget titles
+        self.prefersLargeTitles = true
+
+        // color for large title label
+        self.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.green]
+
+        // color for standard title label
+        self.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont(name: "Georgia-Bold", size: 24)!]
+
+        // remove bottom line/shadow
+        self.setBackgroundImage(UIImage(), for: .default)
+        self.shadowImage = UIImage()
+    }
+}
+
