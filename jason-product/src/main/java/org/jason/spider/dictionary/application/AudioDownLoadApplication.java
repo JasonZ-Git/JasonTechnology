@@ -34,9 +34,9 @@ public class AudioDownLoadApplication {
 
     List<String> existingMP3Files = getExistingMP3Files();
 
-    List<StringPair> pronouceToLoad = pronounceList.parallelStream().map(item -> toPair(item)).filter(item -> !existingMP3Files.contains(item.getLeft())).collect(Collectors.toList());
+    List<StringPair> pronouceToLoad = pronounceList.parallelStream().filter(item-> item.contains("=")).map(item -> toPair(item)).filter(item -> !existingMP3Files.contains(item.getLeft())).collect(Collectors.toList());
 
-    pronouceToLoad.parallelStream().limit(8000).forEach(item -> downLoadSingleAudio(item));
+    pronouceToLoad.parallelStream().limit(800).forEach(item -> downLoadSingleAudio(item));
   }
 
   private static StringPair toPair(String pronouceLine) {
