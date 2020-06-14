@@ -42,9 +42,15 @@ TODO List
   -- JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
   -- JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+8 Jun, 2020
+-----------
+I strongly feel the name of JavaEE should be renamed to Java Module or something like that.
+JavaEE which consists of multiple subsystems, is huge - while there is no need to use all of them.
+We can easily pick up the one that we use - which will make it a lot easier.
+JavaEE is not a good name anymore - EE is basically frightening - Java Module is better (Java 9 has a Module there which will be confusing)
 
 1 Jun, 2020
-----------
+-----------
 It is not surprising if I release a book related to JavaEE technology within 2 years
 
 
