@@ -1,1 +1,1 @@
-This file is used for github.io
+# This Page is created by Jason to explore all kind of technologies & record daily thinkings.
