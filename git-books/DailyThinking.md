@@ -3,6 +3,14 @@ This file is used to record my random brain storm
 
 TODO List
 ---------
+  * Design a tennis ball carrier - 
+  ..* It should be Environmental friendly - Using bamboo or wood.
+  ..* It is easy to carry - Can be carried in the tennis bag.
+  ..* It is designed for personal usage - Self-training purpose.
+  ..* It should be afordable - Cheaper than current ones.
+  ..* It can carry tennis balls with it.
+  ..* Initlal design ideas - Plate-like top(IKEA wooden plate), foldable middle part(carry balls with several stick  carrier) - 
+  
   * Regex
   * Think a way to perfectly support JSON in Java
   * URL & URI
