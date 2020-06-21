@@ -1,5 +1,7 @@
 # This Page is created by Jason to explore all kind of technologies & record daily thinkings.
 
-[Java EE 8 Technology Stack](./gitbooks/JavaEE_8.md)
+[Jason Daily](./git-books/DailyThinking.md)
 
-[JavaEE 8, Java EE Web, Servlet, JavaSE 8](./gitbooks/images/JavaEE8Full.png)
+[Java EE 8 Technology Stack](./git-books/JavaEE_8.md)
+
+[JavaEE 8, Java EE Web, Servlet, JavaSE 8](./git-books/JavaEE8_JavaSE8_Servelet_Full.md)
