@@ -50,6 +50,12 @@ TODO List
   * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
   * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+21 Jun, 2020
+-----------
+Java Security API is very confusing, doesn't seems to be easy to use.
+Seems there is more work needed.
+
+
 18 Jun, 2020
 -----------
 A JavaEE 8 Technology Stack is added to Github Page.
