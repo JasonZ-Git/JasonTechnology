@@ -1,0 +1,6 @@
+**/project.pbxproj
+**/*.xcodeproj/*
+**/dictionary.properties
+**/AppIcon.appiconset/*
+**/Koala.png
+**/Resources/*

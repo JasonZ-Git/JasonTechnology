@@ -7,24 +7,6 @@
 //
 
 import SwiftUI
-import AVFoundation
-
-class SoundPlay {
-    
-    static func play(word : String) {
-        var bombSoundEffect: AVAudioPlayer?
-        let path = Bundle.main.path(forResource: "Sounds/ability", ofType: "mp3")!
-        let url = URL(fileURLWithPath: path)
-        do {
-            //try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            //try AVAudioSession.sharedInstance().setActive(true)
-            bombSoundEffect = try AVAudioPlayer(contentsOf: url)
-            bombSoundEffect?.play()
-        } catch {
-            print("Something Wrong")
-        }
-    }
-}
 
 class TranslationBinding: ObservableObject {
     
@@ -72,7 +54,8 @@ struct TranslationView: View {
                 
                 Button(action: {
                     print("Button Clicked")
-                    SoundPlay.play(word: self.wordAndTranslation.word)
+                    playSound(sound: self.wordAndTranslation.word, type: "mp3")
+                    
                 }) {
                     Text("Sound")
                 }
