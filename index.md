@@ -4,6 +4,6 @@
 
 [JavaEE 8 Technology Stack](./git-books/JavaEE_8.md)
 
-[JavaEE 8, JavaEE Web Profile, Servlet, JavaSE 8](./git-books/JavaEE8_JavaSE8_Servelet_Full.md)
+[Relationship of JavaEE 8, JavaEE Web Profile, Servlet, JavaSE 8](./git-books/JavaEE8_JavaSE8_Servelet_Full.md)
 
-[Jakarta EE Release Plan](./git-books/JakartaEE_Release_Plan.md)
+[JavaSE, JavaEE, JakartaEE Release Date](./git-books/Java_Version_History_SE_EE.md)
