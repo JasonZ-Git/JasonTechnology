@@ -1,4 +1,4 @@
-# JakartaEE 8,9, 10 Release Plan
+# JavaEE, JakartaEE Version Histoy
 
 | EE Version        | Release Date           | Comment|
 | ------------- |:-------------:| ----- |
@@ -13,6 +13,7 @@
 |JavaEE 1.3|Sep 2001||
 |JavaEE 1.2|Dec 1999||
 
+# JavaSE Version Histoy
 
 | JavaSE Version        | Release Date           | Key feature|
 | ------------- |:-------------:|:-----|
@@ -34,6 +35,7 @@
 
 [Full summary of JavaSE Version](https://en.wikipedia.org/wiki/Java_version_history)
 
+# Different JavaEE Specification & Version
 
 |JavaEE Specification	|Java EE 6	|Java EE 7	|Java EE 8|
 | ------------- |:-------------:| -----:|:-------------:|
@@ -44,9 +46,9 @@
 |JSTL	|	1.2|	1.2|	1.2|
 |JSF	|2.0	|2.2	|2.3|
 |JAX-RS	|1.1	|2.0	|2.1|
-|WebSocket	|n/a	|1.0	|1.1|
-|JSON-P	|n/a	|1.0	|1.1|
-|JSON-B	|n/a	|n/a	|1.0|
+|WebSocket	|-	|1.0	|1.1|
+|JSON-P	|-	|1.0	|1.1|
+|JSON-B	|-	|-	|1.0|
 |Common Annotations	|1.1	|1.2	|1.3|
 |EJB	|3.1 Lite	|3.2 Lite	|3.2|
 |JTA	|1.1	|1.2	|1.2|
@@ -56,10 +58,9 @@
 |Interceptors	|1.1	|1.2	|1.2|
 |Contexts and Dependency Injection	|1.0	|1.1	|2.0|
 |Dependency Injection for Java	|1.0	|1.0	|1.0|
-|Java Mail|?|?|1.6|
-|JMS|?|?|2.0|
-|Connector Architecture|?	|?	|1.7|
-|Java Security|?	|?	|1.0|
-|Interceptors|?		|?	|1.2|
-|Batch Applications|?	|?	|1.0|
-|Concurrency Utilities|?	|?	|1.0|
+|Java Mail|1.4	|1.5	|1.6|
+|JMS|1.1	|2.0	|2.0|
+|Connector Architecture|?	|1.7	|1.7|
+|Java Security|JASPIC1.0,JACC1.4	|JASPIC 1.1, JACC 1.5	|1.0|
+|Batch Applications|-	|1.0	|1.0|
+|Concurrency Utilities|-	|1.0	|1.0|
