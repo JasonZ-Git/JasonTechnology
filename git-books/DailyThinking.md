@@ -50,6 +50,16 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+28 Jun, 2020
+-----------
+Java Security API is a combination of JASPIC, JAAS, JACC - all of which has a long history.
+
+It still lacks the simplicity to be a excellent API.
+
+More work to do for it.
+
+
+
 21 Jun, 2020
 -----------
 Java Security API is very confusing, doesn't seems to be easy to use.

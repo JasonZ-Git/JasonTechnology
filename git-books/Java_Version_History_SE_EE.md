@@ -38,7 +38,7 @@
 # Different JavaEE Specification & Version
 
 |JavaEE Specification	|Java EE 6	|Java EE 7	|Java EE 8|
-| ------------- |:-------------:| -----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|
 |Servlet	|3.0	|3.1	|4.0|
 |JSP	|	2.2|	2.3|	2.3|
 |Unified Expression Language (EL)|	2.2|	3.0|	3.0|
@@ -61,6 +61,6 @@
 |Java Mail|1.4	|1.5	|1.6|
 |JMS|1.1	|2.0	|2.0|
 |Connector Architecture|?	|1.7	|1.7|
-|Java Security|JASPIC1.0,JACC1.4	|JASPIC 1.1, JACC 1.5	|1.0|
+|Java Security((JASPIC, JAAS, JACC))| - | - |1.0|
 |Batch Applications|-	|1.0	|1.0|
 |Concurrency Utilities|-	|1.0	|1.0|
