@@ -1,7 +1,7 @@
 This file is used to record my random brain storm
 ===============================================================
 
-TODO List
+TODO List - All the finished ones will be moved to separate pages.
 ---------
 * Design a tennis ball carrier - 
   - It should be Environmental friendly - Using bamboo or wood.

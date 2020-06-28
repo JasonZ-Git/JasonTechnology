@@ -6,7 +6,8 @@
 	<groupId>org.jason</groupId>
 	<artifactId>SpringMVC</artifactId>
 	<packaging>war</packaging>
-	<version>2.1</version>
+		<!-- It should extend jason-parent -->
+	<version>2.2</version>
 	<name>SpringMVC Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
