@@ -50,6 +50,13 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+5 July, 2020
+-----------
+I read a book about microservice from RedHat - which I have been using for long.
+In this book, it illustrate 'Software is eating up the world', mainly due to the free software movement, the cost of using technology is significantly lower,
+so it easy to build services using these technologies.
+
+
 28 Jun, 2020
 -----------
 Java Security API is a combination of JASPIC, JAAS, JACC - all of which has a long history.
