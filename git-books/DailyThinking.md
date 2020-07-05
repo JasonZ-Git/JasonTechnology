@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* YAML file - Good to check more about it.
 * Design a tennis ball carrier - 
   - It should be Environmental friendly - Using bamboo or wood.
   - It is easy to carry - Can be carried in the tennis bag.
@@ -51,6 +52,14 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
 5 July, 2020
+-----------
+MicroProfile which is released in 2016, focus on Enterprise microservices applications, it is based on CDI, JSON-P, JSON-B and JAX-RS
+
+![difference](images/microprofile_2_1.png)
+
+
+
+4 July, 2020
 -----------
 I read a book about microservice from RedHat - which I have been using for long.
 In this book, it illustrate 'Software is eating up the world', mainly due to the free software movement, the cost of using technology is significantly lower,
