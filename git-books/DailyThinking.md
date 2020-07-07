@@ -51,6 +51,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+
+6 July, 2020
+-----------
+Apache Camel is used as an integration portal - It can go with CDI and spring, used to dispatch request(http, SOAP, JMS) to different service endpoints.
+
+
 5 July, 2020
 -----------
 MicroProfile which is released in 2016, focus on Enterprise microservices applications, it is based on CDI, JSON-P, JSON-B and JAX-RS
