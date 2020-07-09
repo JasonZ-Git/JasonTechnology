@@ -56,6 +56,18 @@ TODO List - All the finished ones will be moved to separate pages.
 SwiftUI is driving me crazy.
 
 
+
+9 July, 2020
+-----------
+Today is the first day to start AWS 
+I plan to get a AWS developer and architect's certificate within one year.
+
+Goal - Get AWS Developer Certificate by the end of this year. (31 Dec)
+     - Get AWS Architect Certificate by the middle of 2021. (30 June)
+	 
+Go Jason, you can do it.
+
+
 6 July, 2020
 -----------
 Apache Camel is used as an integration portal - It can go with CDI and spring, used to dispatch request(http, SOAP, JMS) to different service endpoints.
