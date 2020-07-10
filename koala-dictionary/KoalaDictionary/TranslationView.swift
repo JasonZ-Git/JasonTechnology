@@ -54,9 +54,8 @@ struct TranslationView: View {
                 
                 Button(action: {
                     print("Button Clicked")
-                    //playSound(sound: self.wordAndTranslation.word)
-                    
-                    playSound(sound: "ability")
+            
+                    playSound(sound: self.wordAndTranslation.word)
                     
                 }) {
                     Text("Sound")
