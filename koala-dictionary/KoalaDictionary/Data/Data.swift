@@ -1,8 +1,8 @@
 //
 //  Data.swift
-//  Jason Dictionary
+//  KoalaDictionary
 //
-//  Created by Jason Zhang on 11/5/20.
+//  Created by Jason Zhang on 10/7/20.
 //  Copyright © 2020 Jason Zhang. All rights reserved.
 //
 

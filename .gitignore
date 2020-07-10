@@ -7,11 +7,15 @@
 *.iml
 */.idea/*
 
+
+## Koala Dictionary
+**.DS_Store
 **/project.pbxproj
 **/*.xcodeproj/*
 **/dictionary.properties
 **/AppIcon.appiconset/*
 **/Koala.png
+**/Sounds/*.mp3
 
 
 

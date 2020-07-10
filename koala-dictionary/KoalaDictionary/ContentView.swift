@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  Jason Dictionary
+//  KoalaDictionary
 //
-//  Created by Jason Zhang on 10/5/20.
+//  Created by Jason Zhang on 10/7/20.
 //  Copyright © 2020 Jason Zhang. All rights reserved.
 //
 
@@ -10,6 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+//        Button(action: {
+//            playSound(sound: "ability", type: "mp3")
+//        }) {
+//            Text("Hello Click")
+//          }
+        
         TranslationView()
     }
 }

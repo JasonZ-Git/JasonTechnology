@@ -1,8 +1,8 @@
 //
 //  TranslationView.swift
-//  Jason Dictionary
+//  KoalaDictionary
 //
-//  Created by Jason Zhang on 10/5/20.
+//  Created by Jason Zhang on 10/7/20.
 //  Copyright © 2020 Jason Zhang. All rights reserved.
 //
 
@@ -54,7 +54,9 @@ struct TranslationView: View {
                 
                 Button(action: {
                     print("Button Clicked")
-                    playSound(sound: self.wordAndTranslation.word, type: "mp3")
+                    //playSound(sound: self.wordAndTranslation.word)
+                    
+                    playSound(sound: "ability")
                     
                 }) {
                     Text("Sound")
@@ -67,10 +69,7 @@ struct TranslationView: View {
     }
 }
 
-
-
 struct TranslationView_Previews: PreviewProvider {
-    
     static var previews: some View {
         TranslationView()
     }

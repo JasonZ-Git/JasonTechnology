@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Jason Dictionary
+//  KoalaDictionary
 //
-//  Created by Jason Zhang on 10/5/20.
+//  Created by Jason Zhang on 10/7/20.
 //  Copyright © 2020 Jason Zhang. All rights reserved.
 //
 
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "Jason_Dictionary")
+        let container = NSPersistentContainer(name: "KoalaDictionary")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -78,32 +78,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-}
-
-
-extension UINavigationBar {
-    func customNavigationBar() {
-        // color for button images, indicators and etc.
-        self.tintColor = UIColor.blue
-
-        // color for background of navigation bar
-        // but if you use larget titles, then in viewDidLoad must write
-        // navigationController?.view.backgroundColor = // your color
-        self.barTintColor = .white
-        self.isTranslucent = false
-
-        // for larget titles
-        self.prefersLargeTitles = true
-
-        // color for large title label
-        self.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.green]
-
-        // color for standard title label
-        self.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont(name: "Georgia-Bold", size: 24)!]
-
-        // remove bottom line/shadow
-        self.setBackgroundImage(UIImage(), for: .default)
-        self.shadowImage = UIImage()
-    }
 }
 

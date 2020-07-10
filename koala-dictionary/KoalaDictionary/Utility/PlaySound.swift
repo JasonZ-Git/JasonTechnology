@@ -1,8 +1,8 @@
 //
 //  PlaySound.swift
-//  Jason Dictionary
+//  KoalaDictionary
 //
-//  Created by Jason Zhang on 30/5/20.
+//  Created by Jason Zhang on 10/7/20.
 //  Copyright © 2020 Jason Zhang. All rights reserved.
 //
 
@@ -11,12 +11,11 @@ import AVFoundation
 
 var audioPlayer : AVAudioPlayer?
 
-func playSound(sound: String, type: String) {
-    if let path = Bundle.main.path(forResource: sound, ofType: type) {
+func playSound(sound: String) {
+    if let path = Bundle.main.path(forResource: "Sounds/"+sound, ofType: "mp3") {
         do {
             audioPlayer = try AVAudioPlayer (contentsOf: URL(fileURLWithPath: path))
             audioPlayer?.play()
-            print("played \(sound)")
         } catch {
             print("cannot find the file")
         }
