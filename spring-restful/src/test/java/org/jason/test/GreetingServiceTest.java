@@ -15,19 +15,19 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class GreetingServiceTest {
 
-	@InjectMocks
-	private GreetingService greetingService = new GreetingServiceImpl();
+    @InjectMocks
+    private GreetingService greetingService = new GreetingServiceImpl();
 
-	@Mock
-	private GreetingDAO greetingDAO;
+    @Mock
+    private GreetingDAO greetingDAO;
 
-	@Test
-	public void testDemo() {
-		
-		Mockito.when(greetingDAO.getGreeting()).thenReturn(new Greeting(1234l, "Hello World"));
-		
-		Greeting greeting = greetingService.getMessage();
+    @Test
+    public void testDemo() {
 
-		Assert.assertEquals(greeting.getId(), 1234l);
-	}
+        Mockito.when(greetingDAO.getGreeting()).thenReturn(new Greeting(1234l, "Hello World"));
+
+        Greeting greeting = greetingService.getMessage();
+
+        Assert.assertEquals(greeting.getId(), 1234l);
+    }
 }

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController {
 
-	@Autowired
-	private GreetingService greetingService;
+    @Autowired
+    private GreetingService greetingService;
 
-	@RequestMapping(value = "/greetingMsg", method = RequestMethod.GET)
-	public Greeting getGreeting(@RequestParam(value = "name", defaultValue = "world") String name) {
-		Assert.notNull(name, "Name should not be null");
-		
-		return greetingService.getMessage();
-	}
+    @RequestMapping(value = "/greetingMsg", method = RequestMethod.GET)
+    public Greeting getGreeting(@RequestParam(value = "name", defaultValue = "world") String name) {
+        Assert.notNull(name, "Name should not be null");
+
+        return greetingService.getMessage();
+    }
 }

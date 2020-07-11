@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CalculatorActivity extends Activity implements View.OnClickListener {
-    private static final Logger logger  = Logger.getLogger(CalculatorActivity.class.toString());
+    private static final Logger logger = Logger.getLogger(CalculatorActivity.class.toString());
     private Button one, two, three, four, five, six, zero, add, sub, mul, delete, equal;
     private EditText disp;
     private OperationType optr = OperationType.Default;
@@ -131,14 +131,14 @@ public class CalculatorActivity extends Activity implements View.OnClickListener
                 break;
 
             case R.id.equal:
-                if(this.disp.getText().toString().trim().equals("")){
+                if (this.disp.getText().toString().trim().equals("")) {
                     this.second = 0;
                 } else {
                     this.second = Integer.valueOf(this.disp.getText().toString());
                 }
 
-                if(this.optr != null) {
-                 this.disp.setText(String.valueOf(this.calculator.operate(this.optr, this.first, this.second)));
+                if (this.optr != null) {
+                    this.disp.setText(String.valueOf(this.calculator.operate(this.optr, this.first, this.second)));
                 } else {
                     this.disp.setText("0");
                 }
@@ -152,6 +152,6 @@ public class CalculatorActivity extends Activity implements View.OnClickListener
     }
 }
 
-enum OperationType{
-    Add,Sub,Mul,Default
+enum OperationType {
+    Add, Sub, Mul, Default
 }

@@ -7,9 +7,8 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 /**
  * This class is intended to make application running as a war application.
- * 
- * @author jason.zhang
  *
+ * @author jason.zhang
  */
 
 @SpringBootApplication

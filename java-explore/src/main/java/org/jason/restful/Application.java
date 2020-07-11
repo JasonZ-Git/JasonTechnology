@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * This class is used to start the application
- * 
- * @author jason.zhang
  *
+ * @author jason.zhang
  */
 
 @SpringBootApplication

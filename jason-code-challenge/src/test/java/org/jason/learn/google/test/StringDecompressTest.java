@@ -21,8 +21,8 @@ public class StringDecompressTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { "3[abc]4[ab]c", "abcabcabcababababc" }, { "2[3[a]b]", "aaabaaab" },
-                { "10[a]", "aaaaaaaaaa" } };
+        Object[][] data = new Object[][]{{"3[abc]4[ab]c", "abcabcabcababababc"}, {"2[3[a]b]", "aaabaaab"},
+                {"10[a]", "aaaaaaaaaa"}};
 
         return Arrays.asList(data);
     }

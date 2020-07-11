@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GreetingServiceImpl implements GreetingService {
 
-	@Autowired
-	private GreetingDAO greetingDAO;
-	
-	@Override
-	public Greeting getMessage() {
-		return greetingDAO.getGreeting();
-	}
-	
+    @Autowired
+    private GreetingDAO greetingDAO;
+
+    @Override
+    public Greeting getMessage() {
+        return greetingDAO.getGreeting();
+    }
+
 }

@@ -3,54 +3,53 @@ package org.jason.code_practice.common;
 import java.util.EmptyStackException;
 
 /**
- * 
  * @author jason zhang
- *
  */
 public class JasonStack<E> {
 
-  private StackNode<E> top;
+    private StackNode<E> top;
 
-  public E pop() {
-    if (top == null) {
-      return null;
+    public E pop() {
+        if (top == null) {
+            return null;
+        }
+
+        E item = top.data;
+
+        this.top = top.next;
+
+        return item;
     }
 
-    E item = top.data;
+    ;
 
-    this.top = top.next;
+    public void push(E item) {
+        if (item == null) {
+            throw new EmptyStackException();
+        }
 
-    return item;
-  };
+        StackNode<E> newTop = new StackNode<>(item);
 
-  public void push(E item) {
-    if (item == null) {
-      throw new EmptyStackException();
+        newTop.next = this.top;
+        this.top = newTop;
     }
 
-    StackNode<E> newTop = new StackNode<>(item);
+    public E peek() {
+        if (top == null) {
+            return null;
+        }
 
-    newTop.next = this.top;
-    this.top = newTop;
-  }
-  
-  public E peek() {
-    if (top == null) {
-      return null;
+        return top.data;
     }
-    
-    return top.data;
-  }
 
 
+    private static class StackNode<E> {
+        private E data;
+        private StackNode<E> next;
 
-  private static class StackNode<E> {
-    private E data;
-    private StackNode<E> next;
-
-    public StackNode(E e) {
-      this.data = e;
+        public StackNode(E e) {
+            this.data = e;
+        }
     }
-  }
 
 }

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/welcome")
 public class HelloController {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
 
-		model.addAttribute("message", "Spring 5 MVC Hello World");
-		return "hello";
+        model.addAttribute("message", "Spring 5 MVC Hello World");
+        return "hello";
 
-	}
-	
+    }
+
 }

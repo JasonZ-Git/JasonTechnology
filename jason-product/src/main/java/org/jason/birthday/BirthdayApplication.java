@@ -1,14 +1,16 @@
 package org.jason.birthday;
 
 import java.io.IOException;
+
 import org.jason.util.calendar.JasonCalendarUtil;
 
 public class BirthdayApplication {
 
-  public static void createCurrentYearBirthdayEvent(Relative relative) throws IOException {}
-  
-  public static void main(String[] args ) {
-    JasonCalendarUtil.printComingEvents(10);
-  }
+    public static void createCurrentYearBirthdayEvent(Relative relative) throws IOException {
+    }
+
+    public static void main(String[] args) {
+        JasonCalendarUtil.printComingEvents(10);
+    }
 
 }

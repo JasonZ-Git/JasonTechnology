@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmployeeController {
 
-  private static final Logger logger = Logger.getLogger(EmployeeController.class);
+    private static final Logger logger = Logger.getLogger(EmployeeController.class);
 
-  public EmployeeController() {
-    System.out.println("EmployeeController()");
-  }
+    public EmployeeController() {
+        System.out.println("EmployeeController()");
+    }
 
-  @Autowired
-  private EmployeeService employeeService;
+    @Autowired
+    private EmployeeService employeeService;
 
-  @RequestMapping(value = {"getAllEmployees"})
-  public List getAllEmployees() {
-    logger.info("Getting all Employees.");
-    List<Employee> employeeList = employeeService.getAllEmployees();
-    return employeeList;
-  }
+    @RequestMapping(value = {"getAllEmployees"})
+    public List getAllEmployees() {
+        logger.info("Getting all Employees.");
+        List<Employee> employeeList = employeeService.getAllEmployees();
+        return employeeList;
+    }
 
-  @RequestMapping(value = {"getEmployee"})
-  public Employee getEmployee(String ssn) {
-    logger.info("Getting aEmployee.");
-    Employee employee = new Employee();
-    employee.setName("Jason");
-    return employee;
-  }
+    @RequestMapping(value = {"getEmployee"})
+    public Employee getEmployee(String ssn) {
+        logger.info("Getting aEmployee.");
+        Employee employee = new Employee();
+        employee.setName("Jason");
+        return employee;
+    }
 
-  @RequestMapping(value = {"getEmployeeBySsn"})
-  public Employee getEmployeeById(@RequestParam(value = "employeeSSN", defaultValue="ssn00000001") String employeeSSN) {
-    logger.info("Get employee by ssn");
-    Employee employee = employeeService.getEmployee(employeeSSN);
-    return employee;
-  }
+    @RequestMapping(value = {"getEmployeeBySsn"})
+    public Employee getEmployeeById(@RequestParam(value = "employeeSSN", defaultValue = "ssn00000001") String employeeSSN) {
+        logger.info("Get employee by ssn");
+        Employee employee = employeeService.getEmployee(employeeSSN);
+        return employee;
+    }
 }

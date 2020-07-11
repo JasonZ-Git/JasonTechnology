@@ -26,12 +26,12 @@ public class Q2_1_Remove_Duplicate_Test {
         LinkedListNode next4 = new LinkedListNode(4);
 
         next3.setNext(next4);
-        
-        
+
+
         Q2_1_Remove_Duplidate.removeDuplicate(node);
-        
+
         Assert.assertEquals(node.getNext().getNext().getNext().getData(), 4);
-        
+
 
     }
 }

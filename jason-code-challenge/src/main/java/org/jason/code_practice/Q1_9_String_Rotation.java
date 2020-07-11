@@ -6,8 +6,8 @@ public class Q1_9_String_Rotation {
         if (first == null || second == null || first.length() != second.length() || first.equals(second)) {
             return false;
         }
-        
-        return isSubString(first+first, second);
+
+        return isSubString(first + first, second);
     }
 
     private static boolean isSubString(String big, String small) {

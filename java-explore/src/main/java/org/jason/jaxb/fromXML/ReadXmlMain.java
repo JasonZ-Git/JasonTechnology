@@ -1,3 +1,4 @@
 package org.jason.jaxb.fromXML;
 
-public class ReadXmlMain {}
+public class ReadXmlMain {
+}

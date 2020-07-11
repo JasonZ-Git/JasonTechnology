@@ -72,7 +72,7 @@ public class GreetingIntegrationTests {
 
                     @Override
                     public void handleFrame(StompHeaders headers, Object payload) {
-                      HelloMessage greeting = (HelloMessage) payload;
+                        HelloMessage greeting = (HelloMessage) payload;
                         try {
                             assertEquals("Hello, Spring!", greeting.getName());
                         } catch (Throwable t) {
@@ -98,8 +98,7 @@ public class GreetingIntegrationTests {
             if (failure.get() != null) {
                 throw new AssertionError("", failure.get());
             }
-        }
-        else {
+        } else {
             fail("Greeting not received");
         }
 

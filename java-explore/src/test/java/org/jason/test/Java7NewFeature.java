@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class Java7NewFeature {
 
-  @Test
-  public void genericTypeTest() {
-    Map<String, String> data = new HashMap<>();
-  }
+    @Test
+    public void genericTypeTest() {
+        Map<String, String> data = new HashMap<>();
+    }
 }

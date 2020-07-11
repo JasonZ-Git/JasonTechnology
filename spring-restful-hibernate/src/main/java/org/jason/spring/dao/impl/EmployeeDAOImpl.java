@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.jason.spring.dao.impl;
 
@@ -20,15 +20,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmployeeDAOImpl extends AbstractDao implements EmployeeDAO {
 
-  @Override
-  public List<Employee> getAllEmployees() {
-    return getSession().createCriteria(Employee.class).list();
-  }
+    @Override
+    public List<Employee> getAllEmployees() {
+        return getSession().createCriteria(Employee.class).list();
+    }
 
-  @Override
-  public Employee findBySsn(String ssn) {
-    Criteria criteria = getSession().createCriteria(Employee.class);
-    criteria.add(Restrictions.eq("ssn", ssn));
-    return (Employee) criteria.uniqueResult();
-  }
+    @Override
+    public Employee findBySsn(String ssn) {
+        Criteria criteria = getSession().createCriteria(Employee.class);
+        criteria.add(Restrictions.eq("ssn", ssn));
+        return (Employee) criteria.uniqueResult();
+    }
 }

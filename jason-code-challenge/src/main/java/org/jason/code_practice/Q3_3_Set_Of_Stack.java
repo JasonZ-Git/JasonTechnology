@@ -12,15 +12,15 @@ public class Q3_3_Set_Of_Stack<T> {
     private List<Stack<T>> whole = new ArrayList<>();
 
     public Q3_3_Set_Of_Stack(int threshHold) {
-        if(threshHold <= 0) {
+        if (threshHold <= 0) {
             throw new IllegalArgumentException("thresh hold cannot be lower than 1");
         }
-        
+
         this.threshHold = threshHold;
     }
-    
+
     public T peel() {
-      return null;
+        return null;
     }
 
     public T push(T item) {
@@ -42,27 +42,27 @@ public class Q3_3_Set_Of_Stack<T> {
     }
 
     public T pop() {
-        
-        if(whole.size() == 0) {
+
+        if (whole.size() == 0) {
             throw new EmptyStackException();
         }
-        
-        Stack<T> topStack = whole.get(whole.size()-1);
+
+        Stack<T> topStack = whole.get(whole.size() - 1);
         T toPop = topStack.pop();
-        
+
         if (topStack.isEmpty()) {
-            whole.remove(whole.size()-1);
+            whole.remove(whole.size() - 1);
         }
-        
+
         return toPop;
     }
 
     public T peek() {
-        if(whole.size() == 0) {
+        if (whole.size() == 0) {
             throw new EmptyStackException();
         }
-        
-        Stack<T> topStack = whole.get(whole.size()-1);
+
+        Stack<T> topStack = whole.get(whole.size() - 1);
         T toPop = topStack.peek();
 
         return toPop;

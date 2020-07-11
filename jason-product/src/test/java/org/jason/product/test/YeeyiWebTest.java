@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.jason.spider.yeeyi.YeeyiUtil;
 import org.jason.spider.yeeyi.controller.RentingVO;
 import org.jsoup.Jsoup;
@@ -17,16 +18,16 @@ import org.junit.Test;
 
 public class YeeyiWebTest {
 
-  @Test
-  public void testParse() throws IOException, URISyntaxException {
-    InputStream in = this.getClass().getResourceAsStream("yeeyi.html");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(in, Charset.forName("GB18030")));
-    String htmlContent = reader.lines().collect(Collectors.joining());
-    Document document = Jsoup.parse(htmlContent);
+    @Test
+    public void testParse() throws IOException, URISyntaxException {
+        InputStream in = this.getClass().getResourceAsStream("yeeyi.html");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, Charset.forName("GB18030")));
+        String htmlContent = reader.lines().collect(Collectors.joining());
+        Document document = Jsoup.parse(htmlContent);
 
-    List<RentingVO> items = YeeyiUtil.toRentingVO(document);
+        List<RentingVO> items = YeeyiUtil.toRentingVO(document);
 
-    Assert.assertTrue(items != null);
-    Assert.assertTrue(items.size() > 10);
-  }
+        Assert.assertTrue(items != null);
+        Assert.assertTrue(items.size() > 10);
+    }
 }

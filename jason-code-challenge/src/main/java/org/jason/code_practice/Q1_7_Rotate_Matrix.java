@@ -34,29 +34,29 @@ public class Q1_7_Rotate_Matrix {
         if (original.length == 1) {
             return original;
         }
-        
+
         int temp = 0;
         int n = original.length;
-        
-        for (int i = 0; i < original.length/2; i++) {
-            int newI = n-1-i;
-            
-            for (int j = 0; j < original.length/2; j++) {
-                
-                int newJ = n-1-j;
-                
+
+        for (int i = 0; i < original.length / 2; i++) {
+            int newI = n - 1 - i;
+
+            for (int j = 0; j < original.length / 2; j++) {
+
+                int newJ = n - 1 - j;
+
                 temp = original[i][j];
-                
+
                 original[i][j] = original[newJ][i];
-                
+
                 original[newJ][i] = original[newI][newJ];
-                
+
                 original[newI][newJ] = original[j][newI];
-                
-                original[j][newI] =  temp;
+
+                original[j][newI] = temp;
             }
         }
-        
+
         return original;
     }
 }

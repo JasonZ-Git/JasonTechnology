@@ -9,30 +9,29 @@ import org.springframework.stereotype.Service;
 
 /**
  * Shopping service class implementation.
- * 
- * @author jason.zhang
  *
+ * @author jason.zhang
  */
 
 @Service
 public class ShoppingServiceImpl implements ShoppingService {
 
-	@Autowired
-	private ShoppingDAO shoppingDAO;
-	
-	@Override
-	public List<ShoppingItem> getAllItems() {
-		
-		return this.shoppingDAO.getItems();
-	}
-	
-	public void setShoppingDAO(ShoppingDAO shoppingDAO){
-		this.shoppingDAO = shoppingDAO;
-	}
+    @Autowired
+    private ShoppingDAO shoppingDAO;
 
-	@Override
-	public void decreaseItem(String name, int number) {
-		shoppingDAO.decreaseItem(name, number);
-	}
+    @Override
+    public List<ShoppingItem> getAllItems() {
+
+        return this.shoppingDAO.getItems();
+    }
+
+    public void setShoppingDAO(ShoppingDAO shoppingDAO) {
+        this.shoppingDAO = shoppingDAO;
+    }
+
+    @Override
+    public void decreaseItem(String name, int number) {
+        shoppingDAO.decreaseItem(name, number);
+    }
 
 }

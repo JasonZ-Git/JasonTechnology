@@ -2,37 +2,38 @@ package org.jason.dao;
 
 /**
  * Shopping Item DB object
- * 
+ *
  * @author jason.zhang
  */
 public class ShoppingItem {
-	// Name of shopping item
-	private String name;
-	
-	// Number of shopping item
-	private int number;
+    // Name of shopping item
+    private String name;
 
-	public ShoppingItem(){}
-	
-	public ShoppingItem(String name, int number) {
-		this.name = name;
-		this.number = number;
-	}
+    // Number of shopping item
+    private int number;
 
-	public String getName() {
-		return name;
-	}
+    public ShoppingItem() {
+    }
 
-	public int getNumber() {
-		return number;
-	}
+    public ShoppingItem(String name, int number) {
+        this.name = name;
+        this.number = number;
+    }
 
-	public void setNumber(int number) {
-		this.number =  number;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

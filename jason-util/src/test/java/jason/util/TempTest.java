@@ -6,10 +6,10 @@ import org.junit.Test;
 
 public class TempTest {
 
-	@Test
-	public void tempTest() {
-		ForkJoinPool commonPool = ForkJoinPool.commonPool();
-		
-		System.out.println(commonPool);
-	}
+    @Test
+    public void tempTest() {
+        ForkJoinPool commonPool = ForkJoinPool.commonPool();
+
+        System.out.println(commonPool);
+    }
 }

@@ -13,7 +13,7 @@ public class DailyTest {
         long charNumber = IntStream.rangeClosed(0, 0x10ffff).mapToObj(Character.UnicodeBlock::of).filter(Objects::nonNull).distinct().count();
 
         IntStream.rangeClosed(0, 0x10ffff).mapToObj(Character.UnicodeBlock::of).filter(Objects::nonNull).distinct().forEach(System.out::println);
-        
+
         System.out.println(charNumber);
     }
 }

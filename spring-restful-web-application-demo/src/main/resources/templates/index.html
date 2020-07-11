@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Orion web Example</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-<script src="../js/main.js"></script>
+    <title>Orion web Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 <body>
-	<div ng-app="shopApp" ng-controller="shopController">
-		<div id="itemsInStock">
-			<h1>Currently available in the shop:</h1>
-			<h3 ng-repeat="currentItem in allItems">Item
-				{{currentItem.name}} : {{currentItem.number}} left</h3>
-		</div>
+<div ng-app="shopApp" ng-controller="shopController">
+    <div id="itemsInStock">
+        <h1>Currently available in the shop:</h1>
+        <h3 ng-repeat="currentItem in allItems">Item
+            {{currentItem.name}} : {{currentItem.number}} left</h3>
+    </div>
 
-		<div id="itemsToBuy">
-			<h1>Your shopping:</h1>
-			<h3>
-				Item A <input ng-model="currentABought" ng-keyup="validateInput($event)"></input>
-			</h3>
-			<h3>
-				Item B <input ng-model="currentBBought" ng-keyup="validateInput($event)"></input>
-				<button type="button" ng-click="buyItem()">Buy</button>
-			</h3>
-		</div>
-		<div id="itemsBought" style="display: none;">
-			<h1>Shopping Cart</h1>
-			<h3>Item A bought:{{aBoughtNumber}}</h3>
-			<h3>Item B bought:{{bBoughtNumber}}</h3>
-		</div>
-	</div>
+    <div id="itemsToBuy">
+        <h1>Your shopping:</h1>
+        <h3>
+            Item A <input ng-model="currentABought" ng-keyup="validateInput($event)"></input>
+        </h3>
+        <h3>
+            Item B <input ng-model="currentBBought" ng-keyup="validateInput($event)"></input>
+            <button type="button" ng-click="buyItem()">Buy</button>
+        </h3>
+    </div>
+    <div id="itemsBought" style="display: none;">
+        <h1>Shopping Cart</h1>
+        <h3>Item A bought:{{aBoughtNumber}}</h3>
+        <h3>Item B bought:{{bBoughtNumber}}</h3>
+    </div>
+</div>
 </body>
 </html>

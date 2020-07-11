@@ -2,6 +2,7 @@ package crack_code_interview_test;
 
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.jason.code_practice.Q1_5_One_Way;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,20 +20,20 @@ public class Q1_5_One_Way_Test {
     public String second;
     @Parameter(2)
     public boolean result;
-    
+
     @Parameters
-    public static Collection<Object[]> data(){
-        Object[][] data = new Object[][] {
-            {"pale", "ple", true},{"pales", "pale", true}, {"pale", "bale", true}, {"pale", "bake", false}
+    public static Collection<Object[]> data() {
+        Object[][] data = new Object[][]{
+                {"pale", "ple", true}, {"pales", "pale", true}, {"pale", "bale", true}, {"pale", "bake", false}
         };
-        
+
         return Arrays.asList(data);
     }
-    
+
     @Test
-    public void test () {
+    public void test() {
         boolean actual = Q1_5_One_Way.isOneWay(first, second);
-        
+
         Assert.assertEquals(result, actual);
     }
 }

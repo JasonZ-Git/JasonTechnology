@@ -2,16 +2,16 @@ package org.jason.java5;
 
 public class ArgsTest {
 
-  public static void main(String[] args) {
-    test();
-  }
-  
-  public static void test(int ...args) {
-    for(int i : args) {
-      System.out.println("Called");
+    public static void main(String[] args) {
+        test();
     }
-    System.out.println("Finished");
-    
-  }
+
+    public static void test(int... args) {
+        for (int i : args) {
+            System.out.println("Called");
+        }
+        System.out.println("Finished");
+
+    }
 
 }

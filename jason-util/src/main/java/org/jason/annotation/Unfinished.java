@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Unfinished {
-	String dueDate() default "today";
-	String todo() default "A lot";
+    String dueDate() default "today";
+
+    String todo() default "A lot";
 
 }

@@ -10,18 +10,18 @@ import junit.framework.Assert;
 
 public class JasonFileUtilTester {
 
-  @Test
-  public void testFileUtil() {
-    String fileName = "src/test/resources/testfile.txt";
-    List<String> lines = null;
-    try {
-      lines = JasonFileUtil.readFile(fileName);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    @Test
+    public void testFileUtil() {
+        String fileName = "src/test/resources/testfile.txt";
+        List<String> lines = null;
+        try {
+            lines = JasonFileUtil.readFile(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    Assert.assertEquals(2, lines.size());
-    Assert.assertEquals("Hello", lines.get(0));
-    Assert.assertEquals("World", lines.get(1));
-  }
+        Assert.assertEquals(2, lines.size());
+        Assert.assertEquals("Hello", lines.get(0));
+        Assert.assertEquals("World", lines.get(1));
+    }
 }

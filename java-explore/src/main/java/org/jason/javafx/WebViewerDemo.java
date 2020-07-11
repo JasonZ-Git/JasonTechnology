@@ -8,46 +8,47 @@ import javafx.stage.Stage;
 
 public class WebViewerDemo extends Application {
 
-  private static final String Google_Translate_URL = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=world";
+    private static final String Google_Translate_URL = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=world";
 
-  
-  public static void main(String[] args) {
-    launch(args);
-  }
 
-/**  @Override
-  public void start(Stage primaryStage) {
-    primaryStage.setTitle("JavaFX WebView Example");
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-    WebView webView = new WebView();
+    /**
+     * @Override public void start(Stage primaryStage) {
+     * primaryStage.setTitle("JavaFX WebView Example");
+     * <p>
+     * WebView webView = new WebView();
+     * <p>
+     * webView.getEngine().load(Google_Translate_URL);
+     * <p>
+     * VBox vBox = new VBox(webView);
+     * Scene scene = new Scene(vBox, 960, 600);
+     * <p>
+     * primaryStage.setScene(scene);
+     * primaryStage.show();
+     * }
+     */
 
-    webView.getEngine().load(Google_Translate_URL);
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("JavaFX WebView Example");
 
-    VBox vBox = new VBox(webView);
-    Scene scene = new Scene(vBox, 960, 600);
+        WebView webView = new WebView();
 
-    primaryStage.setScene(scene);
-    primaryStage.show();
-  }
-  */
-  
-  @Override
-  public void start(Stage primaryStage) {
-    primaryStage.setTitle("JavaFX WebView Example");
+        webView.getEngine().load(Google_Translate_URL);
 
-    WebView webView = new WebView();
+        webView.getEngine().getDocument();
 
-    webView.getEngine().load(Google_Translate_URL);
-    
-    webView.getEngine().getDocument();
-    
-    System.out.println(webView.getEngine().getDocument());
-    
-    
-    
-    /*
-     * VBox vBox = new VBox(webView); Scene scene = new Scene(vBox, 960, 600);
-     * 
-     * primaryStage.setScene(scene); primaryStage.show();
-     */  }
+        System.out.println(webView.getEngine().getDocument());
+
+
+
+        /*
+         * VBox vBox = new VBox(webView); Scene scene = new Scene(vBox, 960, 600);
+         *
+         * primaryStage.setScene(scene); primaryStage.show();
+         */
+    }
 }

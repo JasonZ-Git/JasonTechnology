@@ -22,14 +22,15 @@ public class CalculatorUnitTest {
     private System system;
 
     @Before
-    public void init(){
+    public void init() {
         // when(system.loadLibrary("calculator")).thenReturn();
     }
+
     @Test
     public void additionTest() {
-        when(calculator.add(0,3)).thenReturn(3);
-        when(calculator.add(2,4)).thenReturn(6);
-        when(calculator.add(0,3)).thenReturn(3);
+        when(calculator.add(0, 3)).thenReturn(3);
+        when(calculator.add(2, 4)).thenReturn(6);
+        when(calculator.add(0, 3)).thenReturn(3);
         assertEquals(3, calculator.operate(OperationType.Add, 0, 3));
         assertEquals(6, calculator.operate(OperationType.Add, 2, 4));
         assertEquals(12, calculator.operate(OperationType.Add, 6, 3));

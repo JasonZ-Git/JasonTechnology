@@ -9,9 +9,9 @@ public class Q3_5_Sort_Stack {
         Calendar cal = Calendar.getInstance();
         Date date = new Date();
         cal.setTime(date);
-        
+
         cal.set(Calendar.DAY_OF_MONTH, 33);
-        
+
         System.out.println(cal.get(Calendar.DAY_OF_MONTH));
         System.out.println(cal.get(Calendar.DAY_OF_YEAR));
     }

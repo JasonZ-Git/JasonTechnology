@@ -28,12 +28,12 @@ public final class JasonStringUtil {
         return String.format(BRACKET_FORMAT, source);
     }
 
-    public static StringPair cutTwoBy(@Nonnull String source, @Nonnull String cut){
+    public static StringPair cutTwoBy(@Nonnull String source, @Nonnull String cut) {
         if (notContains(source, cut)) return null;
 
         String[] splits = source.split(cut, 2);
 
-        if (splits.length == 1)  return StringPair.of(splits[0], "");
+        if (splits.length == 1) return StringPair.of(splits[0], "");
 
         return StringPair.of(splits[0], splits[1]);
     }

@@ -7,20 +7,20 @@ public class MyStack {
     public Node top;
     public Node bottom;
     public int size = 0;
-    
-    public MyStack(int capacity) { 
-        this.capacity = capacity; 
+
+    public MyStack(int capacity) {
+        this.capacity = capacity;
     }
-    
+
     public boolean isFull() {
-        return capacity == size; 
+        return capacity == size;
     }
-    
+
     public void join(Node above, Node below) {
         if (below != null) below.above = above;
         if (above != null) above.below = below;
     }
-    
+
     public boolean push(int v) {
         if (size >= capacity) return false;
         size++;
@@ -30,7 +30,7 @@ public class MyStack {
         top = n;
         return true;
     }
-    
+
     public int pop() {
         if (top == null) throw new EmptyStackException();
         Node t = top;
@@ -38,11 +38,11 @@ public class MyStack {
         size--;
         return t.value;
     }
-    
+
     public boolean isEmpty() {
-        return size == 0; 
+        return size == 0;
     }
-    
+
     public int removeBottom() {
         Node b = bottom;
         bottom = bottom.above;
@@ -50,11 +50,12 @@ public class MyStack {
         size--;
         return b.value;
     }
-    
+
     public static class Node {
         public Node above;
         public Node below;
         public int value;
+
         public Node(int value) {
             this.value = value;
         }

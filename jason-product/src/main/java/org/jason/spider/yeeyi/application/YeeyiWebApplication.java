@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Application(name = "Yeeyi Web Application - Crawl yeeyi.com.au")
 public class YeeyiWebApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(YeeyiWebApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(YeeyiWebApplication.class, args);
+    }
 }

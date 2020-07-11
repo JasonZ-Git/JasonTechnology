@@ -13,6 +13,7 @@ import java.util.concurrent.Future;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.jason.spider.PageSpider;
@@ -21,123 +22,123 @@ import org.jason.util.Requirements;
 @ThreadSafe
 public class MyDealUtil {
 
-  private static final PageSpider<String> SPIDER = new MyDealCategoryPageSpider();
+    private static final PageSpider<String> SPIDER = new MyDealCategoryPageSpider();
 
-  public static final String MY_DEAL_MAIN = "https://www.mydeal.com.au";
-  public static final String MY_DEAL_CATEGORIES = MY_DEAL_MAIN + "/categories";
-  
-  public static final int DEFAULT_THREAD_NUMBER = 100;
+    public static final String MY_DEAL_MAIN = "https://www.mydeal.com.au";
+    public static final String MY_DEAL_CATEGORIES = MY_DEAL_MAIN + "/categories";
 
-  private static final Logger logger = LogManager.getLogger(MyDealUtil.class);
+    public static final int DEFAULT_THREAD_NUMBER = 100;
 
-  private MyDealUtil() throws Exception {
-    throw new Exception("Init not allowed for utiliy class");
-  }
+    private static final Logger logger = LogManager.getLogger(MyDealUtil.class);
 
-  public static List<String> getPages() {
-
-    try {
-      List<String> categoryPages = crawlMyDealCategoryPages();
-
-      return getItemsFromCategoryPage(categoryPages, null, null);
-
-    } catch (Exception e) {
-      logger.error(e);
+    private MyDealUtil() throws Exception {
+        throw new Exception("Init not allowed for utiliy class");
     }
 
-    return null;
-  }
-  
-  public static Integer getPages(CompletionService<List<String>> completionService) {
-    List<String> categoryPages = null;
-    try {
-      categoryPages = crawlMyDealCategoryPages();
-      
-      submitCategoryTasks(categoryPages, completionService);
-      
-    } catch (InterruptedException | IOException e) {
-      logger.error(e);
-    }
-    
-    return categoryPages.size();    
-  }
+    public static List<String> getPages() {
 
-  public static List<String> getPages(@Nonnull Integer priceLimt) {
+        try {
+            List<String> categoryPages = crawlMyDealCategoryPages();
 
-    Requirements.requireTrue(priceLimt >= 1L);
+            return getItemsFromCategoryPage(categoryPages, null, null);
 
-    List<String> categoryPages;
-    try {
-      categoryPages = crawlMyDealCategoryPages();
-      return getItemsFromCategoryPage(categoryPages, null, priceLimt);
-    } catch (Exception e) {
-      logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return null;
     }
 
-    return null;
-  }
+    public static Integer getPages(CompletionService<List<String>> completionService) {
+        List<String> categoryPages = null;
+        try {
+            categoryPages = crawlMyDealCategoryPages();
 
-  public static List<String> getPages(@Nonnull ExecutorService executorService) {
+            submitCategoryTasks(categoryPages, completionService);
 
-    Objects.requireNonNull(executorService);
+        } catch (InterruptedException | IOException e) {
+            logger.error(e);
+        }
 
-    List<String> categoryPages;
-    try {
-      categoryPages = crawlMyDealCategoryPages();
-      return getItemsFromCategoryPage(categoryPages, executorService, null);
-
-    } catch (Exception e) {
-      logger.error(e);
+        return categoryPages.size();
     }
 
-    return null;
-  }
+    public static List<String> getPages(@Nonnull Integer priceLimt) {
 
-  private static List<String> crawlMyDealCategoryPages() throws IOException {
-    return SPIDER.crawl();
-  }
+        Requirements.requireTrue(priceLimt >= 1L);
 
-  private static List<String> getItemsFromCategoryPage(@Nonnull List<String> childCategories, @Nullable ExecutorService executorService, @Nullable Integer priceLimt) throws InterruptedException, ExecutionException {
+        List<String> categoryPages;
+        try {
+            categoryPages = crawlMyDealCategoryPages();
+            return getItemsFromCategoryPage(categoryPages, null, priceLimt);
+        } catch (Exception e) {
+            logger.error(e);
+        }
 
-    ExecutorService threadSerivice = executorService == null ? Executors.newFixedThreadPool(100) : executorService;
-
-    List<MyDealCategorySpiderTask> callableTasks = constructTasks(childCategories, priceLimt);
-
-    List<Future<List<String>>> itemPagesWithPrice = threadSerivice.invokeAll(callableTasks);
-
-    List<String> result = new ArrayList<>();
-    for (Future<List<String>> current : itemPagesWithPrice){
-      result.addAll(current.get());
+        return null;
     }
 
-    threadSerivice.shutdown();
+    public static List<String> getPages(@Nonnull ExecutorService executorService) {
 
-    return result;
-  }
-  
-  private static void submitCategoryTasks(@Nonnull List<String> childCategories, @Nullable CompletionService<List<String>> executorService) throws InterruptedException {
-    
-    List<MyDealCategorySpiderTask> callableTasks = constructTasks(childCategories);
-    
-    callableTasks.stream().forEach(item -> executorService.submit(item));
-  }
-  
-  private static List<MyDealCategorySpiderTask> constructTasks (List<String> childCategories){
-    return constructTasks(childCategories, null);
-  }
-  
-  private static List<MyDealCategorySpiderTask> constructTasks (List<String> childCategories, Integer priceLimit){
-    List<MyDealCategorySpiderTask> callableTasks = new ArrayList<>();
+        Objects.requireNonNull(executorService);
 
-    for (final String currentCategory : childCategories) {
-      MyDealCategorySpiderTask callableTask = new MyDealCategorySpiderTask(currentCategory);
-      
-      if (priceLimit != null) callableTask.setToPrice(new BigDecimal(priceLimit));
+        List<String> categoryPages;
+        try {
+            categoryPages = crawlMyDealCategoryPages();
+            return getItemsFromCategoryPage(categoryPages, executorService, null);
 
-      callableTasks.add(callableTask);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return null;
     }
-    
-    return callableTasks;
-  }
-  
+
+    private static List<String> crawlMyDealCategoryPages() throws IOException {
+        return SPIDER.crawl();
+    }
+
+    private static List<String> getItemsFromCategoryPage(@Nonnull List<String> childCategories, @Nullable ExecutorService executorService, @Nullable Integer priceLimt) throws InterruptedException, ExecutionException {
+
+        ExecutorService threadSerivice = executorService == null ? Executors.newFixedThreadPool(100) : executorService;
+
+        List<MyDealCategorySpiderTask> callableTasks = constructTasks(childCategories, priceLimt);
+
+        List<Future<List<String>>> itemPagesWithPrice = threadSerivice.invokeAll(callableTasks);
+
+        List<String> result = new ArrayList<>();
+        for (Future<List<String>> current : itemPagesWithPrice) {
+            result.addAll(current.get());
+        }
+
+        threadSerivice.shutdown();
+
+        return result;
+    }
+
+    private static void submitCategoryTasks(@Nonnull List<String> childCategories, @Nullable CompletionService<List<String>> executorService) throws InterruptedException {
+
+        List<MyDealCategorySpiderTask> callableTasks = constructTasks(childCategories);
+
+        callableTasks.stream().forEach(item -> executorService.submit(item));
+    }
+
+    private static List<MyDealCategorySpiderTask> constructTasks(List<String> childCategories) {
+        return constructTasks(childCategories, null);
+    }
+
+    private static List<MyDealCategorySpiderTask> constructTasks(List<String> childCategories, Integer priceLimit) {
+        List<MyDealCategorySpiderTask> callableTasks = new ArrayList<>();
+
+        for (final String currentCategory : childCategories) {
+            MyDealCategorySpiderTask callableTask = new MyDealCategorySpiderTask(currentCategory);
+
+            if (priceLimit != null) callableTask.setToPrice(new BigDecimal(priceLimit));
+
+            callableTasks.add(callableTask);
+        }
+
+        return callableTasks;
+    }
+
 }
