@@ -1,12 +1,16 @@
 package org.jason.dictionary;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.annotation.Nonnull;
 
 public class WordTranslation {
     final private String word;
     final private String translation;
+    private static Logger logger = LogManager.getLogger(WordTranslation.class);
 
-    private WordTranslation(@Nonnull String word, @Nonnull String translation){
+    private WordTranslation(@Nonnull String word, @Nonnull String translation) {
         this.word = word;
         this.translation = translation;
     }
@@ -24,13 +28,17 @@ public class WordTranslation {
         return new WordTranslation(word, translation);
     }
 
-    public static WordTranslation buildFromTranslationLine(@Nonnull String translationLine){
-       if (! translationLine.contains("=")){
-           throw new IllegalArgumentException("It should contains a '='");
-       }
+    /**
+     * @param translationLine It should be filtered by regex %s=%s
+     */
+    public static WordTranslation buildFromTranslationLine(@Nonnull String translationLine) {
+        if (translationLine == null && !translationLine.contains("=") || translationLine.split("=").length != 2) {
 
-       String[] wordTrans = translationLine.split("=");
+            throw new IllegalArgumentException(translationLine + " doesn't contains a '='");
+        }
 
-       return build(wordTrans[0], wordTrans[1]);
+        String[] wordTrans = translationLine.split("=");
+
+        return build(wordTrans[0], wordTrans[1]);
     }
 }

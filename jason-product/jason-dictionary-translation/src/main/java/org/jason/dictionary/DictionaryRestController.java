@@ -5,7 +5,10 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nonnull;
+import java.io.InputStream;
+import java.net.URI;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +23,7 @@ public class DictionaryRestController {
 
     private Map<String, String> wordTranslations = new HashMap<>();
 
-    private Logger logger = LogManager.getLogger(DictionaryRestController.class);
+    private static Logger logger = LogManager.getLogger(DictionaryRestController.class);
 
     @RequestMapping(value = "getTranslation", method = RequestMethod.GET)
     public WordTranslation getTranslation(@RequestParam @Nonnull String word) {
@@ -34,7 +37,7 @@ public class DictionaryRestController {
     }
 
     @RequestMapping(value = "count", method = RequestMethod.GET)
-    public Integer getVocabularyCount(){
+    public Integer getVocabularyCount() {
         if (wordTranslations.isEmpty()) {
             init();
         }
@@ -44,17 +47,22 @@ public class DictionaryRestController {
 
     private void init() {
         if (wordTranslations.isEmpty()) {
+
             List<String> lines = null;
             try {
-                lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(DICTIONARY_FILE).toURI()));
+                Path path = Paths.get(ClassLoader.getSystemResource(DICTIONARY_FILE).toURI());
+                lines = Files.readAllLines(path);
             } catch (Exception ex) {
                 logger.error(ex);
             }
 
-            lines.stream().forEach(item -> {
-                WordTranslation temp = WordTranslation.buildFromTranslationLine(item);
+            for (String current : lines) {
+                WordTranslation temp = WordTranslation.buildFromTranslationLine(current);
+
+                if (temp == null) continue;
+
                 wordTranslations.put(temp.getWord(), temp.getTranslation());
-            });
+            }
         }
     }
 }
