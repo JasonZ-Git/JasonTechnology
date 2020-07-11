@@ -55,6 +55,11 @@ TODO List - All the finished ones will be moved to separate pages.
 11 July, 2020
 -------------
 Today's top priroty job is to split Jason Product into Seperate small ones using microservice and deploy using Docker.
+Update - It is done - The first working Docker Microservice - Translation - is deployed and runing well on Linux.
+Tomorow will deploy it to Mac and set up the second one - would keep it running in the backend without stop.
+Docker is nice - however it seems not very neat to set up. 
+However, once set up, it is very easy to deploy and run it.
+
 
 10 July, 2020
 --------------
