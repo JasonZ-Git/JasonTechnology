@@ -12,12 +12,11 @@
 
     <groupId>org.jason</groupId>
     <artifactId>jason-dictionary-translation</artifactId>
-
+    <version>1.0</version>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
 
     <dependencies>
 

@@ -5,8 +5,6 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nonnull;
-import java.io.InputStream;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,15 +15,15 @@ import java.util.Objects;
 
 
 @RestController
-public class DictionaryRestController {
+public class TranslationRestController {
 
     public static final String DICTIONARY_FILE = "dictionary.properties";
 
     private Map<String, String> wordTranslations = new HashMap<>();
 
-    private static Logger logger = LogManager.getLogger(DictionaryRestController.class);
+    private static Logger logger = LogManager.getLogger(TranslationRestController.class);
 
-    @RequestMapping(value = "getTranslation", method = RequestMethod.GET)
+    @GetMapping(value = "getTranslation")
     public WordTranslation getTranslation(@RequestParam @Nonnull String word) {
         Objects.requireNonNull(word);
 
@@ -36,7 +34,7 @@ public class DictionaryRestController {
         return WordTranslation.build(word, wordTranslations.get(word));
     }
 
-    @RequestMapping(value = "count", method = RequestMethod.GET)
+    @GetMapping(value = "count")
     public Integer getVocabularyCount() {
         if (wordTranslations.isEmpty()) {
             init();
