@@ -6,6 +6,7 @@ package org.jason.util;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
@@ -60,6 +61,11 @@ public final class JasonFileUtil {
             logger.error("Error Loading file " + inputFile);
             throw new IOException(e);
         }
+    }
+
+    public static boolean existsOnClassPath(String inputFile) throws URISyntaxException {
+        Path path = Paths.get(ClassLoader.getSystemResource(inputFile).toURI());
+        return Files.exists(path);
     }
 
     public static List<String> readFileIntoWords(String inputFile) throws IOException {
