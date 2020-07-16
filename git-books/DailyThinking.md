@@ -52,6 +52,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+16 July, 2020
+-------------
+It is such a happiness to split dictionary into several micro services.
+The main difference is that I feel all the things are easily to upgrade and maintain.
+'Do one thing, and do it well'
+
 11 July, 2020
 -------------
 Today's top priroty job is to split Jason Product into Seperate small ones using microservice and deploy using Docker.
