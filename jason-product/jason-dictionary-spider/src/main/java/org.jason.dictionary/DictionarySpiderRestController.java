@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DictionarySpiderWebController {
+public class DictionarySpiderRestController {
 
     @GetMapping("getGoogleTranslation")
     public String getWordTranslation(@RequestParam(defaultValue = "hello") String word) {
