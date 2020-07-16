@@ -31,6 +31,10 @@ public class TranslationRestController {
             init();
         }
 
+        if (!wordTranslations.containsKey(word)){
+
+        }
+
         return WordTranslation.build(word, wordTranslations.get(word));
     }
 

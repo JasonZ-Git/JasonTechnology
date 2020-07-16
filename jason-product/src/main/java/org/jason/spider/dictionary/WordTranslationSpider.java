@@ -16,7 +16,8 @@ import org.jason.annotation.Unfinished;
 import org.jason.spider.PageSpider;
 
 /**
- * Version 1 - With shared pool - soft limit the number of the ThreadDriver; Version 2 - There should be hard way to limit the WebDriver number and block for new ones to come
+ * Version 1 - With shared pool - soft limit the number of the ThreadDriver;
+ * Version 2 - There should be hard way to limit the WebDriver number and block for new ones to come
  *
  * @author Jason Zhang
  */

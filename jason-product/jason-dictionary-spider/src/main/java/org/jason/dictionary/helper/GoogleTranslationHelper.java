@@ -1,19 +1,9 @@
-package org.jason.spider.dictionary;
+package org.jason.dictionary.helper;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-
+import com.jayway.jsonpath.JsonPath;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jason.annotation.Unfinished;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,16 +14,21 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import com.jayway.jsonpath.JsonPath;
 
-@Unfinished(todo = "Implement Version 2 from WordTranslationSpider")
-public class WordTranslationSpiderTask implements Callable<TranslationResult> {
+import javax.annotation.Nonnull;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
+
+public class GoogleTranslationHelper {
 
     private static final String English_To_Chinese_Google_Translation = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
 
     private static Logger logger = LogManager.getLogger();
-
-    private String word;
 
     static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -42,12 +37,8 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
         System.setProperty("webdriver.chrome.verboseLogging", "false");
     }
 
-    public WordTranslationSpiderTask(String word) {
-        this.word = word;
-    }
 
-    @Override
-    public TranslationResult call() {
+    public static TranslationResult getTranslation(String word) {
 
         WebDriver driver = null;
         String translations = "";
@@ -56,11 +47,11 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
         try {
             driver = getWebDriver();
 
-            driver.get(English_To_Chinese_Google_Translation + this.word);
+            driver.get(English_To_Chinese_Google_Translation + word);
 
             TimeUnit.MILLISECONDS.sleep(500);
 
-            translations = getWordTranslation(driver);
+            translations = getWordTranslation(driver, word);
 
             pronouceURL = getWordPronounceURL(driver);
 
@@ -70,13 +61,13 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
             logger.warn("No translation found for " + word, e);
             destroyDriver(driver);
 
-            return TranslationResult.build(this.word, null, null);
+            return TranslationResult.build(word, null, null);
         }
 
-        return TranslationResult.build(this.word, translations, pronouceURL);
+        return TranslationResult.build(word, translations, pronouceURL);
     }
 
-    private URL getWordPronounceURL(WebDriver driver) throws MalformedURLException {
+    private static URL getWordPronounceURL(WebDriver driver) throws MalformedURLException {
         WebElement englishPronourceButton = driver.findElement(By.cssSelector(".src-tts.left-positioned.ttsbutton.jfk-button-flat.source-or-target-footer-button.jfk-button"));
         englishPronourceButton.click();
 
@@ -100,7 +91,7 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
 
     }
 
-    private String getWordTranslation(WebDriver driver) {
+    private static String getWordTranslation(WebDriver driver, String word) {
         WebElement googleTranslationElement = driver.findElement(By.className("tlid-translation"));
 
         String primaryTranslation = googleTranslationElement.getText();
@@ -119,11 +110,11 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
         return getTranslation(translations, primaryTranslation);
     }
 
-    private void destroyDriver(WebDriver driver) {
+    private static void destroyDriver(WebDriver driver) {
         driver.quit();
     }
 
-    private WebDriver getWebDriver() {
+    private static WebDriver getWebDriver() {
 
         DesiredCapabilities caps = DesiredCapabilities.chrome();
 
@@ -140,7 +131,7 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
         return driver;
     }
 
-    private String getTranslation(String translations, @Nonnull String primaryTranslation) {
+    private static String getTranslation(String translations, @Nonnull String primaryTranslation) {
         Objects.requireNonNull(primaryTranslation);
 
         if (StringUtils.isBlank(translations))
