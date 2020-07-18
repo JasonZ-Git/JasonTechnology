@@ -23,11 +23,11 @@ public class TranslationApplication {
 
     private static final Logger logger = LogManager.getLogger();
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException {
         runTranslationApp();
     }
 
-    private static void runTranslationApp() throws IOException, URISyntaxException {
+    private static void runTranslationApp() throws IOException {
 
         StopWatch watch = StopWatch.createStarted();
 
@@ -54,9 +54,9 @@ public class TranslationApplication {
 
         List<String> existingPronounceUrls = JasonFileUtil.readFile(PRONOUNCE_FILE);
 
-        String newWordProunouceURL =
+        String newWordPronounceURL =
                 result.stream().map(item -> item.getWord() + "=" + item.getPronounceURL()).filter(item -> !existingPronounceUrls.contains(item)).distinct().collect(Collectors.joining(System.lineSeparator()));
-        JasonFileUtil.appendToFile(PRONOUNCE_FILE, newWordProunouceURL);
+        JasonFileUtil.appendToFile(PRONOUNCE_FILE, newWordPronounceURL);
 
         watch.stop();
 
