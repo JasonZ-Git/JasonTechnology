@@ -2,12 +2,6 @@ package org.jason.util;
 
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpClient.Version;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
@@ -34,12 +28,6 @@ public final class SpiderUtil {
     // Use google bot as agent string.
     private static final String USER_AGENT = "Mozilla/5.0";
 
-    private static final String USER_AGENT_KEY = "User-Agent";
-
-    private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(Version.HTTP_2).build();
-
-    private static final Duration TIMEOUT_3_SECONDS = Duration.ofSeconds(3);
-
     private SpiderUtil() {
         throw new AssertionError("No " + SpiderUtil.class + " instances for you!");
     }
@@ -51,9 +39,8 @@ public final class SpiderUtil {
      * @return whether or not the crawl was successful
      * @throws IOException If URL is not valid, or due to network connection problem, a exception will be thrown.
      */
-    @Deprecated
     @ReplacedBy("crawlPage")
-    public static Document crawlPage_Java8(@Nonnull final String url) throws IOException {
+    public static Document crawlPage(@Nonnull final String url) throws IOException {
         Objects.requireNonNull(url);
 
         Connection connection = Jsoup.connect(url).userAgent(USER_AGENT);
@@ -66,25 +53,6 @@ public final class SpiderUtil {
         }
 
         return htmlDocument;
-    }
-
-    public static Document crawlPage(@Nonnull final String url) throws IOException {
-        Objects.requireNonNull(url);
-
-        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).setHeader(USER_AGENT_KEY, USER_AGENT).timeout(TIMEOUT_3_SECONDS).build();
-
-        try {
-
-            HttpResponse<String> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-
-            checkResponse(response);
-
-            return Jsoup.parse(response.body());
-
-        } catch (InterruptedException e) {
-            throw new IOException(e);
-        }
-
     }
 
     /**
@@ -101,15 +69,6 @@ public final class SpiderUtil {
 
         if (!response.contentType().contains("text/html")) {
             logger.error("Retrieved something other than HTML");
-            return false;
-        }
-
-        return true;
-    }
-
-    private static boolean checkResponse(final HttpResponse<String> response) {
-        if (response.statusCode() / 100 != 2 && response.statusCode() / 100 != 3) {
-            logger.error("Something wrong, status is " + response.statusCode());
             return false;
         }
 

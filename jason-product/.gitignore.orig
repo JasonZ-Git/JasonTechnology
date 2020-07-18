@@ -1,8 +1,0 @@
-calendar-generate-token
-/target/
-/bin/
-<<<<<<< HEAD
-src/main/resources/dictionary/*
-=======
-src/main/resources/dictionary/dictionary.properties
->>>>>>> 8af142aa954a0421a66717559221dced29371a1a

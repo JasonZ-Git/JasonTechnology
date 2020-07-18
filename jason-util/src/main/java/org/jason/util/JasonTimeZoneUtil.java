@@ -3,6 +3,7 @@ package org.jason.util;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,8 +39,8 @@ public final class JasonTimeZoneUtil {
         con.setRequestMethod("GET");
         // add request header
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        List<String> responde = IOUtils.readLines(con.getInputStream());
-        String jsonResult = StringUtils.join(responde.iterator(), "");
+        List<String> respond = IOUtils.readLines(con.getInputStream(), Charset.defaultCharset());
+        String jsonResult = StringUtils.join(respond.iterator(), "");
         StringBuffer response = new StringBuffer();
         con.disconnect();
 

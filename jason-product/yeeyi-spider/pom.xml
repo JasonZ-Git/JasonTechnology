@@ -6,15 +6,12 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-
 	<groupId>org.jason</groupId>
-	<artifactId>jason-dictionary-pronunciation</artifactId>
-	<version>1.0</version>
-
-	<name>jason-dictionary-pronunciation</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>yeeyi-spider</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>Yeeyi Spider</name>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -25,24 +22,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
+			<groupId>org.jason</groupId>
+			<artifactId>jason-util</artifactId>
+			<version>2.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 	</dependencies>
 
 	<build>
