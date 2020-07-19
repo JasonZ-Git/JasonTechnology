@@ -1,4 +1,4 @@
-package org.jason.dictionary;
+package org.jason.dictionary.helper;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +26,11 @@ public class WordTranslation {
 
     public static WordTranslation build(@Nonnull String word, @Nonnull String translation) {
         return new WordTranslation(word, translation);
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s=%s", word, translation);
     }
 
     /**

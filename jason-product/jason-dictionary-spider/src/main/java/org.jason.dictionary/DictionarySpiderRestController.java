@@ -10,18 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DictionarySpiderRestController {
 
-    @GetMapping("getGoogleTranslation")
-    public String getWordTranslation(@RequestParam(defaultValue = "hello") String word) {
-        TranslationResult translation = GoogleTranslationHelper.getTranslation(word);
-
-        return translation.getTranslation();
-    }
-
     @GetMapping("getGooglePronunciation")
     public byte[] getWordPronunciation(@RequestParam(defaultValue = "hello") String word) {
         TranslationResult translation = GoogleTranslationHelper.getTranslation(word);
 
         return GooglePronunciationHelper.getPronunciationFromUrl(translation.getWord(), translation.getPronounceURL());
     }
-
 }
