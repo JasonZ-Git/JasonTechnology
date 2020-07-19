@@ -2,6 +2,7 @@ package org.jason.dictionary;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jason.annotation.ToRefactor;
 import org.jason.dictionary.helper.DictionaryTranslationHelper;
 import org.jason.dictionary.helper.GoogleTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
@@ -28,13 +29,10 @@ public class TranslationSpiderTaskRestController {
         wordTranslations = DictionaryTranslationHelper.readExistingDictionary();
     }
 
-    @GetMapping("/")
-    public String defaultPage() {
-        return "Existing ";
-    }
-
-    @PutMapping(value = "startTranslationSpider")
-    public void startSpiderTask() {
+    // It should be a PutMapping, will change later
+    @ToRefactor
+    @GetMapping("startTranslationSpider")
+    public String startSpiderTask() {
         List<String> newWords = DictionaryTranslationHelper.readNewWords();
 
         List<WordTranslation> translations = GoogleTranslationHelper.getTranslations(newWords);
@@ -42,11 +40,7 @@ public class TranslationSpiderTaskRestController {
         String newWordTranslationFileResult = translations.stream().map(item -> item.toString()).distinct().collect(Collectors.joining(System.lineSeparator()));
 
         JasonDictionaryAPI.writeToTempTranslationFile(newWordTranslationFileResult);
-    }
 
-    @GetMapping(value = "count")
-    public Integer getVocabularyCount() {
-
-        return wordTranslations.size();
+        return newWordTranslationFileResult;
     }
 }

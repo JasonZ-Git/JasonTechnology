@@ -100,9 +100,9 @@ public final class JasonDictionaryAPI {
         String osName = System.getProperty("os.name");
         String dictionaryFile = null;
         if (osName.equalsIgnoreCase("Linux")) {
-            dictionaryFile = DICTIONARY_DICTIONARY_UBUNTU + DICTIONARY_FILENAME;
+            dictionaryFile = DICTIONARY_DICTIONARY_UBUNTU + filename;
         } else if (osName.equalsIgnoreCase("MacOS")) {
-            dictionaryFile =DICTIONARY_DICTIONARY_MAC + DICTIONARY_FILENAME;
+            dictionaryFile =DICTIONARY_DICTIONARY_MAC + filename;
         }
 
         return dictionaryFile;
