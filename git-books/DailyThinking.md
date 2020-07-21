@@ -66,19 +66,12 @@ Tomorow will deploy it to Mac and set up the second one - would keep it running 
 Docker is nice - however it seems not very neat to set up. 
 However, once set up, it is very easy to deploy and run it.
 
-
 10 July, 2020
 --------------
 Eclipse Micro Profile is a worth a more detailed check.
 
-7 July, 2020
--------------
-SwiftUI is driving me crazy.
-
-
-
 9 July, 2020
------------
+------------
 Today is the first day to start AWS 
 I plan to get a AWS developer and architect's certificate within one year.
 
@@ -87,11 +80,21 @@ Goal - Get AWS Developer Certificate by the end of this year. (31 Dec)
 	 
 Go Jason, you can do it.
 
+8 July, 2020
+-------------
+SwiftUI is driving me crazy.
+
+WSL - Windows SubSystem for Linux - It builds a real linux Kernal within windows - from Microsoft - Currently I am using MinGW(cmder).
+Seems it is a good option to give WSL a try - Linux is the best system for development.
+
+
+7 July, 2020
+-------------
+SwiftUI is driving me crazy.
 
 6 July, 2020
 -----------
 Apache Camel is used as an integration portal - It can go with CDI and spring, used to dispatch request(http, SOAP, JMS) to different service endpoints.
-
 
 5 July, 2020
 -----------
@@ -99,14 +102,11 @@ MicroProfile which is released in 2016, focus on Enterprise microservices applic
 
 ![difference](images/microprofile_2_1.png)
 
-
-
 4 July, 2020
 -----------
 I read a book about microservice from RedHat - which I have been using for long.
 In this book, it illustrate 'Software is eating up the world', mainly due to the free software movement, the cost of using technology is significantly lower,
 so it easy to build services using these technologies.
-
 
 28 Jun, 2020
 -----------
@@ -116,18 +116,14 @@ It still lacks the simplicity to be a excellent API.
 
 More work to do for it.
 
-
-
 21 Jun, 2020
 -----------
 Java Security API is very confusing, doesn't seems to be easy to use.
 Seems there is more work needed.
 
-
 18 Jun, 2020
 -----------
 A JavaEE 8 Technology Stack is added to Github Page.
-
 
 8 Jun, 2020
 -----------
@@ -136,18 +132,15 @@ JavaEE which consists of multiple subsystems, is huge - while there is no need t
 We can easily pick up the one that we use - which will make it a lot easier.
 JavaEE is not a good name anymore - EE is basically frightening - Java Module is better (Java 9 has a Module there which will be confusing)
 
-
 1 Jun, 2020
 -----------
 It is not surprising if I release a book related to JavaEE technology within 2 years
-
 
 25 May, 2020
 -----------
 The more I checked about JavaEE CDI2, the stronger I feel that Spring may not be the most suitable framework for us.
 Spring has departed from JavaEE quite far and it is hard for them to come back.
 It is reasonable to check more about Seam which is the reference implemention of CDI 2, and use seam's feature in my library
-
 
 24 May, 2020
 ------------
@@ -163,7 +156,6 @@ Client - Which can push message to Server; It could be Web, or Java or others.
 Client is responsible to connect to server.
 After connect is established, they will listen to each other.
 Encoder/Decoder - Which converts message between Java Object and Text;
-
 
 15 May, 2020
 ------------
