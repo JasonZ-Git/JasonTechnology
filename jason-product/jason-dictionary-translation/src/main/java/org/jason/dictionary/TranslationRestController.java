@@ -12,7 +12,6 @@ import javax.annotation.Nonnull;
 
 import java.util.*;
 
-
 @RestController
 public class TranslationRestController {
 
@@ -23,13 +22,6 @@ public class TranslationRestController {
     // Init Once Only
     static {
         wordTranslations = DictionaryTranslationHelper.readExistingDictionary();
-    }
-
-    @GetMapping("/")
-    public String defaultPage() {
-        return "2 available services: " +
-                "getTranslation&word= and " +
-                "count";
     }
 
     @GetMapping(value = "getTranslation")

@@ -1,4 +1,4 @@
-package org.jason.yeeyi.application;
+package org.jason;
 
 import org.jason.annotation.Application;
 
@@ -7,6 +7,7 @@ import org.jason.yeeyi.datamodel.RentingVO;
 import org.jason.yeeyi.datamodel.YeeyiCriteria;
 import org.jason.yeeyi.util.YeeyiHelper;
 import org.jsoup.nodes.Document;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,16 +15,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-@Application(name = "Yeeyi Application - Crawl Yeeyi")
-public class YeeyiDesktopApplication {
+public class YeeyiTest {
 
     private static final List<String> DEFAULT_AREA = Arrays.asList("camberwell", "Burwood", "surrey hill", "caulfield", "malvern", "Toorak", "south yarra", "glen iris", "richmond", "hawthorn");
 
-    public static void main(String[] args) throws Exception {
-        printAll();
-    }
-
-    public static void printAll() throws IOException, InterruptedException {
+    @Test
+    public void printAll() throws IOException, InterruptedException {
 
         for (String current : DEFAULT_AREA) {
             String extended = YeeyiCriteria.build().district(current).getSearchCriteria();
