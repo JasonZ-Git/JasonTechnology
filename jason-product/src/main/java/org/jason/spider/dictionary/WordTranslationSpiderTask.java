@@ -97,7 +97,6 @@ public class WordTranslationSpiderTask implements Callable<TranslationResult> {
         }
 
         return null;
-
     }
 
     private String getWordTranslation(WebDriver driver) {

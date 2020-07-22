@@ -1,4 +1,4 @@
-package org.jason.dictionary;
+package org.jason.dictionary.rest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,7 +8,6 @@ import org.jason.dictionary.helper.GoogleTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
 import org.jason.util.dictionary.JasonDictionaryAPI;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
