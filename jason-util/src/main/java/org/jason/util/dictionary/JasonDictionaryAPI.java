@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -28,42 +29,65 @@ public final class JasonDictionaryAPI {
 
     private final static String DICTIONARY_DIR_UBUNTU = "/home/jason/Desktop/Jason-Files/dictionary/";
     private final static String DICTIONARY_DICTIONARY_MAC = "TO BE DECIDED";
-    private final static String DICTIONARY_FILENAME = "final-dictionary.properties";
-    private final static String NEW_DICTIONARY_FILENAME = "new-dictionary.properties";
-    private final static String WORD_TO_TRANSLATE_FILENAME = "word_to_translate.txt";
-    private final static String TEMP_DICTIONARY_FILENAME = "temporary_dictionary.properties";
+    private final static String DICTIONARY_FILE_READ_ONLY = "final-dictionary.properties";
+    private final static String NEW_DICTIONARY_FILE = "new-dictionary.properties";
+    private final static String NEW_WORDS_FILE = "new-words.txt";
     private final static String WORD_TRANSLATION = "%s=%s";
 
     private final static Logger logger = LogManager.getLogger();
 
-    public static List<String> readExistingDictionary() {
+    public static List<String> readFinalDictionary() {
 
-        List<String> result = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
-        String dictionaryFile = getDictionaryFile(DICTIONARY_FILENAME);
+        String dictionaryFile = getDictionaryFile(DICTIONARY_FILE_READ_ONLY);
         try {
-            result = Files.readAllLines(Paths.get(dictionaryFile));
+            lines = Files.readAllLines(Paths.get(dictionaryFile));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return result;
+        return Collections.unmodifiableList(lines);
+    }
+
+    public static List<String> readNewDictionary() {
+
+        List<String> lines = new ArrayList<>();
+
+        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILE);
+        try {
+            lines = Files.readAllLines(Paths.get(dictionaryFile));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        lines.removeIf(item -> item.isEmpty() || !item.contains("="));
+
+        return lines;
     }
 
     public static void writeToNewDictionary(String newline) {
-        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILENAME);
+        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILE);
         try {
-            String line = newline + System.lineSeparator();
-            Files.write(Paths.get(dictionaryFile), Arrays.asList(line), StandardOpenOption.APPEND);
+            Files.write(Paths.get(dictionaryFile), Arrays.asList(newline), StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void replaceTranslation(String oldLine, String newLine){
+    public static void writeToNewDictionary(List<String> newlines) {
+        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILE);
+        try {
+            Files.write(Paths.get(dictionaryFile), newlines, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void replaceTranslationOfNewDictionary(String oldLine, String newLine){
         List<String> allLines = new ArrayList<>();
 
-        String dictionaryFile = getDictionaryFile(DICTIONARY_FILENAME);
+        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILE);
         try {
             allLines = Files.readAllLines(Paths.get(dictionaryFile));
         } catch (IOException e) {
@@ -82,13 +106,33 @@ public final class JasonDictionaryAPI {
 
     }
 
+    public static void deleteTranslationOfNewDictionary(String existingLine){
+        List<String> allLines = new ArrayList<>();
+
+        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILE);
+        try {
+            allLines = Files.readAllLines(Paths.get(dictionaryFile));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        allLines.removeIf(item -> item.equals(existingLine));
+
+        try {
+            Files.write(Paths.get(dictionaryFile), allLines, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     // Read words from a file
     public static List<String> readNewWords() {
         List<String> result = new ArrayList<>();
 
-        String newSourceWordFile = getDictionaryFile(WORD_TO_TRANSLATE_FILENAME);
+        String newSourceWordFile = getDictionaryFile(NEW_WORDS_FILE);
 
-        List<String> existingDict = readExistingDictionary();
+        List<String> existingDict = readFinalDictionary();
 
         List<String> newSourceWords = new ArrayList<>();
         try {
@@ -112,17 +156,6 @@ public final class JasonDictionaryAPI {
         Objects.requireNonNull(existingWordsLines);
 
         return existingWordsLines.parallelStream().map(item -> item.split("=")[0].trim()).collect(Collectors.toList());
-    }
-
-    public static void writeToTempTranslationFile(String translationFileContent) {
-
-        String file = getDictionaryFile(TEMP_DICTIONARY_FILENAME);
-        try {
-            JasonFileUtil.writeFile(file, translationFileContent);
-        } catch (IOException e) {
-            logger.error(e);
-            throw new RuntimeException(e);
-        }
     }
 
     @ToRefactor("This is a bad way, should use facility(JSON-B or Jackson) to refactor")

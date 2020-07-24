@@ -11,9 +11,7 @@ import org.jason.util.dictionary.JasonDictionaryAPI;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -25,15 +23,17 @@ public class TranslationSpiderTaskRestController {
     // It should be a PutMapping, will change later
     @ToRefactor
     @GetMapping("startTranslationSpider")
-    public String startSpiderTask() {
+    public List<String> startSpiderTask() {
         List<String> newWords = JasonTranslationHelper.readNewWords();
 
         List<WordTranslation> translations = GoogleTranslationHelper.getTranslations(newWords);
 
-        String newWordTranslationFileResult = translations.stream().map(item -> item.toString()).distinct().collect(Collectors.joining(System.lineSeparator()));
+        List<String> newLines = translations.stream().map(item -> item.toString()).distinct().collect(Collectors.toList());
 
-        JasonDictionaryAPI.writeToTempTranslationFile(newWordTranslationFileResult);
+        JasonDictionaryAPI.writeToNewDictionary(newLines);
 
-        return newWordTranslationFileResult;
+        translations.stream().forEach(item -> DictionaryCache.put(item.getWord(), item.getTranslation()));
+
+        return newLines;
     }
 }

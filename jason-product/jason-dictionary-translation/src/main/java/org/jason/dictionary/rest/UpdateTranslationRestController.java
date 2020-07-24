@@ -28,7 +28,7 @@ public class UpdateTranslationRestController {
 
             String existingTranslationItem = String.join("=", word, DictionaryCache.getTranslation(word));
             String newTranslationItem = String.join("=", word, translation);
-            JasonDictionaryAPI.replaceTranslation(existingTranslationItem, newTranslationItem);
+            JasonDictionaryAPI.replaceTranslationOfNewDictionary(existingTranslationItem, newTranslationItem);
 
             DictionaryCache.put(word, translation);
 

@@ -8,6 +8,7 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 
+// It contains all the words, including the final and new words.
 public class DictionaryCache {
 
     private static final Logger logger = LogManager.getLogger();
@@ -30,14 +31,16 @@ public class DictionaryCache {
         DICTIONARY.put(word, translation);
     }
 
+    public static void remove(String word){ DICTIONARY.remove(word);}
+
     public static int size() {
         return DICTIONARY.size();
     }
 
-    private static class DictionaryHolder extends HashMap<String, String>{
+    private static class DictionaryHolder extends HashMap<String, String> {
         private static DictionaryHolder wordTranslations;
 
-        public static DictionaryHolder getDictionary(){
+        public static DictionaryHolder getDictionary() {
             if (wordTranslations == null) {
                 wordTranslations = new DictionaryHolder();
             }
@@ -48,9 +51,21 @@ public class DictionaryCache {
         private DictionaryHolder() {
             super();
 
-            List<String> lines = JasonDictionaryAPI.readExistingDictionary();
+            List<String> existingDictionary = JasonDictionaryAPI.readFinalDictionary();
 
-            for (String current : lines) {
+            for (String current : existingDictionary) {
+                WordTranslation temp = WordTranslation.buildFromTranslationLine(current);
+
+                if (temp == null) continue;
+
+                put(temp.getWord(), temp.getTranslation());
+            }
+
+
+            // New dictionary will overwrite existing ones
+            List<String> newDictionary = JasonDictionaryAPI.readNewDictionary();
+
+            for (String current : newDictionary) {
                 WordTranslation temp = WordTranslation.buildFromTranslationLine(current);
 
                 if (temp == null) continue;

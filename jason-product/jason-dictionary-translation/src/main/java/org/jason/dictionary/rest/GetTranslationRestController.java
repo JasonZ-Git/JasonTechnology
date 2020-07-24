@@ -25,7 +25,21 @@ public class GetTranslationRestController {
         }
 
         // If not find in existing list, then fetch translation from Google
-        return GoogleTranslationHelper.getTranslation(word);
+        WordTranslation wordTranslation = GoogleTranslationHelper.getTranslation(word);
+
+        JasonDictionaryAPI.writeToNewDictionary(wordTranslation.toString());
+
+        DictionaryCache.put(word, wordTranslation.getTranslation());
+
+        return wordTranslation;
+    }
+
+    @GetMapping(value = "getNewTranslations")
+    public String getNewTranslations() {
+
+        List<String> translations = JasonDictionaryAPI.readNewDictionary();
+
+        return String.join("<br>", translations);
     }
 
     @GetMapping(value = "count")
@@ -34,6 +48,6 @@ public class GetTranslationRestController {
     }
 
     private static List<String> readExternalDictionary() {
-        return JasonDictionaryAPI.readExistingDictionary();
+        return JasonDictionaryAPI.readFinalDictionary();
     }
 }
