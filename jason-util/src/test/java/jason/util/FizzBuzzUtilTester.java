@@ -3,7 +3,7 @@ package jason.util;
 import org.jason.util.algorithm.FizzBuzzUtil;
 import org.junit.Test;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class FizzBuzzUtilTester {
 

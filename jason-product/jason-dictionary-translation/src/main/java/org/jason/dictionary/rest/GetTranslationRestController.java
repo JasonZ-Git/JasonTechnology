@@ -2,7 +2,7 @@ package org.jason.dictionary.rest;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import org.jason.dictionary.helper.DictionaryTranslationHelper;
+import org.jason.dictionary.helper.DictionaryCache;
 import org.jason.dictionary.helper.GoogleTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
 import org.jason.util.dictionary.JasonDictionaryAPI;
@@ -13,23 +13,15 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 @RestController
-public class TranslationRestController {
+public class GetTranslationRestController {
 
-    private static Map<String, String> wordTranslations = new HashMap<>();
-
-    private static Logger logger = LogManager.getLogger(TranslationRestController.class);
-
-    // Init Once Only
-    static {
-        wordTranslations = DictionaryTranslationHelper.readExistingDictionary();
-    }
+    private static Logger logger = LogManager.getLogger(GetTranslationRestController.class);
 
     @GetMapping(value = "getTranslation")
     public WordTranslation getTranslation(@RequestParam @Nonnull String word) {
         Objects.requireNonNull(word);
-
-        if (wordTranslations.containsKey(word)) {
-            return WordTranslation.build(word, wordTranslations.get(word));
+        if (DictionaryCache.contains(word)) {
+            return WordTranslation.build(word, DictionaryCache.getTranslation(word));
         }
 
         // If not find in existing list, then fetch translation from Google
@@ -38,7 +30,7 @@ public class TranslationRestController {
 
     @GetMapping(value = "count")
     public Integer getVocabularyCount() {
-        return wordTranslations.size();
+        return DictionaryCache.size();
     }
 
     private static List<String> readExternalDictionary() {

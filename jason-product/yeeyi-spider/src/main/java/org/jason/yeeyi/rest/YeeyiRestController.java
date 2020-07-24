@@ -1,11 +1,10 @@
-package org.jason.yeeyi.controller;
+package org.jason.yeeyi.rest;
 
 import org.jason.util.SpiderUtil;
 import org.jason.util.exception.PageNotFoundException;
 import org.jason.yeeyi.datamodel.RentingVO;
 import org.jason.yeeyi.util.YeeyiHelper;
 import org.jsoup.nodes.Document;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

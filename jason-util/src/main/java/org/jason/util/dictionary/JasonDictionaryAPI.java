@@ -1,12 +1,5 @@
 package org.jason.util.dictionary;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,14 +7,32 @@ import org.jason.annotation.ToRefactor;
 import org.jason.util.JasonFileUtil;
 import org.jason.util.finalclass.StringPair;
 
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+/**
+ * This Utility works with a line of String which contains a translation Item.
+ * So if the structure changes in the future, this class could keep unchanged.
+ *
+ */
 public final class JasonDictionaryAPI {
     private final static String formatter = "{\"%s\": \"%s\",\"%s\": \"%s\",\"%s\": %d}";
 
-    private final static String DICTIONARY_DICTIONARY_UBUNTU = "/home/jason/Desktop/Jason-Files/dictionary/";
+    private final static String DICTIONARY_DIR_UBUNTU = "/home/jason/Desktop/Jason-Files/dictionary/";
     private final static String DICTIONARY_DICTIONARY_MAC = "TO BE DECIDED";
     private final static String DICTIONARY_FILENAME = "final-dictionary.properties";
+    private final static String NEW_DICTIONARY_FILENAME = "new-dictionary.properties";
     private final static String WORD_TO_TRANSLATE_FILENAME = "word_to_translate.txt";
     private final static String TEMP_DICTIONARY_FILENAME = "temporary_dictionary.properties";
+    private final static String WORD_TRANSLATION = "%s=%s";
 
     private final static Logger logger = LogManager.getLogger();
 
@@ -29,22 +40,53 @@ public final class JasonDictionaryAPI {
 
         List<String> result = new ArrayList<>();
 
-        String dictionaryFile = getSystemFile(DICTIONARY_FILENAME);
+        String dictionaryFile = getDictionaryFile(DICTIONARY_FILENAME);
         try {
             result = Files.readAllLines(Paths.get(dictionaryFile));
         } catch (IOException e) {
-            logger.error(e);
-            return result;
+            throw new RuntimeException(e);
         }
 
         return result;
+    }
+
+    public static void writeToNewDictionary(String newline) {
+        String dictionaryFile = getDictionaryFile(NEW_DICTIONARY_FILENAME);
+        try {
+            String line = newline + System.lineSeparator();
+            Files.write(Paths.get(dictionaryFile), Arrays.asList(line), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void replaceTranslation(String oldLine, String newLine){
+        List<String> allLines = new ArrayList<>();
+
+        String dictionaryFile = getDictionaryFile(DICTIONARY_FILENAME);
+        try {
+            allLines = Files.readAllLines(Paths.get(dictionaryFile));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        allLines.removeIf(item -> item.equals(oldLine));
+
+        allLines.add(newLine);
+
+        try {
+            Files.write(Paths.get(dictionaryFile), allLines, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     // Read words from a file
     public static List<String> readNewWords() {
         List<String> result = new ArrayList<>();
 
-        String newSourceWordFile = getSystemFile(WORD_TO_TRANSLATE_FILENAME);
+        String newSourceWordFile = getDictionaryFile(WORD_TO_TRANSLATE_FILENAME);
 
         List<String> existingDict = readExistingDictionary();
 
@@ -74,7 +116,7 @@ public final class JasonDictionaryAPI {
 
     public static void writeToTempTranslationFile(String translationFileContent) {
 
-        String file = getSystemFile(TEMP_DICTIONARY_FILENAME);
+        String file = getDictionaryFile(TEMP_DICTIONARY_FILENAME);
         try {
             JasonFileUtil.writeFile(file, translationFileContent);
         } catch (IOException e) {
@@ -96,13 +138,13 @@ public final class JasonDictionaryAPI {
         return result;
     }
 
-    private static String getSystemFile(String filename){
+    private static String getDictionaryFile(String filename) {
         String osName = System.getProperty("os.name");
         String dictionaryFile = null;
         if (osName.equalsIgnoreCase("Linux")) {
-            dictionaryFile = DICTIONARY_DICTIONARY_UBUNTU + filename;
+            dictionaryFile = DICTIONARY_DIR_UBUNTU + filename;
         } else if (osName.equalsIgnoreCase("MacOS")) {
-            dictionaryFile =DICTIONARY_DICTIONARY_MAC + filename;
+            dictionaryFile = DICTIONARY_DICTIONARY_MAC + filename;
         }
 
         return dictionaryFile;

@@ -3,8 +3,9 @@ package org.jason.dictionary.rest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.ToRefactor;
-import org.jason.dictionary.helper.DictionaryTranslationHelper;
+import org.jason.dictionary.helper.DictionaryCache;
 import org.jason.dictionary.helper.GoogleTranslationHelper;
+import org.jason.dictionary.helper.JasonTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
 import org.jason.util.dictionary.JasonDictionaryAPI;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,20 +20,13 @@ import java.util.stream.Collectors;
 @RestController
 public class TranslationSpiderTaskRestController {
 
-    private static Map<String, String> wordTranslations = new HashMap<>();
-
-    private static Logger logger = LogManager.getLogger(TranslationSpiderTaskRestController.class);
-
-    // Init Once Only
-    static {
-        wordTranslations = DictionaryTranslationHelper.readExistingDictionary();
-    }
+    private static Logger logger = LogManager.getLogger();
 
     // It should be a PutMapping, will change later
     @ToRefactor
     @GetMapping("startTranslationSpider")
     public String startSpiderTask() {
-        List<String> newWords = DictionaryTranslationHelper.readNewWords();
+        List<String> newWords = JasonTranslationHelper.readNewWords();
 
         List<WordTranslation> translations = GoogleTranslationHelper.getTranslations(newWords);
 
