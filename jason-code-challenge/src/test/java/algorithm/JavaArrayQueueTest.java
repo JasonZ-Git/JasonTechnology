@@ -2,8 +2,7 @@ package algorithm;
 
 import org.jason.algorithm.JavaArrayQueue;
 import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 
 public class JavaArrayQueueTest {
 

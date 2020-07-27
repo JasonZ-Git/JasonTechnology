@@ -50,7 +50,7 @@
         <module>jason-code-challenge</module>
         <module>spring-restful</module>
         <module>spring-restful-hibernate</module>
-        <module>spring-mvc</module>
+        <module>spring-mvc-traditional</module>
         <!-- <module>spring-websocket</module> -->
         <module>jason-product</module>
         <module>java-explore</module>

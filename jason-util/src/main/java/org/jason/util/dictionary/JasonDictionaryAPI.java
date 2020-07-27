@@ -28,11 +28,10 @@ public final class JasonDictionaryAPI {
     private final static String formatter = "{\"%s\": \"%s\",\"%s\": \"%s\",\"%s\": %d}";
 
     private final static String DICTIONARY_DIR_UBUNTU = "/home/jason/Desktop/Jason-Files/dictionary/";
-    private final static String DICTIONARY_DICTIONARY_MAC = "TO BE DECIDED";
+    private final static String DICTIONARY_DICTIONARY_MAC = "/Users/jasonzhang/Desktop/Jason-Files/dictionary/";
     private final static String DICTIONARY_FILE_READ_ONLY = "final-dictionary.properties";
     private final static String NEW_DICTIONARY_FILE = "new-dictionary.properties";
     private final static String NEW_WORDS_FILE = "new-words.txt";
-    private final static String WORD_TRANSLATION = "%s=%s";
 
     private final static Logger logger = LogManager.getLogger();
 
@@ -176,7 +175,7 @@ public final class JasonDictionaryAPI {
         String dictionaryFile = null;
         if (osName.equalsIgnoreCase("Linux")) {
             dictionaryFile = DICTIONARY_DIR_UBUNTU + filename;
-        } else if (osName.equalsIgnoreCase("MacOS")) {
+        } else if (osName.equalsIgnoreCase("Mac OS X")) {
             dictionaryFile = DICTIONARY_DICTIONARY_MAC + filename;
         }
 

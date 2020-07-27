@@ -4,11 +4,11 @@
 	http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jason</groupId>
-    <artifactId>SpringMVC</artifactId>
+    <artifactId>spring-mvc-traditional</artifactId>
     <packaging>war</packaging>
     <!-- It should extend jason-parent -->
     <version>2.2</version>
-    <name>SpringMVC Maven Webapp</name>
+    <name>Traditional SpringMVC Webapp - Replaced by SpringBoot Now</name>
     <url>http://maven.apache.org</url>
 
     <properties>

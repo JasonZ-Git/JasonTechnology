@@ -169,7 +169,6 @@ JSON-P is simple but not enough, because it only provide a stream parse, and lac
 Luckily, Saxon provides an implementation meets w3c standard.
 I still hope there is a JSR for the flexible query using XPath - Needs to check more about whether there is existing JSR in progress - May be I can write one for JCP --
 
-
 14 May, 2020
 ------------
 Bean Validation 2 is part of JaveEE8
