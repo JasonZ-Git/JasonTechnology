@@ -52,6 +52,11 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+30 July, 2020
+-------------
+Need to figure out docker volume.
+
+
 16 July, 2020
 -------------
 It is such a happiness to split dictionary into several micro services.
