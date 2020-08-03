@@ -14,7 +14,8 @@ TODO List - All the finished ones will be moved to separate pages.
   - Initlal design ideas - Plate-like top(IKEA wooden plate), foldable middle part(carry balls with several stick  carrier) - 
 * Regex
 * Think a way to perfectly support JSON in Java
-* URL & URI
+* URL & URI741053.
+
 * HTTP
   - HTTP/2 - (Java 12)
   - HTTP/3
@@ -44,13 +45,19 @@ TODO List - All the finished ones will be moved to separate pages.
 * cmder & git bash
 * Java EE 8 Technology Summary - By 30 May
 * MicroProfile (MicroService)
-* Dagger
+* Dagger    ``````
 * Docker
 * Servlet 4
 * Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+2 August, 2020
+-------------
+Docker mainly support 2 types of file persistence mechanism:
+* Volume - Recommended way, as it is only managed by Docker, outside docker cannot access it.
+* Bind Mounts - The files can be changed by outside systems.
 
 30 July, 2020
 -------------

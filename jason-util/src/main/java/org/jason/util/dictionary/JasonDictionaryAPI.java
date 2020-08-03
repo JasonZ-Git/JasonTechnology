@@ -27,8 +27,7 @@ import java.util.stream.Collectors;
 public final class JasonDictionaryAPI {
     private final static String formatter = "{\"%s\": \"%s\",\"%s\": \"%s\",\"%s\": %d}";
 
-    private final static String DICTIONARY_DIR_UBUNTU = "/home/jason/Desktop/Jason-Files/dictionary/";
-    private final static String DICTIONARY_DICTIONARY_MAC = "/Users/jasonzhang/Desktop/Jason-Files/dictionary/";
+    private final static String DICTIONARY_DIR = "/Dictionary/";
     private final static String DICTIONARY_FILE_READ_ONLY = "final-dictionary.properties";
     private final static String NEW_DICTIONARY_FILE = "new-dictionary.properties";
     private final static String NEW_WORDS_FILE = "new-words.txt";
@@ -171,15 +170,7 @@ public final class JasonDictionaryAPI {
     }
 
     private static String getDictionaryFile(String filename) {
-        String osName = System.getProperty("os.name");
-        String dictionaryFile = null;
-        if (osName.equalsIgnoreCase("Linux")) {
-            dictionaryFile = DICTIONARY_DIR_UBUNTU + filename;
-        } else if (osName.equalsIgnoreCase("Mac OS X")) {
-            dictionaryFile = DICTIONARY_DICTIONARY_MAC + filename;
-        }
-
-        return dictionaryFile;
+        return DICTIONARY_DIR + filename;
     }
 
 }

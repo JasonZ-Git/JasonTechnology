@@ -5,8 +5,8 @@ This is Micro Service for translation word.
 mkdir -p target/dependency
 cd target/dependency
 jar -xf ../*.jar
-docker build -t {name} .
-docker run -p 8080:8080 {name}
+docker build -t jason-dictionary-translation .
+docker run -p 10001:10001 --mount type=bind,source=/Users/jasonzhang/Desktop/Jason-Files/dictionary/,target=/Dictionary jason-dictionary-translation:latest
 
 
 # Services supported
