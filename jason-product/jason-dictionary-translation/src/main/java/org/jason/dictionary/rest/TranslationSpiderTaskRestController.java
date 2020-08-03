@@ -9,6 +9,7 @@ import org.jason.dictionary.helper.JasonTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
 import org.jason.util.dictionary.JasonDictionaryAPI;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,10 +21,9 @@ public class TranslationSpiderTaskRestController {
 
     private static Logger logger = LogManager.getLogger();
 
-    // It should be a PutMapping, will change later
-    @ToRefactor
-    @GetMapping("startTranslationSpider")
+    @PutMapping("startTranslationSpider")
     public List<String> startSpiderTask() {
+
         List<String> newWords = JasonTranslationHelper.readNewWords();
 
         List<WordTranslation> translations = GoogleTranslationHelper.getTranslations(newWords);

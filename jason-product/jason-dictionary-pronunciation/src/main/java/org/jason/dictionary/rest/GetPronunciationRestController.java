@@ -1,4 +1,4 @@
-package org.jason.dictionary;
+package org.jason.dictionary.rest;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ import java.util.Objects;
 import org.apache.commons.io.IOUtils;
 
 @RestController
-public class PronunciationRestController {
+public class GetPronunciationRestController {
 
     @GetMapping(value = "getPronunciation", produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
     public @ResponseBody

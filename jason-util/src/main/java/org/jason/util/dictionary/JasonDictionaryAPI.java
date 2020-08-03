@@ -10,6 +10,7 @@ import org.jason.util.finalclass.StringPair;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -31,8 +32,28 @@ public final class JasonDictionaryAPI {
     private final static String DICTIONARY_FILE_READ_ONLY = "final-dictionary.properties";
     private final static String NEW_DICTIONARY_FILE = "new-dictionary.properties";
     private final static String NEW_WORDS_FILE = "new-words.txt";
+    private final static String PRONUNCIATION_DIR_READ_ONLY = "/Dictionary/pronunciation-final/";
+    public final static String NEW_PRONUNCIATION_DIR = "/Dictionary/pronunciation-new/";
 
     private final static Logger logger = LogManager.getLogger();
+
+    public static List<String> readFinalPronunciations() {
+
+        try {
+            return Files.list(Paths.get(PRONUNCIATION_DIR_READ_ONLY)).filter(item -> item.endsWith(".mp3")).map(item -> item.getFileName().toString()).collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<String> readNewPronunciations() {
+
+        try {
+            return Files.list(Paths.get(NEW_PRONUNCIATION_DIR)).filter(item -> item.endsWith(".mp3")).map(item -> item.getFileName().toString()).collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static List<String> readFinalDictionary() {
 
