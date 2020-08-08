@@ -33,7 +33,7 @@ public class GoogleTranslationHelper {
 
     static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        // System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
+
         // Turn off debug log
         System.setProperty("webdriver.chrome.verboseLogging", "false");
     }
@@ -42,7 +42,6 @@ public class GoogleTranslationHelper {
 
         WebDriver driver = null;
         String translations = "";
-        URL pronouceURL = null;
 
         try {
             driver = getWebDriver();
@@ -50,8 +49,6 @@ public class GoogleTranslationHelper {
             driver.get(English_To_Chinese_Google_Translation + word);
 
             translations = getWordTranslation(driver, word);
-
-            pronouceURL = getWordPronounceURL(driver);
 
             destroyDriver(driver);
 
