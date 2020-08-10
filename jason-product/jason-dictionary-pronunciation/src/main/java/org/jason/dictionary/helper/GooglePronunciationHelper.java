@@ -7,13 +7,13 @@ import org.jason.util.dictionary.JasonDictionaryAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class GooglePronunciationHelper {
 
     private static final String English_To_Chinese_Google_Translation = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
 
-    private static final String DOWNLAOD_VEDIO_FORMAT = "downloadvedio -o %s%s.mp3 '%s'";
+    private static final String DOWNLOAD_VEDIO_FORMAT = "downloadvedio -o %s%s.mp3 '%s'";
 
     private static Logger logger = LogManager.getLogger();
 
@@ -69,7 +69,7 @@ public class GooglePronunciationHelper {
 
         ProcessBuilder processBuilder = new ProcessBuilder();
 
-        String downloadVedioCommand = String.format(DOWNLAOD_VEDIO_FORMAT, JasonDictionaryAPI.NEW_PRONUNCIATION_DIR, word, pronunciation.toExternalForm());
+        String downloadVedioCommand = String.format(DOWNLOAD_VEDIO_FORMAT, JasonDictionaryAPI.NEW_PRONUNCIATION_DIR, word, pronunciation.toExternalForm());
         processBuilder.command("sh", "-c", downloadVedioCommand);
 
         try {
@@ -115,7 +115,7 @@ public class GooglePronunciationHelper {
         driver.quit();
     }
 
-    private static WebDriver getWebDriver() {
+    private static WebDriver getWebDriver() throws MalformedURLException {
 
         DesiredCapabilities caps = DesiredCapabilities.chrome();
 
@@ -124,11 +124,13 @@ public class GooglePronunciationHelper {
 
         caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
+
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("w3c", false);
         options.merge(caps);
 
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new RemoteWebDriver(new URL("http://101.116.233.50:4444/wd/hub"), options);
+        //WebDriver driver = new ChromeDriver(options);
 
         return driver;
     }
