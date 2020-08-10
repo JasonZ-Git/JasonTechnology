@@ -113,7 +113,6 @@ public class GoogleTranslationHelper {
 
     private static WebDriver getWebDriver() throws MalformedURLException {
 
-
         DesiredCapabilities caps = DesiredCapabilities.chrome();
 
         LoggingPreferences logPrefs = new LoggingPreferences();

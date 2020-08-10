@@ -4,7 +4,7 @@ This file is used to record my random brain storm
 TODO List - All the finished ones will be moved to separate pages.
 ---------
 * Eclipse MicroProfile
-* YAML file - Good to check more about it.
+* YAML file - Good to check more about it - Used in docker composer - Seems okay with configuration file
 * Design a tennis ball carrier - 
   - It should be Environmental friendly - Using bamboo or wood.
   - It is easy to carry - Can be carried in the tennis bag.
@@ -52,6 +52,10 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+10 August, 2020
+--------------
+Docker composer is used to declare the dependency between different services.
 
 2 August, 2020
 -------------
