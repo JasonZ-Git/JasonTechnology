@@ -20,8 +20,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,6 @@ public class GooglePronunciationHelper {
 
     static {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        // System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
         // Turn off debug log
         System.setProperty("webdriver.chrome.verboseLogging", "false");
     }
@@ -64,7 +64,7 @@ public class GooglePronunciationHelper {
         return pronunciationURL;
     }
 
-    public static void downLoadGooglePronunciation(String word) {
+    public static Path downLoadGooglePronunciation(String word) {
         URL pronunciation = getPronunciationURL(word);
 
         ProcessBuilder processBuilder = new ProcessBuilder();
@@ -81,17 +81,10 @@ public class GooglePronunciationHelper {
                 System.out.println("line: " + s);
         } catch (IOException e) {
             logger.error(e);
-        }
-    }
-
-    private static void sleepQuietly(){
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (Exception e) {
-            logger.error(e);
-
             throw new RuntimeException(e);
         }
+
+        return Paths.get(JasonDictionaryAPI.NEW_PRONUNCIATION_DIR, word + ".mp3");
     }
 
     private static URL getWordPronounceURL(WebDriver driver) throws MalformedURLException {
@@ -132,6 +125,7 @@ public class GooglePronunciationHelper {
         caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
         ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("w3c", false);
         options.merge(caps);
 
         WebDriver driver = new ChromeDriver(options);

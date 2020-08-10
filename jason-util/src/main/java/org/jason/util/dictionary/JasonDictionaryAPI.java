@@ -37,19 +37,19 @@ public final class JasonDictionaryAPI {
 
     private final static Logger logger = LogManager.getLogger();
 
-    public static List<String> readFinalPronunciations() {
+    public static List<Path> readFinalPronunciations() {
 
         try {
-            return Files.list(Paths.get(PRONUNCIATION_DIR_READ_ONLY)).filter(item -> item.endsWith(".mp3")).map(item -> item.getFileName().toString()).collect(Collectors.toList());
+            return Files.list(Paths.get(PRONUNCIATION_DIR_READ_ONLY)).filter(item -> item.endsWith(".mp3")).collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static List<String> readNewPronunciations() {
+    public static List<Path> readNewPronunciation() {
 
         try {
-            return Files.list(Paths.get(NEW_PRONUNCIATION_DIR)).filter(item -> item.endsWith(".mp3")).map(item -> item.getFileName().toString()).collect(Collectors.toList());
+            return Files.list(Paths.get(NEW_PRONUNCIATION_DIR)).filter(item -> item.endsWith(".mp3")).collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

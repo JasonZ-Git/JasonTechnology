@@ -14,6 +14,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import javax.annotation.Nonnull;
 import java.net.MalformedURLException;
@@ -55,7 +56,6 @@ public class GoogleTranslationHelper {
         } catch (Exception e) {
             logger.warn("No translation found for " + word, e);
             destroyDriver(driver);
-
             return WordTranslation.build(word, null);
         }
 
@@ -88,30 +88,6 @@ public class GoogleTranslationHelper {
         }
     }
 
-    private static URL getWordPronounceURL(WebDriver driver) throws MalformedURLException {
-        WebElement englishPronourceButton = driver.findElement(By.cssSelector(".src-tts.left-positioned.ttsbutton.jfk-button-flat.source-or-target-footer-button.jfk-button"));
-        englishPronourceButton.click();
-
-        final String MEDIA_TYPE_FILTER = "\"type\":\"Media\"";
-        final String URL_FILTER = "\"url\":";
-
-        List<LogEntry> entries = driver.manage().logs().get(LogType.PERFORMANCE).getAll();
-
-        List<String> mediaTypeLogs = entries.parallelStream().map(item -> item.getMessage()).filter(item -> item.contains(MEDIA_TYPE_FILTER))
-                .filter(item -> item.contains(URL_FILTER)).collect(Collectors.toList());
-
-
-        for (String current : mediaTypeLogs) {
-            String url = JsonPath.read(current, "$.message.params.request.url");
-            if (url != null) {
-                return new URL(url);
-            }
-        }
-
-        return null;
-
-    }
-
     private static String getWordTranslation(WebDriver driver, String word) {
         WebElement googleTranslationElement = driver.findElement(By.className("tlid-translation"));
 
@@ -135,7 +111,8 @@ public class GoogleTranslationHelper {
         driver.quit();
     }
 
-    private static WebDriver getWebDriver() {
+    private static WebDriver getWebDriver() throws MalformedURLException {
+
 
         DesiredCapabilities caps = DesiredCapabilities.chrome();
 
@@ -144,10 +121,13 @@ public class GoogleTranslationHelper {
 
         caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
+
         ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("w3c", false);
         options.merge(caps);
 
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new RemoteWebDriver(new URL("http://101.116.233.50:4444/wd/hub"), options);
+        //WebDriver driver = new ChromeDriver(options);
 
         return driver;
     }

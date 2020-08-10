@@ -1,8 +1,9 @@
 package org.jason.dictionary.rest;
 
-import org.apache.commons.io.FileUtils;
+import org.jason.dictionary.helper.GooglePronunciationHelper;
+import org.jason.dictionary.helper.PronunciationCache;
+import org.jason.util.dictionary.JasonDictionaryAPI;
 import org.springframework.http.MediaType;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.io.IOUtils;
@@ -23,16 +25,14 @@ public class GetPronunciationRestController {
     byte[] getPronunciation(@RequestParam String word) throws IOException, URISyntaxException {
 
         Objects.requireNonNull(word);
-
-        String filePath = "/pronunciation/" + word + ".mp3";
-
-        Path path = Paths.get(ClassLoader.getSystemResource(filePath).toURI());
-
-        if (Files.notExists(path)) {
-            return "No such file".getBytes();
+        Path path = null;
+        if (PronunciationCache.exists(word)){
+            path = PronunciationCache.getPath(word);
+        } else {
+            path = GooglePronunciationHelper.downLoadGooglePronunciation(word);
         }
 
-        InputStream in = getClass().getResourceAsStream(filePath);
+        InputStream in = Files.newInputStream(path);
 
         return IOUtils.toByteArray(in);
     }
