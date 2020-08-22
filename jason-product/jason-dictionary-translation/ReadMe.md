@@ -15,6 +15,6 @@ docker build -t jason-dictionary-translation .
 docker-compose up -d
 
 # Run Service in Docker
-docker run -p 10001:10001 --mount type=bind,source=/Users/jasonzhang/Desktop/Jason-Files/dictionary/,target=/Dictionary --name=Jason-Dictionary-Translation  jason-dictionary-translation:latest
+docker run -p 10001:10001 --mount type=bind,source=/Users/jasonzhang/Desktop/Jason-Files/dictionary/,target=/Dictionary --name=Jason-Dictionary-Translation jason-dictionary-translation:latest
 
 # The default page will show all the services supported

@@ -11,10 +11,7 @@ jar -xf ../*.jar
 # Build Docker 
 docker build -t jason-birthday .
 
-# start selenium in composer if it is not started yet
-docker-compose up -d
-
 # Run Service in Docker
-docker run -p 10001:10001  --name=Jason-Birthday jason-birthday:latest
+docker run -p 10010:10010  --name=Jason-Birthday jason-birthday:latest
 
 # The default page will show all the services supported

@@ -20,6 +20,10 @@
 
 
 
+** Docker related files
+**/docker_bin/*
+
+
 # Node JS modules
 **/node_modules/*
 
