@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Design of Docker
 * Eclipse MicroProfile
 * YAML file - Good to check more about it - Used in docker composer - Seems okay with configuration file
 * Design a tennis ball carrier - 
@@ -15,7 +16,6 @@ TODO List - All the finished ones will be moved to separate pages.
 * Regex
 * Think a way to perfectly support JSON in Java
 * URL & URI741053.
-
 * HTTP
   - HTTP/2 - (Java 12)
   - HTTP/3
@@ -52,6 +52,14 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+9 Sep, 2020
+-------------
+I strongly feel Docker has a strong linux culture - which is great.
+It is so amazing that Docker has such a small size and can do so much things.
+Great tool.
+It is worth to check the details design of Docker.
+
 
 10 August, 2020
 --------------
