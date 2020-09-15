@@ -12,6 +12,6 @@ jar -xf ../*.jar
 docker build -t jason-birthday .
 
 # Run Service in Docker
-docker run -p 10010:10010  --name=Jason-Birthday jason-birthday:latest
+docker run -p 10010:10010 -d  --rm --name=Jason-Birthday jason-birthday:latest
 
 # The default page will show all the services supported
