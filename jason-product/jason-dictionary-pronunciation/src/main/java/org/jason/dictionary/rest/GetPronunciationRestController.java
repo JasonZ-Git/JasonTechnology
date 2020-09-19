@@ -41,7 +41,7 @@ public class GetPronunciationRestController {
         return IOUtils.toByteArray(in);
     }
 
-    @GetMapping(value = "/count")
+    @GetMapping(value = "/countAll")
     public int count() {
         return PronunciationCache.count();
     }

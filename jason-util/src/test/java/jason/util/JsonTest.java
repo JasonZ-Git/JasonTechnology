@@ -1,14 +1,10 @@
 package jason.util;
 
-import static org.junit.Assert.*;
-
-import java.util.Map;
-
+import com.google.gson.Gson;
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.google.gson.Gson;
-
-import junit.framework.Assert;
+import java.util.Map;
 
 public class JsonTest {
 

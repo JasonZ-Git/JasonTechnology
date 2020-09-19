@@ -9,8 +9,10 @@ import org.jason.util.finalclass.StringPair;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -27,19 +29,19 @@ import java.util.stream.Collectors;
 public final class JasonDictionaryAPI {
     private final static String formatter = "{\"%s\": \"%s\",\"%s\": \"%s\",\"%s\": %d}";
 
-    private final static String DICTIONARY_DIR = "/Dictionary/"; // In Dev environment, this should be a soft link to the real directory.
+    private final static String DICTIONARY_DIR = "/Dictionary/";
     private final static String DICTIONARY_FILE_READ_ONLY = DICTIONARY_DIR + "final-dictionary.properties";
     private final static String NEW_DICTIONARY_FILE = DICTIONARY_DIR + "new-dictionary.properties";
     private final static String NEW_WORDS_FILE = DICTIONARY_DIR + "new-words.txt";
     private final static String PRONUNCIATION_DIR_READ_ONLY = DICTIONARY_DIR + "pronunciation-final/";
     public final static String NEW_PRONUNCIATION_DIR = DICTIONARY_DIR + "pronunciation-new/";
+    private final static PathMatcher MP3_MATCHER = FileSystems.getDefault().getPathMatcher("glob:**/*.mp3");
 
     private final static Logger logger = LogManager.getLogger();
 
     public static List<Path> readFinalPronunciations() {
-
         try {
-            return Files.list(Paths.get(PRONUNCIATION_DIR_READ_ONLY)).filter(item -> item.endsWith(".mp3")).collect(Collectors.toList());
+            return Files.list(Paths.get(PRONUNCIATION_DIR_READ_ONLY)).filter(MP3_MATCHER::matches).collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -48,7 +50,7 @@ public final class JasonDictionaryAPI {
     public static List<Path> readNewPronunciation() {
 
         try {
-            return Files.list(Paths.get(NEW_PRONUNCIATION_DIR)).filter(item -> item.endsWith(".mp3")).collect(Collectors.toList());
+            return Files.list(Paths.get(NEW_PRONUNCIATION_DIR)).filter(MP3_MATCHER::matches).collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

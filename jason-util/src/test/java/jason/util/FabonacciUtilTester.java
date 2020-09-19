@@ -1,11 +1,10 @@
 package jason.util;
 
-import java.util.List;
-
 import org.jason.util.algorithm.FabonacciUtil;
+import org.junit.Assert;
 import org.junit.Test;
 
-import junit.framework.Assert;
+import java.util.List;
 
 public class FabonacciUtilTester {
     @Test

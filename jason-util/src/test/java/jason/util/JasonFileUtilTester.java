@@ -1,12 +1,11 @@
 package jason.util;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.jason.util.JasonFileUtil;
+import org.junit.Assert;
 import org.junit.Test;
 
-import junit.framework.Assert;
+import java.io.IOException;
+import java.util.List;
 
 public class JasonFileUtilTester {
 
