@@ -29,7 +29,7 @@ public class WordTranslation {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%s=%s", word, translation);
     }
 

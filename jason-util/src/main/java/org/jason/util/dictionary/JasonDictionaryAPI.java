@@ -23,17 +23,16 @@ import java.util.stream.Collectors;
 /**
  * This Utility works with a line of String which contains a translation Item.
  * So if the structure changes in the future, this class could keep unchanged.
- *
  */
 public final class JasonDictionaryAPI {
     private final static String formatter = "{\"%s\": \"%s\",\"%s\": \"%s\",\"%s\": %d}";
 
-    private final static String DICTIONARY_DIR = System.getProperty("mode").equals("dev") ? "/Users/jasonzhang/Desktop/Jason-Files/dictionary/" : "/Dictionary/";
+    private final static String DICTIONARY_DIR = "/Dictionary/"; // In Dev environment, this should be a soft link to the real directory.
     private final static String DICTIONARY_FILE_READ_ONLY = DICTIONARY_DIR + "final-dictionary.properties";
     private final static String NEW_DICTIONARY_FILE = DICTIONARY_DIR + "new-dictionary.properties";
     private final static String NEW_WORDS_FILE = DICTIONARY_DIR + "new-words.txt";
-    private final static String PRONUNCIATION_DIR_READ_ONLY = DICTIONARY_DIR+"pronunciation-final/";
-    public final static String NEW_PRONUNCIATION_DIR = DICTIONARY_DIR+ "pronunciation-new/";
+    private final static String PRONUNCIATION_DIR_READ_ONLY = DICTIONARY_DIR + "pronunciation-final/";
+    public final static String NEW_PRONUNCIATION_DIR = DICTIONARY_DIR + "pronunciation-new/";
 
     private final static Logger logger = LogManager.getLogger();
 
@@ -99,7 +98,7 @@ public final class JasonDictionaryAPI {
         }
     }
 
-    public static void replaceTranslationOfNewDictionary(String oldLine, String newLine){
+    public static void replaceTranslationOfNewDictionary(String oldLine, String newLine) {
         List<String> allLines = new ArrayList<>();
 
         try {
@@ -120,7 +119,7 @@ public final class JasonDictionaryAPI {
 
     }
 
-    public static void deleteTranslationOfNewDictionary(String existingLine){
+    public static void deleteTranslationOfNewDictionary(String existingLine) {
         List<String> allLines = new ArrayList<>();
 
         try {

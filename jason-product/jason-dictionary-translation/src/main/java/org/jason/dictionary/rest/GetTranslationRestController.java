@@ -6,6 +6,7 @@ import org.jason.dictionary.helper.DictionaryCache;
 import org.jason.dictionary.helper.GoogleTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
 import org.jason.util.dictionary.JasonDictionaryAPI;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nonnull;
@@ -13,12 +14,14 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 @RestController
+@RequestMapping("/get")
 public class GetTranslationRestController {
 
     private static Logger logger = LogManager.getLogger(GetTranslationRestController.class);
 
-    @GetMapping(value = "getTranslation")
-    public WordTranslation getTranslation(@RequestParam @Nonnull String word) {
+    @GetMapping(value = "/{word}")
+    @ResponseStatus(HttpStatus.OK)
+    public WordTranslation getTranslation(@PathVariable @Nonnull String word) {
         Objects.requireNonNull(word);
         if (DictionaryCache.contains(word)) {
             return WordTranslation.build(word, DictionaryCache.getTranslation(word));
@@ -34,7 +37,8 @@ public class GetTranslationRestController {
         return wordTranslation;
     }
 
-    @GetMapping(value = "getNewTranslations")
+    @GetMapping(value = "/newWords")
+    @ResponseStatus(HttpStatus.OK)
     public String getNewTranslations() {
 
         List<String> translations = JasonDictionaryAPI.readNewDictionary();
@@ -42,7 +46,7 @@ public class GetTranslationRestController {
         return String.join("<br>", translations);
     }
 
-    @GetMapping(value = "count")
+    @GetMapping(value = "/countAll")
     public Integer getVocabularyCount() {
         return DictionaryCache.size();
     }

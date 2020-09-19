@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class JasonTranslationHelper {
-    /** new words that is not existing in existing dictionary file */
+    /**
+     * new words that is not existing in existing dictionary file
+     */
     public static List<String> readNewWords() {
         List<String> newWords = JasonDictionaryAPI.readNewWords();
 

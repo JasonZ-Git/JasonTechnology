@@ -31,7 +31,9 @@ public class DictionaryCache {
         DICTIONARY.put(word, translation);
     }
 
-    public static void remove(String word){ DICTIONARY.remove(word);}
+    public static void remove(String word) {
+        DICTIONARY.remove(word);
+    }
 
     public static int size() {
         return DICTIONARY.size();

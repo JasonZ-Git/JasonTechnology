@@ -4,17 +4,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.dictionary.helper.DictionaryCache;
 import org.jason.util.dictionary.JasonDictionaryAPI;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
 @RestController
+@RequestMapping("/add")
 public class UpdateTranslationRestController {
 
     private static Logger logger = LogManager.getLogger(UpdateTranslationRestController.class);
 
-    @PutMapping(value = "newTranslation")
+    @PutMapping(value = "/")
+    @ResponseStatus(HttpStatus.OK)
     public String insertTranslation(@RequestParam @Nonnull String word, @RequestParam @Nonnull String translation) {
         Objects.requireNonNull(word);
 

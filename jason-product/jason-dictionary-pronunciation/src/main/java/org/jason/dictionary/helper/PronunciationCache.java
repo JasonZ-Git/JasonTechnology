@@ -22,13 +22,17 @@ public class PronunciationCache {
     }
 
     public static boolean exists(String word) {
-        return pronunciationCache.contains(word+".mp3");
+        return pronunciationCache.contains(word + ".mp3");
     }
 
     public static Path getPath(String word) {
-        if(!exists(word)) return null;
+        if (!exists(word)) return null;
 
         return pronunciationCachePath.stream().filter(item -> item.getFileName().equals(word + ".mp3")).findFirst().get();
+    }
+
+    public static int count() {
+        return pronunciationCache.size();
     }
 
 }

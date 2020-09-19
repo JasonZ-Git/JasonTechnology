@@ -78,7 +78,7 @@ public class GoogleTranslationHelper {
         return wordTranslations;
     }
 
-    private static void sleepQuietly(){
+    private static void sleepQuietly() {
         try {
             TimeUnit.MILLISECONDS.sleep(500);
         } catch (Exception e) {
