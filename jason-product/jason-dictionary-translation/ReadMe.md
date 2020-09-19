@@ -15,6 +15,6 @@ docker build -t jason-dictionary-translation .
 docker-compose up -f docker-compose.yml -d -p selenium-hub
 
 # Run Service in Docker
-docker run -p 10001:10001 --rm --mount type=bind,source=/Users/jasonzhang/Desktop/Jason-Files/dictionary/,target=/Dictionary --name=Jason-Dictionary-Translation jason-dictionary-translation:latest
+docker run -itd --rm -p 10001:10001 --mount type=bind,source=/Users/jasonzhang/Desktop/Jason-Files/dictionary/,target=/Dictionary --name=Jason-Dictionary-Translation jason-dictionary-translation:latest
 
 # The default page will show all the services supported
