@@ -55,15 +55,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
-<<<<<<< HEAD
 9 Sep, 2020
 -------------
 I strongly feel Docker has a strong linux culture - which is great.
 It is so amazing that Docker has such a small size and can do so much things.
 Great tool.
 It is worth to check the details design of Docker.
-=======
->>>>>>> e78937d... [Comparative Learning of a new programming Language]
 
 
 10 August, 2020
