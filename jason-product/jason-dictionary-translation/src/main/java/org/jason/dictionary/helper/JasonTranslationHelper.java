@@ -3,7 +3,6 @@ package org.jason.dictionary.helper;
 import org.jason.util.dictionary.JasonDictionaryAPI;
 
 import java.util.List;
-import java.util.Map;
 
 public class JasonTranslationHelper {
     /**
