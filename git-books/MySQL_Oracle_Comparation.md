@@ -2,15 +2,34 @@
 
 | DataType | MySQL/MariaDB  | Oracle   |
 | --------------------- | --------- | ------ |
-|  | INTEGER | | 
-|  | CHAR(n) |
-|  | VARCHAR(n)| | 
-|  | DECIMAL(m[,d])| | 
-|  | TIME | | 
-|  | DATE | | 
-|  | DATETIME | | 
-|  | | | 
-|  | | | 
+| | BIGINT | NUMBER(19, 0) |
+| | BIT | RAW |
+| | BLOB | BLOB, RAW |
+| | CHAR | CHAR |
+| | DATE | DATE |
+| | DATETIME | DATE |
+| | DECIMAL | FLOAT (24) |
+| | DOUBLE | FLOAT (24) |
+| | DOUBLE PRECISION | FLOAT (24) |
+| | ENUM | VARCHAR2 |
+| | FLOAT | FLOAT |
+|  | LONGBLOB | BLOB, RAW |
+|  | LONGTEXT | CLOB, RAW |
+|  | MEDIUMBLOB | BLOB, RAW |
+|  | MEDIUMINT | NUMBER(7, 0) |
+|  | MEDIUMTEXT | CLOB, RAW |
+|  | NUMERIC | NUMBER |
+|  | REAL | FLOAT (24) |
+|  | SET | VARCHAR2 |
+|  | SMALLINT | NUMBER(5, 0) |
+|  | TEXT | VARCHAR2, CLOB |
+|  | TIME | DATE |
+|  | TIMESTAMP | DATE |
+|  | TINYBLOB | RAW |
+|  | TINYINT | NUMBER(3, 0) |
+|  | TINYTEXT | VARCHAR2 |
+|  | VARCHAR | VARCHAR2, CLOB |
+|  | YEAR | NUMBER |
 
 | String Function | MySQL | Oracle |
 | --------------------- | --------- | ------ |
@@ -56,7 +75,6 @@
 
 | Group By | MySQL/MariaDB  | Oracle 12c |
 | --------------- | --------- | -------- |
-| SQL | Extended SQL | SQL 2003 standard |
 |  | The select list can refer to nonaggregated columns not named in the GROUP BY clause | All items in the select list not contained in an aggregate function must be included in the group by clause |
 | Default Port | 3306 | 1521 |
 | Licence | GPL | Commercial |
