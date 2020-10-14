@@ -15,16 +15,19 @@
 
 # JavaSE Version Histoy
 
-| JavaSE Version        | Release Date           | Key feature|
+| JavaSE Version        | (Planed)Release Date           | Key feature|
 | ------------- |:-------------:|:-----|
+|JavaSE 17(LTS)|Sep 2021|Switch Expression|
+|JavaSE 16|March 2021||
+|JavaSE 15|Sep 2020|Text Block, Hidden classes, Foreign-memory access API|
 |JavaSE 14|Mar 2020|Switch Expression|
 |JavaSE 13|Sep 2019||
 |JavaSE 12|Mar 2019||
 |JavaSE 11|Sep 2018|Local varialbe for Lambda,HttpClient for http2|
 |JavaSE 10|Mar 2018|var keyword|
 |JavaSE 9|Sep 2017|Modularization of he platform itself|
-|JavaSE 8|Mar 2014|Lamda;Stream API;New Date/Time API|
-|JavaSE 7|July 2011|Switch on string, try with resouce;diamond operator;NIO2(with support for virtual file system);improve concurrency|
+|JavaSE 8(LTS)|Mar 2014|Lambda;Stream API;New Date/Time API|
+|JavaSE 7|July 2011|Switch on string, try with resource;diamond operator;NIO2(with support for virtual file system);improve concurrency|
 |JavaSE 6|Dec 2006|Override annotation|
 |J2SE 5|Sep 2004|Generic,Annotation,enum, varargs, for-each loop|
 |J2SE 1.4|Feb 2002|assert keyword;Regular Expression,NIO,XML process|
