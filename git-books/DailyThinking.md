@@ -66,7 +66,6 @@ It is so amazing that Docker has such a small size and can do so much things.
 Great tool.
 It is worth to check the details design of Docker.
 
-
 10 August, 2020
 --------------
 Docker composer is used to declare the dependency between different services.
@@ -80,7 +79,6 @@ Docker mainly support 2 types of file persistence mechanism:
 30 July, 2020
 -------------
 Need to figure out docker volume.
-
 
 16 July, 2020
 -------------
