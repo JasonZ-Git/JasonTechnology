@@ -19,6 +19,8 @@
 **/pronunciation/*.mp3
 
 
+## Gradle
+**/.gradle
 
 ** Docker related files
 **/docker_bin/*

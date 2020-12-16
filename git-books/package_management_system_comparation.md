@@ -6,6 +6,6 @@ A list of popular package management system and comparison.
 | apt | Ubuntu | apt install *** |
 | snap | linux | snap install *** |
 | yum | RedHat, CentOS | yum install *** |
-| brew | MacOS | brew install *** |
+| brew | MacOS, Linux | brew install *** |
 | sdkman | Unix, MacOS, Linux, Cygwin | sdk install *** |
-| npm | nodeJS | npm install *** |
+| npm | NodeJS | npm install *** |

@@ -1,7 +1,9 @@
 # Gradle Demo Project
 
-# How to compile
+# How to build
+gradle build
 
 # How to run
+gradle bootRun
 
 
