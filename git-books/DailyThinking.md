@@ -55,6 +55,10 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+03 Feb, 2021
+-------------
+Create a Page to compare MySQL, MariaDB, Oracle, SQL Server
+
 13 Dec, 2020
 -------------
 Different Pagckage management System - apt, skdman, brew, snap, npm, yum
