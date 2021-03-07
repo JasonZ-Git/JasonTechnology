@@ -10,5 +10,4 @@ class DemoApplicationTests {
 	void contextLoads() {
 		System.out.print(Math.pow(1.06, 30));
 	}
-
 }
