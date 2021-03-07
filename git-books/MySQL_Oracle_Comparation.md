@@ -97,8 +97,7 @@
 | Regex | REGEXP | REGEXP_LIKE |
 
 
-
-# MySQL - Enum:
+# MySQL - Enum
     -- Must be a quoted String
     -- It is not recommended inserting number as Enumeration.
     -- Sort - Sorting is according to the index (declaration sequence)

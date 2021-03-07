@@ -3,6 +3,10 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Create a Project to fetch stock trading data and analysis - peak data - bottom data
+* Create a website demo for others to create website themselves.
+* Finish the Dictionary Application.
+* Finish the Package Comparation System.
 * Design of Docker
 * Should create a page to list programming language differences to facilite the learning of a new programming language.
 * Apollo Framework - 
@@ -47,13 +51,17 @@ TODO List - All the finished ones will be moved to separate pages.
 * cmder & git bash
 * Java EE 8 Technology Summary - By 30 May
 * MicroProfile (MicroService)
-* Dagger    ``````
+* Dagger
 * Docker
 * Servlet 4
 * Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+05 March, 2021
+-------------
+Create a Page to compare language difference so that picking up another language would be a lot easier
 
 03 Feb, 2021
 -------------
