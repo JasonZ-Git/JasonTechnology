@@ -63,6 +63,7 @@ TODO List - All the finished ones will be moved to separate pages.
 -------------
 Create a Page to compare language difference so that picking up another language would be a lot easier
 
+
 03 Feb, 2021
 -------------
 Create a Page to compare MySQL, MariaDB, Oracle, SQL Server

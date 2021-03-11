@@ -8,7 +8,7 @@
 
 [Version History - JavaSE, JavaEE, JakartaEE](./git-books/Java_Version_History_SE_EE.md)
 
-[IntellIJ Shortcut](.git-books/IntelliJ_Shortcut.md)
+[IntellIJ Shortcut](./git-books/IntelliJ_Shortcut.md)
 
 [Userful Commands](./git-books/Useful_Command.md)
 
