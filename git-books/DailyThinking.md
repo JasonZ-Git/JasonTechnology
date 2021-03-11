@@ -3,13 +3,14 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Compare the popular price policy of AWS, Azure, Google Cloud
 * Create a Project to fetch stock trading data and analysis - peak data - bottom data
 * Create a website demo for others to create website themselves.
 * Finish the Dictionary Application.
-* Finish the Package Comparation System.
+* Finish the Package Comparision System.
 * Design of Docker
 * Should create a page to list programming language differences to facilite the learning of a new programming language.
-* Apollo Framework - 
+* Apollo Framework.
 * Eclipse MicroProfile
 * YAML file - Good to check more about it - Used in docker composer - Seems okay with configuration file
 * Design a tennis ball carrier - 
@@ -18,9 +19,8 @@ TODO List - All the finished ones will be moved to separate pages.
   - It is designed for personal usage - Self-training purpose.
   - It should be afordable - Cheaper than current ones.
   - It can carry tennis balls with it.
-  - Initlal design ideas - Plate-like top(IKEA wooden plate), foldable middle part(carry balls with several stick  carrier) - 
+  - Initial design ideas - Plate-like top(IKEA wooden plate), foldable middle part(carry balls with several stick  carrier) - 
 * Regex
-* Think a way to perfectly support JSON in Java
 * URL & URI741053.
 * HTTP
   - HTTP/2 - (Java 12)
@@ -62,7 +62,6 @@ TODO List - All the finished ones will be moved to separate pages.
 05 March, 2021
 -------------
 Create a Page to compare language difference so that picking up another language would be a lot easier
-
 
 03 Feb, 2021
 -------------
