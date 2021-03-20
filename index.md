@@ -1,6 +1,6 @@
 # World is powered by dream, motivation and action.
 
-[Jason Daily Brain Storm](./git-books/DailyThinking.md)
+[Jason Daily Brain Storm](./git-books/Daily_Thinking.md)
 
 [JavaEE 8 Technology Stack](./git-books/JavaEE_8.md)
 
@@ -14,4 +14,6 @@
 
 [MySQL vs Oracle](./git-books/MySQL_Oracle_Comparation.md)
 
-[Package Management System](./git-books/package_management_system_comparation.md)
+[Package Management System](./git-books/Package_Management_System_Comparation.md)
+
+[AWS Comparation with Traditional Software Development](./git-books/Cloud_Technology_Comparation.md)

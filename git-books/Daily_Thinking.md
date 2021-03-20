@@ -59,6 +59,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+20 March,2021
+-------------
+Cloud Summary - Amazon Cloud is very nice, but I feel it becomes more of a luxary thing - It is not developer friendly.
+To get a deeper understand, a summary of AWS features and comparation is needed, together with a check on the existing cloud provider, especially community driven cloud prover.
+
+
 05 March, 2021
 -------------
 Create a Page to compare language difference so that picking up another language would be a lot easier
