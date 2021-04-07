@@ -1,3 +1,6 @@
+## Search file content
+find -name '*.*' | xargs grep '<pattern>' .
+
 ## Change Pom Version
 git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' | sed -i 's/9.9.0-SNAPSHOT/9.9.109-SNAPSHOT/1'
 
