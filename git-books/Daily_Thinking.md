@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Check how to get the weather data and compare the weather with a score for different cities.
 * Compare the popular price policy of AWS, Azure, Google Cloud
 * Create a Project to fetch stock trading data and analysis - peak data - bottom data
 * Create a website demo for others to create website themselves.
@@ -17,7 +18,7 @@ TODO List - All the finished ones will be moved to separate pages.
   - It should be Environmental friendly - Using bamboo or wood.
   - It is easy to carry - Can be carried in the tennis bag.
   - It is designed for personal usage - Self-training purpose.
-  - It should be afordable - Cheaper than current ones.
+  - It should be affordable - Cheaper than current ones.
   - It can carry tennis balls with it.
   - Initial design ideas - Plate-like top(IKEA wooden plate), foldable middle part(carry balls with several stick  carrier) - 
 * Regex
