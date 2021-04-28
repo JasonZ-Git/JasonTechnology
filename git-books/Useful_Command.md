@@ -10,7 +10,7 @@ git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' | s
 awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
 
 ## MySQL Dump and restore data
-mysqldump -ujason -p --single-transaction --hex-blob -R a_data_name -r "c:\temp\dump.sql"
+mysqldump -ujason -p --single-transaction --hex-blob --routines a_data_name  "c:\temp\dump.sql"
 mysql -ujason -p a_data_name -e "source c:\temp\dump.sql"
 
 ## Git - Show changes file names of a commit
