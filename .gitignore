@@ -28,7 +28,10 @@
 
 # Node JS modules
 **/node_modules/*
-
+**/build
+**/npm-debug.log
+**/.env
+**/.DS_Store
 
 # Compiled class file
 *.class
