@@ -14,13 +14,13 @@ I originally summerrize on confluence, now I bring it here to continue maintain 
 
 | Java EE 8 Technology  | Version   |     JSR  | Releaes Date  | JavaEE 8 API  | Implementation |Spring5/SpringBoot 2.2  |
 | --------------------- | --------- | -------- | ------------- | ---------- | -------------- | ------------- |
-| Servlet               | 4.0                | JSR-369       | Sep 2017     | javax.servlet:javax.servlet-api:4.0.0  | Spring can be configured with embedded Servlet Servers such as Tomcat or Jetty. | Servlet Glassfish 5 Tomcat Jetty Wildfly |
-|CDI|2.0|JSR-365|May 2017|javax.enterprise:cdi-api:2.0|Spring/SpringBoot implements CDI in its own way.Spring doesn't implement Java EE CDI 2.0 and is confirmed that they will support CDI 2 in the near future.|Full Implement CDI 2: Weld 3(Seam)  - Used by JBOSS;Apache OpenWebBeans  - Used by TomEE|
-|DI (Included in CDI 2)|1.0|JSR-330|Oct 2009|javax.inject:javax.inject:1|Spring implements DI 1.0 (JSR-330) which is a subset of CDI 2.|Implementation of DI: Spring Guice Dagger|
-|JSON-P|1.1|JSR-374|May 2017|javax.json:javax.json-api:1.1| |Implementation of JSON-P: Glassfish javax.json - Used by JBoss|
-|JAX-RS|2.1|JSR-370|Aug 2017|javax.ws.rs:javax.ws.rs-api:2.1| |Full Implementation: Jersey(2.27) - Eclipse-RESTeasy - Used by JBOSS; Apache-CXF(3.2.0) - used by TomEE+|
-|WebSocket|1.1|JSR-356|Aug 2014|javax.websocket:javax.websocket-api:1.1|Tyrus - Used by Glassfish; Tomcat, Jetty;Undertow - Used by Wildfly|
-|Java Security API(JASPIC, JAAS, JACC)|1.0|JSR-375|Sep 2017|javax.security.enterprise:javax.security.enterprise-api:1.0|Soteria - Used by Glassfish(org.glassfish.soteria:javax.security.enterprise:1.0)|
+| Servlet               | 4.0                | JSR-369       | Sep 2017     | javax.servlet:javax.servlet-api:4.0.0  | Servlet Glassfish 5 Tomcat Jetty Wildfly |Spring can be configured with embedded Servlet Servers such as Tomcat or Jetty. | 
+|CDI|2.0|JSR-365|May 2017|javax.enterprise:cdi-api:2.0 | Full Implement CDI 2: Weld 3(Seam)  - Used by JBOSS;Apache OpenWebBeans  - Used by TomEE | Spring/SpringBoot implements CDI in its own way.Spring doesn't implement Java EE CDI 2.0 and is confirmed that they will support CDI 2 in the near future.|
+|DI (Included in CDI 2)|1.0|JSR-330|Oct 2009 | javax.inject:javax.inject:1|Implementation of DI: Spring Guice Dagger|Spring implements DI 1.0 (JSR-330) which is a subset of CDI 2.|
+|JSON-P|1.1|JSR-374|May 2017|javax.json:javax.json-api:1.1|Implementation of JSON-P: Glassfish javax.json - Used by JBoss| |
+|JAX-RS|2.1|JSR-370|Aug 2017|javax.ws.rs:javax.ws.rs-api:2.1| Full Implementation: Jersey(2.27) - Eclipse-RESTeasy - Used by JBOSS; Apache-CXF(3.2.0) - used by TomEE+| |
+|WebSocket|1.1|JSR-356|Aug 2014|javax.websocket:javax.websocket-api:1.1|Tyrus - Used by Glassfish; Tomcat, Jetty;Undertow - Used by Wildfly| |
+|Java Security API(JASPIC, JAAS, JACC)|1.0|JSR-375|Sep 2017|javax.security.enterprise:javax.security.enterprise-api:1.0|Soteria - Used by Glassfish(org.glassfish.soteria:javax.security.enterprise:1.0)| |
 |Batch Applications|1.0|JSR-352|Maintenance Release - Aug 2014|javax.batch:javax.batch-api:1.0.1|JBatch; Spring Batch 3| Spring Batch 3 is a full implementation of JSR 352 |
 |JTA|1.2|JSR-907|May 2013|javax.transaction:javax.transaction-api:1.2|Glassfish 5;Apache Geronimo Transaction - Used by TomEE;Narayana(Seam) - Used by Wildfly; Atomikos - A commercial JPA;Bitronix - Not active, but a popular standalone one.|Spring provides an abstraction on top of  Transaction Management, including JTA.|
 |JPA|2.2|JSR-338||javax.persistence:javax.persistence-api:2.2|Full Implementation of JPA 2.2; EclipseLink 2.7 onwards; Hibernate 5.3 onwards;DataNucleus 5.1 onwards|Spring DATA JPA is an abstraction which builds on top of other JPA provider such as Hibernate JPA|
