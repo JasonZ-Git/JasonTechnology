@@ -1,6 +1,13 @@
-### Useful Commmand
+# Useful Commmand
 
-## Search file content
+## ssh a remote server by pass password
+### 1. Generate s keys if not already existing
+ $ ssh-keygen
+### 2. Copy the key to remote host
+ $ ssh-copy-id -i ~/.ssh/id_rsa.pub user@remote-host
+
+
+##  Search file content
 find -name '*.*' | xargs grep '<pattern>' .
 
 ## Replace Pom Version for all files
@@ -10,9 +17,9 @@ git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' | s
 awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
 
 ## MYSQL DB Size
-# {My SQL Data folder}\MySQL Server 5.7\Data, check the folder size
+### {My SQL Data folder}\MySQL Server 5.7\Data, check the folder size
 
-# Run the SQL
+### Run the SQL
 SELECT table_schema "DB Name",
         ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "DB Size in MB" 
 FROM information_schema.tables 
