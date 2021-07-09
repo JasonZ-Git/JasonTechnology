@@ -1,5 +1,11 @@
 ### Useful Commmand
 
+## ssh a remote server by pass password
+# Generate s keys if not already existing
+ssh-keygen
+# Copy the key to remote host
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@remote-host
+
 ## Search file content
 find -name '*.*' | xargs grep '<pattern>' .
 
