@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* SMAL & oathen2 & openID connect - Due date - 31 July 2021
 * Check how to get the weather data and compare the weather with a score for different cities.
 * Compare the popular price policy of AWS, Azure, Google Cloud
 * Create a Project to fetch stock trading data and analysis - peak data - bottom data
@@ -13,7 +14,6 @@ TODO List - All the finished ones will be moved to separate pages.
 * Should create a page to list programming language differences to facilite the learning of a new programming language.
 * Apollo Framework.
 * Eclipse MicroProfile
-
 * YAML file - Good to check more about it - Used in docker composer - Seems okay with configuration file
 * Design a tennis ball carrier - 
   - It should be Environmental friendly - Using bamboo or wood.
