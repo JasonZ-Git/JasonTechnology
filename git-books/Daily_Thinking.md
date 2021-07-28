@@ -61,6 +61,10 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+28 July,2021
+-------------
+In 'Rail on Rails' PUT is used for update, POST is used to insert - Simple Solution for the confusing PUT and POST
+
 20 March,2021
 -------------
 Cloud Summary - Amazon Cloud is very nice, but I feel it becomes more of a luxary thing - It is not developer friendly.
