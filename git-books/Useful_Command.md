@@ -10,8 +10,11 @@
 ##  Search file content
 find -name '*.*' | xargs grep '<pattern>' .
 
-## Replace Pom Version for all files
+## Use awk and sed to replace string in files
+### Replace Pom Version for all files
 git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' | sed -i 's/9.9.0-SNAPSHOT/9.9.109-SNAPSHOT/1'
+### Replace org.apache.commons.lang to org.apache.commons.lang3 for all java files
+git grep 'org.apache.commons.lang.' -- '*.java' | awk -F ':' '\{print $1}' | xargs sed -i 's/org.apache.commons.lang./org.apache.commons.lang3./1'
 
 ## AWK command
 awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
