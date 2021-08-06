@@ -61,6 +61,15 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+6 Aug, 2021 - Before the end of Tokyo Olympic
+-------------
+Create a free and common Olympic Database that can be easliy used by anyone, it should include the following table:
+	- Sport, including upper and each item, game logo
+	- Country
+	- Athelete
+	- Game result
+	- Olympic
+
 28 July,2021
 -------------
 In 'Rail on Rails' PUT is used for update, POST is used to insert - Simple Solution for the confusing PUT and POST
@@ -69,7 +78,6 @@ In 'Rail on Rails' PUT is used for update, POST is used to insert - Simple Solut
 -------------
 Cloud Summary - Amazon Cloud is very nice, but I feel it becomes more of a luxary thing - It is not developer friendly.
 To get a deeper understand, a summary of AWS features and comparation is needed, together with a check on the existing cloud provider, especially community driven cloud prover.
-
 
 05 March, 2021
 -------------
@@ -142,7 +150,6 @@ SwiftUI is driving me crazy.
 
 WSL - Windows SubSystem for Linux - It builds a real linux Kernal within windows - from Microsoft - Currently I am using MinGW(cmder).
 Seems it is a good option to give WSL a try - Linux is the best system for development.
-
 
 7 July, 2020
 -------------
