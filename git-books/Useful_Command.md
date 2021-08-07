@@ -32,6 +32,9 @@ GROUP BY table_schema;
 mysqldump -ujason -p --single-transaction --hex-blob --routines a_data_name  "c:\temp\dump.sql"
 mysql -ujason -p a_data_name -e "source c:\temp\dump.sql"
 
+## MYSQL - Check constraint of a table
+SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'your table name';
+
 ## Git - Show changes file names of a commit
 git diff-tree --no-commit-id --name-only -r {commit_id}
 
