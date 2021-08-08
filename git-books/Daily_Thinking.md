@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Write an Olympic Spider to get all the althlete and event and medal data from Olympics.com
 * SMAL & oathen2 & openID connect - Due date - 31 July 2021
 * Check how to get the weather data and compare the weather with a score for different cities.
 * Compare the popular price policy of AWS, Azure, Google Cloud
@@ -60,6 +61,7 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
 
 6 Aug, 2021 - Before the end of Tokyo Olympic
 -------------

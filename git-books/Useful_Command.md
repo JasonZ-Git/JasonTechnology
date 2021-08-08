@@ -35,6 +35,9 @@ mysql -ujason -p a_data_name -e "source c:\temp\dump.sql"
 ## MYSQL - Check constraint of a table
 SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'your table name';
 
+## MySQL - Drop a unique constraint
+alter table table_name drop index index_name
+
 ## Git - Show changes file names of a commit
 git diff-tree --no-commit-id --name-only -r {commit_id}
 
