@@ -71,6 +71,7 @@ Create a free and common Olympic Database that can be easliy used by anyone, it 
 	- Athelete
 	- Game result
 	- Olympic
+Update  - Database is created, need to write a spider to get all the game data.
 
 28 July,2021
 -------------
