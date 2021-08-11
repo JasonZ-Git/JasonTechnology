@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-	    <module>../jason-dictionary-translation</module>
-	    <module>../jason-dictionary-pronunciation</module>
+	    <module>jason-dictionary-translation</module>
+	    <module>jason-dictionary-pronunciation</module>
     </modules>
 
     <!-- This project needs to be refactored in a micro-service structure: yeeyi, dictionary, birthday -->
