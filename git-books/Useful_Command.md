@@ -1,4 +1,4 @@
-# Useful Commmand
+# Useful Daily Commmand
 
 ## ssh a remote server by pass password
 ### 1. Generate s keys if not already existing
@@ -10,14 +10,17 @@
 ##  Search file content
 find -name '*.*' | xargs grep '<pattern>' .
 
-## Use awk and sed to replace string in files
+### Use awk and sed to replace string in files
 ### Replace Pom Version for all files
 git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' | sed -i 's/9.9.0-SNAPSHOT/9.9.109-SNAPSHOT/1'
 ### Replace org.apache.commons.lang to org.apache.commons.lang3 for all java files
 git grep 'org.apache.commons.lang.' -- '*.java' | awk -F ':' '\{print $1}' | xargs sed -i 's/org.apache.commons.lang./org.apache.commons.lang3./1'
 
-## AWK command
+### AWK command
 awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
+
+## Curl command with anthtication
+curl -i -H "Authorization:Basic Zmlyc3Q6JDQ3ODEl" -X GET http://192.168.1.89:8080/moonlight/v1/authenticate
 
 ## MYSQL DB Size
 ### {My SQL Data folder}\MySQL Server 5.7\Data, check the folder size
@@ -28,14 +31,14 @@ SELECT table_schema "DB Name",
 FROM information_schema.tables 
 GROUP BY table_schema; 
 
-## MySQL Dump and restore data
+### MySQL Dump and restore data
 mysqldump -ujason -p --single-transaction --hex-blob --routines a_data_name  "c:\temp\dump.sql"
 mysql -ujason -p a_data_name -e "source c:\temp\dump.sql"
 
-## MYSQL - Check constraint of a table
+### MYSQL - Check constraint of a table
 SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'your table name';
 
-## MySQL - Drop a unique constraint
+### MySQL - Drop a unique constraint
 alter table table_name drop index index_name
 
 ## Git - Show changes file names of a commit
