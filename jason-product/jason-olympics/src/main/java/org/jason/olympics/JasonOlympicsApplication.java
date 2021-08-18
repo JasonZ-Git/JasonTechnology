@@ -20,8 +20,8 @@ public class JasonOlympicsApplication {
 	private static void getEventResult(){
 		List<OlympicGameResult> gameResult = OlympicEventSpider.build("tokyo-2020").getOlympicResult();
 
-		String getEventId = "select id from olympic_event where name = \"%s\" and sport_code = \"%s\",";
-		String sqlFormat = "insert into olympic_event_result(event_id, country_code, medal_type) " + getEventId + "\"%s\", \"%s\"";
+		String getEventIdSQL = "(select id from olympic_event where name = \"%s\" and sport_code = \"%s\"),";
+		String sqlFormat = "insert into olympic_event_result(event_id, country_code, medal_type) select " + getEventIdSQL + "\"%s\", \"%s\"";
 		gameResult.stream().map(item -> String.format(sqlFormat, item.getEventName(),item.getSportCode(),item.getCountry(), item.getMedal())).forEach(System.out::println);
 	}
 

@@ -73,7 +73,6 @@ public class OlympicEventSpider {
                 OlympicEvent runningEvent =  OlympicEvent.build(sportCode, event);
                 events.add(runningEvent);
             }
-
         }
 
         return events;
@@ -94,6 +93,10 @@ public class OlympicEventSpider {
             Elements rowElements = eventDoc.body().select("#mainContainer #Medallist_by_sport_null tbody tr");
             String countryURL =  eventDoc.body().select("#mainContainer .container .NoSport .flagStyleBig").first().attr("src");
             String countryCode = countryURL.substring(countryURL.lastIndexOf("/") + 1).replace(".png","");
+
+            // ROC is RUS
+            countryCode = countryCode.equals("ROC")? "RUS" : countryCode;
+
             for (Element currentRow : rowElements) {
                 String sportCode = currentRow.select(":nth-child(2) a").last().text();
                 String event = currentRow.select(".StyleCenter").first().text();
@@ -101,6 +104,8 @@ public class OlympicEventSpider {
                 OlympicGameResult runningEvent =  OlympicGameResult.build(sportCode, event, countryCode,  medal);
                 events.add(runningEvent);
             }
+
+            System.out.print("");
 
         }
 
