@@ -3,7 +3,9 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Create a DB for JavaEE Technology, version and example
 * Write an Olympic Spider to get all the althlete and event and medal data from Olympics.com
+  - 22 Aug 2021 - Finished For Tokyo Olympic
 * SMAL & oathen2 & openID connect - Due date - 31 July 2021
 * Check how to get the weather data and compare the weather with a score for different cities.
 * Compare the popular price policy of AWS, Azure, Google Cloud
