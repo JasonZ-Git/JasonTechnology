@@ -1,10 +1,6 @@
 package org.jason.util;
 
 
-import java.io.IOException;
-import java.util.Objects;
-import javax.annotation.Nonnull;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.ReplacedBy;
@@ -13,6 +9,15 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import javax.annotation.Nonnull;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Objects;
 
 /**
  * This class should be refactored using the new HttpClient which is available from Java 11 @TODO
@@ -53,6 +58,29 @@ public final class SpiderUtil {
         }
 
         return htmlDocument;
+    }
+
+    /**
+     * In the long run, this method should be rewrite by new HTTPClient in Java 11
+     *
+     * @return A Json String
+     */
+    public static String readJson(@Nonnull final String jsonURL) throws IOException {
+        Objects.requireNonNull(jsonURL);
+        Parameters.requireTrue(jsonURL.endsWith(".json"));
+
+        InputStream is = new URL(jsonURL).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            StringBuilder sb = new StringBuilder();
+            int cp;
+            while ((cp = rd.read()) != -1) {
+                sb.append((char) cp);
+            }
+            return sb.toString();
+        } finally {
+            is.close();
+        }
     }
 
     /**
