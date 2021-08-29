@@ -7,15 +7,20 @@ import org.jason.util.SpiderUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class JasonOlympicsApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		SpringApplication.run(JasonOlympicsApplication.class, args);
 
 		getAthletes();
@@ -42,11 +47,31 @@ public class JasonOlympicsApplication {
 		String olympicAthleteUrl = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/zzje001a.json";
 
 		try {
-			String athleteString = SpiderUtil.readJson(olympicAthleteUrl);
-			// jsonb.from
+			JsonObject athleteString = SpiderUtil.readJSON(olympicAthleteUrl);
+
+			JsonArray bodyData = athleteString.get("data").asJsonArray();
+
+			List<String> athletesURL = bodyData.stream()
+					.filter(item -> item.asJsonObject().get("lnk") != null)
+					.map(item -> item.asJsonObject().get("lnk").toString())
+					.map(item -> item.stripLeading())
+					.collect(Collectors.toList());
+
+			for(String currentAthletesURL : athletesURL) {
+				String absoluteAthletePage = getAbsoluteURL(olympicAthleteUrl, currentAthletesURL);
+				// Document athletePage = SpiderUtil.crawlPage(currentAthletesURL);
+
+				System.out.println(absoluteAthletePage);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	private static String getAbsoluteURL(String baseURL, String relativeURL) {
+		Path basePath = Paths.get(baseURL).getParent();
+		Path athleteURL = basePath.resolve(relativeURL);
+
+		return athleteURL.toAbsolutePath().toString();
 	}
 }
