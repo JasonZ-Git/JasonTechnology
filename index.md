@@ -19,3 +19,5 @@
 [AWS Comparation with Traditional Software Development](./git-books/Cloud_Technology_Comparation.md)
 
 [Jira Dashboard](https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#)
+
+[Confluence Page](https://jasonz.atlassian.net/wiki/spaces/JT/overview)
