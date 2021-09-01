@@ -3,9 +3,13 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Get a check of the Google Fuchsia - which aimed to replace Linux
 * Create a DB for JavaEE Technology, version and example
-* Write an Olympic Spider to get all the althlete and event and medal data from Olympics.com
+* Write an Olympic Spider to get all the althletes and events and medals from Olympics.com
   - 22 Aug 2021 - Finished For Tokyo Olympic
+  - Update - all table disigned.
+  - Update - Country, sport, event table and data finished.
+  - Update - Athlete partially working.
 * SMAL & oathen2 & openID connect - Due date - 31 July 2021
 * Check how to get the weather data and compare the weather with a score for different cities.
 * Compare the popular price policy of AWS, Azure, Google Cloud
@@ -69,10 +73,13 @@ TODO List - All the finished ones will be moved to separate pages.
 Start using Jira and Confluence to manage my own projects as there are too many and hard to go with the current way
 https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#
 
+29 Aug, 2021
+-------------
+Create my own model to predicate the covid-19 cases.
 
 6 Aug, 2021 - Before the end of Tokyo Olympic
 -------------
-Create a free and common Olympic Database that can be easliy used by anyone, it should include the following table:
+Create a free and common Olympic Database that can be easily used by anyone, it should include the following table:
 	- Sport, including upper and each item, game logo
 	- Country
 	- Athelete
