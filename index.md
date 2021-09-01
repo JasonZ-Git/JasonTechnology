@@ -17,3 +17,5 @@
 [Package Management System](./git-books/Package_Management_System_Comparation.md)
 
 [AWS Comparation with Traditional Software Development](./git-books/Cloud_Technology_Comparation.md)
+
+[Jira Dashboard](https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#)

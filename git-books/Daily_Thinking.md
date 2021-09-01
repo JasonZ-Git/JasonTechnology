@@ -64,6 +64,11 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+1 Sep 2021
+-------------
+Start using Jira and Confluence to manage my own projects as there are too many and hard to go with the current way
+https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#
+
 
 6 Aug, 2021 - Before the end of Tokyo Olympic
 -------------
