@@ -14,17 +14,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OlympicEventSpider {
-    private static Logger LOGGER = LoggerFactory.getLogger(OlympicEventSpider.class);
+public class EventSpider {
+    private static Logger LOGGER = LoggerFactory.getLogger(EventSpider.class);
     private String olympicCode;
     private String baseURL = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/medal-standings.htm";
 
-    private OlympicEventSpider(String olympicCode){
+    public EventSpider(String olympicCode){
         this.olympicCode = olympicCode;
-    }
-
-    public static OlympicEventSpider build(String olympicCode){
-        return new OlympicEventSpider(olympicCode);
     }
 
     public List<OlympicEvent> getOlympicEvents() {

@@ -16,6 +16,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,7 +31,7 @@ public final class SpiderUtil {
     private static final Logger logger = LogManager.getLogger(SpiderUtil.class);
 
     // Use google bot as agent string.
-    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String USER_AGENT = "Chrome/8.0";
 
     private SpiderUtil() {
         throw new AssertionError("No " + SpiderUtil.class + " instances for you!");
@@ -57,11 +58,6 @@ public final class SpiderUtil {
         }
 
         return htmlDocument;
-    }
-    
-    
-    public static List<Document> crawPages(@Nonnull List<String>pages) {
-      return null; // TODO
     }
 
     /**

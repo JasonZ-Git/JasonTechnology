@@ -82,6 +82,18 @@ public final class JasonFileUtil {
     public static void writeFile(String outputFile, String fileContent) throws IOException {
         Files.write(Paths.get(outputFile), Arrays.asList(fileContent));
     }
+    
+    public static void writeFile(Path outputFile, String fileContent) throws IOException {
+      Files.write(outputFile, Arrays.asList(fileContent));
+    }
+    
+    public static void writeFile(String outputFile, List<String> lines) throws IOException {
+      Files.write(Paths.get(outputFile), lines);
+    }
+    
+    public static void writeFile(Path outputFile, List<String> lines) throws IOException {
+      Files.write(outputFile, lines);
+    }
 
     /**
      * Write file content into a file.
