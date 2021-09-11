@@ -58,6 +58,11 @@ public final class SpiderUtil {
 
         return htmlDocument;
     }
+    
+    
+    public static List<Document> crawPages(@Nonnull List<String>pages) {
+      return null; // TODO
+    }
 
     /**
      * @param jsonURL The jasonURL should ends with .json

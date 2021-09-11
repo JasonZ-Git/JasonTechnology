@@ -104,9 +104,6 @@ public class OlympicEventSpider {
                 OlympicGameResult runningEvent =  OlympicGameResult.build(sportCode, event, countryCode,  medal);
                 events.add(runningEvent);
             }
-
-            System.out.print("");
-
         }
 
         return events;

@@ -8,6 +8,7 @@ import org.jason.olympics.spider.OlympicEventSpider;
 import org.jason.util.SpiderUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -53,8 +54,6 @@ public class JasonOlympicsApplication {
 	}
 
 	private static void getAthletes(){
-		Jsonb jsonb = JsonbBuilder.create();
-		// List<Athlete> athletes = jsonb.fromJson("", new ArrayList<Athlete>(){}.getClass().getGenericSuperclass());
 
 		String olympicAthleteUrl = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/zzje001a.json";
 
@@ -76,11 +75,14 @@ public class JasonOlympicsApplication {
 
 				Document athletePage =  SpiderUtil.crawlPage(absoluteAthletePage);
 
-				Athlete athlete = getAthlete(athletePage);
-
-				athletes.add(athlete);
-
-				System.out.println(athlete.toInsertSQLString());
+				try {
+					Athlete athlete = getAthlete(athletePage);
+					athletes.add(athlete);
+					System.out.println(athlete.toInsertSQLString());
+				} catch(Exception e){
+					logger.error("Error parsing Page " + absoluteAthletePage, e);
+					continue;
+				}
 			}
 
 			System.out.printf("There are %d athletes in all ", athletes.size());
@@ -134,7 +136,15 @@ public class JasonOlympicsApplication {
 					athleteResult.setHeight(Float.parseFloat(height));
 					break;
 				case "Place of residence :":
-					String placeOfResidence = current.parent().text().trim();
+					Element parent = current.parent();
+					String placeOfResidence = null;
+					if (parent != null && parent.childNodeSize() == 3) {
+					  Node residentNode = parent.childNode(2);
+					  if(residentNode instanceof TextNode) {
+					    placeOfResidence = ((TextNode)residentNode).text().trim();
+					  }
+					}
+
 					athleteResult.setResidencePlace(placeOfResidence);
 					break;
 				case "Residence Country:":
