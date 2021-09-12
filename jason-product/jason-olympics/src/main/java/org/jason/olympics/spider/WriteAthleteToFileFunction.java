@@ -1,24 +1,27 @@
 package org.jason.olympics.spider;
 
-import org.jason.olympics.model.Athlete;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.function.Consumer;
+import java.util.Objects;
+import java.util.function.Function;
+import org.jason.olympics.model.Athlete;
 import org.jason.util.JasonFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WriteAthleteToFileConsumer implements Consumer<Athlete> {
+public class WriteAthleteToFileFunction implements Function<Athlete, Athlete> {
 
-  private static final Logger logger = LoggerFactory.getLogger(WriteAthleteToFileConsumer.class);
+  private static final Logger logger = LoggerFactory.getLogger(WriteAthleteToFileFunction.class);
   private Path file;
 
-  public WriteAthleteToFileConsumer(Path file) {
+  public WriteAthleteToFileFunction(Path file) {
     this.file = file;
   }
 
   @Override
-  public void accept(Athlete athlete) {
+  public Athlete apply(Athlete athlete) {
+    Objects.requireNonNull(athlete);
+    
     String sql = athlete.toInsertSQLString();
 
     try {
@@ -26,6 +29,7 @@ public class WriteAthleteToFileConsumer implements Consumer<Athlete> {
     } catch (IOException e) {
       logger.error("Error writing to file: {}", file, e);
     }
+    return athlete;
   }
 
 }

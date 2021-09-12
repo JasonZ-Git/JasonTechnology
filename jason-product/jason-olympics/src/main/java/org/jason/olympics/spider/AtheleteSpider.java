@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.json.JsonArray;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class AtheleteSpider {
   private static final Logger logger = LoggerFactory.getLogger(AtheleteSpider.class);
   private static final String TOYKO_ATHELETES = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/zzje001a.json";
-  private static final int THREAD_COUNT = 1; // Set to a reasonable size to avoid blocked by olympics.com
+  private static final int THREAD_COUNT = 20; // Set to a reasonable size (1 or 2) to avoid getting blocked by olympics.com
   private String olympicCode;
 
   public AtheleteSpider(String olympicCode) {
@@ -54,8 +53,9 @@ public class AtheleteSpider {
 
       JsonArray bodyData = athleteString.get("data").asJsonArray();
 
-      List<String> athletesURL = bodyData.stream().filter(item -> item.asJsonObject().get("lnk") != null).map(item -> item.asJsonObject().get("lnk").toString())
-          .map(item -> item.substring(1, item.length() - 1)).collect(Collectors.toList());
+      
+      List<String> athletesURL = bodyData.stream().filter(item -> item.asJsonObject().get("lnk") != null).map(item -> item.asJsonObject().get("lnk").toString()) .map(item -> item.substring(1,
+      item.length() - 1)).collect(Collectors.toList());
 
       List<AthleteSpiderTask> athleteSpiderTasks = new ArrayList<>();
 
@@ -65,14 +65,14 @@ public class AtheleteSpider {
 
         athleteSpiderTasks.add(AthleteSpiderTask.build(absoluteAthletePage));
 
-        CompletableFuture.supplyAsync(() -> AthleteSpiderTask.build(absoluteAthletePage).call()).thenAccept(getAthleteFileConsumer());
-      }
+        // Lauch the task and then write the result to a file - This can be further improved by using buffered writer instead of writing everytime - just good for now
+        CompletableFuture<Athlete> athlete = CompletableFuture.supplyAsync(() -> AthleteSpiderTask.build(absoluteAthletePage).call())
+                                            .thenApplyAsync(getAthleteFileFunction());
 
-
-      List<Future<Athlete>> result = executorService.invokeAll(athleteSpiderTasks, countTimeOut(), TimeUnit.SECONDS);
-
-      for (Future<Athlete> current : result) {
-        athletes.add(current.get());
+        athletes.add(athlete.get());
+        
+        // Slow dow to avoid getting blocked by the mean olympics.com website
+        TimeUnit.MILLISECONDS.sleep(100);
       }
 
     } catch (Exception e) {
@@ -83,18 +83,18 @@ public class AtheleteSpider {
 
     return athletes;
   }
-  
-  private WriteAthleteToFileConsumer getAthleteFileConsumer() {
+
+  private WriteAthleteToFileFunction getAthleteFileFunction() {
     String file = "olympic/athlete.sql";
-    
+
     Path path = null;
     try {
       path = Paths.get(ClassLoader.getSystemResource(file).toURI());
     } catch (URISyntaxException e) {
       logger.error("error write to file {}", file, e);
     }
-    
-    return new WriteAthleteToFileConsumer(path);
+
+    return new WriteAthleteToFileFunction(path);
   }
 
   private int countTimeOut() {
