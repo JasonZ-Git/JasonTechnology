@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>org.jason</groupId>
 			<artifactId>jason-util</artifactId>
-			<version>2.5</version>
+			<version>3.0</version>
 		</dependency>
 
 		<dependency>
@@ -40,7 +40,6 @@
 		<dependency>
 			<groupId>javax.json</groupId>
 			<artifactId>javax.json-api</artifactId>
-			<version>1.1.4</version>
 		</dependency>
 
 		<dependency>
@@ -53,7 +52,6 @@
 		<dependency>
 			<groupId>javax.json.bind</groupId>
 			<artifactId>javax.json.bind-api</artifactId>
-			<version>1.0</version>
 		</dependency>
 
 		<dependency>

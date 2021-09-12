@@ -109,11 +109,11 @@ public class Athlete {
         insertSQLBuilder.append(birthCountry).append(",");
         height = height == null ? 0 : height;
         insertSQLBuilder.append(height).append(",");
-        birthPlace = StringUtils.isBlank(birthPlace) ? "" : JasonStringUtil.quoted(birthPlace);
+        birthPlace = StringUtils.isBlank(birthPlace) ? null : JasonStringUtil.quoted(birthPlace);
         insertSQLBuilder.append(birthPlace).append(",");
         residencePlace = StringUtils.isBlank(residencePlace) ? null : JasonStringUtil.quoted(residencePlace);
         insertSQLBuilder.append(residencePlace).append(",");
-        attendedSport = StringUtils.isBlank(attendedSport) ? "" : attendedSport;
+        attendedSport = StringUtils.isBlank(attendedSport) ? null : attendedSport;
         insertSQLBuilder.append(JasonStringUtil.quoted(attendedSport)).append(");");
 
         return insertSQLBuilder.toString();
