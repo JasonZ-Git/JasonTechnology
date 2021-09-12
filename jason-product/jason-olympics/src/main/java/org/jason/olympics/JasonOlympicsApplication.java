@@ -44,19 +44,8 @@ public class JasonOlympicsApplication {
   private static void getAthletes() {
     AtheleteSpider athleteSpider = new AtheleteSpider("tokyo-2020");
     List<Athlete> atheletes = athleteSpider.getAtheletes();
-    writeToFile(atheletes);
-  }
-
-  private static void writeToFile(List<Athlete> atheletes) {
-    String file = "/home/jason/projects/jason-technology/jason-product/jason-olympics/athlete.sql";
-
-    List<String> atheleteSQL = atheletes.parallelStream().map(item -> item.toInsertSQLString()).collect(Collectors.toList());
-
-    try {
-      JasonFileUtil.writeFile(file, atheleteSQL);
-    } catch (IOException e) {
-      logger.error("Unexpected when writing to file", e);
-    }
+    
+    logger.info("Task finished, {} athlete proceed ", atheletes.size());
   }
 
 }

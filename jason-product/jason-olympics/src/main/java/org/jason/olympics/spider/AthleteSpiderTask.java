@@ -38,7 +38,7 @@ public class AthleteSpiderTask implements Callable<Athlete> {
       Document atheletePage = SpiderUtil.crawlPage(atheleteURL);
       athlete = parseAthlete(atheletePage);
     } catch (IOException e) {
-      logger.error("Error when parsing url, will continue: {}", atheleteURL);
+      logger.error("Error when parsing url, will continue: {}", atheleteURL, e);
     }
 
     return athlete;
@@ -103,7 +103,6 @@ public class AthleteSpiderTask implements Callable<Athlete> {
             placeOfResidence = ((TextNode) residentNode).text().trim();
           }
         }
-
         athlete.setResidencePlace(placeOfResidence);
         break;
       case "Residence Country:":

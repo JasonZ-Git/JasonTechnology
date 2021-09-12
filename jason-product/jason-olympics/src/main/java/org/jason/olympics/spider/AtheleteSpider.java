@@ -1,9 +1,13 @@
 package org.jason.olympics.spider;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -28,13 +32,13 @@ import org.slf4j.LoggerFactory;
 public class AtheleteSpider {
   private static final Logger logger = LoggerFactory.getLogger(AtheleteSpider.class);
   private static final String TOYKO_ATHELETES = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/zzje001a.json";
-  private static final int THREAD_COUNT = 30;
+  private static final int THREAD_COUNT = 1; // Set to a reasonable size to avoid blocked by olympics.com
   private String olympicCode;
 
   public AtheleteSpider(String olympicCode) {
     this.olympicCode = olympicCode;
   }
-  
+
   /**
    * Read Athelete Data for the given olympic
    * 
@@ -44,6 +48,7 @@ public class AtheleteSpider {
 
     List<Athlete> athletes = new ArrayList<>();
 
+    ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
     try {
       JsonObject athleteString = SpiderUtil.readJSON(TOYKO_ATHELETES);
 
@@ -59,9 +64,10 @@ public class AtheleteSpider {
         String absoluteAthletePage = getAbsoluteURL(TOYKO_ATHELETES, currentAthletesURL);
 
         athleteSpiderTasks.add(AthleteSpiderTask.build(absoluteAthletePage));
+
+        CompletableFuture.supplyAsync(() -> AthleteSpiderTask.build(absoluteAthletePage).call()).thenAccept(getAthleteFileConsumer());
       }
 
-      ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
       List<Future<Athlete>> result = executorService.invokeAll(athleteSpiderTasks, countTimeOut(), TimeUnit.SECONDS);
 
@@ -71,9 +77,24 @@ public class AtheleteSpider {
 
     } catch (Exception e) {
       logger.error(e.getMessage());
+    } finally {
+      executorService.shutdown();
     }
 
     return athletes;
+  }
+  
+  private WriteAthleteToFileConsumer getAthleteFileConsumer() {
+    String file = "olympic/athlete.sql";
+    
+    Path path = null;
+    try {
+      path = Paths.get(ClassLoader.getSystemResource(file).toURI());
+    } catch (URISyntaxException e) {
+      logger.error("error write to file {}", file, e);
+    }
+    
+    return new WriteAthleteToFileConsumer(path);
   }
 
   private int countTimeOut() {
