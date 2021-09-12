@@ -13,129 +13,139 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import javax.annotation.Nonnull;
+
+/**
+ * Fetch Event Data from Olympic medal page, it depends on the page struture of {baseURL}
+ * 
+ * @author Jason Zhang
+ */
 
 public class EventSpider {
-    private static Logger LOGGER = LoggerFactory.getLogger(EventSpider.class);
-    private String olympicCode;
-    private String baseURL = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/medal-standings.htm";
+  private static Logger LOGGER = LoggerFactory.getLogger(EventSpider.class);
+  private String olympicCode;
+  private String baseURL = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/medal-standings.htm";
 
-    public EventSpider(String olympicCode){
-        this.olympicCode = olympicCode;
+  public EventSpider(@Nonnull String olympicCode) {
+    Objects.requireNonNull(olympicCode);
+
+    this.olympicCode = olympicCode;
+  }
+
+  public List<OlympicEvent> getEvents() {
+    List<String> goldMedalByCountry = resolveMedalByCountry(Medal.GOLD);
+
+    List<OlympicEvent> events = resolveEvents(goldMedalByCountry);
+
+    return events;
+  }
+
+  public List<OlympicGameResult> getEventResults() {
+    List<String> goldMedalByCountry = resolveMedalByCountry(Medal.GOLD);
+    List<OlympicGameResult> goldEvents = resolveEventOfCountryEvents(goldMedalByCountry, Medal.GOLD);
+
+    List<String> silverMedalByCountry = resolveMedalByCountry(Medal.SILVER);
+    List<OlympicGameResult> silverEvents = resolveEventOfCountryEvents(silverMedalByCountry, Medal.SILVER);
+
+    List<String> bronzeMedalByCountry = resolveMedalByCountry(Medal.BRONZE);
+    List<OlympicGameResult> bronzeEvents = resolveEventOfCountryEvents(bronzeMedalByCountry, Medal.BRONZE);
+
+    List<OlympicGameResult> allEvents = new ArrayList<>();
+    allEvents.addAll(goldEvents);
+    allEvents.addAll(silverEvents);
+    allEvents.addAll(bronzeEvents);
+
+    return allEvents;
+  }
+
+  private List<OlympicEvent> resolveEvents(List<String> goldMedalByCountry) {
+    List<OlympicEvent> events = new ArrayList<>();
+    for (String currentCountryByMedal : goldMedalByCountry) {
+      Document eventDoc = null;
+      try {
+        eventDoc = SpiderUtil.crawlPage(currentCountryByMedal);
+      } catch (IOException e) {
+        LOGGER.error("Error when crawling page:  " + baseURL, e);
+
+        return null;
+      }
+
+      Elements rowElements = eventDoc.body().select("#mainContainer #Medallist_by_sport_null tbody tr");
+
+      for (Element currentRow : rowElements) {
+        String sportCode = currentRow.select(":nth-child(2) a").last().text();
+        String event = currentRow.select(".StyleCenter").first().text();
+        OlympicEvent runningEvent = OlympicEvent.build(sportCode, event);
+        events.add(runningEvent);
+      }
     }
 
-    public List<OlympicEvent> getOlympicEvents() {
-        List<String> goldMedalByCountry = resolveMedalByCountry(Medal.GOLD);
+    return events;
+  }
 
-        List<OlympicEvent> events = resolveEvents(goldMedalByCountry);
+  private List<OlympicGameResult> resolveEventOfCountryEvents(List<String> goldMedalByCountry, Medal medal) {
+    List<OlympicGameResult> events = new ArrayList<>();
+    for (String currentCountryByMedal : goldMedalByCountry) {
+      Document eventDoc = null;
+      try {
+        eventDoc = SpiderUtil.crawlPage(currentCountryByMedal);
+      } catch (IOException e) {
+        LOGGER.error("Error when crawling page:  " + baseURL, e);
 
-        return events;
+        return null;
+      }
+
+      Elements rowElements = eventDoc.body().select("#mainContainer #Medallist_by_sport_null tbody tr");
+      String countryURL = eventDoc.body().select("#mainContainer .container .NoSport .flagStyleBig").first().attr("src");
+      String countryCode = countryURL.substring(countryURL.lastIndexOf("/") + 1).replace(".png", "");
+
+      // ROC is RUS
+      countryCode = countryCode.equals("ROC") ? "RUS" : countryCode;
+
+      for (Element currentRow : rowElements) {
+        String sportCode = currentRow.select(":nth-child(2) a").last().text();
+        String event = currentRow.select(".StyleCenter").first().text();
+
+        OlympicGameResult runningEvent = OlympicGameResult.build(sportCode, event, countryCode, medal);
+        events.add(runningEvent);
+      }
     }
 
-    public List<OlympicGameResult> getOlympicResult() {
-        List<String> goldMedalByCountry = resolveMedalByCountry(Medal.GOLD);
-        List<OlympicGameResult> goldEvents = resolveEventOfCountryEvents(goldMedalByCountry, Medal.GOLD);
+    return events;
+  }
 
-        List<String> silverMedalByCountry = resolveMedalByCountry(Medal.SILVER);
-        List<OlympicGameResult> silverEvents = resolveEventOfCountryEvents(silverMedalByCountry, Medal.SILVER);
+  private List<String> resolveMedalByCountry(Medal medal) {
+    Document medalDocument = null;
+    try {
+      medalDocument = SpiderUtil.crawlPage(baseURL);
+    } catch (IOException e) {
+      LOGGER.error("Error when crawling page:  " + baseURL, e);
 
-        List<String> bronzeMedalByCountry = resolveMedalByCountry(Medal.BRONZE);
-        List<OlympicGameResult> bronzeEvents = resolveEventOfCountryEvents(bronzeMedalByCountry, Medal.BRONZE);
-
-        List<OlympicGameResult> allEvents = new ArrayList<>();
-        allEvents.addAll(goldEvents);
-        allEvents.addAll(silverEvents);
-        allEvents.addAll(bronzeEvents);
-
-        return allEvents;
+      return null;
     }
 
-    private List<OlympicEvent> resolveEvents(List<String> goldMedalByCountry) {
-        List<OlympicEvent> events = new ArrayList<>();
-        for (String currentCountryByMedal : goldMedalByCountry) {
-            Document eventDoc = null;
-            try {
-                eventDoc = SpiderUtil.crawlPage(currentCountryByMedal);
-            } catch (IOException e) {
-                LOGGER.error("Error when crawling page:  " + baseURL, e);
+    List<String> medalByCountry = new ArrayList<>();
 
-                return null;
-            }
-
-            Elements rowElements = eventDoc.body().select("#mainContainer #Medallist_by_sport_null tbody tr");
-
-            for (Element currentRow : rowElements) {
-                String sportCode = currentRow.select(":nth-child(2) a").last().text();
-                String event = currentRow.select(".StyleCenter").first().text();
-                OlympicEvent runningEvent =  OlympicEvent.build(sportCode, event);
-                events.add(runningEvent);
-            }
-        }
-
-        return events;
+    Elements allRows = null;
+    switch (medal) {
+      case GOLD:
+        allRows = medalDocument.body().select("div table tbody tr :nth-child(3) :nth-child(1)");
+        break;
+      case SILVER:
+        allRows = medalDocument.body().select("div table tbody tr :nth-child(4) :nth-child(1)");
+        break;
+      case BRONZE:
+        allRows = medalDocument.body().select("div table tbody tr :nth-child(5) :nth-child(1)");
+        break;
     }
 
-    private List<OlympicGameResult> resolveEventOfCountryEvents(List<String> goldMedalByCountry, Medal medal) {
-        List<OlympicGameResult> events = new ArrayList<>();
-        for (String currentCountryByMedal : goldMedalByCountry) {
-            Document eventDoc = null;
-            try {
-                eventDoc = SpiderUtil.crawlPage(currentCountryByMedal);
-            } catch (IOException e) {
-                LOGGER.error("Error when crawling page:  " + baseURL, e);
-
-                return null;
-            }
-
-            Elements rowElements = eventDoc.body().select("#mainContainer #Medallist_by_sport_null tbody tr");
-            String countryURL =  eventDoc.body().select("#mainContainer .container .NoSport .flagStyleBig").first().attr("src");
-            String countryCode = countryURL.substring(countryURL.lastIndexOf("/") + 1).replace(".png","");
-
-            // ROC is RUS
-            countryCode = countryCode.equals("ROC")? "RUS" : countryCode;
-
-            for (Element currentRow : rowElements) {
-                String sportCode = currentRow.select(":nth-child(2) a").last().text();
-                String event = currentRow.select(".StyleCenter").first().text();
-
-                OlympicGameResult runningEvent =  OlympicGameResult.build(sportCode, event, countryCode,  medal);
-                events.add(runningEvent);
-            }
-        }
-
-        return events;
+    for (Element currentRow : allRows) {
+      String goldMedalByCountry = currentRow.attr("abs:href");
+      if (goldMedalByCountry.endsWith(String.format("%s-medal.htm", medal.toString().toLowerCase()))) {
+        medalByCountry.add(goldMedalByCountry);
+      }
     }
-
-    private List<String> resolveMedalByCountry(Medal medal){
-        Document medalDocument = null;
-        try {
-            medalDocument = SpiderUtil.crawlPage(baseURL);
-        } catch (IOException e) {
-            LOGGER.error("Error when crawling page:  " + baseURL, e);
-
-            return null;
-        }
-
-        List<String> medalByCountry = new ArrayList<>();
-
-        Elements allRows = null;
-        switch(medal){
-            case GOLD:
-                allRows = medalDocument.body().select("div table tbody tr :nth-child(3) :nth-child(1)");
-                break;
-            case SILVER:
-                allRows = medalDocument.body().select("div table tbody tr :nth-child(4) :nth-child(1)");
-                break;
-            case BRONZE:
-                allRows = medalDocument.body().select("div table tbody tr :nth-child(5) :nth-child(1)");
-                break;
-        }
-
-        for(Element currentRow : allRows){
-            String goldMedalByCountry = currentRow.attr("abs:href");
-            if (goldMedalByCountry.endsWith(String.format("%s-medal.htm", medal.toString().toLowerCase()))){
-                medalByCountry.add(goldMedalByCountry);
-            }
-        }
-        return medalByCountry;
-    }
+    return medalByCountry;
+  }
 }

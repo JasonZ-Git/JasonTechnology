@@ -7,11 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import org.jason.olympics.model.Athlete;
@@ -28,13 +30,15 @@ import org.slf4j.LoggerFactory;
  * @author Jason Zhang
  * @version 1.0
  */
-public class AtheleteSpider {
-  private static final Logger logger = LoggerFactory.getLogger(AtheleteSpider.class);
+public class AthleteSpider {
+  private static final Logger logger = LoggerFactory.getLogger(AthleteSpider.class);
   private static final String TOYKO_ATHELETES = "https://olympics.com/tokyo-2020/olympic-games/en/results/all-sports/zzje001a.json";
   private static final int THREAD_COUNT = 20; // Set to a reasonable size (1 or 2) to avoid getting blocked by olympics.com
   private String olympicCode;
 
-  public AtheleteSpider(String olympicCode) {
+  public AthleteSpider(@Nonnull String olympicCode) {
+    Objects.requireNonNull(olympicCode);
+    
     this.olympicCode = olympicCode;
   }
 
@@ -43,7 +47,7 @@ public class AtheleteSpider {
    * 
    * @return
    */
-  public List<Athlete> getAtheletes(/* This will be extended to have an olympic enum */) {
+  public List<Athlete> getAthletes(/* This will be extended to have an olympic enum */) {
 
     List<Athlete> athletes = new ArrayList<>();
 
@@ -53,7 +57,6 @@ public class AtheleteSpider {
 
       JsonArray bodyData = athleteString.get("data").asJsonArray();
 
-      
       List<String> athletesURL = bodyData.stream().filter(item -> item.asJsonObject().get("lnk") != null).map(item -> item.asJsonObject().get("lnk").toString()) .map(item -> item.substring(1,
       item.length() - 1)).collect(Collectors.toList());
 
@@ -95,12 +98,6 @@ public class AtheleteSpider {
     }
 
     return new WriteAthleteToFileFunction(path);
-  }
-
-  private int countTimeOut() {
-    int athleteNumber = 10_000;
-
-    return athleteNumber / THREAD_COUNT * 3;
   }
 
   private String getAbsoluteURL(String baseURL, String relativeURL) {

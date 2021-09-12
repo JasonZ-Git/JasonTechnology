@@ -9,6 +9,11 @@ import org.jason.util.JasonFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Write Athlete data into SQL and append to file
+ * 
+ * @author Jason Zhang
+ */
 public class WriteAthleteToFileFunction implements Function<Athlete, Athlete> {
 
   private static final Logger logger = LoggerFactory.getLogger(WriteAthleteToFileFunction.class);
@@ -21,7 +26,7 @@ public class WriteAthleteToFileFunction implements Function<Athlete, Athlete> {
   @Override
   public Athlete apply(Athlete athlete) {
     Objects.requireNonNull(athlete);
-    
+
     String sql = athlete.toInsertSQLString();
 
     try {

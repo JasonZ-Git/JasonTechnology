@@ -15,6 +15,12 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Fetch Athlete Data from Olympic athlete page, it depends on the page structure of athlete page
+ * 
+ * @author Jason Zhang
+ */
+
 public class AthleteSpiderTask implements Callable<Athlete> {
 
   private static final Logger logger = LoggerFactory.getLogger(AthleteSpiderTask.class);
@@ -22,7 +28,10 @@ public class AthleteSpiderTask implements Callable<Athlete> {
   
   private String atheleteURL;
 
-  private AthleteSpiderTask(String atheleteURL) {this.atheleteURL = atheleteURL;}
+  private AthleteSpiderTask(@Nonnull String atheleteURL) {
+    Objects.requireNonNull(atheleteURL);
+    
+    this.atheleteURL = atheleteURL;}
   
   public static AthleteSpiderTask build(@Nonnull String atheleteURL) {
     Objects.requireNonNull(atheleteURL);
@@ -116,5 +125,4 @@ public class AthleteSpiderTask implements Callable<Athlete> {
         break;
     }
   }
-
 }
