@@ -1,8 +1,7 @@
-A list of popular package management system and comparison.
-===============================================================
+# A list of popular package management system and comparison.
 
 | Name        | Used for          | Example |
-| ------------- |:-------------:|:-----|
+| ----------- | ---------------   | -----   |
 | apt | Ubuntu | apt install *** <br> apt remove *** <br> apt search *** <br> apt update <br> apt upgrade|
 | snap | linux | snap install *** <br> snap remove *** <br> snap list *** |
 | yum | RedHat, CentOS | yum install *** <br> yum remove *** <br> yum upgrade <br> <br> yum list *** <br> yum search *** <br> yum info *** |

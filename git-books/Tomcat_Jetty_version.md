@@ -13,6 +13,7 @@
 
 
 # This is the version and tech stack of Jetty
+
 | Jetty Version   | Servlet   |  WebSockt  |  	Authentication  | Support Java Version  |
 | --------------- | --------- | ---------- | ------------------ | --------------------- |
 | 11.0.x          | 5.0       |    ??      | ??                 | 11 and later          |
