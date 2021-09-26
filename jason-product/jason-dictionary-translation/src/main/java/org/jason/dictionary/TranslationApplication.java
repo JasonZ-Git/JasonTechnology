@@ -2,9 +2,10 @@ package org.jason.dictionary;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class TranslationApplication {
+public class TranslationApplication extends SpringBootServletInitializer  {
   public static void main(String[] args) {
         SpringApplication.run(TranslationApplication.class, args);
     }
