@@ -21,7 +21,7 @@ public class TranslationSpiderTaskRestController {
 
     private static Logger logger = LogManager.getLogger();
 
-    @PutMapping("/start")
+    //@PutMapping("/start")
     public List<String> startSpiderTask() {
 
         List<String> newWords = JasonTranslationHelper.readNewWords();

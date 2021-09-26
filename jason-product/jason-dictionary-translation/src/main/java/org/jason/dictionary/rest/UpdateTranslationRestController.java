@@ -16,7 +16,7 @@ public class UpdateTranslationRestController {
 
     private static Logger logger = LogManager.getLogger(UpdateTranslationRestController.class);
 
-    @PutMapping(value = "/")
+    // @PutMapping(value = "/")
     @ResponseStatus(HttpStatus.OK)
     public String insertTranslation(@RequestParam @Nonnull String word, @RequestParam @Nonnull String translation) {
         Objects.requireNonNull(word);

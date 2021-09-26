@@ -1,7 +1,7 @@
 package org.jason.dictionary.test;
 
 import java.util.List;
-import org.jason.dictionary.model.Word;
+import org.jason.dictionary.model.Translation;
 import org.jason.dictionary.service.DictionaryService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class DictionaryTest {
 
     @Test
     public void whenApplicationStarts_thenHibernateCreatesInitialRecords() {
-        List<Word> books = service.list();
+        List<Translation> books = service.list();
 
         Assert.assertEquals(books.size(), 1);
     }

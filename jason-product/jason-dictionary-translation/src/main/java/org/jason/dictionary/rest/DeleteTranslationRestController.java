@@ -20,7 +20,7 @@ public class DeleteTranslationRestController {
 
     private static Logger logger = LogManager.getLogger();
 
-    @DeleteMapping(value = "/{word}")
+    // @DeleteMapping(value = "/{word}")
     @ResponseStatus(HttpStatus.OK)
     public String deleteTranslation(@PathVariable @Nonnull String word) {
         Objects.requireNonNull(word);
