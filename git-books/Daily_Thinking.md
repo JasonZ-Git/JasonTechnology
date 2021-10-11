@@ -73,9 +73,19 @@ TODO List - All the finished ones will be moved to separate pages.
 Start using Jira and Confluence to manage my own projects as there are too many and hard to go with the current way
 https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#
 
+08 Oct, 2021
+-------------
+A framework like springboot for jakatarEE?
+
+
+20 Sep 2021
+---------------
+Is there a npm like tool for Java Eco system?
+maven is still file-based, is there a command-based or is it possible to enhance maven to do so?
+
 29 Aug, 2021
 -------------
-Create my own model to predicate the covid-19 cases.
+Create my own data model to predicate the covid-19 cases.
 
 6 Aug, 2021 - Before the end of Tokyo Olympic
 -------------
