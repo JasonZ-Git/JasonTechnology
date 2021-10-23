@@ -22,6 +22,12 @@ awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
 ## Curl command with anthtication
 curl -i -H "Authorization:Basic Zmlyc3Q6JDQ3ODEl" -X GET http://192.168.1.89:8080/moonlight/v1/authenticate
 
+## Network related
+nslookup    domainname.com
+dig domainname.com
+ping domainname.com
+nmap domainame.com
+
 ## MYSQL DB Size
 ### {My SQL Data folder}\MySQL Server 5.7\Data, check the folder size
 

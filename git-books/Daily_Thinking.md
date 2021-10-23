@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* SpringEE - To fill the gap between spring and JavaEE
 * Get a check of the Google Fuchsia - which aimed to replace Linux
 * Create a DB for JavaEE Technology, version and example
 * Write an Olympic Spider to get all the althletes and events and medals from Olympics.com
@@ -67,6 +68,13 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+
+23 Oct 2021
+-------------
+As the gap between Springframework and JavaEE are kind of signficant and not easy to transfer from one to another.
+Would be a good idea to create a spring-ee project to fill this gap - spring-ee intended to be a standard implementation of JavaEE (JarkatarEE)
+-- More time to spend on this idea - probably can start with rs-api - This is a significant one.
 
 1 Sep 2021
 -------------
