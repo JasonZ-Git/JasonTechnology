@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* HakariCP - High Performance connection pool
 * SpringEE - To fill the gap between spring and JavaEE
 * Get a check of the Google Fuchsia - which aimed to replace Linux
 * Create a DB for JavaEE Technology, version and example
@@ -68,6 +69,10 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+24 Oct 2021
+-------------
+HakariCP - Worth a more detailed check -
 
 23 Oct 2021
 -------------
