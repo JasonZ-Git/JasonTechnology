@@ -23,3 +23,5 @@
 [Jira Dashboard](https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#)
 
 [Confluence Page](https://jasonz.atlassian.net/wiki/spaces/JT/overview)
+
+[OpenSAML3 Code Example](./git-books/OpenSAML3.md)
