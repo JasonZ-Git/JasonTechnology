@@ -25,3 +25,5 @@
 [Confluence Page](https://jasonz.atlassian.net/wiki/spaces/JT/overview)
 
 [OpenSAML3 Code Example](./git-books/OpenSAML3.md)
+
+[AWS Simple](./git-books/AWS_Simple.md)

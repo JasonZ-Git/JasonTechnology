@@ -1,4 +1,4 @@
-# This is a mimimal set to to integrate with remote side as SAML idp
+# This is a mimimal set to to integrate with remote SAML idp
 
 ## IDP side configuration
  -- Set an application in their system (which is for P5)

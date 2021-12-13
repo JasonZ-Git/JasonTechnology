@@ -70,6 +70,11 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+12 Dec 2021
+------------
+I passed the Amazon Solution Architect associate test - It takes me sometime - The summary should be transfered here from Google Drive.
+SAP is in process - Should be able to achieve it before end of this year.
+
 24 Oct 2021
 -------------
 HakariCP - Worth a more detailed check -
