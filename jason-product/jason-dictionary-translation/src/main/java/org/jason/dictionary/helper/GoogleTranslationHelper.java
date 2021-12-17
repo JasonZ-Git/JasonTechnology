@@ -25,120 +25,120 @@ import java.util.stream.Collectors;
 
 public class GoogleTranslationHelper {
 
-    private static final String English_To_Chinese_Google_Translation = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
+  private static final String English_To_Chinese_Google_Translation = "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
 
-    private static Logger logger = LogManager.getLogger();
+  private static Logger logger = LogManager.getLogger();
 
-    static {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+  static {
+    System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
-        // Turn off debug log
-        System.setProperty("webdriver.chrome.verboseLogging", "false");
+    // Turn off debug log
+    System.setProperty("webdriver.chrome.verboseLogging", "false");
+  }
+
+  public static WordTranslation getTranslation(String word) {
+
+    WebDriver driver = null;
+    String translations = "";
+
+    try {
+      driver = getWebDriver();
+
+      driver.get(English_To_Chinese_Google_Translation + word);
+
+      translations = getWordTranslation(driver, word);
+
+      destroyDriver(driver);
+
+    } catch (Exception e) {
+      logger.warn("No translation found for " + word, e);
+      destroyDriver(driver);
+      return WordTranslation.build(word, null);
     }
 
-    public static WordTranslation getTranslation(String word) {
+    return WordTranslation.build(word, translations);
+  }
 
-        WebDriver driver = null;
-        String translations = "";
 
-        try {
-            driver = getWebDriver();
+  public static List<WordTranslation> getTranslations(List<String> words) {
 
-            driver.get(English_To_Chinese_Google_Translation + word);
+    List<WordTranslation> wordTranslations = new ArrayList<>();
 
-            translations = getWordTranslation(driver, word);
+    for (String current : words) {
+      WordTranslation translation = getTranslation(current);
 
-            destroyDriver(driver);
+      wordTranslations.add(translation);
 
-        } catch (Exception e) {
-            logger.warn("No translation found for " + word, e);
-            destroyDriver(driver);
-            return WordTranslation.build(word, null);
-        }
-
-        return WordTranslation.build(word, translations);
+      sleepQuietly();
     }
 
+    return wordTranslations;
+  }
 
-    public static List<WordTranslation> getTranslations(List<String> words) {
+  private static void sleepQuietly() {
+    try {
+      TimeUnit.MILLISECONDS.sleep(500);
+    } catch (Exception e) {
+      logger.error(e);
 
-        List<WordTranslation> wordTranslations = new ArrayList<>();
+      throw new RuntimeException(e);
+    }
+  }
 
-        for (String current : words) {
-            WordTranslation translation = getTranslation(current);
+  private static String getWordTranslation(WebDriver driver, String word) {
+    WebElement googleTranslationElement = driver.findElement(By.className("tlid-translation"));
 
-            wordTranslations.add(translation);
+    String primaryTranslation = googleTranslationElement.getText();
 
-            sleepQuietly();
-        }
-
-        return wordTranslations;
+    if (StringUtils.isBlank(primaryTranslation) || word.equalsIgnoreCase(primaryTranslation)) {
+      logger.warn("No Translation Found for {} ", word);
+      return "";
     }
 
-    private static void sleepQuietly() {
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (Exception e) {
-            logger.error(e);
+    WebElement translationsRoot = driver.findElement(By.cssSelector(".gt-cd.gt-cd-mbd.gt-cd-baf"));
 
-            throw new RuntimeException(e);
-        }
-    }
+    List<WebElement> translationElements = translationsRoot.findElements(By.cssSelector(".gt-baf-cell.gt-baf-word-clickable"));
 
-    private static String getWordTranslation(WebDriver driver, String word) {
-        WebElement googleTranslationElement = driver.findElement(By.className("tlid-translation"));
+    String translations = translationElements.stream().map(WebElement::getText).filter(StringUtils::isNotBlank).collect(Collectors.joining(","));
 
-        String primaryTranslation = googleTranslationElement.getText();
+    return getTranslation(translations, primaryTranslation);
+  }
 
-        if (StringUtils.isBlank(primaryTranslation) || word.equalsIgnoreCase(primaryTranslation)) {
-            logger.warn("No Translation Found for {} ", word);
-            return "";
-        }
+  private static void destroyDriver(WebDriver driver) {
+    driver.quit();
+  }
 
-        WebElement translationsRoot = driver.findElement(By.cssSelector(".gt-cd.gt-cd-mbd.gt-cd-baf"));
+  private static WebDriver getWebDriver() throws MalformedURLException {
 
-        List<WebElement> translationElements = translationsRoot.findElements(By.cssSelector(".gt-baf-cell.gt-baf-word-clickable"));
+    DesiredCapabilities caps = DesiredCapabilities.chrome();
 
-        String translations = translationElements.stream().map(WebElement::getText).filter(StringUtils::isNotBlank).collect(Collectors.joining(","));
+    LoggingPreferences logPrefs = new LoggingPreferences();
+    logPrefs.enable(LogType.PERFORMANCE, Level.INFO);
 
-        return getTranslation(translations, primaryTranslation);
-    }
-
-    private static void destroyDriver(WebDriver driver) {
-        driver.quit();
-    }
-
-    private static WebDriver getWebDriver() throws MalformedURLException {
-
-        DesiredCapabilities caps = DesiredCapabilities.chrome();
-
-        LoggingPreferences logPrefs = new LoggingPreferences();
-        logPrefs.enable(LogType.PERFORMANCE, Level.INFO);
-
-        caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+    caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
 
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("w3c", false);
-        options.merge(caps);
+    ChromeOptions options = new ChromeOptions();
+    options.setExperimentalOption("w3c", false);
+    options.merge(caps);
 
-        WebDriver driver = new RemoteWebDriver(new URL("http://101.116.233.50:4444/wd/hub"), options);
-        //WebDriver driver = new ChromeDriver(options);
+    WebDriver driver = new RemoteWebDriver(new URL("http://101.116.233.50:4444/wd/hub"), options);
+    // WebDriver driver = new ChromeDriver(options);
 
-        return driver;
-    }
+    return driver;
+  }
 
-    private static String getTranslation(String translations, @Nonnull String primaryTranslation) {
-        Objects.requireNonNull(primaryTranslation);
+  private static String getTranslation(String translations, @Nonnull String primaryTranslation) {
+    Objects.requireNonNull(primaryTranslation);
 
-        if (StringUtils.isBlank(translations))
-            return primaryTranslation;
+    if (StringUtils.isBlank(translations))
+      return primaryTranslation;
 
-        if (translations.contains(primaryTranslation))
-            return translations;
+    if (translations.contains(primaryTranslation))
+      return translations;
 
-        return String.format("%s,%s", primaryTranslation, translations);
+    return String.format("%s,%s", primaryTranslation, translations);
 
-    }
+  }
 
 }

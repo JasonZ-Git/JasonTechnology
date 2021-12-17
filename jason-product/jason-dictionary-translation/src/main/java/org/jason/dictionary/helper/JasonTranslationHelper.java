@@ -5,16 +5,16 @@ import org.jason.util.dictionary.JasonDictionaryAPI;
 import java.util.List;
 
 public class JasonTranslationHelper {
-    /**
-     * new words that is not existing in existing dictionary file
-     */
-    public static List<String> readNewWords() {
-        List<String> newWords = JasonDictionaryAPI.readNewWords();
+  /**
+   * new words that is not existing in existing dictionary file
+   */
+  public static List<String> readNewWords() {
+    List<String> newWords = JasonDictionaryAPI.readNewWords();
 
-        List<String> realNewWords = JasonDictionaryAPI.filterRealWords(newWords);
+    List<String> realNewWords = JasonDictionaryAPI.filterRealWords(newWords);
 
-        realNewWords.removeIf(DictionaryCache::contains);
+    realNewWords.removeIf(DictionaryCache::contains);
 
-        return realNewWords;
-    }
+    return realNewWords;
+  }
 }
