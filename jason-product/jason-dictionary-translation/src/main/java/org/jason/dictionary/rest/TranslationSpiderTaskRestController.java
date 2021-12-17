@@ -19,21 +19,21 @@ import java.util.stream.Collectors;
 @RequestMapping("/task")
 public class TranslationSpiderTaskRestController {
 
-    private static Logger logger = LogManager.getLogger();
+  private static Logger logger = LogManager.getLogger();
 
-    @PutMapping("/start")
-    public List<String> startSpiderTask() {
+  @PutMapping("/start")
+  public List<String> startSpiderTask() {
 
-        List<String> newWords = JasonTranslationHelper.readNewWords();
+    List<String> newWords = JasonTranslationHelper.readNewWords();
 
-        List<WordTranslation> translations = GoogleTranslationHelper.getTranslations(newWords);
+    List<WordTranslation> translations = GoogleTranslationHelper.getTranslations(newWords);
 
-        List<String> newLines = translations.stream().map(item -> item.toString()).distinct().collect(Collectors.toList());
+    List<String> newLines = translations.stream().map(item -> item.toString()).distinct().collect(Collectors.toList());
 
-        JasonDictionaryAPI.writeToNewDictionary(newLines);
+    JasonDictionaryAPI.writeToNewDictionary(newLines);
 
-        translations.stream().forEach(item -> DictionaryCache.put(item.getWord(), item.getTranslation()));
+    translations.stream().forEach(item -> DictionaryCache.put(item.getWord(), item.getTranslation()));
 
-        return newLines;
-    }
+    return newLines;
+  }
 }
