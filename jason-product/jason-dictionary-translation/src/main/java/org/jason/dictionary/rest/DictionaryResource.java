@@ -3,8 +3,11 @@ package org.jason.dictionary.rest;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.validator.constraints.Length;
 import org.jason.dictionary.helper.DictionaryCache;
 import org.jason.dictionary.helper.GoogleTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;
@@ -21,7 +24,7 @@ public class DictionaryResource {
   private static Logger logger = LogManager.getLogger(DictionaryResource.class);
 
   @GetMapping(value = "/dictionary/{word}")
-  public WordTranslation getTranslation(@PathVariable @Nonnull String word) {
+  public WordTranslation getTranslation(@Valid @Size(min = 2) @PathVariable @Nonnull String word) {
     Objects.requireNonNull(word);
 
     if (DictionaryCache.contains(word)) {
@@ -30,6 +33,10 @@ public class DictionaryResource {
 
     // If not find in existing list, then fetch translation from Google
     WordTranslation wordTranslation = GoogleTranslationHelper.getTranslation(word);
+    
+    if (wordTranslation == null) {
+      throw new TranslationNotFoundException("Translation for word is not found: " + word);
+    }
 
     JasonDictionaryAPI.writeToNewDictionary(wordTranslation.toString());
 
