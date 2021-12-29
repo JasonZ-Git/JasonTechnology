@@ -3,6 +3,9 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Migrate jason-product to Cloud - Due 31 Dec 2021
+  - Whether to use Spring-Cloud or native cloud
+  - Start migrate one to Cloud
 * HakariCP - High Performance connection pool
 * SpringEE - To fill the gap between spring and JavaEE
 * Get a check of the Google Fuchsia - which aimed to replace Linux
@@ -69,6 +72,11 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+29 Dec 2021
+------------
+The project is updated - including upgrade to JUnit 5, Log4j.
+Will upgrade jason-product and promote code-challenge to be a formal project - Will do several Leetcode practice daily
 
 12 Dec 2021
 ------------
