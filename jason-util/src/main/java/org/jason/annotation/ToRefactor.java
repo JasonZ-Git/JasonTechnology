@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface ToRefactor {
-    String value() default "To be refactored";
+  String value() default "To be refactored";
 }

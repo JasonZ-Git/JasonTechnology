@@ -1,36 +1,23 @@
 package org.jason.learn.google.test;
 
-import java.util.Arrays;
-import java.util.Collection;
-
+import java.util.stream.Stream;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jason.learn.google.StringDecompress;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class StringDecompressTest {
 
-    @Parameter(0)
-    public String source;
-    @Parameter(1)
-    public String result;
+  @ParameterizedTest
+  @MethodSource("params")
+  public void test(Pair<String, String> param) {
+    String actual = StringDecompress.decompress(param.getKey());
 
-    @Parameters
-    public static Collection<Object[]> data() {
-        Object[][] data = new Object[][]{{"3[abc]4[ab]c", "abcabcabcababababc"}, {"2[3[a]b]", "aaabaaab"},
-                {"10[a]", "aaaaaaaaaa"}};
+    Assertions.assertEquals(param.getValue(), actual);
+  }
 
-        return Arrays.asList(data);
-    }
-
-    @Test
-    public void test() {
-        String actual = StringDecompress.decompress(source);
-
-        Assert.assertEquals(result, actual);
-    }
+  private static Stream<Pair<String, String>> params() {
+    return Stream.of(Pair.of("3[abc]4[ab]c", "abcabcabcababababc"), Pair.of("2[3[a]b]", "aaabaaab"), Pair.of("10[a]", "aaaaaaaaaa"));
+  }
 }

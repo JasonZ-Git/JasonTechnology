@@ -6,12 +6,12 @@ import java.util.Date;
 
 public class JasonDateConverter {
 
-    public static final Date toDate(final LocalDate localDate) {
-        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }
+  public static final Date toDate(final LocalDate localDate) {
+    return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+  }
 
-    public static final LocalDate toLocalDate(final Date date) {
+  public static final LocalDate toLocalDate(final Date date) {
 
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    }
+    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+  }
 }

@@ -9,14 +9,13 @@ import java.util.Arrays;
  * 
  * Key - Dynamic Programming - f(n,m) = max(f(k,m - 1), nums[k + 1] + ... + nums[i])
  * 
- * Note - non-aftereffect property - can try to use dynamic programming
- *      - There is one condition actually m<=n
+ * Note - non-aftereffect property - can try to use dynamic programming - There is one condition actually m<=n
  * 
  * @author Jason Zhang
  *
  */
 public class _410_SplitArrayLargestSum {
-  
+
   public int splitArray(int[] nums, int m) {
     int n = nums.length;
     int[][] f = new int[n + 1][m + 1];

@@ -1,33 +1,22 @@
 package jason.util;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jason.util.TFNUtil;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
-
-@RunWith(Parameterized.class)
 public class TFNUtilTest {
 
-    @Parameter(0)
-    public String tfnToBeChecked;
+  @ParameterizedTest
+  @MethodSource("generator")
+  public void testTFN(Pair<String, Boolean> pairParam) {
+    Assertions.assertEquals(pairParam.getValue(), TFNUtil.isValidTFN(pairParam.getKey()));
+  }
 
-    @Parameter(1)
-    public Boolean result;
+  private static Stream<Pair<String, Boolean>> generator() {
 
-
-    @Parameters
-    public static Collection<Object[]> data() {
-        Object[][] dataArray = new Object[][]{{"123456782", Boolean.TRUE}, {"123456783", Boolean.FALSE}};
-
-        return Arrays.asList(dataArray);
-    }
-
-    @Test
-    public void testTFN() {
-        //Assert.assertEquals(result, (Boolean)TFNUtil.isValidTFN(tfnToBeChecked));
-    }
+    return Stream.of(Pair.of("123456782", Boolean.TRUE), Pair.of("123456783", Boolean.FALSE));
+  }
 }

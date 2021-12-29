@@ -21,7 +21,8 @@ public class _139_WordBreak {
   }
 
   private boolean expand(String s, List<String> wordDict, Set<String> result) {
-    if (result.contains(s)) return true;
+    if (result.contains(s))
+      return true;
 
     Set<String> newResult = new HashSet<>();
     for (String word : wordDict) {
@@ -31,8 +32,9 @@ public class _139_WordBreak {
         }
       }
     }
-    if (newResult.isEmpty()) return false;
-    
+    if (newResult.isEmpty())
+      return false;
+
     return expand(s, wordDict, newResult);
   }
 }

@@ -7,49 +7,49 @@ import java.util.EmptyStackException;
  */
 public class JasonStack<E> {
 
-    private StackNode<E> top;
+  private StackNode<E> top;
 
-    public E pop() {
-        if (top == null) {
-            return null;
-        }
-
-        E item = top.data;
-
-        this.top = top.next;
-
-        return item;
+  public E pop() {
+    if (top == null) {
+      return null;
     }
 
-    ;
+    E item = top.data;
 
-    public void push(E item) {
-        if (item == null) {
-            throw new EmptyStackException();
-        }
+    this.top = top.next;
 
-        StackNode<E> newTop = new StackNode<>(item);
+    return item;
+  }
 
-        newTop.next = this.top;
-        this.top = newTop;
+  ;
+
+  public void push(E item) {
+    if (item == null) {
+      throw new EmptyStackException();
     }
 
-    public E peek() {
-        if (top == null) {
-            return null;
-        }
+    StackNode<E> newTop = new StackNode<>(item);
 
-        return top.data;
+    newTop.next = this.top;
+    this.top = newTop;
+  }
+
+  public E peek() {
+    if (top == null) {
+      return null;
     }
 
+    return top.data;
+  }
 
-    private static class StackNode<E> {
-        private E data;
-        private StackNode<E> next;
 
-        public StackNode(E e) {
-            this.data = e;
-        }
+  private static class StackNode<E> {
+    private E data;
+    private StackNode<E> next;
+
+    public StackNode(E e) {
+      this.data = e;
     }
+  }
 
 }

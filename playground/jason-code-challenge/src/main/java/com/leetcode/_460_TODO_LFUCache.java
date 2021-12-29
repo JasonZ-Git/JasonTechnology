@@ -11,19 +11,19 @@ package com.leetcode;
  *
  */
 public class _460_TODO_LFUCache {
-	
 
-	private int capacity;
-	
-    public _460_TODO_LFUCache(int capacity) {
-    	this.capacity = capacity;
-    }
-    
-    public int get(int key) {
-        return -1;
-    }
-    
-    public void put(int key, int value) {
 
-    }
+  private int capacity;
+
+  public _460_TODO_LFUCache(int capacity) {
+    this.capacity = capacity;
+  }
+
+  public int get(int key) {
+    return -1;
+  }
+
+  public void put(int key, int value) {
+
+  }
 }

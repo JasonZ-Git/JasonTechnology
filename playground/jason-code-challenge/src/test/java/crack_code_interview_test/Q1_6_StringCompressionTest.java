@@ -1,34 +1,23 @@
 package crack_code_interview_test;
 
-import java.util.Arrays;
-import java.util.Collection;
-
+import java.util.stream.Stream;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jason.code_practice.Q1_6_String_Compression;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class Q1_6_StringCompressionTest {
-    @Parameter(0)
-    public String original;
 
-    @Parameter(1)
-    public String compressed;
+  @ParameterizedTest
+  @MethodSource("generate")
+  public void testCompress(Pair<String, String> param) {
+    String actual = Q1_6_String_Compression.compress(param.getKey());
 
-    @Parameters
-    public static Collection<Object[]> date() {
-        Object[][] data = new Object[][]{{"aabccccaaa", "a2b1c4a3"}, {"abcVcDBa", "abcVcDBa"}};
-        return Arrays.asList(data);
-    }
+    Assertions.assertEquals(param.getValue(), actual);
+  }
 
-    @Test
-    public void testCompress() {
-        String actual = Q1_6_String_Compression.compress(original);
-
-        Assert.assertEquals(compressed, actual);
-    }
+  private static Stream<Pair<String, String>> generate() {
+    return Stream.of(Pair.of("aabccccaaa", "a2b1c4a3"), Pair.of("abcVcDBa", "abcVcDBa"));
+  }
 }

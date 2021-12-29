@@ -3,7 +3,7 @@
 
     <groupId>org.jason</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.0</version>
+    <version>3.2</version>
     <packaging>pom</packaging>
 
     <description>Jason POM</description>
@@ -32,24 +32,20 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.version>3.2</project.version>
         <powermock.version>1.4.10</powermock.version>
         <springframework.version>5.2.5.RELEASE</springframework.version>
-        <junit-version>5.6.0</junit-version>
-        <junit-platform-runner-version>1.6.0</junit-platform-runner-version>
-        <log4j2.version>2.16.0</log4j2.version>
-        <project.version>2.2</project.version>
+        <junit-version>5.8.2</junit-version>
+        <log4j2.version>2.17.1</log4j2.version>
         <springboot.version>2.2.5.RELEASE</springboot.version>
         <hibernate.version>5.4.18.Final</hibernate.version>
         <jsonb-api.version>1.1.4</jsonb-api.version>
         <jsonb-glassfish-impl.version>1.1</jsonb-glassfish-impl.version>
 	<apache-commons-langs.version>3.12.0</apache-commons-langs.version>
     </properties>
-
-    <modules>
-    </modules>
 
     <build>
         <plugins>
@@ -61,7 +57,6 @@
         </plugins>
     </build>
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -71,36 +66,21 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-runner</artifactId>
-                <version>${junit-platform-runner-version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- junit 4.13 should be removed and totally replaced by junit5 -->
+		<groupId>org.jason</groupId>
+		<artifactId>jason-util</artifactId>
+		<version>${project.version}</version>
+	    </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13</version>
-                <scope>test</scope>
+    	      <groupId>org.junit.jupiter</groupId>
+    	      <artifactId>junit-jupiter-params</artifactId>
+              <version>${junit-version}</version>
+              <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j2.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-junit4</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -221,7 +201,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.6</version>
+                <version>2.11.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

@@ -57,1414 +57,1414 @@ import java.util.GregorianCalendar;
 
 public final class ChineseCalendar extends GregorianCalendar {
 
-    private static final long serialVersionUID = 8L;
+  private static final long serialVersionUID = 8L;
 
-    /**
-     * 农历年
-     */
+  /**
+   * 农历年
+   */
 
-    public static final int CHINESE_YEAR = 801;
+  public static final int CHINESE_YEAR = 801;
 
-    /**
-     * 农历月
-     */
+  /**
+   * 农历月
+   */
 
-    public static final int CHINESE_MONTH = 802;
+  public static final int CHINESE_MONTH = 802;
 
-    /**
-     * 农历日
-     */
+  /**
+   * 农历日
+   */
 
-    public static final int CHINESE_DATE = 803;
+  public static final int CHINESE_DATE = 803;
 
-    /**
-     * 当月的节气对应的公历日(前一个节气)
-     */
+  /**
+   * 当月的节气对应的公历日(前一个节气)
+   */
 
-    public static final int CHINESE_SECTIONAL_TERM = 804;
+  public static final int CHINESE_SECTIONAL_TERM = 804;
 
-    /**
-     * 当月的中气对应的公历日(后一个节气)
-     */
+  /**
+   * 当月的中气对应的公历日(后一个节气)
+   */
 
-    public static final int CHINESE_PRINCIPLE_TERM = 805;
+  public static final int CHINESE_PRINCIPLE_TERM = 805;
 
-    /**
-     * 天干
-     */
+  /**
+   * 天干
+   */
 
-    public static final int CHINESE_HEAVENLY_STEM = 806;
+  public static final int CHINESE_HEAVENLY_STEM = 806;
 
-    /**
-     * 地支
-     */
+  /**
+   * 地支
+   */
 
-    public static final int CHINESE_EARTHLY_BRANCH = 807;
+  public static final int CHINESE_EARTHLY_BRANCH = 807;
 
-    /**
-     * 农历年的属相(生肖)
-     */
+  /**
+   * 农历年的属相(生肖)
+   */
 
-    public static final int CHINESE_ANIMAL = 808;
+  public static final int CHINESE_ANIMAL = 808;
 
-    private int chineseYear;
+  private int chineseYear;
 
-    private int chineseMonth; // 1起始，负数表示闰月
+  private int chineseMonth; // 1起始，负数表示闰月
 
-    private int chineseDate;
+  private int chineseDate;
 
-    private int sectionalTerm; // 当月节气的公历日
+  private int sectionalTerm; // 当月节气的公历日
 
-    private int principleTerm; // 当月中气的公历日
+  private int principleTerm; // 当月中气的公历日
 
-    private boolean areChineseFieldsComputed; // 农历日期是否已经经过计算确认
+  private boolean areChineseFieldsComputed; // 农历日期是否已经经过计算确认
 
-    private boolean areSolarTermsComputed; // 节气是否已经经过计算确认
+  private boolean areSolarTermsComputed; // 节气是否已经经过计算确认
 
-    private boolean lastSetChinese; // 最后设置的是不是农历属性
+  private boolean lastSetChinese; // 最后设置的是不是农历属性
 
-    /**
-     * 使用当前时间构造一个实例。
-     */
-    public ChineseCalendar() {
-        super();
+  /**
+   * 使用当前时间构造一个实例。
+   */
+  public ChineseCalendar() {
+    super();
+  }
+
+  /**
+   * 使用指定时间构造一个实例。
+   */
+  public ChineseCalendar(Date d) {
+    super.setTime(d);
+  }
+
+  /**
+   * 使用指定时间构造一个实例。
+   */
+  public ChineseCalendar(Calendar c) {
+    this(c.getTime());
+  }
+
+  /**
+   * 使用指定公历日期构造一个实例。
+   */
+  public ChineseCalendar(int y, int m, int d) {
+    super(y, m, d);
+  }
+
+  /**
+   * 使用指定日期构造一个实例。
+   *
+   * @param isChinese 是否为农历日期
+   * @param y
+   * @param m
+   * @param d
+   */
+  public static LocalDate from(int y, int m, int d, boolean isChinese) {
+    ChineseCalendar calendar = new ChineseCalendar();
+    if (isChinese) {
+      calendar.set(CHINESE_YEAR, y);
+      calendar.set(CHINESE_MONTH, m);
+      calendar.set(CHINESE_DATE, d);
+    } else {
+      calendar.set(y, m, d);
+    }
+    return LocalDate.of(calendar.get(YEAR), calendar.get(MONTH) + 1, calendar.get(DATE));
+  }
+
+  public static ChineseCalendar fromLunar(int year, int month, int date) {
+    ChineseCalendar calendar = new ChineseCalendar();
+    calendar.set(CHINESE_YEAR, year);
+    calendar.set(CHINESE_MONTH, month);
+    calendar.set(CHINESE_DATE, date);
+
+    return calendar;
+  }
+
+  @Override
+  public void set(int field, int value) {
+    computeIfNeed(field);
+    if (isChineseField(field)) {
+      // 农历属性
+      switch (field) {
+        case CHINESE_YEAR:
+          chineseYear = value;
+          break;
+        case CHINESE_MONTH:
+          chineseMonth = value;
+          break;
+        case CHINESE_DATE:
+          chineseDate = value;
+          break;
+        default:
+          throw new IllegalArgumentException("不支持的field设置：" + field);
+      }
+
+      lastSetChinese = true;
+    } else {
+      // 非农历属性
+      super.set(field, value);
+      lastSetChinese = false;
     }
 
-    /**
-     * 使用指定时间构造一个实例。
-     */
-    public ChineseCalendar(Date d) {
-        super.setTime(d);
-    }
+    areFieldsSet = false;
+    areChineseFieldsComputed = false;
+    areSolarTermsComputed = false;
+  }
 
-    /**
-     * 使用指定时间构造一个实例。
-     */
-    public ChineseCalendar(Calendar c) {
-        this(c.getTime());
-    }
+  @Override
+  public int get(int field) {
 
-    /**
-     * 使用指定公历日期构造一个实例。
-     */
-    public ChineseCalendar(int y, int m, int d) {
-        super(y, m, d);
-    }
+    computeIfNeed(field);
 
-    /**
-     * 使用指定日期构造一个实例。
-     *
-     * @param isChinese 是否为农历日期
-     * @param y
-     * @param m
-     * @param d
-     */
-    public static LocalDate from(int y, int m, int d, boolean isChinese) {
-        ChineseCalendar calendar = new ChineseCalendar();
-        if (isChinese) {
-            calendar.set(CHINESE_YEAR, y);
-            calendar.set(CHINESE_MONTH, m);
-            calendar.set(CHINESE_DATE, d);
-        } else {
-            calendar.set(y, m, d);
-        }
-        return LocalDate.of(calendar.get(YEAR), calendar.get(MONTH) + 1, calendar.get(DATE));
-    }
+    if (!isChineseField(field)) {
 
-    public static ChineseCalendar fromLunar(int year, int month, int date) {
-        ChineseCalendar calendar = new ChineseCalendar();
-        calendar.set(CHINESE_YEAR, year);
-        calendar.set(CHINESE_MONTH, month);
-        calendar.set(CHINESE_DATE, date);
-
-        return calendar;
-    }
-
-    @Override
-    public void set(int field, int value) {
-        computeIfNeed(field);
-        if (isChineseField(field)) {
-            // 农历属性
-            switch (field) {
-                case CHINESE_YEAR:
-                    chineseYear = value;
-                    break;
-                case CHINESE_MONTH:
-                    chineseMonth = value;
-                    break;
-                case CHINESE_DATE:
-                    chineseDate = value;
-                    break;
-                default:
-                    throw new IllegalArgumentException("不支持的field设置：" + field);
-            }
-
-            lastSetChinese = true;
-        } else {
-            // 非农历属性
-            super.set(field, value);
-            lastSetChinese = false;
-        }
-
-        areFieldsSet = false;
-        areChineseFieldsComputed = false;
-        areSolarTermsComputed = false;
-    }
-
-    @Override
-    public int get(int field) {
-
-        computeIfNeed(field);
-
-        if (!isChineseField(field)) {
-
-            return super.get(field);
-
-        }
-
-        if (!areChineseFieldsComputed) {
-
-            // 计算农历属性
-
-            computeChineseFields();
-
-            areChineseFieldsComputed = true;
-
-        }
-
-        switch (field) {
-
-            case CHINESE_YEAR:
-
-                return chineseYear;
-
-            case CHINESE_MONTH:
-
-                return chineseMonth;
-
-            case CHINESE_DATE:
-
-                return chineseDate;
-
-            case CHINESE_SECTIONAL_TERM:
-
-                return sectionalTerm;
-
-            case CHINESE_PRINCIPLE_TERM:
-
-                return principleTerm;
-
-            case CHINESE_HEAVENLY_STEM:
-
-                return (chineseYear - 4) % 10 + 1;
-
-            case CHINESE_EARTHLY_BRANCH:
-
-            case CHINESE_ANIMAL:
-
-                return (chineseYear - 4) % 12 + 1;
-
-            default:
-
-                throw new IllegalArgumentException("不支持的field获取：" + field);
-
-        }
+      return super.get(field);
 
     }
 
-    @Override
-    public void add(int field, int amount) {
+    if (!areChineseFieldsComputed) {
 
-        computeIfNeed(field);
+      // 计算农历属性
 
-        if (!isChineseField(field)) {
+      computeChineseFields();
 
-            super.add(field, amount);
+      areChineseFieldsComputed = true;
 
-            lastSetChinese = false;
+    }
 
-            areChineseFieldsComputed = false;
+    switch (field) {
 
-            areSolarTermsComputed = false;
+      case CHINESE_YEAR:
 
-            return;
+        return chineseYear;
 
-        }
+      case CHINESE_MONTH:
 
-        switch (field) {
+        return chineseMonth;
 
-            case CHINESE_YEAR:
+      case CHINESE_DATE:
 
-                chineseYear += amount;
+        return chineseDate;
 
-                break;
+      case CHINESE_SECTIONAL_TERM:
 
-            case CHINESE_MONTH:
+        return sectionalTerm;
 
-                for (int i = 0; i < amount; i++) {
+      case CHINESE_PRINCIPLE_TERM:
 
-                    chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
+        return principleTerm;
 
-                    if (chineseMonth == 1) {
+      case CHINESE_HEAVENLY_STEM:
 
-                        chineseYear++;
+        return (chineseYear - 4) % 10 + 1;
 
-                    }
+      case CHINESE_EARTHLY_BRANCH:
 
-                }
+      case CHINESE_ANIMAL:
 
-                break;
+        return (chineseYear - 4) % 12 + 1;
 
-            case CHINESE_DATE:
+      default:
 
-                int maxDate = daysInChineseMonth(chineseYear, chineseMonth);
+        throw new IllegalArgumentException("不支持的field获取：" + field);
 
-                for (int i = 0; i < amount; i++) {
+    }
 
-                    chineseDate++;
+  }
 
-                    if (chineseDate > maxDate) {
+  @Override
+  public void add(int field, int amount) {
 
-                        chineseDate = 1;
+    computeIfNeed(field);
 
-                        chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
+    if (!isChineseField(field)) {
 
-                        if (chineseMonth == 1) {
+      super.add(field, amount);
 
-                            chineseYear++;
+      lastSetChinese = false;
 
-                        }
+      areChineseFieldsComputed = false;
 
-                        maxDate = daysInChineseMonth(chineseYear, chineseMonth);
+      areSolarTermsComputed = false;
 
-                    }
+      return;
 
-                }
+    }
 
-            default:
+    switch (field) {
 
-                throw new IllegalArgumentException("不支持的field：" + field);
+      case CHINESE_YEAR:
+
+        chineseYear += amount;
+
+        break;
+
+      case CHINESE_MONTH:
+
+        for (int i = 0; i < amount; i++) {
+
+          chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
+
+          if (chineseMonth == 1) {
+
+            chineseYear++;
+
+          }
 
         }
 
-        lastSetChinese = true;
+        break;
 
-        areFieldsSet = false;
+      case CHINESE_DATE:
 
-        areSolarTermsComputed = false;
+        int maxDate = daysInChineseMonth(chineseYear, chineseMonth);
 
-    }
+        for (int i = 0; i < amount; i++) {
 
-    @Override
-    public void roll(int field, int amount) {
+          chineseDate++;
 
-        computeIfNeed(field);
+          if (chineseDate > maxDate) {
 
-        if (!isChineseField(field)) {
+            chineseDate = 1;
 
-            super.roll(field, amount);
+            chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
 
-            lastSetChinese = false;
+            if (chineseMonth == 1) {
 
-            areChineseFieldsComputed = false;
-
-            areSolarTermsComputed = false;
-
-            return;
-
-        }
-
-        switch (field) {
-
-            case CHINESE_YEAR:
-
-                chineseYear += amount;
-
-                break;
-
-            case CHINESE_MONTH:
-
-                for (int i = 0; i < amount; i++) {
-
-                    chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
-
-                }
-
-                break;
-
-            case CHINESE_DATE:
-
-                int maxDate = daysInChineseMonth(chineseYear, chineseMonth);
-
-                for (int i = 0; i < amount; i++) {
-
-                    chineseDate++;
-
-                    if (chineseDate > maxDate) {
-
-                        chineseDate = 1;
-
-                    }
-
-                }
-
-            default:
-
-                throw new IllegalArgumentException("不支持的field：" + field);
-
-        }
-
-        lastSetChinese = true;
-
-        areFieldsSet = false;
-
-        areSolarTermsComputed = false;
-
-    }
-
-    /**
-     * 获得属性的中文，可以使用的属性字段为DAY_OF_WEEK以及所有农历属性字段。
-     *
-     * @param field
-     * @return
-     */
-
-    public String getChinese(int field) {
-
-        switch (field) {
-
-            case CHINESE_YEAR:
-
-                return getChinese(CHINESE_HEAVENLY_STEM)
-
-                        + getChinese(CHINESE_EARTHLY_BRANCH);
-
-            case CHINESE_MONTH:
-
-                if (chineseMonth > 0)
-
-                    return chineseMonthNames[chineseMonth];
-
-                else
-
-                    return "闰" + chineseMonthNames[-chineseMonth];
-
-            case CHINESE_DATE:
-
-                return chineseDateNames[chineseDate];
-
-            case CHINESE_SECTIONAL_TERM:
-
-                return sectionalTermNames[get(Calendar.MONTH)];
-
-            case CHINESE_PRINCIPLE_TERM:
-
-                return principleTermNames[get(Calendar.MONTH)];
-
-            case CHINESE_HEAVENLY_STEM:
-
-                if (!areSolarTermsComputed) {
-
-                    computeSolarTerms();
-
-                    areSolarTermsComputed = true;
-
-                }
-
-                return stemNames[get(field)];
-
-            case CHINESE_EARTHLY_BRANCH:
-
-                if (!areSolarTermsComputed) {
-
-                    computeSolarTerms();
-
-                    areSolarTermsComputed = true;
-
-                }
-
-                return branchNames[get(field)];
-
-            case CHINESE_ANIMAL:
-
-                return animalNames[get(field)];
-
-            case Calendar.DAY_OF_WEEK:
-
-                return chineseWeekNames[get(field)];
-
-            default:
-
-                throw new IllegalArgumentException("不支持的field中文获取：" + field);
-
-        }
-
-    }
-
-    public String getSimpleGregorianDateString() {
-
-        return new StringBuffer().append(get(YEAR))
-
-                .append("-")
-
-                .append(get(MONTH) + 1)
-
-                .append("-")
-
-                .append(get(DATE))
-
-                .toString();
-
-    }
-
-    public String getSimpleChineseDateString() {
-
-        return new StringBuffer().append(get(CHINESE_YEAR))
-
-                .append("-")
-
-                .append(get(CHINESE_MONTH) > 0 ? ""
-
-                        + get(CHINESE_MONTH)
-                        : "*"
-
-                        + (-get(CHINESE_MONTH)))
-
-                .append("-")
-
-                .append(get(CHINESE_DATE))
-
-                .toString();
-
-    }
-
-    public String getChineseDateString() {
-
-        return new StringBuffer().append(getChinese(CHINESE_YEAR))
-
-                .append("年")
-
-                .append(getChinese(CHINESE_MONTH))
-
-                .append("月")
-
-                .append(getChinese(CHINESE_DATE))
-
-                .toString();
-
-    }
-
-    @Override
-    public String toString() {
-
-        StringBuffer buf = new StringBuffer();
-
-        buf.append(getSimpleGregorianDateString())
-
-                .append(" | ")
-
-                .append(getChinese(DAY_OF_WEEK))
-
-                .append(" | [农历]")
-
-                .append(getChineseDateString())
-
-                .append(" ")
-
-                .append(getChinese(CHINESE_ANIMAL))
-
-                .append("年 ")
-
-                .append(get(CHINESE_SECTIONAL_TERM))
-
-                .append("日")
-
-                .append(getChinese(CHINESE_SECTIONAL_TERM))
-
-                .append(" ")
-
-                .append(get(CHINESE_PRINCIPLE_TERM))
-
-                .append("日")
-
-                .append(getChinese(CHINESE_PRINCIPLE_TERM));
-
-        return buf.toString();
-
-    }
-
-    /**
-     * 判断是不是农历属性
-     *
-     * @param field
-     * @return
-     */
-
-    private boolean isChineseField(int field) {
-
-        switch (field) {
-
-            case CHINESE_YEAR:
-
-            case CHINESE_MONTH:
-
-            case CHINESE_DATE:
-
-            case CHINESE_SECTIONAL_TERM:
-
-            case CHINESE_PRINCIPLE_TERM:
-
-            case CHINESE_HEAVENLY_STEM:
-
-            case CHINESE_EARTHLY_BRANCH:
-
-            case CHINESE_ANIMAL:
-
-                return true;
-
-            default:
-
-                return false;
-
-        }
-
-    }
-
-    /**
-     * 如果上一次设置的与这次将要设置或获取的属性不是同一类（农历/公历），<br>
-     * <p>
-     * 例如上一次设置的是农历而现在要设置或获取公历，<br>
-     * <p>
-     * 则需要先根据之前设置的农历日期计算出公历日期。
-     *
-     * @param field
-     */
-
-    private void computeIfNeed(int field) {
-
-        if (isChineseField(field)) {
-
-            if (!lastSetChinese && !areChineseFieldsComputed) {
-
-                super.complete();
-
-                computeChineseFields();
-
-                areFieldsSet = true;
-
-                areChineseFieldsComputed = true;
-
-                areSolarTermsComputed = false;
+              chineseYear++;
 
             }
 
-        } else {
+            maxDate = daysInChineseMonth(chineseYear, chineseMonth);
 
-            if (lastSetChinese && !areFieldsSet) {
-
-                computeGregorianFields();
-
-                super.complete();
-
-                areFieldsSet = true;
-
-                areChineseFieldsComputed = true;
-
-                areSolarTermsComputed = false;
-
-            }
+          }
 
         }
+
+      default:
+
+        throw new IllegalArgumentException("不支持的field：" + field);
 
     }
 
-    /**
-     * 使用农历日期计算出公历日期
-     */
+    lastSetChinese = true;
 
-    private void computeGregorianFields() {
+    areFieldsSet = false;
 
-        int y = chineseYear;
+    areSolarTermsComputed = false;
 
-        int m = chineseMonth;
+  }
 
-        int d = chineseDate;
+  @Override
+  public void roll(int field, int amount) {
 
-        areChineseFieldsComputed = true;
+    computeIfNeed(field);
 
-        areFieldsSet = true;
+    if (!isChineseField(field)) {
 
-        lastSetChinese = false;
+      super.roll(field, amount);
 
-        // 调整日期范围
+      lastSetChinese = false;
 
-        if (y < 1900)
+      areChineseFieldsComputed = false;
 
-            y = 1899;
+      areSolarTermsComputed = false;
 
-        else if (y > 2100)
+      return;
 
-            y = 2101;
+    }
 
-        if (m < -12)
+    switch (field) {
 
-            m = -12;
+      case CHINESE_YEAR:
 
-        else if (m > 12)
+        chineseYear += amount;
 
-            m = 12;
+        break;
 
-        if (d < 1)
+      case CHINESE_MONTH:
 
-            d = 1;
+        for (int i = 0; i < amount; i++) {
 
-        else if (d > 30)
-
-            d = 30;
-
-        int dateint = y * 10000 + Math.abs(m) * 100 + d;
-
-        if (dateint < 19001111) { // 太小
-
-            set(1901, Calendar.JANUARY, 1);
-
-            super.complete();
-
-        } else if (dateint > 21001201) { // 太大
-
-            set(2100, Calendar.DECEMBER, 31);
-
-            super.complete();
-
-        } else {
-
-            if (Math.abs(m) > 12) {
-
-                m = 12;
-
-            }
-
-            int days = ChineseCalendar.daysInChineseMonth(y, m);
-
-            if (days == 0) {
-
-                m = -m;
-
-                days = ChineseCalendar.daysInChineseMonth(y, m);
-
-            }
-
-            if (d > days) {
-
-                d = days;
-
-            }
-
-            set(y, Math.abs(m) - 1, d);
-
-            computeChineseFields();
-
-            int amount = 0;
-
-            while (chineseYear != y || chineseMonth != m) {
-
-                amount += daysInChineseMonth(chineseYear, chineseMonth);
-
-                chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
-
-            }
-
-            amount += d - chineseDate;
-
-            super.add(Calendar.DATE, amount);
+          chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
 
         }
+
+        break;
+
+      case CHINESE_DATE:
+
+        int maxDate = daysInChineseMonth(chineseYear, chineseMonth);
+
+        for (int i = 0; i < amount; i++) {
+
+          chineseDate++;
+
+          if (chineseDate > maxDate) {
+
+            chineseDate = 1;
+
+          }
+
+        }
+
+      default:
+
+        throw new IllegalArgumentException("不支持的field：" + field);
+
+    }
+
+    lastSetChinese = true;
+
+    areFieldsSet = false;
+
+    areSolarTermsComputed = false;
+
+  }
+
+  /**
+   * 获得属性的中文，可以使用的属性字段为DAY_OF_WEEK以及所有农历属性字段。
+   *
+   * @param field
+   * @return
+   */
+
+  public String getChinese(int field) {
+
+    switch (field) {
+
+      case CHINESE_YEAR:
+
+        return getChinese(CHINESE_HEAVENLY_STEM)
+
+            + getChinese(CHINESE_EARTHLY_BRANCH);
+
+      case CHINESE_MONTH:
+
+        if (chineseMonth > 0)
+
+          return chineseMonthNames[chineseMonth];
+
+        else
+
+          return "闰" + chineseMonthNames[-chineseMonth];
+
+      case CHINESE_DATE:
+
+        return chineseDateNames[chineseDate];
+
+      case CHINESE_SECTIONAL_TERM:
+
+        return sectionalTermNames[get(Calendar.MONTH)];
+
+      case CHINESE_PRINCIPLE_TERM:
+
+        return principleTermNames[get(Calendar.MONTH)];
+
+      case CHINESE_HEAVENLY_STEM:
+
+        if (!areSolarTermsComputed) {
+
+          computeSolarTerms();
+
+          areSolarTermsComputed = true;
+
+        }
+
+        return stemNames[get(field)];
+
+      case CHINESE_EARTHLY_BRANCH:
+
+        if (!areSolarTermsComputed) {
+
+          computeSolarTerms();
+
+          areSolarTermsComputed = true;
+
+        }
+
+        return branchNames[get(field)];
+
+      case CHINESE_ANIMAL:
+
+        return animalNames[get(field)];
+
+      case Calendar.DAY_OF_WEEK:
+
+        return chineseWeekNames[get(field)];
+
+      default:
+
+        throw new IllegalArgumentException("不支持的field中文获取：" + field);
+
+    }
+
+  }
+
+  public String getSimpleGregorianDateString() {
+
+    return new StringBuffer().append(get(YEAR))
+
+        .append("-")
+
+        .append(get(MONTH) + 1)
+
+        .append("-")
+
+        .append(get(DATE))
+
+        .toString();
+
+  }
+
+  public String getSimpleChineseDateString() {
+
+    return new StringBuffer().append(get(CHINESE_YEAR))
+
+        .append("-")
+
+        .append(get(CHINESE_MONTH) > 0 ? ""
+
+            + get(CHINESE_MONTH)
+            : "*"
+
+                + (-get(CHINESE_MONTH)))
+
+        .append("-")
+
+        .append(get(CHINESE_DATE))
+
+        .toString();
+
+  }
+
+  public String getChineseDateString() {
+
+    return new StringBuffer().append(getChinese(CHINESE_YEAR))
+
+        .append("年")
+
+        .append(getChinese(CHINESE_MONTH))
+
+        .append("月")
+
+        .append(getChinese(CHINESE_DATE))
+
+        .toString();
+
+  }
+
+  @Override
+  public String toString() {
+
+    StringBuffer buf = new StringBuffer();
+
+    buf.append(getSimpleGregorianDateString())
+
+        .append(" | ")
+
+        .append(getChinese(DAY_OF_WEEK))
+
+        .append(" | [农历]")
+
+        .append(getChineseDateString())
+
+        .append(" ")
+
+        .append(getChinese(CHINESE_ANIMAL))
+
+        .append("年 ")
+
+        .append(get(CHINESE_SECTIONAL_TERM))
+
+        .append("日")
+
+        .append(getChinese(CHINESE_SECTIONAL_TERM))
+
+        .append(" ")
+
+        .append(get(CHINESE_PRINCIPLE_TERM))
+
+        .append("日")
+
+        .append(getChinese(CHINESE_PRINCIPLE_TERM));
+
+    return buf.toString();
+
+  }
+
+  /**
+   * 判断是不是农历属性
+   *
+   * @param field
+   * @return
+   */
+
+  private boolean isChineseField(int field) {
+
+    switch (field) {
+
+      case CHINESE_YEAR:
+
+      case CHINESE_MONTH:
+
+      case CHINESE_DATE:
+
+      case CHINESE_SECTIONAL_TERM:
+
+      case CHINESE_PRINCIPLE_TERM:
+
+      case CHINESE_HEAVENLY_STEM:
+
+      case CHINESE_EARTHLY_BRANCH:
+
+      case CHINESE_ANIMAL:
+
+        return true;
+
+      default:
+
+        return false;
+
+    }
+
+  }
+
+  /**
+   * 如果上一次设置的与这次将要设置或获取的属性不是同一类（农历/公历），<br>
+   * <p>
+   * 例如上一次设置的是农历而现在要设置或获取公历，<br>
+   * <p>
+   * 则需要先根据之前设置的农历日期计算出公历日期。
+   *
+   * @param field
+   */
+
+  private void computeIfNeed(int field) {
+
+    if (isChineseField(field)) {
+
+      if (!lastSetChinese && !areChineseFieldsComputed) {
+
+        super.complete();
 
         computeChineseFields();
 
-    }
+        areFieldsSet = true;
 
-    /**
-     * 使用公历日期计算出农历日期
-     */
+        areChineseFieldsComputed = true;
 
-    private void computeChineseFields() {
+        areSolarTermsComputed = false;
 
-        int gregorianYear = internalGet(Calendar.YEAR);
+      }
 
-        int gregorianMonth = internalGet(Calendar.MONTH) + 1;
+    } else {
 
-        int gregorianDate = internalGet(Calendar.DATE);
+      if (lastSetChinese && !areFieldsSet) {
 
-        if (gregorianYear < 1901 || gregorianYear > 2100) {
+        computeGregorianFields();
 
-            return;
+        super.complete();
 
-        }
+        areFieldsSet = true;
 
-        int startYear = baseYear;
+        areChineseFieldsComputed = true;
 
-        int startMonth = baseMonth;
+        areSolarTermsComputed = false;
 
-        int startDate = baseDate;
-
-        chineseYear = baseChineseYear;
-
-        chineseMonth = baseChineseMonth;
-
-        chineseDate = baseChineseDate;
-
-        // 第二个对应日，用以提高计算效率
-
-        // 公历 2000 年 1 月 1 日，对应农历 4697 年 11 月 25 日
-
-        if (gregorianYear >= 2000) {
-
-            startYear = baseYear + 99;
-
-            startMonth = 1;
-
-            startDate = 1;
-
-            chineseYear = baseChineseYear + 99;
-
-            chineseMonth = 11;
-
-            chineseDate = 25;
-
-        }
-
-        int daysDiff = 0;
-
-        for (int i = startYear; i < gregorianYear; i++) {
-
-            daysDiff += 365;
-
-            if (isGregorianLeapYear(i)) {
-
-                daysDiff += 1; // leap year
-
-            }
-
-        }
-
-        for (int i = startMonth; i < gregorianMonth; i++) {
-
-            daysDiff += daysInGregorianMonth(gregorianYear, i - 1);
-
-        }
-
-        daysDiff += gregorianDate - startDate;
-
-        chineseDate += daysDiff;
-
-        int lastDate = daysInChineseMonth(chineseYear, chineseMonth);
-
-        int nextMonth = nextChineseMonth(chineseYear, chineseMonth);
-
-        while (chineseDate > lastDate) {
-
-            if (Math.abs(nextMonth) < Math.abs(chineseMonth)) {
-
-                chineseYear++;
-
-            }
-
-            chineseMonth = nextMonth;
-
-            chineseDate -= lastDate;
-
-            lastDate = daysInChineseMonth(chineseYear, chineseMonth);
-
-            nextMonth = nextChineseMonth(chineseYear, chineseMonth);
-
-        }
+      }
 
     }
 
-    /**
-     * 计算节气
-     */
+  }
 
-    private void computeSolarTerms() {
+  /**
+   * 使用农历日期计算出公历日期
+   */
 
-        int gregorianYear = internalGet(Calendar.YEAR);
+  private void computeGregorianFields() {
 
-        int gregorianMonth = internalGet(Calendar.MONTH);
+    int y = chineseYear;
 
-        if (gregorianYear < 1901 || gregorianYear > 2100) {
+    int m = chineseMonth;
 
-            return;
+    int d = chineseDate;
 
-        }
+    areChineseFieldsComputed = true;
 
-        sectionalTerm = sectionalTerm(gregorianYear, gregorianMonth);
+    areFieldsSet = true;
 
-        principleTerm = principleTerm(gregorianYear, gregorianMonth);
+    lastSetChinese = false;
 
-    }
+    // 调整日期范围
 
-    // 接下来是静态方法~
+    if (y < 1900)
 
-    /**
-     * 是否为公历闰年
-     *
-     * @param year
-     * @return
-     */
+      y = 1899;
 
-    public static boolean isGregorianLeapYear(int year) {
+    else if (y > 2100)
 
-        boolean isLeap = false;
+      y = 2101;
 
-        if (year % 4 == 0) {
+    if (m < -12)
 
-            isLeap = true;
+      m = -12;
 
-        }
+    else if (m > 12)
 
-        if (year % 100 == 0) {
+      m = 12;
 
-            isLeap = false;
+    if (d < 1)
 
-        }
+      d = 1;
 
-        if (year % 400 == 0) {
+    else if (d > 30)
 
-            isLeap = true;
+      d = 30;
 
-        }
+    int dateint = y * 10000 + Math.abs(m) * 100 + d;
 
-        return isLeap;
+    if (dateint < 19001111) { // 太小
 
-    }
+      set(1901, Calendar.JANUARY, 1);
 
-    /**
-     * 计算公历年的当月天数，公历月从0起始！
-     *
-     * @param y
-     * @param m
-     * @return
-     */
+      super.complete();
 
-    public static int daysInGregorianMonth(int y, int m) {
+    } else if (dateint > 21001201) { // 太大
 
-        int d = daysInGregorianMonth[m];
+      set(2100, Calendar.DECEMBER, 31);
 
-        if (m == Calendar.FEBRUARY && isGregorianLeapYear(y)) {
+      super.complete();
 
-            d++; // 公历闰年二月多一天
+    } else {
 
-        }
+      if (Math.abs(m) > 12) {
 
-        return d;
+        m = 12;
 
-    }
+      }
 
-    /**
-     * 计算公历年当月的节气，公历月从0起始！
-     *
-     * @param y
-     * @param m
-     * @return
-     */
+      int days = ChineseCalendar.daysInChineseMonth(y, m);
 
-    public static int sectionalTerm(int y, int m) {
+      if (days == 0) {
 
-        m++;
+        m = -m;
 
-        if (y < 1901 || y > 2100) {
+        days = ChineseCalendar.daysInChineseMonth(y, m);
 
-            return 0;
+      }
 
-        }
+      if (d > days) {
 
-        int index = 0;
+        d = days;
 
-        int ry = y - baseYear + 1;
+      }
 
-        while (ry >= sectionalTermYear[m - 1][index]) {
+      set(y, Math.abs(m) - 1, d);
 
-            index++;
+      computeChineseFields();
 
-        }
+      int amount = 0;
 
-        int term = sectionalTermMap[m - 1][4 * index + ry % 4];
+      while (chineseYear != y || chineseMonth != m) {
 
-        if ((ry == 121) && (m == 4)) {
+        amount += daysInChineseMonth(chineseYear, chineseMonth);
 
-            term = 5;
+        chineseMonth = nextChineseMonth(chineseYear, chineseMonth);
 
-        }
+      }
 
-        if ((ry == 132) && (m == 4)) {
+      amount += d - chineseDate;
 
-            term = 5;
-
-        }
-
-        if ((ry == 194) && (m == 6)) {
-
-            term = 6;
-
-        }
-
-        return term;
+      super.add(Calendar.DATE, amount);
 
     }
 
-    /**
-     * 计算公历年当月的中气，公历月从0起始！
-     *
-     * @param y
-     * @param m
-     * @return
-     */
+    computeChineseFields();
 
-    public static int principleTerm(int y, int m) {
+  }
 
-        m++;
+  /**
+   * 使用公历日期计算出农历日期
+   */
 
-        if (y < 1901 || y > 2100) {
+  private void computeChineseFields() {
 
-            return 0;
+    int gregorianYear = internalGet(Calendar.YEAR);
 
-        }
+    int gregorianMonth = internalGet(Calendar.MONTH) + 1;
 
-        int index = 0;
+    int gregorianDate = internalGet(Calendar.DATE);
 
-        int ry = y - baseYear + 1;
+    if (gregorianYear < 1901 || gregorianYear > 2100) {
 
-        while (ry >= principleTermYear[m - 1][index]) {
-
-            index++;
-
-        }
-
-        int term = principleTermMap[m - 1][4 * index + ry % 4];
-
-        if ((ry == 171) && (m == 3)) {
-
-            term = 21;
-
-        }
-
-        if ((ry == 181) && (m == 5)) {
-
-            term = 21;
-
-        }
-
-        return term;
+      return;
 
     }
 
-    /**
-     * 计算农历年的天数
-     *
-     * @param y
-     * @param m
-     * @return
-     */
+    int startYear = baseYear;
 
-    public static int daysInChineseMonth(int y, int m) {
+    int startMonth = baseMonth;
 
-        // 注意：闰月 m < 0
+    int startDate = baseDate;
 
-        int index = y - baseChineseYear + baseIndex;
+    chineseYear = baseChineseYear;
 
-        int v = 0;
+    chineseMonth = baseChineseMonth;
 
-        int l = 0;
+    chineseDate = baseChineseDate;
 
-        int d = 30;
+    // 第二个对应日，用以提高计算效率
 
-        if (1 <= m && m <= 8) {
+    // 公历 2000 年 1 月 1 日，对应农历 4697 年 11 月 25 日
 
-            v = chineseMonths[2 * index];
+    if (gregorianYear >= 2000) {
 
-            l = m - 1;
+      startYear = baseYear + 99;
 
-            if (((v >> l) & 0x01) == 1) {
+      startMonth = 1;
 
-                d = 29;
+      startDate = 1;
 
-            }
+      chineseYear = baseChineseYear + 99;
 
-        } else if (9 <= m && m <= 12) {
+      chineseMonth = 11;
 
-            v = chineseMonths[2 * index + 1];
-
-            l = m - 9;
-
-            if (((v >> l) & 0x01) == 1) {
-
-                d = 29;
-
-            }
-
-        } else {
-
-            v = chineseMonths[2 * index + 1];
-
-            v = (v >> 4) & 0x0F;
-
-            if (v != Math.abs(m)) {
-
-                d = 0;
-
-            } else {
-
-                d = 29;
-
-                for (int i = 0; i < bigLeapMonthYears.length; i++) {
-
-                    if (bigLeapMonthYears[i] == index) {
-
-                        d = 30;
-
-                        break;
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        return d;
+      chineseDate = 25;
 
     }
 
-    /**
-     * 计算农历的下个月
-     *
-     * @param y
-     * @param m
-     * @return
-     */
+    int daysDiff = 0;
 
-    public static int nextChineseMonth(int y, int m) {
+    for (int i = startYear; i < gregorianYear; i++) {
 
-        int n = Math.abs(m) + 1;
+      daysDiff += 365;
 
-        if (m > 0) {
+      if (isGregorianLeapYear(i)) {
 
-            int index = y - baseChineseYear + baseIndex;
+        daysDiff += 1; // leap year
 
-            int v = chineseMonths[2 * index + 1];
-
-            v = (v >> 4) & 0x0F;
-
-            if (v == m) {
-
-                n = -m;
-
-            }
-
-        }
-
-        if (n == 13) {
-
-            n = 1;
-
-        }
-
-        return n;
+      }
 
     }
 
-    /* 日历第一天的日期 */
+    for (int i = startMonth; i < gregorianMonth; i++) {
 
-    private static final int baseYear = 1901;
+      daysDiff += daysInGregorianMonth(gregorianYear, i - 1);
 
-    private static final int baseMonth = 1;
+    }
 
-    private static final int baseDate = 1;
+    daysDiff += gregorianDate - startDate;
 
-    private static final int baseIndex = 0;
+    chineseDate += daysDiff;
 
-    private static final int baseChineseYear = 1900;
+    int lastDate = daysInChineseMonth(chineseYear, chineseMonth);
 
-    private static final int baseChineseMonth = 11;
+    int nextMonth = nextChineseMonth(chineseYear, chineseMonth);
 
-    private static final int baseChineseDate = 11;
+    while (chineseDate > lastDate) {
 
-    /* 中文字符串 */
+      if (Math.abs(nextMonth) < Math.abs(chineseMonth)) {
 
-    private static final String[] chineseWeekNames = {"", "星期日", "星期一", "星期二",
+        chineseYear++;
 
-            "星期三", "星期四", "星期五", "星期六"};
+      }
 
-    private static final String[] chineseMonthNames = {"", "正", "二", "三", "四",
+      chineseMonth = nextMonth;
 
-            "五", "六", "七", "八", "九", "十", "冬", "腊"};
+      chineseDate -= lastDate;
 
-    private static final String[] chineseDateNames = {"", "初一", "初二", "初三",
+      lastDate = daysInChineseMonth(chineseYear, chineseMonth);
 
-            "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四",
+      nextMonth = nextChineseMonth(chineseYear, chineseMonth);
 
-            "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五",
+    }
 
-            "廿六", "廿七", "廿八", "廿九", "三十"};
+  }
 
-    private static final String[] principleTermNames = {"大寒", "雨水", "春分",
+  /**
+   * 计算节气
+   */
 
-            "谷雨", "夏满", "夏至", "大暑", "处暑", "秋分", "霜降", "小雪", "冬至"};
+  private void computeSolarTerms() {
 
-    private static final String[] sectionalTermNames = {"小寒", "立春", "惊蛰",
+    int gregorianYear = internalGet(Calendar.YEAR);
 
-            "清明", "立夏", "芒种", "小暑", "立秋", "白露", "寒露", "立冬", "大雪"};
+    int gregorianMonth = internalGet(Calendar.MONTH);
 
-    private static final String[] stemNames = {"", "甲", "乙", "丙", "丁", "戊",
+    if (gregorianYear < 1901 || gregorianYear > 2100) {
 
-            "己", "庚", "辛", "壬", "癸"};
+      return;
 
-    private static final String[] branchNames = {"", "子", "丑", "寅", "卯", "辰",
+    }
 
-            "巳", "午", "未", "申", "酉", "戌", "亥"};
+    sectionalTerm = sectionalTerm(gregorianYear, gregorianMonth);
 
-    private static final String[] animalNames = {"", "鼠", "牛", "虎", "兔", "龙",
+    principleTerm = principleTerm(gregorianYear, gregorianMonth);
 
-            "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
+  }
 
-    // 接下来是数据表
+  // 接下来是静态方法~
 
-    private static final int[] bigLeapMonthYears = {6, 14, 19, 25, 33, 36, 38,
+  /**
+   * 是否为公历闰年
+   *
+   * @param year
+   * @return
+   */
 
-            41, 44, 52, 55, 79, 117, 136, 147, 150, 155, 158, 185, 193};
+  public static boolean isGregorianLeapYear(int year) {
 
-    private static final char[][] sectionalTermMap = {
+    boolean isLeap = false;
 
-            {7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 5, 5,
+    if (year % 4 == 0) {
 
-                    5, 5, 5, 4, 5, 5},
+      isLeap = true;
 
-            {5, 4, 5, 5, 5, 4, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 3,
+    }
 
-                    3, 4, 4, 3, 3, 3},
+    if (year % 100 == 0) {
 
-            {6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 6, 5, 5,
+      isLeap = false;
 
-                    5, 5, 4, 5, 5, 5, 5},
+    }
 
-            {5, 5, 6, 6, 5, 5, 5, 6, 5, 5, 5, 5, 4, 5, 5, 5, 4, 4, 5, 5, 4, 4,
+    if (year % 400 == 0) {
 
-                    4, 5, 4, 4, 4, 4, 5},
+      isLeap = true;
 
-            {6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 6, 5, 5,
+    }
 
-                    5, 5, 4, 5, 5, 5, 5},
+    return isLeap;
 
-            {6, 6, 7, 7, 6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5,
+  }
 
-                    5, 6, 5, 5, 5, 5, 4, 5, 5, 5, 5},
+  /**
+   * 计算公历年的当月天数，公历月从0起始！
+   *
+   * @param y
+   * @param m
+   * @return
+   */
 
-            {7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7, 7, 7, 6, 6,
+  public static int daysInGregorianMonth(int y, int m) {
 
-                    7, 7, 6, 6, 6, 7, 7},
+    int d = daysInGregorianMonth[m];
 
-            {8, 8, 8, 9, 8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7,
+    if (m == Calendar.FEBRUARY && isGregorianLeapYear(y)) {
 
-                    7, 7, 6, 7, 7, 7, 6, 6, 7, 7, 7},
+      d++; // 公历闰年二月多一天
 
-            {8, 8, 8, 9, 8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7,
+    }
 
-                    7, 7, 6, 7, 7, 7, 7},
+    return d;
 
-            {9, 9, 9, 9, 8, 9, 9, 9, 8, 8, 9, 9, 8, 8, 8, 9, 8, 8, 8, 8, 7, 8,
+  }
 
-                    8, 8, 7, 7, 8, 8, 8},
+  /**
+   * 计算公历年当月的节气，公历月从0起始！
+   *
+   * @param y
+   * @param m
+   * @return
+   */
 
-            {8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7,
+  public static int sectionalTerm(int y, int m) {
 
-                    7, 7, 6, 6, 7, 7, 7},
+    m++;
 
-            {7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7, 7, 7, 6, 6,
+    if (y < 1901 || y > 2100) {
 
-                    7, 7, 6, 6, 6, 7, 7}};
+      return 0;
 
-    private static final char[][] sectionalTermYear = {
+    }
 
-            {13, 49, 85, 117, 149, 185, 201, 250, 250},
+    int index = 0;
 
-            {13, 45, 81, 117, 149, 185, 201, 250, 250},
+    int ry = y - baseYear + 1;
 
-            {13, 48, 84, 112, 148, 184, 200, 201, 250},
+    while (ry >= sectionalTermYear[m - 1][index]) {
 
-            {13, 45, 76, 108, 140, 172, 200, 201, 250},
+      index++;
 
-            {13, 44, 72, 104, 132, 168, 200, 201, 250},
+    }
 
-            {5, 33, 68, 96, 124, 152, 188, 200, 201},
+    int term = sectionalTermMap[m - 1][4 * index + ry % 4];
 
-            {29, 57, 85, 120, 148, 176, 200, 201, 250},
+    if ((ry == 121) && (m == 4)) {
 
-            {13, 48, 76, 104, 132, 168, 196, 200, 201},
+      term = 5;
 
-            {25, 60, 88, 120, 148, 184, 200, 201, 250},
+    }
 
-            {16, 44, 76, 108, 144, 172, 200, 201, 250},
+    if ((ry == 132) && (m == 4)) {
 
-            {28, 60, 92, 124, 160, 192, 200, 201, 250},
+      term = 5;
 
-            {17, 53, 85, 124, 156, 188, 200, 201, 250}};
+    }
 
-    private static final char[][] principleTermMap = {
+    if ((ry == 194) && (m == 6)) {
 
-            {21, 21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20,
+      term = 6;
 
-                    20, 20, 20, 20, 20, 19, 20, 20, 20, 19, 19, 20},
+    }
 
-            {20, 19, 19, 20, 20, 19, 19, 19, 19, 19, 19, 19, 19, 18, 19, 19,
+    return term;
 
-                    19, 18, 18, 19, 19, 18, 18, 18, 18, 18, 18, 18},
+  }
 
-            {21, 21, 21, 22, 21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21,
+  /**
+   * 计算公历年当月的中气，公历月从0起始！
+   *
+   * @param y
+   * @param m
+   * @return
+   */
 
-                    20, 20, 20, 21, 20, 20, 20, 20, 19, 20, 20, 20, 20},
+  public static int principleTerm(int y, int m) {
 
-            {20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20, 21, 20, 20, 20, 20,
+    m++;
 
-                    19, 20, 20, 20, 19, 19, 20, 20, 19, 19, 19, 20, 20},
+    if (y < 1901 || y > 2100) {
 
-            {21, 22, 22, 22, 21, 21, 22, 22, 21, 21, 21, 22, 21, 21, 21, 21,
+      return 0;
 
-                    20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20, 21, 21},
+    }
 
-            {22, 22, 22, 22, 21, 22, 22, 22, 21, 21, 22, 22, 21, 21, 21, 22,
+    int index = 0;
 
-                    21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21, 21},
+    int ry = y - baseYear + 1;
 
-            {23, 23, 24, 24, 23, 23, 23, 24, 23, 23, 23, 23, 22, 23, 23, 23,
+    while (ry >= principleTermYear[m - 1][index]) {
 
-                    22, 22, 23, 23, 22, 22, 22, 23, 22, 22, 22, 22, 23},
+      index++;
 
-            {23, 24, 24, 24, 23, 23, 24, 24, 23, 23, 23, 24, 23, 23, 23, 23,
+    }
 
-                    22, 23, 23, 23, 22, 22, 23, 23, 22, 22, 22, 23, 23},
+    int term = principleTermMap[m - 1][4 * index + ry % 4];
 
-            {23, 24, 24, 24, 23, 23, 24, 24, 23, 23, 23, 24, 23, 23, 23, 23,
+    if ((ry == 171) && (m == 3)) {
 
-                    22, 23, 23, 23, 22, 22, 23, 23, 22, 22, 22, 23, 23},
+      term = 21;
 
-            {24, 24, 24, 24, 23, 24, 24, 24, 23, 23, 24, 24, 23, 23, 23, 24,
+    }
 
-                    23, 23, 23, 23, 22, 23, 23, 23, 22, 22, 23, 23, 23},
+    if ((ry == 181) && (m == 5)) {
 
-            {23, 23, 23, 23, 22, 23, 23, 23, 22, 22, 23, 23, 22, 22, 22, 23,
+      term = 21;
 
-                    22, 22, 22, 22, 21, 22, 22, 22, 21, 21, 22, 22, 22},
+    }
 
-            {22, 22, 23, 23, 22, 22, 22, 23, 22, 22, 22, 22, 21, 22, 22, 22,
+    return term;
 
-                    21, 21, 22, 22, 21, 21, 21, 22, 21, 21, 21, 21, 22}};
+  }
 
-    private static final char[][] principleTermYear = {
+  /**
+   * 计算农历年的天数
+   *
+   * @param y
+   * @param m
+   * @return
+   */
 
-            {13, 45, 81, 113, 149, 185, 201},
+  public static int daysInChineseMonth(int y, int m) {
 
-            {21, 57, 93, 125, 161, 193, 201},
+    // 注意：闰月 m < 0
 
-            {21, 56, 88, 120, 152, 188, 200, 201},
+    int index = y - baseChineseYear + baseIndex;
 
-            {21, 49, 81, 116, 144, 176, 200, 201},
+    int v = 0;
 
-            {17, 49, 77, 112, 140, 168, 200, 201},
+    int l = 0;
 
-            {28, 60, 88, 116, 148, 180, 200, 201},
+    int d = 30;
 
-            {25, 53, 84, 112, 144, 172, 200, 201},
+    if (1 <= m && m <= 8) {
 
-            {29, 57, 89, 120, 148, 180, 200, 201},
+      v = chineseMonths[2 * index];
 
-            {17, 45, 73, 108, 140, 168, 200, 201},
+      l = m - 1;
 
-            {28, 60, 92, 124, 160, 192, 200, 201},
+      if (((v >> l) & 0x01) == 1) {
 
-            {16, 44, 80, 112, 148, 180, 200, 201},
+        d = 29;
 
-            {17, 53, 88, 120, 156, 188, 200, 201}};
+      }
 
-    private static final char[] daysInGregorianMonth = {31, 28, 31, 30, 31,
+    } else if (9 <= m && m <= 12) {
 
-            30, 31, 31, 30, 31, 30, 31};
+      v = chineseMonths[2 * index + 1];
 
-    private static final char[] chineseMonths = {0x00, 0x04, 0xad, 0x08, 0x5a,
+      l = m - 9;
 
-            0x01, 0xd5, 0x54, 0xb4, 0x09, 0x64, 0x05, 0x59, 0x45, 0x95, 0x0a,
+      if (((v >> l) & 0x01) == 1) {
 
-            0xa6, 0x04, 0x55, 0x24, 0xad, 0x08, 0x5a, 0x62, 0xda, 0x04, 0xb4,
+        d = 29;
 
-            0x05, 0xb4, 0x55, 0x52, 0x0d, 0x94, 0x0a, 0x4a, 0x2a, 0x56, 0x02,
+      }
 
-            0x6d, 0x71, 0x6d, 0x01, 0xda, 0x02, 0xd2, 0x52, 0xa9, 0x05, 0x49,
+    } else {
 
-            0x0d, 0x2a, 0x45, 0x2b, 0x09, 0x56, 0x01, 0xb5, 0x20, 0x6d, 0x01,
+      v = chineseMonths[2 * index + 1];
 
-            0x59, 0x69, 0xd4, 0x0a, 0xa8, 0x05, 0xa9, 0x56, 0xa5, 0x04, 0x2b,
+      v = (v >> 4) & 0x0F;
 
-            0x09, 0x9e, 0x38, 0xb6, 0x08, 0xec, 0x74, 0x6c, 0x05, 0xd4, 0x0a,
+      if (v != Math.abs(m)) {
 
-            0xe4, 0x6a, 0x52, 0x05, 0x95, 0x0a, 0x5a, 0x42, 0x5b, 0x04, 0xb6,
+        d = 0;
 
-            0x04, 0xb4, 0x22, 0x6a, 0x05, 0x52, 0x75, 0xc9, 0x0a, 0x52, 0x05,
+      } else {
 
-            0x35, 0x55, 0x4d, 0x0a, 0x5a, 0x02, 0x5d, 0x31, 0xb5, 0x02, 0x6a,
+        d = 29;
 
-            0x8a, 0x68, 0x05, 0xa9, 0x0a, 0x8a, 0x6a, 0x2a, 0x05, 0x2d, 0x09,
+        for (int i = 0; i < bigLeapMonthYears.length; i++) {
 
-            0xaa, 0x48, 0x5a, 0x01, 0xb5, 0x09, 0xb0, 0x39, 0x64, 0x05, 0x25,
+          if (bigLeapMonthYears[i] == index) {
 
-            0x75, 0x95, 0x0a, 0x96, 0x04, 0x4d, 0x54, 0xad, 0x04, 0xda, 0x04,
+            d = 30;
 
-            0xd4, 0x44, 0xb4, 0x05, 0x54, 0x85, 0x52, 0x0d, 0x92, 0x0a, 0x56,
+            break;
 
-            0x6a, 0x56, 0x02, 0x6d, 0x02, 0x6a, 0x41, 0xda, 0x02, 0xb2, 0xa1,
+          }
 
-            0xa9, 0x05, 0x49, 0x0d, 0x0a, 0x6d, 0x2a, 0x09, 0x56, 0x01, 0xad,
+        }
 
-            0x50, 0x6d, 0x01, 0xd9, 0x02, 0xd1, 0x3a, 0xa8, 0x05, 0x29, 0x85,
+      }
 
-            0xa5, 0x0c, 0x2a, 0x09, 0x96, 0x54, 0xb6, 0x08, 0x6c, 0x09, 0x64,
+    }
 
-            0x45, 0xd4, 0x0a, 0xa4, 0x05, 0x51, 0x25, 0x95, 0x0a, 0x2a, 0x72,
+    return d;
 
-            0x5b, 0x04, 0xb6, 0x04, 0xac, 0x52, 0x6a, 0x05, 0xd2, 0x0a, 0xa2,
+  }
 
-            0x4a, 0x4a, 0x05, 0x55, 0x94, 0x2d, 0x0a, 0x5a, 0x02, 0x75, 0x61,
+  /**
+   * 计算农历的下个月
+   *
+   * @param y
+   * @param m
+   * @return
+   */
 
-            0xb5, 0x02, 0x6a, 0x03, 0x61, 0x45, 0xa9, 0x0a, 0x4a, 0x05, 0x25,
+  public static int nextChineseMonth(int y, int m) {
 
-            0x25, 0x2d, 0x09, 0x9a, 0x68, 0xda, 0x08, 0xb4, 0x09, 0xa8, 0x59,
+    int n = Math.abs(m) + 1;
 
-            0x54, 0x03, 0xa5, 0x0a, 0x91, 0x3a, 0x96, 0x04, 0xad, 0xb0, 0xad,
+    if (m > 0) {
 
-            0x04, 0xda, 0x04, 0xf4, 0x62, 0xb4, 0x05, 0x54, 0x0b, 0x44, 0x5d,
+      int index = y - baseChineseYear + baseIndex;
 
-            0x52, 0x0a, 0x95, 0x04, 0x55, 0x22, 0x6d, 0x02, 0x5a, 0x71, 0xda,
+      int v = chineseMonths[2 * index + 1];
 
-            0x02, 0xaa, 0x05, 0xb2, 0x55, 0x49, 0x0b, 0x4a, 0x0a, 0x2d, 0x39,
+      v = (v >> 4) & 0x0F;
 
-            0x36, 0x01, 0x6d, 0x80, 0x6d, 0x01, 0xd9, 0x02, 0xe9, 0x6a, 0xa8,
+      if (v == m) {
 
-            0x05, 0x29, 0x0b, 0x9a, 0x4c, 0xaa, 0x08, 0xb6, 0x08, 0xb4, 0x38,
+        n = -m;
 
-            0x6c, 0x09, 0x54, 0x75, 0xd4, 0x0a, 0xa4, 0x05, 0x45, 0x55, 0x95,
+      }
 
-            0x0a, 0x9a, 0x04, 0x55, 0x44, 0xb5, 0x04, 0x6a, 0x82, 0x6a, 0x05,
+    }
 
-            0xd2, 0x0a, 0x92, 0x6a, 0x4a, 0x05, 0x55, 0x0a, 0x2a, 0x4a, 0x5a,
+    if (n == 13) {
 
-            0x02, 0xb5, 0x02, 0xb2, 0x31, 0x69, 0x03, 0x31, 0x73, 0xa9, 0x0a,
+      n = 1;
 
-            0x4a, 0x05, 0x2d, 0x55, 0x2d, 0x09, 0x5a, 0x01, 0xd5, 0x48, 0xb4,
+    }
 
-            0x09, 0x68, 0x89, 0x54, 0x0b, 0xa4, 0x0a, 0xa5, 0x6a, 0x95, 0x04,
+    return n;
 
-            0xad, 0x08, 0x6a, 0x44, 0xda, 0x04, 0x74, 0x05, 0xb0, 0x25, 0x54,
+  }
 
-            0x03};
+  /* 日历第一天的日期 */
+
+  private static final int baseYear = 1901;
+
+  private static final int baseMonth = 1;
+
+  private static final int baseDate = 1;
+
+  private static final int baseIndex = 0;
+
+  private static final int baseChineseYear = 1900;
+
+  private static final int baseChineseMonth = 11;
+
+  private static final int baseChineseDate = 11;
+
+  /* 中文字符串 */
+
+  private static final String[] chineseWeekNames = {"", "星期日", "星期一", "星期二",
+
+      "星期三", "星期四", "星期五", "星期六"};
+
+  private static final String[] chineseMonthNames = {"", "正", "二", "三", "四",
+
+      "五", "六", "七", "八", "九", "十", "冬", "腊"};
+
+  private static final String[] chineseDateNames = {"", "初一", "初二", "初三",
+
+      "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四",
+
+      "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五",
+
+      "廿六", "廿七", "廿八", "廿九", "三十"};
+
+  private static final String[] principleTermNames = {"大寒", "雨水", "春分",
+
+      "谷雨", "夏满", "夏至", "大暑", "处暑", "秋分", "霜降", "小雪", "冬至"};
+
+  private static final String[] sectionalTermNames = {"小寒", "立春", "惊蛰",
+
+      "清明", "立夏", "芒种", "小暑", "立秋", "白露", "寒露", "立冬", "大雪"};
+
+  private static final String[] stemNames = {"", "甲", "乙", "丙", "丁", "戊",
+
+      "己", "庚", "辛", "壬", "癸"};
+
+  private static final String[] branchNames = {"", "子", "丑", "寅", "卯", "辰",
+
+      "巳", "午", "未", "申", "酉", "戌", "亥"};
+
+  private static final String[] animalNames = {"", "鼠", "牛", "虎", "兔", "龙",
+
+      "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
+
+  // 接下来是数据表
+
+  private static final int[] bigLeapMonthYears = {6, 14, 19, 25, 33, 36, 38,
+
+      41, 44, 52, 55, 79, 117, 136, 147, 150, 155, 158, 185, 193};
+
+  private static final char[][] sectionalTermMap = {
+
+      {7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 5, 5,
+
+          5, 5, 5, 4, 5, 5},
+
+      {5, 4, 5, 5, 5, 4, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 3,
+
+          3, 4, 4, 3, 3, 3},
+
+      {6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 6, 5, 5,
+
+          5, 5, 4, 5, 5, 5, 5},
+
+      {5, 5, 6, 6, 5, 5, 5, 6, 5, 5, 5, 5, 4, 5, 5, 5, 4, 4, 5, 5, 4, 4,
+
+          4, 5, 4, 4, 4, 4, 5},
+
+      {6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 6, 5, 5,
+
+          5, 5, 4, 5, 5, 5, 5},
+
+      {6, 6, 7, 7, 6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5,
+
+          5, 6, 5, 5, 5, 5, 4, 5, 5, 5, 5},
+
+      {7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7, 7, 7, 6, 6,
+
+          7, 7, 6, 6, 6, 7, 7},
+
+      {8, 8, 8, 9, 8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7,
+
+          7, 7, 6, 7, 7, 7, 6, 6, 7, 7, 7},
+
+      {8, 8, 8, 9, 8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7,
+
+          7, 7, 6, 7, 7, 7, 7},
+
+      {9, 9, 9, 9, 8, 9, 9, 9, 8, 8, 9, 9, 8, 8, 8, 9, 8, 8, 8, 8, 7, 8,
+
+          8, 8, 7, 7, 8, 8, 8},
+
+      {8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7,
+
+          7, 7, 6, 6, 7, 7, 7},
+
+      {7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7, 7, 7, 6, 6,
+
+          7, 7, 6, 6, 6, 7, 7}};
+
+  private static final char[][] sectionalTermYear = {
+
+      {13, 49, 85, 117, 149, 185, 201, 250, 250},
+
+      {13, 45, 81, 117, 149, 185, 201, 250, 250},
+
+      {13, 48, 84, 112, 148, 184, 200, 201, 250},
+
+      {13, 45, 76, 108, 140, 172, 200, 201, 250},
+
+      {13, 44, 72, 104, 132, 168, 200, 201, 250},
+
+      {5, 33, 68, 96, 124, 152, 188, 200, 201},
+
+      {29, 57, 85, 120, 148, 176, 200, 201, 250},
+
+      {13, 48, 76, 104, 132, 168, 196, 200, 201},
+
+      {25, 60, 88, 120, 148, 184, 200, 201, 250},
+
+      {16, 44, 76, 108, 144, 172, 200, 201, 250},
+
+      {28, 60, 92, 124, 160, 192, 200, 201, 250},
+
+      {17, 53, 85, 124, 156, 188, 200, 201, 250}};
+
+  private static final char[][] principleTermMap = {
+
+      {21, 21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20,
+
+          20, 20, 20, 20, 20, 19, 20, 20, 20, 19, 19, 20},
+
+      {20, 19, 19, 20, 20, 19, 19, 19, 19, 19, 19, 19, 19, 18, 19, 19,
+
+          19, 18, 18, 19, 19, 18, 18, 18, 18, 18, 18, 18},
+
+      {21, 21, 21, 22, 21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21,
+
+          20, 20, 20, 21, 20, 20, 20, 20, 19, 20, 20, 20, 20},
+
+      {20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20, 21, 20, 20, 20, 20,
+
+          19, 20, 20, 20, 19, 19, 20, 20, 19, 19, 19, 20, 20},
+
+      {21, 22, 22, 22, 21, 21, 22, 22, 21, 21, 21, 22, 21, 21, 21, 21,
+
+          20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20, 21, 21},
+
+      {22, 22, 22, 22, 21, 22, 22, 22, 21, 21, 22, 22, 21, 21, 21, 22,
+
+          21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21, 21},
+
+      {23, 23, 24, 24, 23, 23, 23, 24, 23, 23, 23, 23, 22, 23, 23, 23,
+
+          22, 22, 23, 23, 22, 22, 22, 23, 22, 22, 22, 22, 23},
+
+      {23, 24, 24, 24, 23, 23, 24, 24, 23, 23, 23, 24, 23, 23, 23, 23,
+
+          22, 23, 23, 23, 22, 22, 23, 23, 22, 22, 22, 23, 23},
+
+      {23, 24, 24, 24, 23, 23, 24, 24, 23, 23, 23, 24, 23, 23, 23, 23,
+
+          22, 23, 23, 23, 22, 22, 23, 23, 22, 22, 22, 23, 23},
+
+      {24, 24, 24, 24, 23, 24, 24, 24, 23, 23, 24, 24, 23, 23, 23, 24,
+
+          23, 23, 23, 23, 22, 23, 23, 23, 22, 22, 23, 23, 23},
+
+      {23, 23, 23, 23, 22, 23, 23, 23, 22, 22, 23, 23, 22, 22, 22, 23,
+
+          22, 22, 22, 22, 21, 22, 22, 22, 21, 21, 22, 22, 22},
+
+      {22, 22, 23, 23, 22, 22, 22, 23, 22, 22, 22, 22, 21, 22, 22, 22,
+
+          21, 21, 22, 22, 21, 21, 21, 22, 21, 21, 21, 21, 22}};
+
+  private static final char[][] principleTermYear = {
+
+      {13, 45, 81, 113, 149, 185, 201},
+
+      {21, 57, 93, 125, 161, 193, 201},
+
+      {21, 56, 88, 120, 152, 188, 200, 201},
+
+      {21, 49, 81, 116, 144, 176, 200, 201},
+
+      {17, 49, 77, 112, 140, 168, 200, 201},
+
+      {28, 60, 88, 116, 148, 180, 200, 201},
+
+      {25, 53, 84, 112, 144, 172, 200, 201},
+
+      {29, 57, 89, 120, 148, 180, 200, 201},
+
+      {17, 45, 73, 108, 140, 168, 200, 201},
+
+      {28, 60, 92, 124, 160, 192, 200, 201},
+
+      {16, 44, 80, 112, 148, 180, 200, 201},
+
+      {17, 53, 88, 120, 156, 188, 200, 201}};
+
+  private static final char[] daysInGregorianMonth = {31, 28, 31, 30, 31,
+
+      30, 31, 31, 30, 31, 30, 31};
+
+  private static final char[] chineseMonths = {0x00, 0x04, 0xad, 0x08, 0x5a,
+
+      0x01, 0xd5, 0x54, 0xb4, 0x09, 0x64, 0x05, 0x59, 0x45, 0x95, 0x0a,
+
+      0xa6, 0x04, 0x55, 0x24, 0xad, 0x08, 0x5a, 0x62, 0xda, 0x04, 0xb4,
+
+      0x05, 0xb4, 0x55, 0x52, 0x0d, 0x94, 0x0a, 0x4a, 0x2a, 0x56, 0x02,
+
+      0x6d, 0x71, 0x6d, 0x01, 0xda, 0x02, 0xd2, 0x52, 0xa9, 0x05, 0x49,
+
+      0x0d, 0x2a, 0x45, 0x2b, 0x09, 0x56, 0x01, 0xb5, 0x20, 0x6d, 0x01,
+
+      0x59, 0x69, 0xd4, 0x0a, 0xa8, 0x05, 0xa9, 0x56, 0xa5, 0x04, 0x2b,
+
+      0x09, 0x9e, 0x38, 0xb6, 0x08, 0xec, 0x74, 0x6c, 0x05, 0xd4, 0x0a,
+
+      0xe4, 0x6a, 0x52, 0x05, 0x95, 0x0a, 0x5a, 0x42, 0x5b, 0x04, 0xb6,
+
+      0x04, 0xb4, 0x22, 0x6a, 0x05, 0x52, 0x75, 0xc9, 0x0a, 0x52, 0x05,
+
+      0x35, 0x55, 0x4d, 0x0a, 0x5a, 0x02, 0x5d, 0x31, 0xb5, 0x02, 0x6a,
+
+      0x8a, 0x68, 0x05, 0xa9, 0x0a, 0x8a, 0x6a, 0x2a, 0x05, 0x2d, 0x09,
+
+      0xaa, 0x48, 0x5a, 0x01, 0xb5, 0x09, 0xb0, 0x39, 0x64, 0x05, 0x25,
+
+      0x75, 0x95, 0x0a, 0x96, 0x04, 0x4d, 0x54, 0xad, 0x04, 0xda, 0x04,
+
+      0xd4, 0x44, 0xb4, 0x05, 0x54, 0x85, 0x52, 0x0d, 0x92, 0x0a, 0x56,
+
+      0x6a, 0x56, 0x02, 0x6d, 0x02, 0x6a, 0x41, 0xda, 0x02, 0xb2, 0xa1,
+
+      0xa9, 0x05, 0x49, 0x0d, 0x0a, 0x6d, 0x2a, 0x09, 0x56, 0x01, 0xad,
+
+      0x50, 0x6d, 0x01, 0xd9, 0x02, 0xd1, 0x3a, 0xa8, 0x05, 0x29, 0x85,
+
+      0xa5, 0x0c, 0x2a, 0x09, 0x96, 0x54, 0xb6, 0x08, 0x6c, 0x09, 0x64,
+
+      0x45, 0xd4, 0x0a, 0xa4, 0x05, 0x51, 0x25, 0x95, 0x0a, 0x2a, 0x72,
+
+      0x5b, 0x04, 0xb6, 0x04, 0xac, 0x52, 0x6a, 0x05, 0xd2, 0x0a, 0xa2,
+
+      0x4a, 0x4a, 0x05, 0x55, 0x94, 0x2d, 0x0a, 0x5a, 0x02, 0x75, 0x61,
+
+      0xb5, 0x02, 0x6a, 0x03, 0x61, 0x45, 0xa9, 0x0a, 0x4a, 0x05, 0x25,
+
+      0x25, 0x2d, 0x09, 0x9a, 0x68, 0xda, 0x08, 0xb4, 0x09, 0xa8, 0x59,
+
+      0x54, 0x03, 0xa5, 0x0a, 0x91, 0x3a, 0x96, 0x04, 0xad, 0xb0, 0xad,
+
+      0x04, 0xda, 0x04, 0xf4, 0x62, 0xb4, 0x05, 0x54, 0x0b, 0x44, 0x5d,
+
+      0x52, 0x0a, 0x95, 0x04, 0x55, 0x22, 0x6d, 0x02, 0x5a, 0x71, 0xda,
+
+      0x02, 0xaa, 0x05, 0xb2, 0x55, 0x49, 0x0b, 0x4a, 0x0a, 0x2d, 0x39,
+
+      0x36, 0x01, 0x6d, 0x80, 0x6d, 0x01, 0xd9, 0x02, 0xe9, 0x6a, 0xa8,
+
+      0x05, 0x29, 0x0b, 0x9a, 0x4c, 0xaa, 0x08, 0xb6, 0x08, 0xb4, 0x38,
+
+      0x6c, 0x09, 0x54, 0x75, 0xd4, 0x0a, 0xa4, 0x05, 0x45, 0x55, 0x95,
+
+      0x0a, 0x9a, 0x04, 0x55, 0x44, 0xb5, 0x04, 0x6a, 0x82, 0x6a, 0x05,
+
+      0xd2, 0x0a, 0x92, 0x6a, 0x4a, 0x05, 0x55, 0x0a, 0x2a, 0x4a, 0x5a,
+
+      0x02, 0xb5, 0x02, 0xb2, 0x31, 0x69, 0x03, 0x31, 0x73, 0xa9, 0x0a,
+
+      0x4a, 0x05, 0x2d, 0x55, 0x2d, 0x09, 0x5a, 0x01, 0xd5, 0x48, 0xb4,
+
+      0x09, 0x68, 0x89, 0x54, 0x0b, 0xa4, 0x0a, 0xa5, 0x6a, 0x95, 0x04,
+
+      0xad, 0x08, 0x6a, 0x44, 0xda, 0x04, 0x74, 0x05, 0xb0, 0x25, 0x54,
+
+      0x03};
 
 }

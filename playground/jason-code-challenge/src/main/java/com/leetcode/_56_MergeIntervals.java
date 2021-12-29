@@ -19,7 +19,7 @@ public class _56_MergeIntervals {
     LinkedList<int[]> merged = new LinkedList<>();
 
     for (int[] interval : intervals) {
-      
+
       if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
         merged.add(interval);
       } else {

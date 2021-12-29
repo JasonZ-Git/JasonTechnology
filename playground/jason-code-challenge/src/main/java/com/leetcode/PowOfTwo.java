@@ -18,18 +18,20 @@ public class PowOfTwo {
       start *= 2;
     }
   }
-  
+
   /** Best Solution */
   public static boolean isPowerOfTwo_1(int n) {
-    if (n <= 0) return false;
-    
+    if (n <= 0)
+      return false;
+
     return (n & (n - 1)) == 0;
   }
 
   /** Smart Solution */
   public static boolean isPowerOfTwo_2(int n) {
-    if (n <= 0) return false;
-    
+    if (n <= 0)
+      return false;
+
     return container.contains(n);
   }
 }

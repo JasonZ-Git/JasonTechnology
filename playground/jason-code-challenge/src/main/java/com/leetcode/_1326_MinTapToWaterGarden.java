@@ -19,7 +19,7 @@ public class _1326_MinTapToWaterGarden {
       rarr[i][0] = (i - ranges[i]) >= 0 ? i - ranges[i] : 0;
       rarr[i][1] = (i + ranges[i]) <= n ? i + ranges[i] : n;
     }
-    
+
     Arrays.sort(rarr, (a, b) -> Integer.compare(a[0], b[0]));
 
     int endAt = 0;
@@ -29,10 +29,10 @@ public class _1326_MinTapToWaterGarden {
       for (int i = 0; i < rarr.length && rarr[i][0] <= endAt; i++) {
         maxEndAt = Math.max(maxEndAt, rarr[i][1]);
       }
-      
+
       if (maxEndAt == -1 || maxEndAt == endAt)
         return -1;
-      
+
       tapCount++;
       endAt = maxEndAt;
     }

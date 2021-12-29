@@ -117,7 +117,7 @@ public final class JasonFileUtil {
       logger.error("Error writing file {}", outputFile, e);
     }
   }
-  
+
   public static JsonObject readJSON(@Nonnull final String jsonFile) throws IOException {
     Objects.requireNonNull(jsonFile);
     Parameters.requireTrue(jsonFile.endsWith(".json"));
@@ -127,11 +127,11 @@ public final class JasonFileUtil {
       pathJson = Paths.get(ClassLoader.getSystemResource(jsonFile).toURI());
     } catch (URISyntaxException e) {
       logger.error("Error reading file {}", jsonFile, e);
-      
+
       return null;
     }
-    
+
     JsonReader reader = Json.createReader(Files.newBufferedReader(pathJson));
     return reader.readObject();
-}
+  }
 }

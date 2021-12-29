@@ -6,7 +6,7 @@ package com.leetcode;
  * @author Jason Zhang
  */
 public class SheetTitleNumber {
-  
+
   public static int titleToNumber(String s) {
     int result = 0;
     for (int i = 0; i < s.length(); i++) {

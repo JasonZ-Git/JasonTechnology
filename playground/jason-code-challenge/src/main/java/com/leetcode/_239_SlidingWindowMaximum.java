@@ -5,13 +5,13 @@ package com.leetcode;
  * 
  * Description - https://leetcode.com/problems/sliding-window-maximum/
  * 
- * Key - Better way - sum[i+1] = sum[i] + nums[i+k] - num[i] 
+ * Key - Better way - sum[i+1] = sum[i] + nums[i+k] - num[i]
  * 
  * @author Jason Zhang
  *
  */
 public class _239_SlidingWindowMaximum {
-  
+
   public int[] maxSlidingWindow(int[] nums, int k) {
     int n = nums.length;
     if (n * k == 0)
