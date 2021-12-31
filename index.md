@@ -26,4 +26,4 @@
 
 [OpenSAML3 Code Example](./git-books/OpenSAML3.md)
 
-[AWS Simple](./git-books/AWS_Simple.md)
+[AWS Pricing Simple](./git-books/AWS_Pricing_Simple.md)
