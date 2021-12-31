@@ -5,17 +5,12 @@
 	<parent>
 		<groupId>org.jason</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>3.2</version>
+		<version>3.3</version>
 	</parent>
 
 	<artifactId>code-challenge</artifactId>
 
 	<name>Jason Code Challenge</name>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<powermock.version>1.4.10</powermock.version>
-	</properties>
 
 	<dependencies>
 		<dependency>

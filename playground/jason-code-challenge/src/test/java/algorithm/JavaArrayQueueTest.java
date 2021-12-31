@@ -39,7 +39,7 @@ public class JavaArrayQueueTest {
 
   @Test
   public void testPerformance() {
-    int size = (int) Math.pow(10l, 5l);
+    int size = (int) Math.pow(10l, 2l);
     JavaArrayQueue<Integer> queue = new JavaArrayQueue<Integer>();
 
     for (int index = 0; index < size; index++) {
@@ -49,6 +49,8 @@ public class JavaArrayQueueTest {
     for (int index = 0; index < size; index++) {
       queue.dequeue();
     }
+    
+    Assertions.assertEquals(0, queue.size());
 
   }
 }

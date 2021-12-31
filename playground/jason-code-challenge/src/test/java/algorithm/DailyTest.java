@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.util.stream.IntStream;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.Objects;
@@ -14,6 +15,6 @@ public class DailyTest {
 
     IntStream.rangeClosed(0, 0x10ffff).mapToObj(Character.UnicodeBlock::of).filter(Objects::nonNull).distinct().forEach(System.out::println);
 
-    System.out.println(charNumber);
+    Assertions.assertTrue(charNumber > 0);
   }
 }

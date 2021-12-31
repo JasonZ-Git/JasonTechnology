@@ -3,6 +3,8 @@
  */
 package org.jason.util.finalclass;
 
+import org.jason.annotation.ReplacedBy;
+
 /**
  * Two objects, this class is original a final class, later on there are some scenarios which required extend it(For example, T and U are of same type) So the final keyword is removed and it is
  * allowed to be extended.
@@ -12,6 +14,7 @@ package org.jason.util.finalclass;
  * @author Jason Zhang
  *
  */
+@ReplacedBy("org.apache.commons.lang3.tuple.Pair")
 public class Pair<T, U> {
   private final T left;
   private final U right;

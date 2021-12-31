@@ -2,6 +2,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.jason</groupId>
+		<artifactId>parent-pom</artifactId>
+		<version>3.3</version>
+	</parent>
+
+	<artifactId>jason-util</artifactId>
+
+	<name>Jason Util</name>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -12,18 +22,14 @@
 					<target>11</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-	<parent>
-		<groupId>org.jason</groupId>
-		<artifactId>parent-pom</artifactId>
-		<version>3.2</version>
-	</parent>
-
-	<artifactId>jason-util</artifactId>
-
-	<name>Jason Util</name>
-
 	<dependencies>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -50,24 +56,20 @@
 		<dependency>
 			<groupId>javax.json</groupId>
 			<artifactId>javax.json-api</artifactId>
-			<version>1.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.json</artifactId>
 			<scope>runtime</scope>
-			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.json.bind</groupId>
 			<artifactId>javax.json.bind-api</artifactId>
-			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>yasson</artifactId>
 			<scope>runtime</scope>
-			<version>1.0</version>
 		</dependency>
 
 		<dependency>
