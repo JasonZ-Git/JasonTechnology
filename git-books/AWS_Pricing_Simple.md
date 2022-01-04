@@ -14,6 +14,8 @@ All the price are of USD.
 | t3.micro | 2vCPU, 1GB memory |
 | gp3      | General Purpose SSD |
 | 1 ACU    | 2GB memory |
+| WCU      | 
+| RCU      |
 
 
 ## AWS Simple Price - In progress
@@ -30,12 +32,12 @@ All the price are of USD.
 | SQS | $0.40/million requests | Always - 1 million requests |
 | EBS | gp3 - $0.08/GB-month | |
 | EFS | standard storage - $0.3/GB-month | 12 months - 5 GB standard storage |
+| DynamoDB | storage $0.25/GB-mth <br/> $0.25/million RCU <br/> $1.25/million WCU used | always <br/> storage - free for first 25G-per-month <br/> -   |
+| DAX | |
+| CloudWatch | $0.30/metrics-month <br/> $3/dashboard-month <br/> $0.1/alarm-month <br/> $0.5/GB-month log | always free <br/> - Basic Monitoring Metrics <br/> - 1 detailed monitoring metrics <br/> - 10 Alarm metrics <br/> - 5GB Data Log <br/> 3 Dashboard and upto 50 metrics /month |
 | ECS | |
 | ELB | |
 | Route 53 |
-| DynamoDB | |
-| DAX | |
-| CloudWatch | |
 | ASG | |
 | SES | |
 | ElastiCache | |

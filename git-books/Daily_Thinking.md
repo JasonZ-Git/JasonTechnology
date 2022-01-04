@@ -3,9 +3,9 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
-* Migrate jason-product to Cloud - Due 31 Dec 2021
-  - Whether to use Spring-Cloud or native cloud
-  - Start migrate one to Cloud
+* Migrate jason-product to Cloud - Due 31 Dec 2021 - Finished
+  - Whether to use Spring-Cloud or native cloud - Use native cloud first
+  - Start migrate one to Cloud - Dictionary API is available in AWS cloud now - Finished
 * HakariCP - High Performance connection pool
 * SpringEE - To fill the gap between spring and JavaEE
 * Get a check of the Google Fuchsia - which aimed to replace Linux
@@ -72,6 +72,10 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+4 Jan 2022
+-----------
+First Cloud API ready - with API gateway, lambda and DynamoDB - A low cost solution
 
 29 Dec 2021
 ------------

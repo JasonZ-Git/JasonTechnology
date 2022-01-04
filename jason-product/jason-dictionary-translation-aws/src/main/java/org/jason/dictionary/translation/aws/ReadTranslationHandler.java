@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.dictionary.translation.aws.model.DictionaryItem;
+import org.jason.dictionary.translation.aws.util.SQSUtil;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -21,12 +22,11 @@ public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEv
   @Override
   public String handleRequest(APIGatewayV2HTTPEvent input, Context context) {
 
+    logger.info("Started Processing Request");
+
     String word = input.getRawQueryString();
-    if (StringUtils.isBlank(word)) {
-      String msg = "Query param is empty";
-      logger.info(msg);
-      return msg;
-    }
+    
+    word = StringUtils.isBlank(word)? "hello" : word.trim().toLowerCase();
 
     AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     DynamoDBMapper mapper = new DynamoDBMapper(client);
@@ -41,9 +41,14 @@ public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEv
 
     if (itemList.isEmpty()) {
       String msg = String.format("No translation Found for %s", word);
+      
+      SQSUtil.sendMessageToQueue(word, SQSUtil.NEW_WORD_QUEUE);
+      
       logger.info(msg);
       return msg;
     }
+
+    logger.info("Finished Request Processing");
 
     return itemList.stream().map(item1 -> item1.toString()).collect(Collectors.joining("/n"));
   }
