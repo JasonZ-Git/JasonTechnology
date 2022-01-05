@@ -3,7 +3,6 @@ package org.jason.dictionary.translation.aws.util;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 public class SQSUtil {
@@ -12,10 +11,7 @@ public class SQSUtil {
 
   public static void sendMessageToQueue(String word, String queue) {
     AmazonSQS sqs = AmazonSQSClientBuilder.standard().withRegion(Regions.AP_SOUTHEAST_2).build();
-
-    CreateQueueRequest createQueueRequest = new CreateQueueRequest(queue);
-    String myQueueURL = sqs.createQueue(createQueueRequest).getQueueUrl();
-
-    sqs.sendMessage(new SendMessageRequest().withQueueUrl(myQueueURL).withMessageBody(word));
+    SendMessageRequest sqsRequest = new SendMessageRequest(NEW_WORD_QUEUE, word);
+    sqs.sendMessage(sqsRequest);
   }
 }
