@@ -40,6 +40,14 @@ public class DictionaryItem {
     this.translation.addAll(translations);
   }
 
+  public static DictionaryItem of(String word, Set<String> translation) {
+    DictionaryItem item = new DictionaryItem();
+    item.setWord(word);
+    item.setTranslation(translation);
+
+    return item;
+  }
+
   @Override
   public String toString() {
     if (this.translation.isEmpty()) {

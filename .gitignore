@@ -36,6 +36,9 @@
 # Compiled class file
 *.class
 
+# serverless generated
+*/.serverless./*
+
 # Log file
 *.log
 

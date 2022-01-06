@@ -1,0 +1,27 @@
+service: selenium-lambda
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: ap-southeast-2
+  timeout: 900
+
+functions:
+  main:
+    memorySize: 1000
+    handler: handler.main
+    events:
+      - http:
+          path: test
+          method: get
+
+    layers:
+      - arn:aws:lambda:ap-southeast-2:052752173794:layer:chromedrive:1
+      - arn:aws:lambda:ap-southeast-2:052752173794:layer:selenium:1
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Properties:
+        BinaryMediaTypes:
+          - "*/*"

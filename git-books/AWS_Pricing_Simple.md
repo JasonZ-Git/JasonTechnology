@@ -33,9 +33,10 @@ All the price are of USD.
 | SQS | $0.40/million requests | Always - 1 million requests every month |
 | EBS | gp3 - $0.08/GB-month | |
 | EFS | standard storage - $0.3/GB-month | 12 months - 5 GB standard storage |
-| DynamoDB | storage $0.25/GB-mth <br/> $0.25/million RCU <br/> $1.25/million WCU used | always <br/> storage - 25G <br/> -   |
-| DAX | |
+| DynamoDB | storage $0.25/GB-mth <br/> provisioned - $0.25/million RCU <br/> $1.25/million WCU used | always <br/> storage - 25G <br/> -   |
 | CloudWatch | $0.30/metrics-month <br/> $3/dashboard-month <br/> $0.1/alarm-month <br/> $0.5/GB-month log | always free <br/> - Basic Monitoring Metrics <br/> - 1 detailed monitoring metrics <br/> - 10 Alarm metrics <br/> - 5GB Data Log <br/> - 3 Dashboard and upto 50 metrics /month |
+| CloudFormation | $0.9 /1000 handler operation | always - 1,000 handler operations per month per account|
+| DAX | |
 | ECS | |
 | ELB | |
 | Route 53 |
@@ -67,7 +68,6 @@ All the price are of USD.
 | Direct Connect | |
 | DMS | |
 | SMS | |
-| CloudFormation | |
 | Step Function | |
 | Trusted Advisor | |
 | SSM | |

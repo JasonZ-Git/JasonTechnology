@@ -1,27 +1,21 @@
 package org.jason.dictionary.translation.aws.util;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jason.dictionary.translation.aws.model.DictionaryItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import javax.annotation.Nonnull;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public final class GoogleTranslationUtil {
 
@@ -31,47 +25,51 @@ public final class GoogleTranslationUtil {
   private static Logger logger = LogManager.getLogger();
 
   static {
-    System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+    System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
 
     // Turn off debug log
     System.setProperty("webdriver.chrome.verboseLogging", "false");
   }
 
   private GoogleTranslationUtil() {
-    throw new RuntimeException("No instance for you");
+    //throw new RuntimeException("No instance for you");
   }
 
-  public static DictionaryItem getTranslation(String word) {
+  public static Set<String> getTranslation(String word) {
 
     WebDriver driver = null;
-    String translations = "";
+    Set<String> translations = new HashSet<>();
 
     try {
+      logger.info("translation fetched for {} is {}", word, translations);
+      
       driver = getWebDriver();
 
       driver.get(English_To_Chinese_Google_Translation + word);
 
       translations = getWordTranslation(driver, word);
+      
+      logger.info("translation fetched for {} is {}", word, translations);
 
       destroyDriver(driver);
 
     } catch (Exception e) {
       logger.warn("No translation found for " + word, e);
       destroyDriver(driver);
-      return WordTranslation.build(word, null);
+      return translations;
     }
 
-    return WordTranslation.build(word, translations);
+    return translations;
   }
 
-  public static List<WordTranslation> getTranslations(List<String> words) {
+  public static Set<DictionaryItem> getTranslations(List<String> words) {
 
-    List<WordTranslation> wordTranslations = new ArrayList<>();
+    Set<DictionaryItem> wordTranslations = new HashSet<>();
 
     for (String current : words) {
-      WordTranslation translation = getTranslation(current);
+      Set<String> translations = getTranslation(current);
 
-      wordTranslations.add(translation);
+      wordTranslations.add(DictionaryItem.of(current, translations));
 
       sleepQuietly();
     }
@@ -89,14 +87,14 @@ public final class GoogleTranslationUtil {
     }
   }
 
-  private static String getWordTranslation(WebDriver driver, String word) {
+  private static Set<String> getWordTranslation(WebDriver driver, String word) {
     WebElement googleTranslationElement = driver.findElement(By.className("tlid-translation"));
 
     String primaryTranslation = googleTranslationElement.getText();
 
     if (StringUtils.isBlank(primaryTranslation) || word.equalsIgnoreCase(primaryTranslation)) {
       logger.warn("No Translation Found for {} ", word);
-      return "";
+      return Collections.emptySet();
     }
 
     WebElement translationsRoot = driver.findElement(By.cssSelector(".gt-cd.gt-cd-mbd.gt-cd-baf"));
@@ -104,45 +102,50 @@ public final class GoogleTranslationUtil {
     List<WebElement> translationElements =
         translationsRoot.findElements(By.cssSelector(".gt-baf-cell.gt-baf-word-clickable"));
 
-    String translations =
+    List<String> translations =
         translationElements.stream()
             .map(WebElement::getText)
             .filter(StringUtils::isNotBlank)
-            .collect(Collectors.joining(","));
+            .collect(Collectors.toList());
 
-    return getTranslation(translations, primaryTranslation);
+    return getTranslation(primaryTranslation, translations);
   }
 
   private static void destroyDriver(WebDriver driver) {
     driver.quit();
   }
 
-  private static WebDriver getWebDriver() throws MalformedURLException {
-
-    DesiredCapabilities caps = DesiredCapabilities.chrome();
-
-    LoggingPreferences logPrefs = new LoggingPreferences();
-    logPrefs.enable(LogType.PERFORMANCE, Level.INFO);
-
-    caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
-
+  private static WebDriver getWebDriver() {
+    logger.info("Start Creating Chrome Drive");
+    
     ChromeOptions options = new ChromeOptions();
-    options.setExperimentalOption("w3c", false);
-    options.merge(caps);
+    options.setBinary("/opt/headless-chromium");
+    options.addArguments(
+        "--headless", "--no-sandbox", "--single-process", "--disable-dev-shm-usage");
 
-    WebDriver driver = new RemoteWebDriver(new URL("http://101.116.233.50:4444/wd/hub"), options);
-    // WebDriver driver = new ChromeDriver(options);
+    WebDriver driver = new ChromeDriver(options);
+    //WebDriver driver = new HtmlUnitDriver();
+    logger.info("Chrome Drive Created");
+    
 
     return driver;
   }
 
-  private static String getTranslation(String translations, @Nonnull String primaryTranslation) {
+  private static Set<String> getTranslation(String primaryTranslation, List<String> secondTranslations) {
     Objects.requireNonNull(primaryTranslation);
+    Set<String> translations = new HashSet<>();
+    translations.add(primaryTranslation);
 
-    if (StringUtils.isBlank(translations)) return primaryTranslation;
+    if (secondTranslations.isEmpty()) {
+      return translations;
+    }
 
-    if (translations.contains(primaryTranslation)) return translations;
+    if (translations.contains(primaryTranslation)) {
+      translations.clear();
 
-    return String.format("%s,%s", primaryTranslation, translations);
+      translations.addAll(secondTranslations);
+    }
+
+    return translations;
   }
 }
