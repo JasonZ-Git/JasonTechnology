@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jason.dictionary.translation.aws.util.GoogleTranslationUtil;
+import org.jason.dictionary.translation.aws.util.GoogleTranslationHelper;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
@@ -27,7 +27,7 @@ public class SQSNewWordHandler implements RequestHandler<SQSEvent, Void> {
     for (SQSMessage message : messages) {
       String word = message.getBody();
       logger.info("Word is {}", word);
-      Set<String> translations = getTranslations(word);
+      Set<String> translations = GoogleTranslationHelper.getTranslation(word);
       logger.info("Transation is {}", translations);
       writeToDB(word, translations);
     }
@@ -37,10 +37,5 @@ public class SQSNewWordHandler implements RequestHandler<SQSEvent, Void> {
 
   private void writeToDB(String word, Set<String> translations) {
     // TODO Auto-generated method stub
-
-  }
-
-  private Set<String> getTranslations(String word) {
-    return GoogleTranslationUtil.getTranslation(word);
   }
 }

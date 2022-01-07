@@ -2,6 +2,7 @@ package org.jason.dictionary.translation.aws.util;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -17,46 +18,55 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public final class GoogleTranslationUtil {
+/**
+ * This helper class requires chromedriver and headless-chrome to be available on path.
+ * 
+ * This is working well with local, however it is not working well on lambda - Will use the python version for now.
+ * 
+ * @TODO - Figure out why binary chrome not working - probably lost some default library - may need a new layer
+ * @author Jason Zhang
+ */
+public class GoogleTranslationHelper {
 
   private static final String English_To_Chinese_Google_Translation =
-      "https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=";
+      "https://translate.google.com/?sl=en&tl=zh-CN&text=%s&op=translate";
 
-  private static Logger logger = LogManager.getLogger();
+  private static final By MAIN_TRANSLATION_SELECTOR =
+      By.cssSelector("span[data-language-for-alternatives='zh-CN'] > span");
 
-  static {
-    System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
+  private static final By TRANSLATION_LIST_SELECTOR = By.cssSelector("span[data-term-type='tl']");
 
-    // Turn off debug log
-    System.setProperty("webdriver.chrome.verboseLogging", "false");
-  }
+  private static final String HEADLESS_CHROME = "/opt/headless-chromium";
+  private static final String CHROME_DRIVE_PATH = "/opt/chromedriver";
 
-  private GoogleTranslationUtil() {
-    //throw new RuntimeException("No instance for you");
-  }
+  private static Logger logger = LogManager.getLogger(GoogleTranslationHelper.class);
 
   public static Set<String> getTranslation(String word) {
 
+    System.setProperty("webdriver.chrome.driver", CHROME_DRIVE_PATH);
+    
     WebDriver driver = null;
     Set<String> translations = new HashSet<>();
 
     try {
       logger.info("translation fetched for {} is {}", word, translations);
-      
+
       driver = getWebDriver();
 
-      driver.get(English_To_Chinese_Google_Translation + word);
+      driver.get(String.format(English_To_Chinese_Google_Translation, word));
+
+      sleepQuietly();
 
       translations = getWordTranslation(driver, word);
-      
-      logger.info("translation fetched for {} is {}", word, translations);
 
-      destroyDriver(driver);
+      logger.info("translation fetched for {} is {}", word, translations);
 
     } catch (Exception e) {
       logger.warn("No translation found for " + word, e);
-      destroyDriver(driver);
       return translations;
+
+    } finally {
+      driver.quit();
     }
 
     return translations;
@@ -67,11 +77,10 @@ public final class GoogleTranslationUtil {
     Set<DictionaryItem> wordTranslations = new HashSet<>();
 
     for (String current : words) {
+
       Set<String> translations = getTranslation(current);
 
       wordTranslations.add(DictionaryItem.of(current, translations));
-
-      sleepQuietly();
     }
 
     return wordTranslations;
@@ -79,7 +88,7 @@ public final class GoogleTranslationUtil {
 
   private static void sleepQuietly() {
     try {
-      TimeUnit.MILLISECONDS.sleep(500);
+      TimeUnit.SECONDS.sleep(4);
     } catch (Exception e) {
       logger.error(e);
 
@@ -88,19 +97,15 @@ public final class GoogleTranslationUtil {
   }
 
   private static Set<String> getWordTranslation(WebDriver driver, String word) {
-    WebElement googleTranslationElement = driver.findElement(By.className("tlid-translation"));
 
-    String primaryTranslation = googleTranslationElement.getText();
+    String primaryTranslation = findMainTranslation(driver);
 
     if (StringUtils.isBlank(primaryTranslation) || word.equalsIgnoreCase(primaryTranslation)) {
       logger.warn("No Translation Found for {} ", word);
       return Collections.emptySet();
     }
 
-    WebElement translationsRoot = driver.findElement(By.cssSelector(".gt-cd.gt-cd-mbd.gt-cd-baf"));
-
-    List<WebElement> translationElements =
-        translationsRoot.findElements(By.cssSelector(".gt-baf-cell.gt-baf-word-clickable"));
+    List<WebElement> translationElements = driver.findElements(TRANSLATION_LIST_SELECTOR);
 
     List<String> translations =
         translationElements.stream()
@@ -111,29 +116,34 @@ public final class GoogleTranslationUtil {
     return getTranslation(primaryTranslation, translations);
   }
 
-  private static void destroyDriver(WebDriver driver) {
-    driver.quit();
+  private static String findMainTranslation(WebDriver driver) {
+    try {
+      WebElement mainTranslation = driver.findElement(MAIN_TRANSLATION_SELECTOR);
+      if (mainTranslation != null) return mainTranslation.getText();
+    } catch (Exception ex) {
+      logger.error("Cannot find main translation for word", ex);
+    }
+    return StringUtils.EMPTY;
   }
 
   private static WebDriver getWebDriver() {
     logger.info("Start Creating Chrome Drive");
-    
+
     ChromeOptions options = new ChromeOptions();
-    options.setBinary("/opt/headless-chromium");
-    options.addArguments(
-        "--headless", "--no-sandbox", "--single-process", "--disable-dev-shm-usage");
+    options.setBinary(HEADLESS_CHROME);
+    options.setHeadless(true);
 
     WebDriver driver = new ChromeDriver(options);
-    //WebDriver driver = new HtmlUnitDriver();
     logger.info("Chrome Drive Created");
-    
 
     return driver;
   }
 
-  private static Set<String> getTranslation(String primaryTranslation, List<String> secondTranslations) {
+  private static Set<String> getTranslation(
+      String primaryTranslation, List<String> secondTranslations) {
     Objects.requireNonNull(primaryTranslation);
-    Set<String> translations = new HashSet<>();
+
+    Set<String> translations = new LinkedHashSet<>();
     translations.add(primaryTranslation);
 
     if (secondTranslations.isEmpty()) {
@@ -141,7 +151,7 @@ public final class GoogleTranslationUtil {
     }
 
     if (translations.contains(primaryTranslation)) {
-      translations.clear();
+      secondTranslations.remove(primaryTranslation);
 
       translations.addAll(secondTranslations);
     }

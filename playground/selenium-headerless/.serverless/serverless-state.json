@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/selenium-lambda/dev/1641448939372-2022-01-06T06:02:19.372Z/selenium-lambda.zip"
+                "S3Key": "serverless/selenium-lambda/dev/1641553487067-2022-01-07T11:04:47.067Z/selenium-lambda.zip"
               },
               "Handler": "handler.main",
               "Runtime": "python3.6",
@@ -196,14 +196,14 @@
               "MainLogGroup"
             ]
           },
-          "MainLambdaVersionaam3ogMW4uRGmlEOTHv9wEuLkGJI10SDGuZNgS306Q": {
+          "MainLambdaVersionQvXh6HIWGAIlGMeXFi75b1bsivc90THCFKfIZ3C0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MainLambdaFunction"
               },
-              "CodeSha256": "ArxNOhbj5CjUD/0x3lsHwTM05mnIPcqRmuoL0TJbOV0="
+              "CodeSha256": "PqMRJdGSN8n1Qy3EPCVEJZFAMBT+1LnNb7Pu5ot6zow="
             }
           },
           "ApiGatewayRestApi": {
@@ -282,7 +282,7 @@
               "MainLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1641448936228": {
+          "ApiGatewayDeployment1641553484012": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -344,7 +344,7 @@
           "MainLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MainLambdaVersionaam3ogMW4uRGmlEOTHv9wEuLkGJI10SDGuZNgS306Q"
+              "Ref": "MainLambdaVersionQvXh6HIWGAIlGMeXFi75b1bsivc90THCFKfIZ3C0"
             },
             "Export": {
               "Name": "sls-selenium-lambda-dev-MainLambdaFunctionQualifiedArn"
@@ -485,7 +485,7 @@
         "timeout": 900,
         "runtime": "python3.6",
         "vpc": {},
-        "versionLogicalId": "MainLambdaVersionaam3ogMW4uRGmlEOTHv9wEuLkGJI10SDGuZNgS306Q"
+        "versionLogicalId": "MainLambdaVersionQvXh6HIWGAIlGMeXFi75b1bsivc90THCFKfIZ3C0"
       }
     },
     "resources": {
@@ -521,7 +521,7 @@
     "artifact": "/home/jason/projects/jason-technology/playground/selenium-headerless/.serverless/selenium-lambda.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/selenium-lambda/dev/1641448939372-2022-01-06T06:02:19.372Z",
+    "artifactDirectoryName": "serverless/selenium-lambda/dev/1641553487067-2022-01-07T11:04:47.067Z",
     "artifact": "selenium-lambda.zip"
   }
 }
