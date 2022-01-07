@@ -73,6 +73,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+# Jan 2022
+------------
+Lambda has some drawbacks - slow, lack of OS level operation.
+I have to use the python version selenium instead of java lambda which works perfectly in local while failed in lambda.
+It could be potentially solved by layers in lambda - I have to move on quickly now so have to move on with the python version.
+
 4 Jan 2022
 -----------
 First Cloud API ready - with API gateway, lambda and DynamoDB - A low cost solution
