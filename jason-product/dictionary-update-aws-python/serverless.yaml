@@ -1,4 +1,4 @@
-service: selenium-lambda
+service: UpdateDictionaryFunction-python
 
 provider:
   name: aws
@@ -12,11 +12,11 @@ functions:
     handler: handler.main
     events:
       - http:
-          path: test
+          path: dictionary
           method: get
 
     layers:
-      - arn:aws:lambda:ap-southeast-2:052752173794:layer:chromedrive:1
+      - arn:aws:lambda:ap-southeast-2:052752173794:layer:chrome_driver_57:1
       - arn:aws:lambda:ap-southeast-2:052752173794:layer:selenium:1
 
 resources:

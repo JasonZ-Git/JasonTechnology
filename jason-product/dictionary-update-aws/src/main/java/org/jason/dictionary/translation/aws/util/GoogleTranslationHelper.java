@@ -36,8 +36,8 @@ public class GoogleTranslationHelper {
 
   private static final By TRANSLATION_LIST_SELECTOR = By.cssSelector("span[data-term-type='tl']");
 
-  private static final String HEADLESS_CHROME = "/opt/headless-chromium";
-  private static final String CHROME_DRIVE_PATH = "/opt/chromedriver";
+  private static final String HEADLESS_CHROME = "/opt/headless-chromium_86";
+  private static final String CHROME_DRIVE_PATH = "/opt/chromedriver_86";
 
   private static Logger logger = LogManager.getLogger(GoogleTranslationHelper.class);
 
@@ -49,7 +49,7 @@ public class GoogleTranslationHelper {
     Set<String> translations = new HashSet<>();
 
     try {
-      logger.info("translation fetched for {} is {}", word, translations);
+      logger.info("translation fetch started for word {}", word);
 
       driver = getWebDriver();
 

@@ -4,13 +4,13 @@ import time
 
 def main(event, context):
     options = Options()
-    options.binary_location = '/opt/headless-chromium'
+    options.binary_location = '/opt/headless-chromium_57'
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--single-process')
     options.add_argument('--disable-dev-shm-usage')
 
-    driver = webdriver.Chrome('/opt/chromedriver',chrome_options=options)
+    driver = webdriver.Chrome('/opt/chromedriver_57',chrome_options=options)
     driver.get('https://translate.google.com/?sl=en&tl=zh-CN&text=returns&op=translate')
     
     time.sleep(4);

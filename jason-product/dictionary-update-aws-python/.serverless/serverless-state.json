@@ -1,8 +1,8 @@
 {
   "service": {
-    "service": "selenium-lambda",
+    "service": "UpdateDictionaryFunction-python",
     "serviceObject": {
-      "name": "selenium-lambda"
+      "name": "UpdateDictionaryFunction-python"
     },
     "provider": {
       "name": "aws",
@@ -87,7 +87,7 @@
           "MainLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/selenium-lambda-dev-main"
+              "LogGroupName": "/aws/lambda/UpdateDictionaryFunction-python-dev-main"
             }
           },
           "IamRoleLambdaExecution": {
@@ -115,7 +115,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "selenium-lambda",
+                        "UpdateDictionaryFunction-python",
                         "dev",
                         "lambda"
                       ]
@@ -132,7 +132,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/selenium-lambda-dev*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/UpdateDictionaryFunction-python-dev*:*"
                           }
                         ]
                       },
@@ -143,7 +143,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/selenium-lambda-dev*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/UpdateDictionaryFunction-python-dev*:*:*"
                           }
                         ]
                       }
@@ -156,7 +156,7 @@
                 "Fn::Join": [
                   "-",
                   [
-                    "selenium-lambda",
+                    "UpdateDictionaryFunction-python",
                     "dev",
                     {
                       "Ref": "AWS::Region"
@@ -174,11 +174,11 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/selenium-lambda/dev/1641553487067-2022-01-07T11:04:47.067Z/selenium-lambda.zip"
+                "S3Key": "serverless/UpdateDictionaryFunction-python/dev/1641620939756-2022-01-08T05:48:59.756Z/UpdateDictionaryFunction-python.zip"
               },
               "Handler": "handler.main",
               "Runtime": "python3.6",
-              "FunctionName": "selenium-lambda-dev-main",
+              "FunctionName": "UpdateDictionaryFunction-python-dev-main",
               "MemorySize": 1000,
               "Timeout": 900,
               "Role": {
@@ -188,7 +188,7 @@
                 ]
               },
               "Layers": [
-                "arn:aws:lambda:ap-southeast-2:052752173794:layer:chromedrive:1",
+                "arn:aws:lambda:ap-southeast-2:052752173794:layer:chrome_driver_57:1",
                 "arn:aws:lambda:ap-southeast-2:052752173794:layer:selenium:1"
               ]
             },
@@ -196,20 +196,20 @@
               "MainLogGroup"
             ]
           },
-          "MainLambdaVersionQvXh6HIWGAIlGMeXFi75b1bsivc90THCFKfIZ3C0": {
+          "MainLambdaVersionbgVjZBAd0dO2tURZdNGMFHYkMQGu33gLMModc5w2nJU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MainLambdaFunction"
               },
-              "CodeSha256": "PqMRJdGSN8n1Qy3EPCVEJZFAMBT+1LnNb7Pu5ot6zow="
+              "CodeSha256": "jf/o1umlKKXo7GjD9APDEakgRJwlq778u+XGSEqRcbU="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "dev-selenium-lambda",
+              "Name": "dev-UpdateDictionaryFunction-python",
               "BinaryMediaTypes": [
                 "*/*"
               ],
@@ -221,7 +221,7 @@
               "Policy": ""
             }
           },
-          "ApiGatewayResourceTest": {
+          "ApiGatewayResourceDictionary": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
@@ -230,19 +230,19 @@
                   "RootResourceId"
                 ]
               },
-              "PathPart": "test",
+              "PathPart": "dictionary",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodTestGet": {
+          "ApiGatewayMethodDictionaryGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "GET",
               "RequestParameters": {},
               "ResourceId": {
-                "Ref": "ApiGatewayResourceTest"
+                "Ref": "ApiGatewayResourceDictionary"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -282,7 +282,7 @@
               "MainLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1641553484012": {
+          "ApiGatewayDeployment1641620933638": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -291,7 +291,7 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodTestGet"
+              "ApiGatewayMethodDictionaryGet"
             ]
           },
           "MainLambdaPermissionApiGateway": {
@@ -338,16 +338,16 @@
               "Ref": "ServerlessDeploymentBucket"
             },
             "Export": {
-              "Name": "sls-selenium-lambda-dev-ServerlessDeploymentBucketName"
+              "Name": "sls-UpdateDictionaryFunction-python-dev-ServerlessDeploymentBucketName"
             }
           },
           "MainLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MainLambdaVersionQvXh6HIWGAIlGMeXFi75b1bsivc90THCFKfIZ3C0"
+              "Ref": "MainLambdaVersionbgVjZBAd0dO2tURZdNGMFHYkMQGu33gLMModc5w2nJU"
             },
             "Export": {
-              "Name": "sls-selenium-lambda-dev-MainLambdaFunctionQualifiedArn"
+              "Name": "sls-UpdateDictionaryFunction-python-dev-MainLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -373,7 +373,7 @@
               ]
             },
             "Export": {
-              "Name": "sls-selenium-lambda-dev-ServiceEndpoint"
+              "Name": "sls-UpdateDictionaryFunction-python-dev-ServiceEndpoint"
             }
           }
         }
@@ -470,7 +470,7 @@
         "events": [
           {
             "http": {
-              "path": "test",
+              "path": "dictionary",
               "method": "get",
               "integration": "AWS_PROXY"
             }
@@ -479,13 +479,13 @@
         "layers": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"MainLambdaFunction\"][\"Properties\"][\"Layers\"]"
         },
-        "name": "selenium-lambda-dev-main",
+        "name": "UpdateDictionaryFunction-python-dev-main",
         "package": {},
         "memory": 1000,
         "timeout": 900,
         "runtime": "python3.6",
         "vpc": {},
-        "versionLogicalId": "MainLambdaVersionQvXh6HIWGAIlGMeXFi75b1bsivc90THCFKfIZ3C0"
+        "versionLogicalId": "MainLambdaVersionbgVjZBAd0dO2tURZdNGMFHYkMQGu33gLMModc5w2nJU"
       }
     },
     "resources": {
@@ -518,10 +518,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "/home/jason/projects/jason-technology/playground/selenium-headerless/.serverless/selenium-lambda.zip"
+    "artifact": "/home/jason/projects/jason-technology/jason-product/dictionary-update-aws-python/.serverless/UpdateDictionaryFunction-python.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/selenium-lambda/dev/1641553487067-2022-01-07T11:04:47.067Z",
-    "artifact": "selenium-lambda.zip"
+    "artifactDirectoryName": "serverless/UpdateDictionaryFunction-python/dev/1641620939756-2022-01-08T05:48:59.756Z",
+    "artifact": "UpdateDictionaryFunction-python.zip"
   }
 }
