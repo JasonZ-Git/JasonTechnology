@@ -11,13 +11,13 @@ import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent.SQSMessage;
 
 /**
- * Read SQS message, get translation from internet, save it to DB
+ * Get the translation and put it to DB
  *
  * @author Jason Zhang
  */
-public class SQSNewWordHandler implements RequestHandler<SQSEvent, Void> {
+public class PersistTranslationHandler implements RequestHandler<SQSEvent, Void> {
 
-  private static final Logger logger = LogManager.getLogger(SQSNewWordHandler.class);
+  private static final Logger logger = LogManager.getLogger(PersistTranslationHandler.class);
 
   @Override
   public Void handleRequest(SQSEvent sqsEvent, Context context) {

@@ -26,7 +26,7 @@ public class SQSNewWordHandlerHandlerTest {
 
   @Test
   public void testDictionaryFunctionHandler() {
-    SQSNewWordHandler handler = new SQSNewWordHandler();
+    PersistTranslationHandler handler = new PersistTranslationHandler();
     Context ctx = createContext();
 
     // handler.handleRequest(input, ctx);
