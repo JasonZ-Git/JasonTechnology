@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.dictionary.translation.aws.model.DictionaryItem;
+import org.jason.dictionary.translation.aws.util.SNSUtil;
 import org.jason.dictionary.translation.aws.util.SQSUtil;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -42,7 +43,7 @@ public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEv
     if (itemList.isEmpty()) {
       String msg = String.format("No translation Found for %s", word);
       
-      SQSUtil.sendMessageToQueue(word, SQSUtil.NEW_WORD_QUEUE);
+      SNSUtil.publishMessageToTopic(word, SNSUtil.NEW_WORD_SNS_TOPIC);
       
       logger.info(msg);
       return msg;

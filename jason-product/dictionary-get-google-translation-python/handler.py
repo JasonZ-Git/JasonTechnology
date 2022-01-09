@@ -30,9 +30,9 @@ def main(event, context):
             "translation": "No Translation Found"
         }
         
-    all_translations = set();
+    all_translations = list();
     
-    all_translations.add(main_translation)
+    all_translations.append(main_translation)
     
     other_translations = list();
     try:
@@ -40,19 +40,18 @@ def main(event, context):
     except:
         print("probably no translation - continue");
     
-    all_translations = set();
-    
-    all_translations.add(main_translation)
+    print(f"other translation is {other_translations}")
     
     if other_translations is not None:
         for current in other_translations:
             if current.text not in all_translations:
-                all_translations.add(current.text)
+                all_translations.append(current.text)
 
+    translation = ", ".join(str(e) for e in all_translations)
     response = {
         "statusCode": 200,
         "word": word,
-        "translation": str(all_translations)
+        "translation": translation
     }
 
     driver.quit();
