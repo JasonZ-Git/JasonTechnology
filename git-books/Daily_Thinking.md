@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Rust and Golang seems to be pretty fast in lamba - It is good to explore it a bit more.
 * Migrate jason-product to Cloud - Due 31 Dec 2021 - Finished
   - Whether to use Spring-Cloud or native cloud - Use native cloud first
   - Start migrate one to Cloud - Dictionary API is available in AWS cloud now - Finished
@@ -73,7 +74,14 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
-# Jan 2022
+
+10 Jan 2022
+------------
+Lamba is slow in my scenario is because of cold start - in warm status java is pretty fast.
+According to a bench march test, static programming langages like Java and C# is a lot slow than dynamic programming languages such as python NodeJS, rust.
+I will use NodeJS to rewrite my programe to solve the cold start issue.
+
+6 Jan 2022
 ------------
 Lambda has some drawbacks - slow, lack of OS level operation.
 I have to use the python version selenium instead of java lambda which works perfectly in local while failed in lambda.
