@@ -37,6 +37,7 @@ All the price are of USD.
 | CloudWatch | $0.30/metrics-month <br/> $3/dashboard-month <br/> $0.1/alarm-month <br/> $0.5/GB-month log | always <br/> - basic monitoring metrics <br/> - 1 detailed monitoring metrics <br/> - 10 alarm metrics <br/> - 5GB data log <br/> - 3 Dashboard and up to 50 metrics / month |
 | CloudFormation | $0.9 /1000 handler operation | always - monthly <br/> - 1,000 handler operations / month / account |
 | X-Ray | $5.00 per 1 million traces recorded <br/> $0.50 per 1 million traces retrieved <br/> $0.50 per 1 million traces scanned | always - monthly <br> -  100,000 traces recorded/month <br/> - 1,000,000 traces retrieved or scanned/month |
+| Budget | $0.02 / action-enabled budget / day <br/> $0.01 / budget report <br/> $0.01 / budget cost explore API call | always - <br/> - 2 action-enabled budgets; <br/> no free tier for report & explore API call  |
 | DAX | |
 | ECS | |
 | ELB | |

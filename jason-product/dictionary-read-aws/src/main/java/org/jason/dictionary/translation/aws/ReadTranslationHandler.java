@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.dictionary.translation.aws.model.DictionaryItem;
 import org.jason.dictionary.translation.aws.util.SNSUtil;
-import org.jason.dictionary.translation.aws.util.SQSUtil;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -16,6 +15,11 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 
+/**
+ * This will be replaced by NodeJS as it is slow in cold start scenario.
+ * 
+ * @author Jason Zhang
+ */
 public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEvent, String> {
 
   private static final Logger logger = LogManager.getLogger(ReadTranslationHandler.class);
