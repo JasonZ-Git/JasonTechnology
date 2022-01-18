@@ -3,7 +3,10 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
-* Rust and Golang seems to be pretty fast in lamba - It is good to explore it a bit more.
+* Should write a technical proposal to JCP regarding using annotation to replace no-method interface such as Serializable
+* Rust and Golang is pretty fast in lambda - It is good to explore it a bit more.
+  - Go is easy to learn, focus on Web API - can be treated as an alternative to NodeJS
+  - Rust is best at performance(memory, cpu) - Can be used in big data processing and time sensitive tasks.
 * Migrate jason-product to Cloud - Due 31 Dec 2021 - Finished
   - Whether to use Spring-Cloud or native cloud - Use native cloud first
   - Start migrate one to Cloud - Dictionary API is available in AWS cloud now - Finished
@@ -11,9 +14,9 @@ TODO List - All the finished ones will be moved to separate pages.
 * SpringEE - To fill the gap between spring and JavaEE
 * Get a check of the Google Fuchsia - which aimed to replace Linux
 * Create a DB for JavaEE Technology, version and example
-* Write an Olympic Spider to get all the althletes and events and medals from Olympics.com
+* Write an Olympic Spider to get all the athletes and events and medals from Olympics.com
   - 22 Aug 2021 - Finished For Tokyo Olympic
-  - Update - all table disigned.
+  - Update - all table designed.
   - Update - Country, sport, event table and data finished.
   - Update - Athlete partially working.
 * SMAL & oathen2 & openID connect - Due date - 31 July 2021
@@ -22,9 +25,9 @@ TODO List - All the finished ones will be moved to separate pages.
 * Create a Project to fetch stock trading data and analysis - peak data - bottom data
 * Create a website demo for others to create website themselves.
 * Finish the Dictionary Application.
-* Finish the Package Comparision System.
+* Finish the Package comparison System.
 * Design of Docker
-* Should create a page to list programming language differences to facilite the learning of a new programming language.
+* Should create a page to list programming language differences to facilitate the learning of a new programming language.
 * Apollo Framework.
 * Eclipse MicroProfile
 * YAML file - Good to check more about it - Used in docker composer - Seems okay with configuration file
@@ -74,15 +77,35 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+18 Jan 2022
+------------
+Jason's Language of 2022 - Golang - I will spend time with this language to explore more - Expected to have some free time the second half year
+I will expect myself have a busy first year due to join the new company and have a top performance there.
+
+17 Jan 2022
+------------
+During the past several weeks, I got interviewed with 4 companies and got 3 offers - the 4th failed to provide good enough package so I directly reject them.
+The transition is over and I will start with a great company starting within 2 weeks - everything from them are great - every people I meet during the interview, the position, the package, the working setup - MacOS + Linux - So I will go with them.
+Will finish the job with the current company next Monday, and still have several days free time to explore new technologies and boost my projects.
+Another journey will start and I wish myself good luck.
+
+11 Jan 2022
+------------
+I strong feel all the interfaces without a method should be replaced by annotation - which I believe is a better design.
+For example:
+
+java.io.Serializable should be replaced by @Serializable
 
 10 Jan 2022
 ------------
-Lamba is slow in my scenario is because of cold start - in warm status java is pretty fast.
-According to a bench march test, static programming langages like Java and C# is a lot slow than dynamic programming languages such as python NodeJS, rust.
-I will use NodeJS to rewrite my programe to solve the cold start issue.
+AWS Lambda is slow in my scenario because of cold start - in warm status java is pretty fast.
+According to a bench march test, static programming languages like Java and C# is a lot slow than dynamic programming languages such as python NodeJS, Rust.
+The reason is because Java and C# needs a virtual machine on the back to warm up first.
+I will use NodeJS to rewrite my program to solve the cold start issue.
+(Maybe can give Golang and Rust a try as well)
 
 6 Jan 2022
-------------
+-----------
 Lambda has some drawbacks - slow, lack of OS level operation.
 I have to use the python version selenium instead of java lambda which works perfectly in local while failed in lambda.
 It could be potentially solved by layers in lambda - I have to move on quickly now so have to move on with the python version.
@@ -107,7 +130,7 @@ HakariCP - Worth a more detailed check -
 
 23 Oct 2021
 -------------
-As the gap between Springframework and JavaEE are kind of signficant and not easy to transfer from one to another.
+As the gap between Springframework and JavaEE are kind of significant and not easy to transfer from one to another.
 Would be a good idea to create a spring-ee project to fill this gap - spring-ee intended to be a standard implementation of JavaEE (JarkatarEE)
 -- More time to spend on this idea - probably can start with rs-api - This is a significant one.
 
@@ -134,7 +157,7 @@ Create my own model to predicate the covid-19 cases.
 Create a free and common Olympic Database that can be easily used by anyone, it should include the following table:
 	- Sport, including upper and each item, game logo
 	- Country
-	- Athelete
+	- Athlete
 	- Game result
 	- Olympic
 Update  - Database is created, need to write a spider to get all the game data.
@@ -145,8 +168,8 @@ In 'Rail on Rails' PUT is used for update, POST is used to insert - Simple Solut
 
 20 March,2021
 -------------
-Cloud Summary - Amazon Cloud is very nice, but I feel it becomes more of a luxary thing - It is not developer friendly.
-To get a deeper understand, a summary of AWS features and comparation is needed, together with a check on the existing cloud provider, especially community driven cloud prover.
+Cloud Summary - Amazon Cloud is very nice, but I feel it becomes more of a luxury thing - It is not developer friendly.
+To get a deeper understand, a summary of AWS features and comparison is needed, together with a check on the existing cloud provider, especially community driven cloud prover.
 
 05 March, 2021
 -------------
@@ -158,7 +181,7 @@ Create a Page to compare MySQL, MariaDB, Oracle, SQL Server
 
 13 Dec, 2020
 -------------
-Different Pagckage management System - apt, skdman, brew, snap, npm, yum
+Different Package management System - apt, skdman, brew, snap, npm, yum
 
 18 Oct, 2020
 -------------
@@ -166,7 +189,7 @@ Pass the AWS Solution Architect Certification Exam with a month -- Due date 18 N
 
 9 Sep, 2020
 -------------
-I strongly feel Docker has a strong linux culture - which is great.
+I strongly feel Docker has a strong Linux culture - which is great.
 It is so amazing that Docker has such a small size and can do so much things.
 Great tool.
 It is worth to check the details design of Docker.
@@ -193,9 +216,9 @@ The main difference is that I feel all the things are easily to upgrade and main
 
 11 July, 2020
 -------------
-Today's top priroty job is to split Jason Product into Seperate small ones using microservice and deploy using Docker.
-Update - It is done - The first working Docker Microservice - Translation - is deployed and runing well on Linux.
-Tomorow will deploy it to Mac and set up the second one - would keep it running in the backend without stop.
+Today's top priority job is to split Jason Product into Separate small ones using microservice and deploy using Docker.
+Update - It is done - The first working Docker Microservice - Translation - is deployed and running well on Linux.
+Tomorrow will deploy it to Mac and set up the second one - would keep it running in the backend without stop.
 Docker is nice - however it seems not very neat to set up. 
 However, once set up, it is very easy to deploy and run it.
 
@@ -217,7 +240,7 @@ Go Jason, you can do it.
 -------------
 SwiftUI is driving me crazy.
 
-WSL - Windows SubSystem for Linux - It builds a real linux Kernal within windows - from Microsoft - Currently I am using MinGW(cmder).
+WSL - Windows SubSystem for Linux - It builds a real linux Kernel within windows - from Microsoft - Currently I am using MinGW(cmder).
 Seems it is a good option to give WSL a try - Linux is the best system for development.
 
 7 July, 2020
@@ -272,7 +295,7 @@ It is not surprising if I release a book related to JavaEE technology within 2 y
 -----------
 The more I checked about JavaEE CDI2, the stronger I feel that Spring may not be the most suitable framework for us.
 Spring has departed from JavaEE quite far and it is hard for them to come back.
-It is reasonable to check more about Seam which is the reference implemention of CDI 2, and use seam's feature in my library
+It is reasonable to check more about Seam which is the reference implementation of CDI 2, and use seam's feature in my library
 
 24 May, 2020
 ------------
@@ -293,8 +316,8 @@ Encoder/Decoder - Which converts message between Java Object and Text;
 ------------
 JSON-B & JSON-P
 JSON-P and JSON-B are too small but great library(API)
-Before this 2, Jackson, Gson and a banch of other JSON libraries out there.
-With Jasn-B and JSON-P as the standard, I feel free and can rely on it now.
+Before this 2, Jackson, Gson and a bunch of other JSON libraries out there.
+With Json-B and JSON-P as the standard, I feel free and can rely on it now.
 
 It is very easy to use(JSON-B), quite nicely designed.
 JSON-P is simple but not enough, because it only provide a stream parse, and lack of facilities as what XPath3 provides.
@@ -312,8 +335,8 @@ However, the cross-parameter is not very useful, because of 2 reasons:
 11 May, 2020
 ------------
 SwiftUI can be regarded as the UI framework to Swift.
-As UI is a key part for App development, SwiftUI is highly emphsised.
-* @State - Bind a View to a varialble, one direction
+As UI is a key part for App development, SwiftUI is highly emphasised.
+* @State - Bind a View to a variable, one direction
 * @Binding
 * @ObjectBinding       
 
@@ -323,7 +346,7 @@ As UI is a key part for App development, SwiftUI is highly emphsised.
 CDI/DI - CDI is a java ee specification, while DI is a common term as well as a java specification.
 DI is a subset of CDI
 CDI 2.0 includes DI 1.0
-The main difference is CDI includes lifetime management such as constuct/destroy a class, state, scope management.
+The main difference is CDI includes lifetime management such as construct/destroy a class, state, scope management.
 
 Spring only implements DI 1.0 while doesn't implement CDI2, and they will not do it as confirmed by Jouger Holler.
 Although Spring doesn't implement JavaEE CDI2, it has all the features of it - life cycle, state, scope management.
@@ -357,15 +380,15 @@ Summary of JPA Technologies of different version
 
 3 May, 2020
 --------------
-I strongly feel the limitation of **define type** first before using it both in programing language & relational database.
-In programming language, define type first is unconvenient, as it may be used just once. Similarly, in Database, define the table before using it is a limitation as well.
+I strongly feel the limitation of **define type** first before using it both in programming language & relational database.
+In programming language, define type first is inconvenient, as it may be used just once. Similarly, in Database, define the table before using it is a limitation as well.
 Probably good to have a look at no-sql DB system like MongoDB.
 
 
 2 May, 2020
 --------------
-Comparision between Java & Swift
-* Declare varialb & constants
+Comparison between Java & Swift
+* Declare variable & constants
   - It is encouraged to declare var without type - This is a convenient feature and used in Java 11
   - let keyword is used as final to java and const to c++
   -  It is not mandatory to add comment to end a line.
@@ -392,7 +415,7 @@ Comparision between Java & Swift
   - both Swift and Java(13) support """ as the text block symbol.
   - Java treat everything inside text block as string, while Swift will ignore some space due to format.
 * Single Interpolation
-  - Swift support variable within a string directly by \(vaiable) and support calculation within it.
+  - Swift support variable within a string directly by \(variable) and support calculation within it.
   - I would think $variable is a more natural way than \(, why they use \(?? Is it because $ as a string is used more frequently or because it has to have a space to separate the variable? Maybe both.
 * Array
   - The Array of Swift is actually the combination of Array, ArrayList and ListUtil of Java
@@ -408,15 +431,15 @@ Comparision between Java & Swift
 * function in swift is the first level member as class and struct.
   - In Java 8, functional interface has much releases of Java to be updated with functional programming.
   - It proves pure OO is not idea, function is still simple and easy to use. As print() in Swift is simpler than System.out.println()
-  - Pass funtion as a parameter seems powerful - Didn't see much use by far.
-* Constructor - Swift use init & deinit as constructor - I am neutral of this difference
-  - There is no deinit in Java - As JVM will do garbage collection automatically.
+  - Pass function as a parameter seems powerful - Didn't see much use by far.
+* Constructor - Swift use init & definition as constructor - I am neutral of this difference
+  - There is no definit in Java - As JVM will do garbage collection automatically.
   - Using init seems to be good, as every class can use the same name, and it doesn't need to declare return type.
 * Getter & Setter - Swift beautifully combines the famous getter & setter to its associated variable, and it is implicitly accessed by dot * Interesting feature.
   - get, set, willSet & didSet are good feature, still not simple enough - There is potential room to simplify them further?
   - I am not quite comfortable with the variable to be 'public' by default - It could be because of legacy from Object-C(In C++ struct, variable are public default)
 * Enum 
-  - Enumerattions can initilize int or double from the starting value.
+  - Enumerations can initialize int or double from the starting value.
   - Enum could use variant parameters.
 *  Protocols - protocol to Swift is interface to Java
 *  struct & class
@@ -435,7 +458,7 @@ Comparision between Java & Swift
 I have tried swift for several weeks, and it proves to be an interesting & expressive language.
 After finishing the online material from Apple, I decide to read 'The Swift Programming Language(Swift 5.2)'
 The outcome should be:
-* A comprehensive compration between Jave & Swift, thus can get a deep understanding of the new generation programming language
+* A comprehensive comparison between Java & Swift, thus can get a deep understanding of the new generation programming language
 * A simple application - Dictionary which should meet my daily usage.
 This book should be finished by the end of May.
 
@@ -455,7 +478,7 @@ Hence, I made some investigation and finally find **cmder** is a perfect tool.
 Swift is a nice language, with modern features which Java can learn.
 Seems like the third generation (C, C++ ->Java, C# -> Swift, Kotlin) introduces a much natural way of writing programe.
 Java is simply and nice, with poor UI though.
-Swift is great at making the UI development so attractive, especially for Annimation part.
+Swift is great at making the UI development so attractive, especially for Animation part.
 Conclusion - Spending more time on it and think how to improve Java using features from Swift.
 
 
@@ -487,7 +510,7 @@ I will try some more time for IntelliJ and then decide to whether to keep on ecl
 **Eclipse & IntelliJ IDEA 2** Update on 15 May:
 I fell in love with IntelliJ now
 The original issue is sourced from Vim-Simulator - This is a disaster.
-Although Vi is very good, the Vim-Simulaor editor is bad experience:
+Although Vi is very good, the Vim-Simulator editor is bad experience:
 * By default, it is read-only mode.
 * Many hotkey are conflicted with the System which is very headache.
 
@@ -504,7 +527,7 @@ The main advantages are:
 * Dictionary is better.
 
 The main disadvantage are:
-* The default builder sometimes failed to build the project - Properties files are not build - Not sure why - The workaroud is to use maven(or maven plugin) to rebuild it.
+* The default builder sometimes failed to build the project - Properties files are not build - Not sure why - The workaround is to use maven(or maven plugin) to rebuild it.
 * The maven plugin is good, but is not treated as the first-class member as what Eclipse does.
 * It consumes more memory than Eclipse.
 

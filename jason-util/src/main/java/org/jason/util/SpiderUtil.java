@@ -1,6 +1,13 @@
 package org.jason.util;
 
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import javax.annotation.Nonnull;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jason.annotation.ReplacedBy;
@@ -9,15 +16,6 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import javax.annotation.Nonnull;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * This class should be refactored using the new HttpClient which is available from Java 11 @TODO

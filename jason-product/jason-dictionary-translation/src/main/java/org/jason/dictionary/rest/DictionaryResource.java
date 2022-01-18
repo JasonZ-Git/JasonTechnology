@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.validator.constraints.Length;
 import org.jason.dictionary.helper.DictionaryCache;
 import org.jason.dictionary.helper.GoogleTranslationHelper;
 import org.jason.dictionary.helper.WordTranslation;

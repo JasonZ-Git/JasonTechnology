@@ -71,6 +71,7 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
+			<version>1.14.3</version>
 		</dependency>
 		<!-- <End> Used for remote google translation -->
 
@@ -84,7 +85,7 @@
 			<dependency>
 				<groupId>org.jason</groupId>
 				<artifactId>parent-pom</artifactId>
-				<version>3.3</version>
+				<version>3.8</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
