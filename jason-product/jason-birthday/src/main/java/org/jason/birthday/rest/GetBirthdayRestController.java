@@ -13,10 +13,13 @@ import java.util.stream.Collectors;
 @RestController
 public class GetBirthdayRestController {
 
-    private static Logger logger = LogManager.getLogger(GetBirthdayRestController.class);
+  private static Logger logger = LogManager.getLogger(GetBirthdayRestController.class);
 
-    @GetMapping(value = "allRelatives")
-    public List<String> getAll() {
-        return Arrays.asList(Relative.values()).stream().map(item -> item.toString()).collect(Collectors.toList());
-    }
+  @GetMapping(value = "/relatives")
+  public List<String> getAll() {
+    logger.info("Called get all relatives");
+    return Arrays.asList(Relative.values()).stream()
+        .map(item -> item.toString())
+        .collect(Collectors.toList());
+  }
 }

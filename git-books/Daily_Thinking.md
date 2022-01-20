@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Create a project to explore how to merge Eureka Server and API gateway together to make a better architect.
 * Should write a technical proposal to JCP regarding using annotation to replace no-method interface such as Serializable
 * Rust and Golang is pretty fast in lambda - It is good to explore it a bit more.
   - Go is easy to learn, focus on Web API - can be treated as an alternative to NodeJS
@@ -76,6 +77,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+20 Jan 2022
+-----------
+I strongly feel Eureka Server and API Gateway should be merged into one layer - where microservices register with API Gateway directly.
+That would be a better architect.
+I shall create a project and explore it more.
 
 18 Jan 2022
 ------------
