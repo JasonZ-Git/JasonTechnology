@@ -21,9 +21,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 /**
  * This helper class requires chromedriver and headless-chrome to be available on path.
  *
- * <p>This is working well with local, however it is not working well on lambda - Will use the
- * python version for now. @TODO - Figure out why binary chrome not working - probably lost some
- * default library - may need a new layer
+ * <p>This is working well with local, however, it is not working well on aws lambda. In AWS Lambda,
+ * a Python version function DictionaryGetGoogleTranslation-python-dev-dispatcher is used for the
+ * google function.
+ *  
+ * 
+ * @TODO - Figure out why binary chrome not working - probably lost some default library - may need a new layer
  *
  * @author Jason Zhang
  */

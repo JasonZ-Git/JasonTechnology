@@ -68,15 +68,25 @@ TODO List - All the finished ones will be moved to separate pages.
 * JWT - JSON Web Token
 * no-sql (MongoDB?)
 * cmder & git bash
-* Java EE 8 Technology Summary - By 30 May
+* Java EE 8 Technology Summary - By 30 May - Finished - A separate page created
 * MicroProfile (MicroService)
 * Dagger
 * Docker
 * Servlet 4
 * Wikitionary - Very interesting open Dictionary - Great for my dictionary project.
 * Bean Validation - How to improve the cross-parameter validation.
-* JSR 356 - Java API for WebSocket - Server Pash - How is it implemented? - This task should be finished by 24 May
+* JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+21 Jan 2022
+-----------
+Today is my last day with this company - They provide a good training system and being kind to me, a bit sorry for being with them short - just several weeks.
+I got one weeks' free time next next week, and will make good use of it.
+  -- AWS - Redesign dictionary-read-aws - Write a NodeJS version to replace Java version to solve cold-start issue - If it is still too slow, then write a Golang or Rust version - which should be a lot faster.
+  -- Explore more about AWS programming APIs - Make myself ready for the new job.
+  -- Start AI/ML - This is long planned and will get it started
+    -- pass the AWS Machine Learning certification.
+    -- Apply it in my existing(music project) or new idea (EagleEye project)
 
 20 Jan 2022
 -----------
@@ -85,26 +95,26 @@ That would be a better architect.
 I shall create a project and explore it more.
 
 18 Jan 2022
-------------
+-----------
 Jason's Language of 2022 - Golang - I will spend time with this language to explore more - Expected to have some free time the second half year
 I will expect myself have a busy first year due to join the new company and have a top performance there.
 
 17 Jan 2022
-------------
+-----------
 During the past several weeks, I got interviewed with 4 companies and got 3 offers - the 4th failed to provide good enough package so I directly reject them.
 The transition is over and I will start with a great company starting within 2 weeks - everything from them are great - every people I meet during the interview, the position, the package, the working setup - MacOS + Linux - So I will go with them.
 Will finish the job with the current company next Monday, and still have several days free time to explore new technologies and boost my projects.
 Another journey will start and I wish myself good luck.
 
 11 Jan 2022
-------------
+-----------
 I strong feel all the interfaces without a method should be replaced by annotation - which I believe is a better design.
 For example:
 
 java.io.Serializable should be replaced by @Serializable
 
 10 Jan 2022
-------------
+-----------
 AWS Lambda is slow in my scenario because of cold start - in warm status java is pretty fast.
 According to a bench march test, static programming languages like Java and C# is a lot slow than dynamic programming languages such as python NodeJS, Rust.
 The reason is because Java and C# needs a virtual machine on the back to warm up first.
@@ -112,55 +122,55 @@ I will use NodeJS to rewrite my program to solve the cold start issue.
 (Maybe can give Golang and Rust a try as well)
 
 6 Jan 2022
------------
+----------
 Lambda has some drawbacks - slow, lack of OS level operation.
 I have to use the python version selenium instead of java lambda which works perfectly in local while failed in lambda.
 It could be potentially solved by layers in lambda - I have to move on quickly now so have to move on with the python version.
 
 4 Jan 2022
------------
+----------
 First Cloud API ready - with API gateway, lambda and DynamoDB - A low cost solution
 
 29 Dec 2021
-------------
+-----------
 The project is updated - including upgrade to JUnit 5, Log4j.
 Will upgrade jason-product and promote code-challenge to be a formal project - Will do several Leetcode practice daily
 
 12 Dec 2021
-------------
+-----------
 I passed the Amazon Solution Architect associate test - It takes me sometime - The summary should be transfered here from Google Drive.
 SAP is in process - Should be able to achieve it before end of this year.
 
 24 Oct 2021
--------------
+-----------
 HakariCP - Worth a more detailed check -
 
 23 Oct 2021
--------------
+-----------
 As the gap between Springframework and JavaEE are kind of significant and not easy to transfer from one to another.
 Would be a good idea to create a spring-ee project to fill this gap - spring-ee intended to be a standard implementation of JavaEE (JarkatarEE)
 -- More time to spend on this idea - probably can start with rs-api - This is a significant one.
 
 08 Oct, 2021
--------------
+------------
 A framework like springboot for jakatarEE?
 
 20 Sep 2021
----------------
+-----------
 Is there a npm like tool for Java Eco system?
 maven is still file-based, is there a command-based or is it possible to enhance maven to do so?
 
 1 Sep 2021
--------------
+----------
 Start using Jira and Confluence to manage my own projects as there are too many and hard to go with the current way
 https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#
 
 29 Aug, 2021
--------------
+------------
 Create my own model to predicate the covid-19 cases.
 
 6 Aug, 2021 - Before the end of Tokyo Olympic
--------------
+-----------
 Create a free and common Olympic Database that can be easily used by anyone, it should include the following table:
 	- Sport, including upper and each item, game logo
 	- Country
@@ -170,7 +180,7 @@ Create a free and common Olympic Database that can be easily used by anyone, it 
 Update  - Database is created, need to write a spider to get all the game data.
 
 28 July,2021
--------------
+------------
 In 'Rail on Rails' PUT is used for update, POST is used to insert - Simple Solution for the confusing PUT and POST
 
 20 March,2021
@@ -179,34 +189,34 @@ Cloud Summary - Amazon Cloud is very nice, but I feel it becomes more of a luxur
 To get a deeper understand, a summary of AWS features and comparison is needed, together with a check on the existing cloud provider, especially community driven cloud prover.
 
 05 March, 2021
--------------
+--------------
 Create a Page to compare language difference so that picking up another language would be a lot easier
 
 03 Feb, 2021
--------------
+------------
 Create a Page to compare MySQL, MariaDB, Oracle, SQL Server
 
 13 Dec, 2020
--------------
+------------
 Different Package management System - apt, skdman, brew, snap, npm, yum
 
 18 Oct, 2020
--------------
+------------
 Pass the AWS Solution Architect Certification Exam with a month -- Due date 18 Nov 2020.
 
 9 Sep, 2020
--------------
+-----------
 I strongly feel Docker has a strong Linux culture - which is great.
 It is so amazing that Docker has such a small size and can do so much things.
 Great tool.
 It is worth to check the details design of Docker.
 
 10 August, 2020
---------------
+---------------
 Docker composer is used to declare the dependency between different services.
 
 2 August, 2020
--------------
+--------------
 Docker mainly support 2 types of file persistence mechanism:
 * Volume - Recommended way, as it is only managed by Docker, outside docker cannot access it.
 * Bind Mounts - The files can be changed by outside systems.
@@ -230,7 +240,7 @@ Docker is nice - however it seems not very neat to set up.
 However, once set up, it is very easy to deploy and run it.
 
 10 July, 2020
---------------
+-------------
 Eclipse Micro Profile is a worth a more detailed check.
 
 9 July, 2020
@@ -244,34 +254,34 @@ Goal - Get AWS Developer Certificate by the end of this year. (31 Dec)
 Go Jason, you can do it.
 
 8 July, 2020
--------------
+------------
 SwiftUI is driving me crazy.
 
 WSL - Windows SubSystem for Linux - It builds a real linux Kernel within windows - from Microsoft - Currently I am using MinGW(cmder).
 Seems it is a good option to give WSL a try - Linux is the best system for development.
 
 7 July, 2020
--------------
+------------
 SwiftUI is driving me crazy.
 
 6 July, 2020
------------
+------------
 Apache Camel is used as an integration portal - It can go with CDI and spring, used to dispatch request(http, SOAP, JMS) to different service endpoints.
 
 5 July, 2020
------------
+------------
 MicroProfile which is released in 2016, focus on Enterprise microservices applications, it is based on CDI, JSON-P, JSON-B and JAX-RS
 
 ![difference](images/microprofile_2_1.png)
 
 4 July, 2020
------------
+------------
 I read a book about microservice from RedHat - which I have been using for long.
 In this book, it illustrate 'Software is eating up the world', mainly due to the free software movement, the cost of using technology is significantly lower,
 so it easy to build services using these technologies.
 
 28 Jun, 2020
------------
+------------
 Java Security API is a combination of JASPIC, JAAS, JACC - all of which has a long history.
 
 It still lacks the simplicity to be a excellent API.
@@ -279,7 +289,7 @@ It still lacks the simplicity to be a excellent API.
 More work to do for it.
 
 21 Jun, 2020
------------
+------------
 Java Security API is very confusing, doesn't seems to be easy to use.
 Seems there is more work needed.
 
@@ -299,7 +309,7 @@ JavaEE is not a good name anymore - EE is basically frightening - Java Module is
 It is not surprising if I release a book related to JavaEE technology within 2 years
 
 25 May, 2020
------------
+------------
 The more I checked about JavaEE CDI2, the stronger I feel that Spring may not be the most suitable framework for us.
 Spring has departed from JavaEE quite far and it is hard for them to come back.
 It is reasonable to check more about Seam which is the reference implementation of CDI 2, and use seam's feature in my library
@@ -348,7 +358,7 @@ As UI is a key part for App development, SwiftUI is highly emphasised.
 * @ObjectBinding       
 
 10 May, 2020
------------
+------------
 **Clarification of CDI and DI**
 CDI/DI - CDI is a java ee specification, while DI is a common term as well as a java specification.
 DI is a subset of CDI
@@ -360,7 +370,7 @@ Although Spring doesn't implement JavaEE CDI2, it has all the features of it - l
 
 
 9 May,2020
------------
+----------
 Summary of JPA Technologies of different version
 
 * JPA consist of 
@@ -386,14 +396,14 @@ Summary of JPA Technologies of different version
 
 
 3 May, 2020
---------------
+-----------
 I strongly feel the limitation of **define type** first before using it both in programming language & relational database.
 In programming language, define type first is inconvenient, as it may be used just once. Similarly, in Database, define the table before using it is a limitation as well.
 Probably good to have a look at no-sql DB system like MongoDB.
 
 
 2 May, 2020
---------------
+-----------
 Comparison between Java & Swift
 * Declare variable & constants
   - It is encouraged to declare var without type - This is a convenient feature and used in Java 11
@@ -490,13 +500,13 @@ Conclusion - Spending more time on it and think how to improve Java using featur
 
 
 29 March, 2020
------------
+--------------
 Selenium is good for web test, but there is big limitation about functions such as 'Save As'
 The reason is that 'Save As' function are system level functions, are for security reason, browser(Chrome & Firefox) didn't provide a direct simulation.
 
 
 13 March, 2020
-------------
+--------------
 **Eclipse & IntelliJ IDEA 1**
 I have using Eclipse from 2010, and IntelliJ for 1 week.
 As recommended by ex-fellow from Alibaba and Architecture from my current company, I decided to try IntelliJ IDEA.
@@ -540,7 +550,7 @@ The main disadvantage are:
 
 
 8 March, 2020
-------------
+-------------
 **Rendering HTML** is kind of difficult, the best way for now is relying on a browser to do it.
 HTML Renders available in Java:
 * CSSBox 
@@ -559,19 +569,19 @@ HTML Renders available in Java:
 
 
 6 March, 2020
-------------
+-------------
 As a summary of the work in the past month - Raumati Branch Picture
 (Chart is drawn with email sent out)
 
 1 March, 2020
-------------
+-------------
 The key design difference between Java, NodeJS, Python
 * widefly
 * class loader of java
 
 
 28 Feb, 2020
------------
+------------
 There is a dom4j issue today, finally found it is caused by maven dependency scope:
 There are 3 **classpaths** in maven: compile, test and runtime, there are different **scopes** and availability:
 * compile - it is default scope, 'compile' scope dependencies are available for all 3 classpaths - transitive.

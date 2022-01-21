@@ -17,7 +17,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 
 /**
  * This will be replaced by NodeJS as it is slow in cold start scenario.
- * 
+ *
  * @author Jason Zhang
  */
 public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEvent, String> {
@@ -30,8 +30,8 @@ public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEv
     logger.info("Started Processing Request");
 
     String word = input.getRawQueryString();
-    
-    word = StringUtils.isBlank(word)? "hello" : word.trim().toLowerCase();
+
+    word = StringUtils.isBlank(word) ? "hello" : word.trim().toLowerCase();
 
     AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     DynamoDBMapper mapper = new DynamoDBMapper(client);
@@ -46,9 +46,9 @@ public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEv
 
     if (itemList.isEmpty()) {
       String msg = String.format("No translation Found for %s", word);
-      
+
       SNSUtil.publishMessageToTopic(word, SNSUtil.NEW_WORD_SNS_TOPIC);
-      
+
       logger.info(msg);
       return msg;
     }
