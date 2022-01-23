@@ -24,18 +24,24 @@ async function getItem(wordToQuery) {
   }
 }
 
-// var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-module.exports.retrieve = async (event) => {
+module.exports.translate = async (event) => {
 
   console.log("request: " + JSON.stringify(event));
 
-  var paths = event.path.split("?");
-  if (paths.length !== 2 || paths[1] === null || paths[1] === '') {
+  var queryKeys = Object.keys(event.queryStringParameters);
+
+  console.log("object keys " + queryKeys);
+  
+  if (word === null) {
     return "No word found for translation";
   }
 
-  let word = paths[1].toLowerCase();
+  var word = JSON.stringify(queryKeys).toLowerCase();
+
+  if (word === '') {
+    return "No word found for translation";
+  }
 
   console.log("word is " + word);
 

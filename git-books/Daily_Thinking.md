@@ -78,6 +78,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+
+23 Jan 2022
+-----------
+I need to enhance my JS ability more - NodeJS on the way
+
+
 21 Jan 2022
 -----------
 Today is my last day with this company - They provide a good training system and being kind to me, a bit sorry for being with them short - just several weeks.

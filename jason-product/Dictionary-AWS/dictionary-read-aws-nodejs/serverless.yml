@@ -1,0 +1,20 @@
+# This is a translation Service
+
+service: DictionaryFunction
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: ap-southeast-2
+  iam:
+    role: arn:aws:iam::052752173794:role/LambdaExecutionWithCloudWatch
+
+functions:
+  getTranslation:
+    handler: translation.translate
+    memorySize: 128
+    description: retrieve translation information - nodejs
