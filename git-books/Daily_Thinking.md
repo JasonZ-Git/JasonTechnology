@@ -78,6 +78,22 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+24 Jan 2022
+-----------
+Bench Mark Test with hot or cold start - for the same get translation function - API Gateway -> Lambda -> DynamoDB
+
+Both tested twice - This is the average time.
+
+Java Code Start: 11.6s
+Java Hot Start: 0.6s
+
+NodeJS Code Start: 0.6s
+NodeJS Hot Start: 0.4s
+
+Conslution - Java is way too slow for cold start, hot start is acceptable.
+           - NodeJS is fast enough - 20 times as fast in cold start.
+
+
 
 23 Jan 2022
 -----------

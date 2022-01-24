@@ -45,6 +45,7 @@ public class ReadTranslationHandler implements RequestHandler<APIGatewayV2HTTPEv
     List<DictionaryItem> itemList = mapper.query(DictionaryItem.class, queryExpression);
 
     if (itemList.isEmpty()) {
+      
       String msg = String.format("No translation Found for %s", word);
 
       SNSUtil.publishMessageToTopic(word, SNSUtil.NEW_WORD_SNS_TOPIC);
