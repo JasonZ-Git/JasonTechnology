@@ -24,23 +24,23 @@ async function getItem(wordToQuery) {
   }
 }
 
-
-async function writeToSNS(newWord){
+async function writeToSNS(newWord) {
   var snsParams = {
     Message: newWord,
     TopicArn: 'arn:aws:sns:ap-southeast-2:052752173794:NewWordTopic'
   };
 
-  var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(snsParams).promise();
+  console.log('Word to write to top is ' + newWord)
 
+  var publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(snsParams).promise();
 }
 
 
 module.exports.translate = async (event) => {
 
-  const queryKeys = Object.keys(event.queryStringParameters)[0];
+  console.log("event is " + JSON.stringify(event))
 
-  const word = JSON.stringify(queryKeys).toLowerCase().replace(/"/g, '');
+  const { word } = event.pathParameters;
 
   console.log("word is " + word);
 
@@ -48,21 +48,20 @@ module.exports.translate = async (event) => {
     return "No word found for translation";
   }
 
-
   try {
     const wordTranslation = await getItem(word);
-    if (wordTranslation == null){
+    console.log("wordTranslation is:" + wordTranslation["Item"]);
+    if (wordTranslation["Item"] == undefined) {
       writeToSNS(word);
-      
       return {
         statusCode: 400,
         body: 'No word found:' + word
       }
     }
-    
+
     console.log("Item is: " + JSON.stringify(wordTranslation["Item"]));
 
-    const result =  JSON.stringify(wordTranslation["Item"]);
+    const result = JSON.stringify(wordTranslation["Item"]);
     console.log("result is: " + result);
     return {
       statusCode: 200,
@@ -71,5 +70,5 @@ module.exports.translate = async (event) => {
   } catch (err) {
     return { error: err }
   }
-  
+
 };

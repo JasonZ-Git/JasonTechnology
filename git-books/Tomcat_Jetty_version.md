@@ -1,6 +1,6 @@
 
 
-# This is the version and tech stack of Tomcat
+# Tomcat Version
 
 | Tomcat Version  | Servlet   |  WebSockt  |  	Authentication  | Support Java Version  | Key Changes   |
 | --------------- | --------- | ---------- | ------------------ | --------------------- | ------------- |
@@ -12,7 +12,7 @@
 | 7.0             | 3.0       |    1.1     |                    | 6 and later           | |
 
 
-# This is the version and tech stack of Jetty
+# Jetty Version
 
 | Jetty Version   | Servlet   |  WebSockt  |  	Authentication  | Support Java Version  | Key Changes |
 | --------------- | --------- | ---------- | ------------------ | --------------------- |             |

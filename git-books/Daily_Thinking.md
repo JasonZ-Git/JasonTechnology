@@ -93,7 +93,10 @@ NodeJS Hot Start: 0.4s
 Conslution - Java is way too slow for cold start, hot start is acceptable.
            - NodeJS is fast enough - 20 times as fast in cold start.
 
-
+26 Jan 2022
+-----------
+"The Programtic Programmer" is a great book.
+I will create a page to get the best advice from it.
 
 23 Jan 2022
 -----------
