@@ -78,6 +78,11 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+2 Feb 2022
+-----------
+NodeJS Simple - To finish by end of week,
+Salesforce is a good company, treats its employee well.
+
 24 Jan 2022
 -----------
 Bench Mark Test with hot or cold start - for the same get translation function - API Gateway -> Lambda -> DynamoDB
