@@ -22,7 +22,7 @@ All the price are of USD.
 | 12 months | 12 months free, and will be charged after 12 months |
 
 
-## AWS Simple Price - In progress
+## AWS Simple Price - In progress - Last update Jan 2022
 
 | AWS Service   |  Price       | Free Tier |
 | ------------- | ------------ | --------- |
