@@ -45,6 +45,8 @@ $ npm list # list installed packages including their depedencies
 
 $ npm list --depth=0 # list packages within the depth
 
+$ npm list -g --depth 0 # list global packages with depth
+
 $ npm list {package-name}
 
 $ npm view {package-name} version
@@ -106,13 +108,14 @@ const args = process.argv.slice(2)
 args[0] // it is 'joe'
 
 ### process argument using <mark>minimist</mark>
+```JS
 node app.js --name=joe
 const args = require('minimist')(process.argv.slice(2))
 args['name'] //joe
-
+```
 
 ## console
-```js
+```JS
 const x = 'x'
 const y = 'y'
 console.log(x, y)
@@ -210,3 +213,170 @@ or
 const { car } = require('./items')
 ```
 
+## setTimeout & clearTimeout
+```JS
+setTimeout(() => {
+  // runs after 2 seconds
+}, 2000)
+
+
+# setTimeout with function parameters
+const myFunction = (firstParam, secondParam) => {
+  // do something
+}
+// runs after 2 seconds
+setTimeout(myFunction, 2000, firstParam, secondParam);
+
+
+# clear time out
+const id = setTimeout(() => {
+  // should run after 2 seconds
+}, 2000)
+// I changed my mind
+clearTimeout(id)
+
+```
+
+## setIntervals & clearInterval - runs every * seconds
+```JS
+setInterval(() => {
+  // runs every 2 seconds
+}, 2000)
+
+# clearInterval
+const id = setInterval(() => {
+  // runs every 2 seconds
+}, 2000)
+
+clearInterval(id)
+
+```
+
+## callback - classic way to asynchronous programming - There is callback hell problem
+```JS
+window.addEventListener('load', () => {
+  //window loaded
+  //do what you want
+})
+```
+
+## Promose - Introduced in ES2015
+```JS
+let done = true;
+const isDoneYet = new Promise((resolve, reject) => {
+  if (done) {
+    const workDone = 'Here is the thing I build';
+    resolve(workDone);
+  } else {
+    const why = 'Still working on something else'
+    reject(why);
+  }
+});
+
+const checkIfDone = () => {
+  isDoneyet.then(okay =>{
+    console.log(okay)
+  }).catch(err => {
+    console.error(err)
+  })
+}
+
+checkIfDone();
+```
+
+## Promisifying - turn a callback to a function
+```JS
+const fs = require('fs')
+const getFile = (fileName) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(fileName, (err, data) => {
+      if (err) {
+        reject(err)  // calling `reject` will cause the promise to fail with or without the error passed as an argument
+        return        // and we don't want to go any further
+      }
+      resolve(data)
+    })
+  })
+}
+getFile('/etc/passwd')
+.then(data => console.log(data))
+.catch(err => console.error(err))
+
+``` 
+
+## Orchestrating promises
+```JS
+const promose1 = new Promise(...)
+const promose2 = new Promise(...
+
+Promise.all([promise1, promise2]).then(...).catch(...);
+Promise.race([promise1, promise2]).then(...).catch(...);
+Promise.any([promise1, promise2]).then(...).catch(...);
+```
+
+## async/await - Since ES2017
+As Promise looks like they are synchronised, but they are actually asynchronised.
+```JS
+Beofore
+const aFunction = () => {
+  return Promise.resolve('test')
+}
+
+After
+const aFunction = async () => {
+  return 'test'
+}
+```
+
+## event Emitter
+```JS
+const EventEmitter = require('events')
+const eventEmitter = new EventEmitter()
+eventEmitter.on('start', ()=> {
+  ...
+})
+
+eventEmitter.emit('start');
+```
+
+## Emitter With Parameter
+```JS
+eventEmitter.on('start', (start, end) => {
+  console.log(`started from ${start} to ${end}`)
+})
+
+eventEmitter.emit('start', 1, 100)
+
+```
+
+## Create HTTP Server
+```JS
+const http = require('http')
+
+const port = process.env.PORT || 3000
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/html')
+  res.end('<h1>Hello, World!</h1>')
+})
+
+server.listen(port, () => {
+  console.log(`Server running at port ${port}`)
+})
+```
+
+## Perform Http Request using axios(It is eaisier than the built in https module)
+```JS
+const axios = require('axios')
+
+axios
+  .get('https://example.com/todos')
+  .then(res => {
+    console.log(`statusCode: ${res.status}`)
+    console.log(res)
+  })
+  .catch(error => {
+    console.error(error)
+  })
+```
