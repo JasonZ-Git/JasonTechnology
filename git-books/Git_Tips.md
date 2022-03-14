@@ -24,7 +24,7 @@
 	tool = meld
 
 [difftool]
- prompt = false
+         prompt = false
 
 
 
