@@ -22,6 +22,12 @@ awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
 ## Curl command with anthtication
 curl -i -H "Authorization:Basic Zmlyc3Q6JDQ3ODEl" -X GET http://192.168.1.89:8080/moonlight/v1/authenticate
 
+## Set git branch in termimal (Ubuntu)
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+
 ## MYSQL DB Size
 ### {My SQL Data folder}\MySQL Server 5.7\Data, check the folder size
 
