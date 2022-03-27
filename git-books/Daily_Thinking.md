@@ -78,6 +78,29 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+27 March 2022 ==== Milestone Summary for the past 12 years since 2nd April 2010 =====
+-----------
+This is what I did in the past 3 months:
+
+  -- property inspection, auction and settlemment.
+  -- moving home
+  -- buying furniture and home appliances.
+     -- Table, chairs
+     -- Bed, mattress, bedhead
+     -- Sofa
+     -- TV, fridge, washing machine
+     -- A fry pan
+     -- Toster, kettle, knife and a bowl 
+     -- kitchen board
+     -- storage and shoe box
+
+Now it is coming to and end with great excitment, life are to return to normal pattern - visiting libraries, exploring new technologies, reading books and sports.
+
+Big milestone for my past 12 years work in China, New Zealand and Australia.
+
+Keep going and explore more surprise and excitment ahead...
+
+
 2 Feb 2022
 -----------
 NodeJS Simple - To finish by end of week,
