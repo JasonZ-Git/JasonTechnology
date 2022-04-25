@@ -260,7 +260,7 @@ window.addEventListener('load', () => {
 })
 ```
 
-## Promose - Introduced in ES2015
+## Promise - Introduced in ES2015
 ```JS
 let done = true;
 const isDoneYet = new Promise((resolve, reject) => {
@@ -379,4 +379,106 @@ axios
   .catch(error => {
     console.error(error)
   })
+```
+
+## filesystem - open file
+```JS
+const fs = require('fs')
+
+fs.open('/Users/joe/test.txt', 'r', (err, fd) => {
+  //fd is our file descriptor
+})
+```
+or
+```JS
+const fs = require('fs')
+
+try {
+  const fd = fs.openSync('/Users/joe/test.txt', 'r')
+} catch (err) {
+  console.error(err)
+}
+...
+fs.close();
+```
+
+## filesystem - status (property)
+```JS
+const fs = require('fs')
+fs.stat('/Users/joe/test.txt', (err, stats) => {
+  if (err) {
+    console.error(err)
+    return
+  }
+
+  stats.isFile() //true
+  stats.isDirectory() //false
+  stats.isSymbolicLink() //false
+  stats.size //1024000 //= 1MB
+})
+```
+
+## filesystem - path
+```JS
+const path = require('path')
+const notes = '/home/jason/notes.txt'
+
+path.dirname(notes) // /home/jason
+path.basename(notes) // notes.txt
+path.extname(notes) // .txt
+path.basename(notes, path.extname(notes)) //notes
+
+const name = 'jason'
+path.join('/', 'home', name, 'notes.txt') // /home/jason/notes.txt'
+
+path.resolve('joe.txt') // /home/jason/joe.txt if run from jason folder
+path.resolve('tmp', 'joe.txt') // /home/jason/tmp/joe.txt if run from my home folder
+path.resolve('/etc', 'joe.txt') // /etc/joe.txt
+```
+
+## filesystem - read file(sync)
+```JS
+const fs = require('fs')
+
+fs.readFile('/Users/joe/test.txt', 'utf8' , (err, data) => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  console.log(data)
+})
+
+...
+
+try {
+  const data = fs.readFileSync('/Users/joe/test.txt', 'utf8')
+  console.log(data)
+} catch (err) {
+  console.error(err)
+}
+
+```
+
+## filesystem - write file (sync)
+```JS
+const fs = require('fs')
+
+const content = 'Some content!'
+
+fs.writeFile('/Users/joe/test.txt', content, err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  //file written successfully
+})
+
+...
+const content = 'Some content!'
+try {
+  fs.writeFileSync('/Users/joe/test.txt', content)
+  //file written successfully
+} catch (err) {
+  console.error(err)
+}
 ```
