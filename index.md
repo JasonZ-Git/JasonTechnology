@@ -1,31 +1,40 @@
-# World is powered by dream, motivation and action.
+<p align="center">
+  <a href="https://github.com/JasonZ-Git/JasonTechnology">
+    <img src="git-books/images/JZ.png" alt="JasonZ logo" width="200" height="165">
+  </a>
+</p>
 
-[Jason Daily Brain Storm](./git-books/Daily_Thinking.md)
+<h3 align="center">Jason Technology</h3>
+<br>
 
-[JavaEE 8 Technology Stack](./git-books/JavaEE_8.md)
+## World is powered by dream, motivation & action
 
-[Java Terminalogy - JavaEE 8, JavaEE Web Profile, Servlet, JavaSE 8](./git-books/JavaEE8_JavaSE8_Servlet_Full.md)
+- [Jason Daily Brain Storm](./git-books/Daily_Thinking.md)
 
-[Java Version History - JavaSE, JavaEE, JakartaEE](./git-books/Java_Version_History_SE_EE.md)
+- [JavaEE 8 Technology Stack](./git-books/JavaEE_8.md)
 
-[Tomcat & Jetty Version History](./git-books/Tomcat_Jetty_version.md)
+- [Java Terminalogy - JavaEE 8, JavaEE Web Profile, Servlet, JavaSE 8](./git-books/JavaEE8_JavaSE8_Servlet_Full.md)
 
-[IntellIJ Shortcut](./git-books/IntelliJ_Shortcut.md)
+- [Java Version History - JavaSE, JavaEE, JakartaEE](./git-books/Java_Version_History_SE_EE.md)
 
-[Userful Commands](./git-books/Useful_Command.md)
+- [Tomcat & Jetty Version History](./git-books/Tomcat_Jetty_version.md)
 
-[DB Comparation - MySQL vs Oracle](./git-books/MySQL_Oracle_Comparation.md)
+- [IntellIJ Shortcut](./git-books/IntelliJ_Shortcut.md)
 
-[Package Management System](./git-books/Package_Management_System.md)
+- [Userful Commands](./git-books/Useful_Command.md)
 
-[AWS Comparation with Traditional Software Development](./git-books/Cloud_Technology_Comparation.md)
+- [DB Comparation - MySQL vs Oracle](./git-books/MySQL_Oracle_Comparation.md)
 
-[Jira Dashboard](https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#)
+- [Package Management System](./git-books/Package_Management_System.md)
 
-[Confluence Page](https://jasonz.atlassian.net/wiki/spaces/JT/overview)
+- [AWS Comparation with Traditional Software Development](./git-books/Cloud_Technology_Comparation.md)
 
-[OpenSAML3 Code Example](./git-books/OpenSAML3.md)
+- [Jira Dashboard](https://jasonz.atlassian.net/secure/Dashboard.jspa?selectPageId=10001#)
 
-[AWS Pricing Simple](./git-books/AWS_Pricing_Simple.md)
+- [Confluence Page](https://jasonz.atlassian.net/wiki/spaces/JT/overview)
 
-[NodeJS - Simple](./git-books/NodeJS_Simple.md)
+- [OpenSAML3 Code Example](./git-books/OpenSAML3.md)
+
+- [AWS Pricing Simple](./git-books/AWS_Pricing_Simple.md)
+
+- [NodeJS - Simple](./git-books/NodeJS_Simple.md)
