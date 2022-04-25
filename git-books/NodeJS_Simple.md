@@ -346,6 +346,11 @@ eventEmitter.on('start', (start, end) => {
 })
 
 eventEmitter.emit('start', 1, 100)
+...
+
+eventEmitter.once('my-event', () => {
+  //call callback function once
+})
 
 ```
 
@@ -481,4 +486,63 @@ try {
 } catch (err) {
   console.error(err)
 }
+```
+## filesystem - dir
+```JS
+const fs = require('fs')
+
+const folderName = '/Users/joe/test'
+
+try {
+  if (!fs.existsSync(folderName)) {
+    fs.mkdirSync(folderName)
+  }
+} catch (err) {
+  console.error(err)
+}
+
+...
+const folderPath = '/Users/joe'
+fs.readdirSync(folderPath)
+...
+
+fs.rename('/Users/joe', '/Users/roger', err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  //done
+})
+...
+
+fs.rmdir(dir, { recursive: true }, (err) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(`${dir} is deleted!`);
+});
+
+...
+fs.rm(dir, { recursive: true, force: true }, (err) => {
+  if (err) {
+    throw err;
+  }
+
+  console.log(`${dir} is deleted!`)
+});
+```
+
+## OS module
+```JS
+const os = require('os')
+
+os.cpus()
+os.freemem()
+os.homedir()
+os.platform()
+os.release()
+os.type()
+os.userInfo()
+os.uptime()
 ```
