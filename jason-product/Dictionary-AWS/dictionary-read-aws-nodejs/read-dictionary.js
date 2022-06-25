@@ -47,15 +47,17 @@ module.exports.translate = async (event) => {
   if (word === '') {
     return "No word found for translation";
   }
+  
+  let normorlisedWord = word.toLowerCase();
 
   try {
-    const wordTranslation = await getItem(word);
+    const wordTranslation = await getItem(normorlisedWord);
     console.log("wordTranslation is:" + wordTranslation["Item"]);
     if (wordTranslation["Item"] == undefined) {
-      writeToSNS(word);
+      writeToSNS(normorlisedWord);
       return {
         statusCode: 400,
-        body: 'No word found:' + word
+        body: 'No word found:' + normorlisedWord
       }
     }
 

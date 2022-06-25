@@ -67,11 +67,12 @@ alter table table_name drop index index_name
 ```BASH
 $ git diff-tree --no-commit-id --name-only -r {commit_id}
 ```
-## Created a signed jar 
+## Git - Beautify log 
 ```BASH
-$ mvn -Pjnlp to generate the signed jar.
+$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 ```
-## Pack the jar 
+
+## Git - Show last 10 log
 ```BASH
-$ pack200 ***.jar.pack.gz          ***.jar
+$ git config --global alias.last "lg -10"
 ```

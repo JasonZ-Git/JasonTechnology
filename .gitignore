@@ -5,7 +5,7 @@
 *.project
 *.orig
 *.iml
-*/.idea/*
+**/.idea/*
 
 
 ## Koala Dictionary
