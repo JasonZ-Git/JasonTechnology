@@ -76,3 +76,8 @@ $ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Cre
 ```BASH
 $ git config --global alias.last "lg -10"
 ```
+
+## Cool way to export Java_Home
+```BASH
+export JAVA_HOME="$(dirname $(dirname $(realpath $(which javac))))"
+```

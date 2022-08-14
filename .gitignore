@@ -7,7 +7,6 @@
 *.iml
 **/.idea/*
 
-
 ## Koala Dictionary
 **.DS_Store
 **/project.pbxproj

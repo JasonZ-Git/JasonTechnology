@@ -38,3 +38,5 @@
 - [AWS Pricing Simple](./git-books/AWS_Pricing_Simple.md)
 
 - [NodeJS - Simple](./git-books/NodeJS_Simple.md)
+
+- [Bazel - Simple](./git-books/Bazel_Simple.md)
