@@ -5,10 +5,11 @@ npm install -g @bazel/bazelisk
 ```
 
 ## Bazel history
+```BASH
 -- released in 2015 in Google, written in Java;
 -- Support any programming language
 -- cross platform
-
+```
 ## baze command
 ```BASH
 bazel help
@@ -19,6 +20,7 @@ bazel run target_name # run a target
 bazel fetch target_name # fetch all dependencies
 ```
  ## bazel java rule
+ ```BASH
  java_binary - A rule to build a runable jar file with script - main class, standalone
     -- name - name of the rule, mandatory
     -- srcs - use maven2 structure for java files 
@@ -33,7 +35,7 @@ bazel fetch target_name # fetch all dependencies
     -- javacopts, jvm_flags, launcher, licenses, main_class, output_licenses, plugins, 
     -- resource_jars, restricted_to , stamp, tags, target_compatible_with, 
     -- testonly, toolchains, use_launcher, visibility
-
+```
 ## java_library rule - build a jar file
 java_library
 
