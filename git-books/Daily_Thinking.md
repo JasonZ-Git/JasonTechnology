@@ -78,6 +78,11 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+2 Sep 2022 ===== Start the great AI journey
+-----------
+Data based AI is super powerful, just a few line of code create easily recognise a face & eye, more importantly, it can apply to everything, amazing!!!!!
+
+
 27 March 2022 ==== Milestone Summary for the past 12 years since 2nd April 2010 =====
 -----------
 This is what I did in the past 3 months:
