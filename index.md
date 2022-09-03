@@ -40,3 +40,5 @@
 - [NodeJS - Simple](./git-books/NodeJS_Simple.md)
 
 - [Bazel - Simple](./git-books/Bazel_Simple.md)
+
+- [OpenCV - Quick](./git-books/OpenCV.md)
