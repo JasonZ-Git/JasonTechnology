@@ -2,7 +2,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Opening image
-img = cv2.imread("tennis_image_6.jpg")
+img = cv2.imread("tennis_image_3.jpg")
 
 # OpenCV opens images as BRG
 # but we want it as RGB We'll
