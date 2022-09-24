@@ -1,3 +1,9 @@
+
+# yolo weight file
+**/*.weight
+**/*.pb
+**/*.onnx
+
 # maven generated files
 **/target/*
 *.classpath

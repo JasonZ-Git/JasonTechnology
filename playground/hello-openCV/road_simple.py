@@ -3,7 +3,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Reading the image using imread() function
-image = cv2.imread('road.jpg')
+image = cv2.imread('road/road.jpg')
   
 # Extracting the height and width of an image
 h, w = image.shape[:2]

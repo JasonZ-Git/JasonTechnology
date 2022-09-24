@@ -78,6 +78,21 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+22 Sep 2022 ===== A challenge for myself to get a full demo related to tennis detection during this 4 day holiday session
+-----------
+  -- 1 Choose a tool to label image and generate annotation file
+
+  -- 2 Train the annotation using CoreML Tool
+
+  -- 3 Register an account on App Store
+
+  -- 4 Develop an App
+
+  -- 5 Deploy it
+
+Quite a challenge
+
+
 2 Sep 2022 ===== Start the great AI journey
 -----------
 Data based AI is super powerful, just a few line of code create easily recognise a face & eye, more importantly, it can apply to everything, amazing!!!!!
