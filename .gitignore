@@ -4,6 +4,9 @@
 **/*.pb
 **/*.onnx
 
+# coreml weight file
+**/*.mlmodel
+
 # maven generated files
 **/target/*
 *.classpath
