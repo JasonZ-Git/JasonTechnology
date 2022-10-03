@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Breakfast Finder Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Ak-Ii-d02">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tennis_Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Ak-Ii-d02">
                                 <rect key="frame" x="0.0" y="91" width="375" height="485"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7Ak-Ii-d02" secondAttribute="height" multiplier="75:97" id="8xu-jm-Qe8"/>
@@ -41,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Breakfast Finder Logo.png" width="612" height="792"/>
+        <image name="Tennis_Logo.png" width="612" height="792"/>
     </resources>
 </document>

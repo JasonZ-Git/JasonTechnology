@@ -2,7 +2,7 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-Contains the app delegate for the Breakfast Finder.
+Contains the app delegate for the Tennis Ball finder
 */
 
 import UIKit

@@ -21,7 +21,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This sample uses the camera to capture images of breakfast items for object recognition.</string>
+	<string>This sample uses the camera to capture images of tennis ball for object recognition.</string>
 	<key>UILaunchStoryboardName</key>
 	<string></string>
 	<key>UIMainStoryboardFile</key>

@@ -1,8 +1,8 @@
 /*
-See LICENSE folder for this sample’s licensing information.
+See LICENSE folder for this App's licensing information.
 
 Abstract:
-Contains the view controller for the Breakfast Finder.
+Contains the view controller for the Tennis Finder.
 */
 
 import UIKit
@@ -27,7 +27,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupAVCapture()
+        setupCameraCapture()
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,7 +35,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         // Dispose of any resources that can be recreated.
     }
     
-    func setupAVCapture() {
+    func setupCameraCapture() {
         var deviceInput: AVCaptureDeviceInput!
         
         // Select a video device, make an input
