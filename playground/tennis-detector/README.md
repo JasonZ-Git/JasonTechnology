@@ -1,180 +1,190 @@
-# Recognizing Objects in Live Capture
+# ObjectDetection-CoreML
 
-Apply Vision algorithms to identify objects in real-time video.
+> supporting models: [`YOLOv5`](https://github.com/ultralytics/yolov5), [`YOLOv3`](https://github.com/ultralytics/yolov3), `MobileNetV2+SSDLite`
 
-## Overview
+![platform-ios](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+![swift-version](https://img.shields.io/badge/swift-4.2-red.svg)
+![lisence](https://img.shields.io/badge/license-MIT-black.svg)
 
-With the [Vision](https://developer.apple.com/documentation/vision) framework, you can recognize objects in live capture.  Starting in iOS 12, macOS 10.14, and tvOS 12, Vision requests made with a Core ML model return results as  [`VNRecognizedObjectObservation`](https://developer.apple.com/documentation/vision/vnrecognizedobjectobservation) objects, which identify objects found in the captured scene.
+This project is Object Detection on iOS with Core ML.<br>If you are interested in iOS + Machine Learning, visit [here](https://github.com/motlabs/iOS-Proejcts-with-ML-Models) you can see various DEMOs.<br>![SSDMobileNetV2-DEMO](https://user-images.githubusercontent.com/37643248/188248210-2c02790b-6231-4549-8211-e3edcccba9e8.gif)
 
-This sample app shows you how to set up your camera for live capture, incorporate a Core ML model into Vision, and parse results as classified objects.
+## Requirements
 
-![Example screenshots of app identifying a croissant and bananas in live capture.](Documentation/BananaCroissant.png)
+- Xcode 10.3+
+- iOS 13.0+
+- Swift 4.2
 
-## Set Up Live Capture
+## How To Build and Run the Project
 
-Although implementing AV live capture is similar from one capture app to another, configuring the camera to work best with Vision algorithms involves some subtle differences.
+### 1. Clone the project
 
-**Configure the camera to use for capture.**  This sample app feeds camera output from AVFoundation into the main view controller.  Start by configuring an  [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession):
-
-``` swift
-private let session = AVCaptureSession()
+```shell
+git clone https://github.com/tucan9389/ObjectDetection-CoreML
 ```
 
-**Set your device and session resolution.** It’s important to choose the right resolution for your app.  Don’t simply select the highest resolution available if your app doesn’t require it.  It’s better to select a lower resolution so Vision can process results more efficiently.  Check the model parameters in Xcode to find out if your app requires a resolution smaller than 640 x 480 pixels.
+### 2. Prepare Core ML model
 
-Set the camera resolution to the nearest resolution that is greater than or equal to the resolution of images used in the model:
+- You can download COCO models or another model from [here](#model-size-minimum-ios-version-download-link)
 
-``` swift
-let videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
-do {
-    deviceInput = try AVCaptureDeviceInput(device: videoDevice!)
-} catch {
-    print("Could not create video device input: \(error)")
-    return
-}
+> Or if you want to make and use model with custom dataset,
+> 1. follow [roboflow tutorial from scratch](https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/) or [yolov5 repo's tutorial](https://github.com/ultralytics/yolov5/issues/12)
+> 2. and convert the `.pt` model to `.mlmodel` model with [our issue](https://github.com/tucan9389/ObjectDetection-CoreML/issues/6#issuecomment-1235192089).
 
-session.beginConfiguration()
-session.sessionPreset = .vga640x480 // Model image size is smaller.
-```
+### 3. Add the model to the project
 
-Vision will perform the remaining scaling.
+By default, the project uses the `yolov5s` model. If you want to use another model, you can replace the model file in the project.
 
-**Add video input to your session by adding the camera as a device:**
+<img width="1305" alt="Screen Shot 2022-09-03 at 9 48 43 AM" src="https://user-images.githubusercontent.com/37643248/188249381-391d494d-47f0-4bd7-b70b-88809a2d7f04.png">
 
-``` swift
-guard session.canAddInput(deviceInput) else {
-    print("Could not add video device input to the session")
-    session.commitConfiguration()
-    return
-}
-session.addInput(deviceInput)
-```
+<img width="560" alt="Screen Shot 2022-09-03 at 9 46 19 AM" src="https://user-images.githubusercontent.com/37643248/188249388-6b29075b-0d02-4421-addd-e8b830613728.png">
 
-**Add video output to your session, being sure to specify the pixel format:**
+### 4. Set model name properly in `ViewController.swift`
 
-``` swift
-if session.canAddOutput(videoDataOutput) {
-    session.addOutput(videoDataOutput)
-    // Add a video data output
-    videoDataOutput.alwaysDiscardsLateVideoFrames = true
-    videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
-    videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-} else {
-    print("Could not add video data output to the session")
-    session.commitConfiguration()
-    return
-}
-```
+<img width="640" alt="image" src="https://user-images.githubusercontent.com/37643248/188249496-20ba838c-7f0f-4457-adac-2fa11344c7de.png">
 
-**Process every frame, but don’t hold on to more than one Vision request at a time.**  The camera will stop working if the buffer queue overflows available memory.  To simplify buffer management, in the capture output, Vision blocks the call for as long as the previous request requires.  As a result, AVFoundation may drop frames, if necessary.  The sample app keeps a queue size of 1; if a Vision request is already queued up for processing when another becomes available, skip it instead of holding on to extras.  
+### 5. Build and Run
 
-``` swift
-let captureConnection = videoDataOutput.connection(with: .video)
-// Always process the frames
-captureConnection?.isEnabled = true
-do {
-    try  videoDevice!.lockForConfiguration()
-    let dimensions = CMVideoFormatDescriptionGetDimensions((videoDevice?.activeFormat.formatDescription)!)
-    bufferSize.width = CGFloat(dimensions.width)
-    bufferSize.height = CGFloat(dimensions.height)
-    videoDevice!.unlockForConfiguration()
-} catch {
-    print(error)
-}
-```
+## How To Run with your own model
 
-**Commit the session configuration:**
+### 1. Convert your model to Core ML
 
-``` swift
-session.commitConfiguration()
-```
+You can check [here](https://github.com/mshamash/yolov5/blob/master/export.py#L189-L333) to convert your object detection model to Core ML with additional layers for supporting `VNRecognizedObjectObservation` output automatically.
 
-Set up a preview layer on your view controller, so the camera can feed its frames into your app’s UI:
+### 2. Follow the steps above from Step 3
 
-``` swift
-previewLayer = AVCaptureVideoPreviewLayer(session: session)
-previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-rootLayer = previewView.layer
-previewLayer.frame = rootLayer.bounds
-rootLayer.addSublayer(previewLayer)
-```
+## Models
 
-## Specify Device Orientation
+### Model Matadata
 
-You must input the camera’s orientation properly using the device orientation.  Vision algorithms aren’t orientation-agnostic, so when you make a request, use an orientation that's relative to that of the capture device.
+<img width="640" alt="image" src="https://user-images.githubusercontent.com/37643248/188037159-93cf79f7-5c21-4fbf-a46e-874109271606.png">
 
-``` swift
-let curDeviceOrientation = UIDevice.current.orientation
-let exifOrientation: CGImagePropertyOrientation
+### Model Size, Minimum iOS Version, Download Link
 
-switch curDeviceOrientation {
-case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
-    exifOrientation = .left
-case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
-    exifOrientation = .upMirrored
-case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
-    exifOrientation = .down
-case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
-    exifOrientation = .up
-default:
-    exifOrientation = .up
-}
-```
+| Model | Size<br>(MB) | Minimum<br>iOS Version | Download<br>Link | Trained Dataset
+| :---- | ----: | :----: | ---- | --- | 
+| yolov5n.mlmodel | 7.52 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5n.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5s.mlmodel | 28.0 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5s.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5m.mlmodel | 81.2 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5m.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5l.mlmodel | 178.0 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5l.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5x.mlmodel | 331.0 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5x.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5n6.mlmodel | 12.8 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5n6.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5s6.mlmodel | 48.5 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5s6.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5m6.mlmodel | 137.0 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5m6.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5l6.mlmodel | 293.0 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5l6.mlmodel) | [COCO](#trained-dataset-infos)
+| yolov5x6.mlmodel | 537.0 | iOS13 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov5-models/yolov5x6.mlmodel) | [COCO](#trained-dataset-infos)
+| YOLOv3.mlmodel | 248.4 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov3-models/YOLOv3.mlmodel) | [COCO](#trained-dataset-infos)
+| YOLOv3FP16.mlmodel | 124.2 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov3-models/YOLOv3FP16.mlmodel) | [COCO](#trained-dataset-infos)
+| YOLOv3Int8LUT.mlmodel | 62.2 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov3-models/YOLOv3Int8LUT.mlmodel) | [COCO](#trained-dataset-infos)
+| YOLOv3Tiny.mlmodel | 35.5 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov3-models/YOLOv3Tiny.mlmodel) | [COCO](#trained-dataset-infos)
+| YOLOv3TinyFP16.mlmodel | 17.8 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov3-models/YOLOv3TinyFP16.mlmodel) | [COCO](#trained-dataset-infos)
+| YOLOv3TinyInt8LUT.mlmodel | 8.9 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/yolov3-models/YOLOv3TinyInt8LUT.mlmodel) | [COCO](#trained-dataset-infos)
+| MobileNetV2_SSDLite.mlmodel | 9.3 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/etc-models/MobileNetV2_SSDLite.mlmodel) | [COCO](#trained-dataset-infos)
+| ObjectDetector.mlmodel | 63.7 | iOS12 | [Link](https://github.com/tucan9389/ObjectDetection-CoreML/releases/download/etc-models/ObjectDetector.mlmodel) | [6 Label Dataset](#trained-dataset-infos)
 
-## Designate Labels Using a Core ML Classifier
+#### Trained Dataset Infos
 
-The Core ML model you include in your app determines which labels are used in Vision’s object identifiers.  The model in this sample app was trained in Turi Create 4.3.2 using Darknet YOLO (You Only Look Once). See [Object Detection](https://apple.github.io/turicreate/docs/userguide/object_detection/) to learn how to generate your own models using Turi Create. Vision analyzes these models and returns observations as [`VNRecognizedObjectObservation`](https://developer.apple.com/documentation/vision/vnrecognizedobjectobservation) objects.
+<details>
+  <summary>COCO Dataset</summary>
 
-Load the model using a [`VNCoreMLModel`](https://developer.apple.com/documentation/vision/vncoremlmodel):
+- https://github.com/ultralytics/yolov5/blob/9da6d0f9f5bc37fa386b7b82d2a963f94650949a/data/coco.yaml#L17-L97
+  
+</details>
 
-``` swift
-let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
-```
+<details>
+  <summary>6 Label Dataset(Apple's DEMO) </summary>
 
-Create a [`VNCoreMLRequest`](https://developer.apple.com/documentation/vision/vncoremlrequest) with that model:
+- Bagel
+- Banana
+- Coffee
+- Croissant
+- Egg
+- Waffle
+  
+</details>
 
-``` swift
-let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
-    DispatchQueue.main.async(execute: {
-        // perform all the UI updates on the main queue
-        if let results = request.results {
-            self.drawVisionRequestResults(results)
-        }
-    })
-})
-```
+## Performance
 
-The completion handler could execute on a background queue, so perform UI updates on the main queue to provide immediate visual feedback.
+> Build Setting:<br>
+> Xcoede > Build Settings > Apple Clang - Code Generation > Optimization Level > Fastest [-O3]
 
-Access results in the request’s completion handler, or through the `requests` property.
+<img width="560" alt="Screen Shot 2022-09-05 at 4 31 08 PM" src="https://user-images.githubusercontent.com/37643248/188393214-d2e822a6-73b2-4971-a46d-27cdbfc8c61c.png">
 
-## Parse Recognized Object Observations
+### Infernece Time (ms)
 
-The `results` property is an array of observations, each with a set of labels and bounding boxes. Parse those observations by iterating through the array, as follows:
+| Model vs. Device    | 13<br>Pro | 12<br>Pro | 11<br>Pro | XS | XS<br>Max | XR | X | 7+ | 7 |
+| :---- | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | 
+| yolov5n             |  | 24 |  |  |  |  |  |  |  |
+| yolov5s             |  | 29 |  |  |  |  |  |  |  |
+| yolov5m             |  | 39 |  |  |  |  |  |  |  |
+| yolov5l             |  | 38 |  |  |  |  |  |  |  |
+| yolov5x             |  | 69 |  |  |  |  |  |  |  |
+| yolov5n6            |  | 24 |  |  |  |  |  |  |  |
+| yolov5s6            |  | 34 |  |  |  |  |  |  |  |
+| yolov5m6            |  | 39 |  |  |  |  |  |  |  |
+| yolov5l6            |  | 41 |  |  |  |  |  |  |  |
+| yolov5x6            |  | 57 |  |  |  |  |  |  |  |
+| YOLOv3              |  | 45 | 83 | 108 | 93 | 100 | 356 | 569 | 561 | 
+| YOLOv3FP16          |  | 44 | 84 | 104 | 89 | 101 | 348 | 572 | 565 | 
+| YOLOv3Int8LUT       |  | 53 | 86 | 101 | 92 | 100 | 337 | 575 | 572 | 
+| YOLOv3Tiny          |  | 36 | 44 | 46 | 41 | 47 | 106 | 165 | 168 | 
+| YOLOv3TinyFP16      |  | 33 | 44 | 51 | 41 | 44 | 103 | 165 | 167 | 
+| YOLOv3TinyInt8LUT   |  | 39 | 44 | 45 | 39 | 39 | 106 | 160 | 161 | 
+| MobileNetV2_SSDLite |  | 17 | 18 | 31 | 31 | 31 | 109 | 141 | 134 | 
+| ObjectDetector      |  | 13 | 18 | 24 | 26 | 23 | 63 | 86 | 84 | 
 
-``` swift
-for observation in results where observation is VNRecognizedObjectObservation {
-    guard let objectObservation = observation as? VNRecognizedObjectObservation else {
-        continue
-    }
-    // Select only the label with the highest confidence.
-    let topLabelObservation = objectObservation.labels[0]
-    let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
-    
-    let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
-    
-    let textLayer = self.createTextSubLayerInBounds(objectBounds,
-                                                    identifier: topLabelObservation.identifier,
-                                                    confidence: topLabelObservation.confidence)
-    shapeLayer.addSublayer(textLayer)
-    detectionOverlay.addSublayer(shapeLayer)
-}
-```
+### Total Time (ms)
 
-The `labels` array lists each classification `identifier` along with its `confidence` value, ordered from highest confidence to lowest.  The sample app notes only the classification with the highest `confidence` score, at element `0`.  It then displays this classification and confidence in a textual overlay.
+| Model vs. Device    | 13<br>Pro | 12<br>Pro | | 11<br>Pro | XS | XS<br>Max | XR | X | 7+ | 7 |
+| :---- | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | 
+| yolov5n             |  | 26 |  |  |  |  |  |  |  |
+| yolov5s             |  | 31 |  |  |  |  |  |  |  |
+| yolov5m             |  | 41 |  |  |  |  |  |  |  |
+| yolov5l             |  | 39 |  |  |  |  |  |  |  |
+| yolov5x             |  | 72 |  |  |  |  |  |  |  |
+| yolov5n6            |  | 25 |  |  |  |  |  |  |  |
+| yolov5s6            |  | 36 |  |  |  |  |  |  |  |
+| yolov5m6            |  | 41 |  |  |  |  |  |  |  |
+| yolov5l6            |  | 42 |  |  |  |  |  |  |  |
+| yolov5x6            |  | 59 |  |  |  |  |  |  |  |
+| YOLOv3              |  | 46 | 84 | 108 | 93 | 100 | 357 | 569 | 561 | 
+| YOLOv3FP16          |  | 45 | 85 | 104 | 89 | 101 | 348 | 572 | 565 | 
+| YOLOv3Int8LUT       |  | 54 | 86 | 102 | 92 | 102 | 338 | 576 | 573 | 
+| YOLOv3Tiny          |  | 37 | 45 | 46 | 42 | 48 | 106 | 166 | 169 | 
+| YOLOv3TinyFP16      |  | 35 | 45 | 51 | 41 | 44 | 104 | 165 | 167 | 
+| YOLOv3TinyInt8LUT   |  | 41 | 45 | 45 | 39 | 40 | 107 | 160 | 161 | 
+| MobileNetV2_SSDLite |  | 19 | 19 | 32 | 31 | 32 | 109 | 142 | 134 | 
+| ObjectDetector      |  | 14 | 18 | 25 | 26 | 23 | 64 | 87 | 85 | 
 
-The bounding box tells where the object was observed. The sample uses this location to draw a bounding box around the object.
+### FPS
 
-This sample simplifies classification by returning only the top classification; the array is ordered in decreasing order of confidence score.  However, your app could analyze the confidence score and show multiple classifications, either to further describe your detected objects, or to show competing classifications.
+| Model vs. Device    | 13<br>Pro | 12<br>Pro | | 11<br>Pro | XS | XS<br>Max | XR | X | 7+ | 7 |
+| :---- | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | ----: | 
+| yolov5n             |  | 19 |  |  |  |  |  |  |  |
+| yolov5s             |  | 14 |  |  |  |  |  |  |  |
+| yolov5m             |  | 13 |  |  |  |  |  |  |  |
+| yolov5l             |  | 14 |  |  |  |  |  |  |  |
+| yolov5x             |  | 7 |  |  |  |  |  |  |  |
+| yolov5n6            |  | 19 |  |  |  |  |  |  |  |
+| yolov5s6            |  | 14 |  |  |  |  |  |  |  |
+| yolov5m6            |  | 13 |  |  |  |  |  |  |  |
+| yolov5l6            |  | 14 |  |  |  |  |  |  |  |
+| yolov5x6            |  | 13 |  |  |  |  |  |  |  |
+| YOLOv3              |  | 12 | 9 | 8 | 10 | 9 | 2 | 1 | 1 | 
+| YOLOv3FP16          |  | 13 | 9 | 9 | 10 | 8 | 2 | 1 | 1 | 
+| YOLOv3Int8LUT       |  | 14 | 9 | 9 | 10 | 9 | 2 | 1 | 1 | 
+| YOLOv3Tiny          |  | 14 | 14 | 21 | 22 | 20 | 8 | 5 | 5 | 
+| YOLOv3TinyFP16      |  | 14 | 14 | 19 | 23 | 21 | 9 | 5 | 5 | 
+| YOLOv3TinyInt8LUT   |  | 11 | 14 | 21 | 24 | 23 | 8 | 5 | 5 | 
+| MobileNetV2_SSDLite |  | 19 | 29 | 23 | 23 | 23 | 8 | 6 | 6 | 
+| ObjectDetector      |  | 17 | 29 | 23 | 23 | 24 | 14 | 10 | 11 | 
 
-You can also use the [`VNRecognizedObjectObservation`](https://developer.apple.com/documentation/vision/vnrecognizedobjectobservation) resulting from object recognition to initialize an object tracker such as [`VNTrackObjectRequest`](https://developer.apple.com/documentation/vision/vntrackobjectrequest).  For more information about tracking, see the article on object tracking: [`Tracking Multiple Objects or Rectangles in Video`](https://developer.apple.com/documentation/vision/tracking_multiple_objects_or_rectangles_in_video).
+## See also
+
+- [motlabs/awesome-ml-demos-with-ios](https://github.com/motlabs/awesome-ml-demos-with-ios)<br>
+  : The challenge using machine learning model created from tensorflow on iOS
+- [Machine Learning - Models - Apple Developer](https://developer.apple.com/machine-learning/models)
+- [hollance/coreml-survival-guide](https://github.com/hollance/coreml-survival-guide)
+- [vonholst/SSDMobileNet_CoreML](https://github.com/vonholst/SSDMobileNet_CoreML)<br>
+  : iOS project for object detection(SSDMobileNet V1) using Core ML.
+- [ultralytics/yolov5](https://github.com/ultralytics/yolov5)<br>
+  : YOLOv5 repository
