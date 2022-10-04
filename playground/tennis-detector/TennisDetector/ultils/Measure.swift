@@ -1,9 +1,7 @@
 //
 //  Measure.swift
-//  TurtleApp-CoreML
 //
-//  Created by GwakDoyoung on 03/07/2018.
-//  Copyright © 2018 GwakDoyoung. All rights reserved.
+//  Copyright © 2022 Jason Zhang. All rights reserved.
 //
 
 import UIKit

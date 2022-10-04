@@ -2,8 +2,7 @@
 //  ViewController.swift
 //  SSDMobileNet-CoreML
 //
-//  Created by GwakDoyoung on 01/02/2019.
-//  Copyright © 2019 tucan9389. All rights reserved.
+//  Copyright © 2022 Jason Zhang. All rights reserved.
 //
 
 import UIKit
@@ -22,11 +21,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var fpsLabel: UILabel!
     
     // MARK - Core ML model
-    // YOLOv3(iOS12+), YOLOv3FP16(iOS12+), YOLOv3Int8LUT(iOS12+)
-    // YOLOv3Tiny(iOS12+), YOLOv3TinyFP16(iOS12+), YOLOv3TinyInt8LUT(iOS12+)
-    // MobileNetV2_SSDLite(iOS12+), ObjectDetector(iOS12+)
-    // yolov5n(iOS13+), yolov5s(iOS13+), yolov5m(iOS13+), yolov5l(iOS13+), yolov5x(iOS13+)
-    // yolov5n6(iOS13+), yolov5s6(iOS13+), yolov5m6(iOS13+), yolov5l6(iOS13+), yolov5x6(iOS13+)
     let objectDectectionModel = TennisDetectorV2()
     
     // MARK: - Vision Properties

@@ -2,8 +2,7 @@
 //  DrawingBoundingBoxView.swift
 //  SSDMobileNet-CoreML
 //
-//  Created by GwakDoyoung on 04/02/2019.
-//  Copyright © 2019 tucan9389. All rights reserved.
+//  Copyright © 2022 Jason Zhang. All rights reserved.
 //
 
 import UIKit
