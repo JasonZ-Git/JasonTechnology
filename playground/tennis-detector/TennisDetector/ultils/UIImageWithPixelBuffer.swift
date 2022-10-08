@@ -16,16 +16,12 @@ extension UIImage {
         keysPointer.initialize(to: keys)
         valuesPointer.initialize(to: values)
         
-        let options = CFDictionaryCreate(kCFAllocatorDefault, keysPointer, valuesPointer, keys.count, nil, nil)
+        //let options = CFDictionaryCreate(kCFAllocatorDefault, keysPointer, valuesPointer, keys.count, nil, nil)
         
         let width = cgimage!.width
         let height = cgimage!.height
         
         var pxbuffer: CVPixelBuffer?
-        // if pxbuffer = nil, you will get status = -6661
-        var status = CVPixelBufferCreate(kCFAllocatorDefault, width, height,
-                                         kCVPixelFormatType_32BGRA, options, &pxbuffer)
-        status = CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
         
         let bufferAddress = CVPixelBufferGetBaseAddress(pxbuffer!);
         
@@ -43,6 +39,6 @@ extension UIImage {
         context?.concatenate(__CGAffineTransformMake( 1, 0, 0, -1, 0, CGFloat(height) ))
         
         context?.draw(cgimage!, in: CGRect(x:0, y:0, width:CGFloat(width), height:CGFloat(height)));
-        status = CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
+        
         return pxbuffer!;
     }}
