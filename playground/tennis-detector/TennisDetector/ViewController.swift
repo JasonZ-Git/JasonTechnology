@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     var predictions: [VNRecognizedObjectObservation] = []
     
     // MARK - Performance Measurement Property
-    private let 👨‍🔧 = 📏()
+    private let performance = performanceMeasure()
     
     let maf1 = MovingAverageFilter()
     let maf2 = MovingAverageFilter()
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         setUpCamera()
         
         // setup delegate for performance measurement
-        👨‍🔧.delegate = self
+        performance.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +116,7 @@ extension ViewController: VideoCaptureDelegate {
             self.isInferencing = true
             
             // start of measure
-            self.👨‍🔧.🎬👏()
+            self.performance.start()
             
             // predict!
             self.predictUsingVision(pixelBuffer: pixelBuffer)
@@ -135,7 +135,7 @@ extension ViewController {
     
     // MARK: - Post-processing
     func visionRequestDidComplete(request: VNRequest, error: Error?) {
-        self.👨‍🔧.🏷(with: "endInference")
+        self.performance.label(with: "endInference")
         if let predictions = request.results as? [VNRecognizedObjectObservation] {
 //            print(predictions.first?.labels.first?.identifier ?? "nil")
 //            print(predictions.first?.labels.first?.confidence ?? -1)
@@ -146,13 +146,13 @@ extension ViewController {
                 self.labelsTableView.reloadData()
 
                 // end of measure
-                self.👨‍🔧.🎬🤚()
+                self.performance.stop()
                 
                 self.isInferencing = false
             }
         } else {
             // end of measure
-            self.👨‍🔧.🎬🤚()
+            self.performance.stop()
             
             self.isInferencing = false
         }
@@ -181,7 +181,7 @@ extension ViewController: UITableViewDataSource {
 }
 
 // MARK: - 📏(Performance Measurement) Delegate
-extension ViewController: 📏Delegate {
+extension ViewController: Delegate {
     func updateMeasure(inferenceTime: Double, executionTime: Double, fps: Int) {
         //print(executionTime, fps)
         DispatchQueue.main.async {
