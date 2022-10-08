@@ -20,9 +20,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var etimeLabel: UILabel!
     @IBOutlet weak var fpsLabel: UILabel!
     
-    // MARK - Core ML model
-    let objectDectectionModel = TennisDetectorV2()
-    
     // MARK: - Vision Properties
     var request: VNCoreMLRequest?
     var visionModel: VNCoreMLModel?
@@ -69,6 +66,8 @@ class ViewController: UIViewController {
     
     // MARK: - Setup Core ML
     func setUpModel() {
+        let objectDectectionModel = TennisDetectorV2();
+        
         if let visionModel = try? VNCoreMLModel(for: objectDectectionModel.model) {
             self.visionModel = visionModel
             request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
