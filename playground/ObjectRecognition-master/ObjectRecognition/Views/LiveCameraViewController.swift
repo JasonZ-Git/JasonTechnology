@@ -2,7 +2,6 @@
 //  LiveCameraViewController.swift
 //  ObjectRecognition
 //
-//  Created by Gualtiero Frigerio on 27/04/21.
 //
 
 import AVFoundation

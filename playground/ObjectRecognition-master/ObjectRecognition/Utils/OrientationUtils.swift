@@ -2,7 +2,6 @@
 //  OrientationUtils.swift
 //  ObjectRecognition
 //
-//  Created by Gualtiero Frigerio on 06/05/21.
 //
 
 import Foundation

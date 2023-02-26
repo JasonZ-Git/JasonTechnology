@@ -2,7 +2,6 @@
 //  ObjectRecognizer.swift
 //  ObjectRecognition
 //
-//  Created by Gualtiero Frigerio on 29/04/21.
 //
 
 import Foundation

@@ -2,7 +2,6 @@
 //  CameraView.swift
 //  ObjectRecognition
 //
-//  Created by Gualtiero Frigerio on 28/04/21.
 //
 
 import SwiftUI
