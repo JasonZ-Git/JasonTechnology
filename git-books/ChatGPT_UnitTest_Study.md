@@ -151,6 +151,7 @@ Can you please write some unit tests for these 2 methods:
 ```
 
 ## Answer
+```Java
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -186,5 +187,78 @@ public class StringUtilTest {
         assertEquals("[Hello, world!]", StringUtil.squareBracketed("Hello, world!"));
     }
 }
+```
 
+# Question 
+Can you please write a unit test for readFile method of class https://github.com/JasonZ-Git/JasonTechnology/blob/master/jason-util/src/main/java/org/jason/util/JasonFileUtil.java?
+The content of the input file is:
+hello
+
+(At first, ChatGPT gives an wrong answer)
+readFile method is as follows, it should return a list
+public static List<String> readFile(String inputFile) throws IOException {
+    return Files.readAllLines(Paths.get(inputFile));
+  }
+
+## answer
+```Java
+import org.junit.jupiter.api.Test;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class JasonFileUtilTest {
+
+    @Test
+    void testReadFile() throws IOException {
+        String filePath = "src/test/resources/test.txt";
+        List<String> expectedContent = Arrays.asList("hello");
+        List<String> actualContent = JasonFileUtil.readFile(filePath);
+        assertEquals(expectedContent, actualContent);
+    }
+
+    @Test
+    void testReadFileWithNonExistingFile() {
+        String filePath = "src/test/resources/non-existing-file.txt";
+        assertThrows(IOException.class, () -> {
+            JasonFileUtil.readFile(filePath);
+        });
+    }
+}
+
+
+```
+
+# Question
+
+Can you please write a unit test for getAthletes method of this class https://github.com/JasonZ-Git/JasonTechnology/blob/master/jason-product/jason-olympics/src/main/java/org/jason/olympics/spider/AthleteSpider.java
+
+## answer
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class AthleteSpiderTest {
+
+    @Test
+    public void testGetAthletes() {
+        AthleteSpider spider = new AthleteSpider();
+        String url = "https://olympics.com/en/athletes/index.html";
+        int numAthletes = 100;
+
+        List<Athlete> athletes = spider.getAthletes(url, numAthletes);
+
+        assertNotNull(athletes);
+        assertEquals(numAthletes, athletes.size());
+        for (Athlete athlete : athletes) {
+            assertNotNull(athlete.getName());
+            assertNotNull(athlete.getCountry());
+            assertNotNull(athlete.getSport());
+            assertNotNull(athlete.getGender());
+        }
+    }
+}
 
