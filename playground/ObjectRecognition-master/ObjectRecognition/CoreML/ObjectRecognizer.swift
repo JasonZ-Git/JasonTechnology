@@ -15,6 +15,10 @@ struct RecognizedObject {
 }
 
 class ObjectRecognizer {
+    private var completion:(([RecognizedObject]) -> Void)?
+    private let confidenceThreshold:Float = 0.8
+    private var requests:[VNRequest] = []
+    
     var preferredSize:CGSize {
         CGSize(width: 416, height: 416)
     }
@@ -92,7 +96,5 @@ class ObjectRecognizer {
         completion?(recognizedObjects)
     }
     
-    private var completion:(([RecognizedObject]) -> Void)?
-    private let confidenceThreshold:Float = 0.8
-    private var requests:[VNRequest] = []
+
 }

@@ -11,6 +11,7 @@ struct ContentView: View {
         VStack {
             CameraView()
         }
+        .ignoresSafeArea(.all)
     }
 }
 

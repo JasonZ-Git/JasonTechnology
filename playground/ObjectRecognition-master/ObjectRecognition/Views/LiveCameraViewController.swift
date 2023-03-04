@@ -9,13 +9,23 @@ import UIKit
 import Vision
 
 class LiveCameraViewController: UIViewController {
+    private var cameraView:UIView
+    private var imageView:UIImageView
+    private var isRecognizing = false
+    private var objectRecognizer = ObjectRecognizer()
+    private var objectsLayer:CALayer = CALayer()
+    private var previewLayer:AVCaptureVideoPreviewLayer?
+    private var queue:DispatchQueue
+    private var session:AVCaptureSession?
+    private var videoSize:CGSize = .zero
+    
     
     required init() {
         self.cameraView = UIView()
         self.imageView = UIImageView()
         self.queue = DispatchQueue(label: "LiveCameraViewController")
         super.init(nibName: nil, bundle: nil)
-    }
+     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -23,17 +33,14 @@ class LiveCameraViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         cameraView.frame = CGRect(x:0,
                                   y:0,
                                   width:view.frame.size.width,
-                                  height: view.frame.size.height / 2) //self.view.frame
+                                  height: view.frame.size.height) //self.view.frame
         cameraView.frame = self.view.frame
         view.addSubview(cameraView)
-        imageView.frame = CGRect(x: 0,
-                                 y: cameraView.frame.size.height,
-                                 width: view.frame.size.width,
-                                 height: view.frame.size.height / 2 )
-        //view.addSubview(imageView)
+
         configureSession()
         configurePreview()
         session?.startRunning()
@@ -47,15 +54,7 @@ class LiveCameraViewController: UIViewController {
     
     // MARK: - Private
     
-    private var cameraView:UIView
-    private var imageView:UIImageView
-    private var isRecognizing = false
-    private var objectRecognizer = ObjectRecognizer()
-    private var objectsLayer:CALayer = CALayer()
-    private var previewLayer:AVCaptureVideoPreviewLayer?
-    private var queue:DispatchQueue
-    private var session:AVCaptureSession?
-    private var videoSize:CGSize = .zero
+
     
     /// Configure the preview layer
     /// the layer is added to the cameraView
@@ -73,9 +72,9 @@ class LiveCameraViewController: UIViewController {
     private func configureSession() {
         let session = AVCaptureSession()
         
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:[.builtInWideAngleCamera, .builtInTelephotoCamera],
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:[.builtInWideAngleCamera],
                                                                       mediaType: AVMediaType.video,
-                                                                      position: .unspecified)
+                                                                      position: .back)
         
         guard let captureDevice = deviceDiscoverySession.devices.first,
             let videoDeviceInput = try? AVCaptureDeviceInput(device: captureDevice),
