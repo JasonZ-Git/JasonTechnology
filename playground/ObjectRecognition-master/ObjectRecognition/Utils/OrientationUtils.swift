@@ -9,7 +9,7 @@ import AVFoundation
 import UIKit
 
 class OrientationUtils {
-    class func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+    public class func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
         let deviceOrientation = UIDevice.current.orientation
         let returnOrientation: CGImagePropertyOrientation
         
@@ -29,7 +29,7 @@ class OrientationUtils {
         return returnOrientation
     }
     
-    class func getCurrentOrientation() -> UIInterfaceOrientation {
+    private class func getCurrentOrientation() -> UIInterfaceOrientation {
         var orientation:UIInterfaceOrientation
         if #available(iOS 13.0, *) {
             orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? .unknown
@@ -39,7 +39,7 @@ class OrientationUtils {
         return orientation
     }
     
-    class func videoOrientationForCurrentOrientation() -> AVCaptureVideoOrientation {
+    public class func videoOrientationForCurrentOrientation() -> AVCaptureVideoOrientation {
         let orientation = getCurrentOrientation()
         var videoOrientation:AVCaptureVideoOrientation = .portrait
         switch orientation {

@@ -9,21 +9,18 @@ import UIKit
 import Vision
 
 class LiveCameraViewController: UIViewController {
-    private var cameraView:UIView
-    private var imageView:UIImageView
+    private var cameraView:UIView = UIView()
     private var isRecognizing = false
     private var objectRecognizer = ObjectRecognizer()
     private var objectsLayer:CALayer = CALayer()
     private var previewLayer:AVCaptureVideoPreviewLayer?
-    private var queue:DispatchQueue
+    private var queue:DispatchQueue = DispatchQueue(label: "LiveCameraViewController")
     private var session:AVCaptureSession?
     private var videoSize:CGSize = .zero
+    var lastTimestamp = CMTime()
     
     
     required init() {
-        self.cameraView = UIView()
-        self.imageView = UIImageView()
-        self.queue = DispatchQueue(label: "LiveCameraViewController")
         super.init(nibName: nil, bundle: nil)
      }
     
@@ -34,12 +31,8 @@ class LiveCameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cameraView.frame = CGRect(x:0,
-                                  y:0,
-                                  width:view.frame.size.width,
-                                  height: view.frame.size.height) //self.view.frame
         cameraView.frame = self.view.frame
-        view.addSubview(cameraView)
+        self.view.addSubview(cameraView)
 
         configureSession()
         configurePreview()
@@ -51,10 +44,6 @@ class LiveCameraViewController: UIViewController {
         previewLayer?.frame = cameraView.layer.bounds
         previewLayer?.connection?.videoOrientation = OrientationUtils.videoOrientationForCurrentOrientation()
     }
-    
-    // MARK: - Private
-    
-
     
     /// Configure the preview layer
     /// the layer is added to the cameraView
@@ -106,15 +95,13 @@ class LiveCameraViewController: UIViewController {
         objectsLayer = GeometryUtils.createLayer(forRecognizedObjects: objects,
                                               inFrame: previewLayer.frame)
         
-        
         previewLayer.addSublayer(objectsLayer)
         previewLayer.setNeedsDisplay()
     }
-    
-    
 }
 
 extension LiveCameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
@@ -126,16 +113,6 @@ extension LiveCameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             return
         }
         
-        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-            let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-            let context = CIContext(options: nil)
-            let cgImage = context.createCGImage(ciImage, from: ciImage.extent)!
-            let image = UIImage(cgImage: cgImage)
-            DispatchQueue.main.async {
-                self.imageView.image = image
-            }
-        }
-        
         objectsLayer.removeFromSuperlayer()
         isRecognizing = true
         
@@ -145,5 +122,7 @@ extension LiveCameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                 self?.isRecognizing = false
             }
         }
+        
     }
+    
 }
