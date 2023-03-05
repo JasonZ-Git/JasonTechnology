@@ -2,6 +2,7 @@
 //  ContentView.swift
 //  ObjectRecognition
 //
+//  Created by Jason Zhang on 5/3/2023.
 //
 
 import SwiftUI

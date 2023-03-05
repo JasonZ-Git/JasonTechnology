@@ -57,17 +57,18 @@ class GeometryUtils {
     
     private static func createTextLayerWithBounds(_ bounds: CGRect, text: String) -> CATextLayer {
         let textLayer = CATextLayer()
-        let formattedString = NSMutableAttributedString(string: text)
+        let formattedString = NSMutableAttributedString(string: " " + text)
         let largeFont = UIFont(name: "Helvetica", size: 18.0)!
         formattedString.addAttributes([NSAttributedString.Key.font: largeFont], range: NSRange(location: 0, length: text.count))
         textLayer.string = formattedString
-        textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.size.height - 10, height: bounds.size.width - 10)
-        textLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        textLayer.bounds = CGRect(x: 0, y: 0, width: 60, height: 25)
+        textLayer.position = CGPoint(x: bounds.maxX, y: bounds.minY)
         textLayer.shadowOpacity = 0.7
         textLayer.shadowOffset = CGSize(width: 2, height: 2)
         textLayer.foregroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 1.0])
         textLayer.contentsScale = 2.0 // 2.0 for retina display
+        textLayer.borderWidth = 3
+        textLayer.borderColor = CGColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.4)
         return textLayer
     }
-    
 }
