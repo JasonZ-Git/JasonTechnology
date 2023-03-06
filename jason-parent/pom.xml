@@ -37,7 +37,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<project.version>3.3</project.version>
 		<powermock.version>1.4.10</powermock.version>
-		<springframework.version>5.3.14</springframework.version>
+		<springframework.version>5.3.18</springframework.version>
 		<junit-version>5.8.2</junit-version>
 		<log4j2.version>2.17.1</log4j2.version>
 		<springboot.version>2.2.5.RELEASE</springboot.version>
