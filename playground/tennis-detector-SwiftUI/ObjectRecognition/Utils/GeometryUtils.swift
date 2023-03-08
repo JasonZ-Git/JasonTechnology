@@ -13,13 +13,11 @@ class GeometryUtils {
         let objectsLayer = CALayer()
         objectsLayer.frame = frame
         
-        
-        
         for object in objects {
-            let rect = boundingBox(forRecognizedRect: object.bounds,
+            let boundingBox = boundingBox(forRecognizedRect: object.bounds,
                                                  imageFrame: frame)
             
-            let layer = createRectLayerWithBounds(rect)
+            let layer = createRectLayerWithBounds(boundingBox)
 
             let textLayer = createTextLayerWithBounds(layer.bounds,
                                                                     text: object.label)
@@ -48,10 +46,9 @@ class GeometryUtils {
         let shapeLayer = CALayer()
         shapeLayer.bounds = bounds
         shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        shapeLayer.borderWidth = 5;
+        shapeLayer.borderWidth = 2;
         shapeLayer.backgroundColor = CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.4)
         shapeLayer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.4)
-        // shapeLayer.cornerRadius = 7
         return shapeLayer
     }
     
@@ -63,11 +60,8 @@ class GeometryUtils {
         textLayer.string = formattedString
         textLayer.bounds = CGRect(x: 0, y: 0, width: 60, height: 25)
         textLayer.position = CGPoint(x: bounds.maxX, y: bounds.minY)
-        textLayer.shadowOpacity = 0.7
-        textLayer.shadowOffset = CGSize(width: 2, height: 2)
         textLayer.foregroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 1.0])
-        textLayer.contentsScale = 2.0 // 2.0 for retina display
-        textLayer.borderWidth = 3
+        textLayer.borderWidth = 2
         textLayer.borderColor = CGColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.4)
         return textLayer
     }
