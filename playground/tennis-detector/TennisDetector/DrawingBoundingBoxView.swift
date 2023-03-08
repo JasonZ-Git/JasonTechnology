@@ -10,18 +10,6 @@ import Vision
 
 class DrawingBoundingBoxView: UIView {
     
-    static private var colors: [String: UIColor] = [:]
-    
-    public func labelColor(with label: String) -> UIColor {
-        if let color = DrawingBoundingBoxView.colors[label] {
-            return color
-        } else {
-            let color = UIColor(hue: .random(in: 0...1), saturation: 1, brightness: 1, alpha: 0.8)
-            DrawingBoundingBoxView.colors[label] = color
-            return color
-        }
-    }
-    
     public var predictedObjects: [VNRecognizedObjectObservation] = [] {
         didSet {
             self.drawBoxs(with: predictedObjects)
@@ -29,7 +17,7 @@ class DrawingBoundingBoxView: UIView {
         }
     }
     
-    func drawBoxs(with predictions: [VNRecognizedObjectObservation]) {
+    private func drawBoxs(with predictions: [VNRecognizedObjectObservation]) {
         subviews.forEach({ $0.removeFromSuperview() })
         
         for prediction in predictions {
@@ -37,9 +25,9 @@ class DrawingBoundingBoxView: UIView {
         }
     }
     
-    func createLabelAndBox(prediction: VNRecognizedObjectObservation) {
+    private func createLabelAndBox(prediction: VNRecognizedObjectObservation) {
         let labelString: String? = prediction.label
-        let color: UIColor = labelColor(with: labelString ?? "N/A")
+        let color: UIColor = UIColor(hue: 0.5, saturation: 1, brightness: 1, alpha: 0.8)
         
         let scale = CGAffineTransform.identity.scaledBy(x: bounds.width, y: bounds.height)
         let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
@@ -59,6 +47,7 @@ class DrawingBoundingBoxView: UIView {
         label.sizeToFit()
         label.frame = CGRect(x: bgRect.origin.x, y: bgRect.origin.y - label.frame.height,
                              width: label.frame.width, height: label.frame.height)
+
         addSubview(label)
     }
 }
