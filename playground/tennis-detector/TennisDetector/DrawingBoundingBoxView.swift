@@ -9,6 +9,7 @@ import UIKit
 import Vision
 
 class DrawingBoundingBoxView: UIView {
+    private var tennisTravelingRoute: [CGPoint] = [];
     
     public var predictedObjects: [VNRecognizedObjectObservation] = [] {
         didSet {
@@ -22,7 +23,15 @@ class DrawingBoundingBoxView: UIView {
         
         for prediction in predictions {
             createLabelAndBox(prediction: prediction)
+            travelingRoute(prediction: prediction)
         }
+    }
+    
+    private func travelingRoute(prediction: VNRecognizedObjectObservation){
+        let currentPosition = CGPoint(x:prediction.boundingBox.midX, y:prediction.boundingBox.midY)
+        tennisTravelingRoute.append(currentPosition);
+        
+        print(currentPosition)
     }
     
     private func createLabelAndBox(prediction: VNRecognizedObjectObservation) {
@@ -47,7 +56,7 @@ class DrawingBoundingBoxView: UIView {
         label.sizeToFit()
         label.frame = CGRect(x: bgRect.origin.x, y: bgRect.origin.y - label.frame.height,
                              width: label.frame.width, height: label.frame.height)
-
+        
         addSubview(label)
     }
 }
