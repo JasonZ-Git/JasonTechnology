@@ -15,33 +15,37 @@ public protocol VideoCaptureDelegate: class {
 public class VideoCapture: NSObject {
     public var previewLayer: AVCaptureVideoPreviewLayer?
     public weak var delegate: VideoCaptureDelegate?
-    public var fps = 15
-    
+
     let captureSession = AVCaptureSession()
     let videoOutput = AVCaptureVideoDataOutput()
-    let queue = DispatchQueue(label: "com.tucan9389.camera-queue")
+    let queue = DispatchQueue(label: "Jason Camera Queue")
+    private var fps = 60 // default setting, will be override later on with the maximum fps from system
     
     var lastTimestamp = CMTime()
     
-    public func setUp(sessionPreset: AVCaptureSession.Preset = .vga640x480,
-                      completion: @escaping (Bool) -> Void) {
-        self.setUpCamera(sessionPreset: sessionPreset, completion: { success in
+    public func setUp(completion: @escaping (Bool) -> Void) {
+        self.setUpCamera(completion: { success in
             completion(success)
         })
     }
     
-    func setUpCamera(sessionPreset: AVCaptureSession.Preset, completion: @escaping (_ success: Bool) -> Void) {
+    func setUpCamera(completion: @escaping (_ success: Bool) -> Void) {
         
+        captureSession.sessionPreset = .vga640x480
         captureSession.beginConfiguration()
-        captureSession.sessionPreset = sessionPreset
         
-        guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera,
-                                                          for: .video,
-                                                          position: .back) else {
-            
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else {
             print("Error: no video devices available")
             return
         }
+        
+        let (activeFormat, maxRate) = findMaxFpsFormat(camera: captureDevice)
+        fps = Int(maxRate)
+        
+        try! captureDevice.lockForConfiguration()
+        captureDevice.activeFormat = activeFormat
+        captureDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(maxRate))
+        captureDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(maxRate))
         
         guard let videoInput = try? AVCaptureDeviceInput(device: captureDevice) else {
             print("Error: could not create AVCaptureDeviceInput")
@@ -58,7 +62,8 @@ public class VideoCapture: NSObject {
         self.previewLayer = previewLayer
         
         let settings: [String : Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: NSNumber(value: kCVPixelFormatType_32BGRA),
+            //kCVPixelBufferPixelFormatTypeKey as String: NSNumber(value: kCVPixelFormatType_32BGRA),
+            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
         ]
         
         videoOutput.videoSettings = settings
@@ -73,6 +78,8 @@ public class VideoCapture: NSObject {
         videoOutput.connection(with: AVMediaType.video)?.videoOrientation = .portrait
         
         captureSession.commitConfiguration()
+        
+        try! captureDevice.unlockForConfiguration()
         
         let success = true
         completion(success)
@@ -89,6 +96,27 @@ public class VideoCapture: NSObject {
             captureSession.stopRunning()
         }
     }
+    
+    private func findMaxFpsFormat(camera: AVCaptureDevice) -> (AVCaptureDevice.Format, Float64) {
+        
+        var maxRate: Float64 = 30;
+        let activeFormat = camera.formats.max(by: { format1, format2 in
+            guard let maxRate1 = format1.videoSupportedFrameRateRanges.max(by: { range1, range2 in
+                range1.maxFrameRate <= range2.maxFrameRate
+            }) else { return false }
+            guard let maxRate2 = format2.videoSupportedFrameRateRanges.max(by: { range1, range2 in
+                range1.maxFrameRate <= range2.maxFrameRate
+            }) else{ return false}
+            
+            maxRate = max(maxRate1.maxFrameRate, maxRate2.maxFrameRate) > maxRate ? max(maxRate1.maxFrameRate, maxRate2.maxFrameRate): maxRate
+            
+            return maxRate1.maxFrameRate <= maxRate2.maxFrameRate
+        })!
+        
+        print(activeFormat)
+        
+        return (activeFormat, maxRate);
+    }
 }
 
 extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -97,12 +125,16 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
         // we capture at full speed but only call the delegate at its desired
         // framerate.
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+        NSLog("timestamp = %f", CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sampleBuffer)));
         let deltaTime = timestamp - lastTimestamp
+        
+    
         if deltaTime >= CMTimeMake(value: 1, timescale: Int32(fps)) {
             lastTimestamp = timestamp
             let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
             delegate?.videoCapture(self, didCaptureVideoFrame: imageBuffer, timestamp: timestamp)
         }
+        
     }
 }
 

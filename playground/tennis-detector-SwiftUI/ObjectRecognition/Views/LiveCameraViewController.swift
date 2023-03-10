@@ -64,7 +64,7 @@ class LiveCameraViewController: UIViewController {
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes:[.builtInWideAngleCamera],
                                                                       mediaType: AVMediaType.video,
                                                                       position: .back)
-        
+        session.sessionPreset = .vga640x480
         guard let captureDevice = deviceDiscoverySession.devices.first,
             let videoDeviceInput = try? AVCaptureDeviceInput(device: captureDevice),
             session.canAddInput(videoDeviceInput)
