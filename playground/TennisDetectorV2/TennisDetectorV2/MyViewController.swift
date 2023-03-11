@@ -1,36 +1,36 @@
 //
-//  ViewController.swift
-//  SSDMobileNet-CoreML
+//  MyViewController.swift
+//  TennisDetectorV2
 //
-//  Copyright © 2022 Jason Zhang. All rights reserved.
+//  Created by Jason Zhang on 11/3/2023.
 //
 
 import UIKit
 import Vision
 import CoreMedia
 
-class ViewController: UIViewController {
-
-    // MARK: - UI Properties
-    @IBOutlet weak var videoPreview: UIView!
-    @IBOutlet weak var boxesView: DrawingBoundingBoxView!
+class MyViewController: UIViewController {
+    private var cameraView = UIView()
+    private var boundingBoxView = DrawingBoundingBoxView()
     
-    // MARK: - Vision Properties
     var request: VNCoreMLRequest?
     var visionModel: VNCoreMLModel?
     var isInferencing = false
     
-    // MARK: - AV Property
     var videoCapture: VideoCapture!
     let semaphore = DispatchSemaphore(value: 1)
-    var lastExecution = Date()
     
-    // MARK: - TableView Data
     var predictions: [VNRecognizedObjectObservation] = []
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cameraView.frame = self.view.frame
+        self.view.addSubview(cameraView)
+        
+        boundingBoxView.frame = self.view.frame
+        self.view.addSubview(boundingBoxView)
         
         // setup the model
         setUpModel()
@@ -61,8 +61,7 @@ class ViewController: UIViewController {
             if success {
                 // add preview view on the layer
                 if let previewLayer = self.videoCapture.previewLayer {
-                    self.videoPreview.layer.addSublayer(previewLayer)
-                    self.videoCapture.previewLayer?.frame = self.videoPreview.bounds
+                    self.cameraView.layer.addSublayer(previewLayer)
                 }
                 
                 // start video preview when setup is done
@@ -70,10 +69,15 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        videoCapture.previewLayer?.frame = cameraView.frame
+    }
 }
 
 // MARK: - VideoCaptureDelegate
-extension ViewController: VideoCaptureDelegate {
+extension MyViewController: VideoCaptureDelegate {
     func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?, timestamp: CMTime) {
         // the captured image from camera is contained on pixelBuffer
         if !self.isInferencing, let pixelBuffer = pixelBuffer {
@@ -85,7 +89,7 @@ extension ViewController: VideoCaptureDelegate {
     }
 }
 
-extension ViewController {
+extension MyViewController {
     func predictUsingVision(pixelBuffer: CVPixelBuffer) {
         guard let request = request else { fatalError() }
         // vision framework configures the input size of image following our model's input configuration automatically
@@ -100,7 +104,7 @@ extension ViewController {
             
             self.predictions = predictions
             DispatchQueue.main.async {
-                self.boxesView.predictedObjects = predictions
+                self.boundingBoxView.predictedObjects = predictions
                 self.isInferencing = false
             }
         } else {
@@ -109,3 +113,6 @@ extension ViewController {
         self.semaphore.signal()
     }
 }
+
+
+

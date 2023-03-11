@@ -8,7 +8,7 @@ import UIKit
 import AVFoundation
 import CoreVideo
 
-public protocol VideoCaptureDelegate: class {
+public protocol VideoCaptureDelegate: AnyObject {
     func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CVPixelBuffer?, timestamp: CMTime)
 }
 
@@ -58,11 +58,10 @@ public class VideoCapture: NSObject {
         }
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
+        previewLayer.videoGravity = AVLayerVideoGravity.resize
         previewLayer.connection?.videoOrientation = .portrait
         self.previewLayer = previewLayer
         
-
         videoOutput.alwaysDiscardsLateVideoFrames = false
 
         videoOutput.setSampleBufferDelegate(self, queue: queue)
@@ -132,3 +131,4 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
 }
+

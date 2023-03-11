@@ -9,7 +9,7 @@ import UIKit
 import Vision
 
 class LiveCameraViewController: UIViewController {
-    private var cameraView:UIView = UIView()
+    private var cameraView = UIView()
     private var isRecognizing = false
     private var objectRecognizer = ObjectRecognizer()
     private var objectsLayer:CALayer = CALayer()

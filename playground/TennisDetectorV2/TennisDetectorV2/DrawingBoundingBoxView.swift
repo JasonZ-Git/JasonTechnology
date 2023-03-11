@@ -1,9 +1,10 @@
 //
 //  DrawingBoundingBoxView.swift
-//  SSDMobileNet-CoreML
+//  TennisDetectorV2
 //
-//  Copyright © 2022 Jason Zhang. All rights reserved.
+//  Created by Jason Zhang on 11/3/2023.
 //
+
 
 import UIKit
 import Vision
@@ -35,7 +36,7 @@ class DrawingBoundingBoxView: UIView {
     }
     
     private func createLabelAndBox(prediction: VNRecognizedObjectObservation) {
-        let labelString: String? = prediction.label
+        let labelString: String? = prediction.labels.first?.identifier
         let color: UIColor = UIColor(hue: 0.5, saturation: 1, brightness: 1, alpha: 0.8)
         
         let scale = CGAffineTransform.identity.scaledBy(x: bounds.width, y: bounds.height)
@@ -58,12 +59,6 @@ class DrawingBoundingBoxView: UIView {
                              width: label.frame.width, height: label.frame.height)
         
         addSubview(label)
-    }
-}
-
-extension VNRecognizedObjectObservation {
-    var label: String? {
-        return self.labels.first?.identifier
     }
 }
 
