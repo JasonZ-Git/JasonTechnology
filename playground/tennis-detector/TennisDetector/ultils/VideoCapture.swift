@@ -62,7 +62,9 @@ public class VideoCapture: NSObject {
         previewLayer.connection?.videoOrientation = .portrait
         self.previewLayer = previewLayer
         
+
         videoOutput.alwaysDiscardsLateVideoFrames = false
+
         videoOutput.setSampleBufferDelegate(self, queue: queue)
         if captureSession.canAddOutput(videoOutput) {
             captureSession.addOutput(videoOutput)
@@ -73,6 +75,8 @@ public class VideoCapture: NSObject {
         videoOutput.connection(with: AVMediaType.video)?.videoOrientation = .portrait
         
         captureSession.commitConfiguration()
+        
+        try! captureDevice.unlockForConfiguration()
         
         let success = true
         completion(success)
