@@ -45,10 +45,9 @@ class performanceMeasure {
             let endTime = currentMeasurement["end"],
             let beforeStartTime = beforeMeasurement["start"] {
             delegate?.updateMeasure(inferenceTime: endInferenceTime - startTime,
-                                    executionTime: endTime - startTime,
+                             executionTime: endTime - startTime,
                                     fps: Int(1/(startTime - beforeStartTime)))
         }
-        
     }
     
     // labeling with

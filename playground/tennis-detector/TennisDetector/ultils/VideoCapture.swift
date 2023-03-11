@@ -46,6 +46,7 @@ public class VideoCapture: NSObject {
         captureDevice.activeFormat = activeFormat
         captureDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(maxRate))
         captureDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(maxRate))
+        try! captureDevice.unlockForConfiguration()
         
         guard let videoInput = try? AVCaptureDeviceInput(device: captureDevice) else {
             print("Error: could not create AVCaptureDeviceInput")
@@ -61,13 +62,9 @@ public class VideoCapture: NSObject {
         previewLayer.connection?.videoOrientation = .portrait
         self.previewLayer = previewLayer
         
-        let settings: [String : Any] = [
-            //kCVPixelBufferPixelFormatTypeKey as String: NSNumber(value: kCVPixelFormatType_32BGRA),
-            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-        ]
-        
-        videoOutput.videoSettings = settings
-        videoOutput.alwaysDiscardsLateVideoFrames = true
+
+        videoOutput.alwaysDiscardsLateVideoFrames = false
+
         videoOutput.setSampleBufferDelegate(self, queue: queue)
         if captureSession.canAddOutput(videoOutput) {
             captureSession.addOutput(videoOutput)
@@ -99,16 +96,16 @@ public class VideoCapture: NSObject {
     
     private func findMaxFpsFormat(camera: AVCaptureDevice) -> (AVCaptureDevice.Format, Float64) {
         
-        var maxRate: Float64 = 30;
+        var maxRate: Float64 = (camera.formats.first?.videoSupportedFrameRateRanges.first!.maxFrameRate)!;
         let activeFormat = camera.formats.max(by: { format1, format2 in
-            guard let maxRate1 = format1.videoSupportedFrameRateRanges.max(by: { range1, range2 in
+            let maxRate1 = format1.videoSupportedFrameRateRanges.max(by: { range1, range2 in
                 range1.maxFrameRate <= range2.maxFrameRate
-            }) else { return false }
-            guard let maxRate2 = format2.videoSupportedFrameRateRanges.max(by: { range1, range2 in
+            })!
+            let maxRate2 = format2.videoSupportedFrameRateRanges.max(by: { range1, range2 in
                 range1.maxFrameRate <= range2.maxFrameRate
-            }) else{ return false}
-            
-            maxRate = max(maxRate1.maxFrameRate, maxRate2.maxFrameRate) > maxRate ? max(maxRate1.maxFrameRate, maxRate2.maxFrameRate): maxRate
+            })!
+            let currentMax = max(maxRate1.maxFrameRate, maxRate2.maxFrameRate)
+            maxRate = currentMax > maxRate ? currentMax: maxRate
             
             return maxRate1.maxFrameRate <= maxRate2.maxFrameRate
         })!
