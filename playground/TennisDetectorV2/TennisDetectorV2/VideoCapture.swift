@@ -9,7 +9,7 @@ import AVFoundation
 import CoreVideo
 
 public protocol VideoCaptureDelegate: AnyObject {
-    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CVPixelBuffer?, timestamp: CMTime)
+    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CVPixelBuffer?)
 }
 
 public class VideoCapture: NSObject {
@@ -31,7 +31,7 @@ public class VideoCapture: NSObject {
     
     func setUpCamera(completion: @escaping (_ success: Bool) -> Void) {
         
-        captureSession.sessionPreset = .vga640x480
+        // captureSession.sessionPreset = .vga640x480
         captureSession.beginConfiguration()
         
         guard let captureDevice = AVCaptureDevice.default(for: .video) else {
@@ -44,9 +44,10 @@ public class VideoCapture: NSObject {
         
         try! captureDevice.lockForConfiguration()
         captureDevice.activeFormat = activeFormat
-        captureDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(maxRate))
-        captureDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(maxRate))
-        try! captureDevice.unlockForConfiguration()
+        captureDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
+        captureDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
+        
+        captureDevice.unlockForConfiguration()
         
         guard let videoInput = try? AVCaptureDeviceInput(device: captureDevice) else {
             print("Error: could not create AVCaptureDeviceInput")
@@ -74,8 +75,6 @@ public class VideoCapture: NSObject {
         videoOutput.connection(with: AVMediaType.video)?.videoOrientation = .portrait
         
         captureSession.commitConfiguration()
-        
-        try! captureDevice.unlockForConfiguration()
         
         let success = true
         completion(success)
@@ -109,26 +108,16 @@ public class VideoCapture: NSObject {
             return maxRate1.maxFrameRate <= maxRate2.maxFrameRate
         })!
         
-        print(activeFormat)
-        
         return (activeFormat, maxRate);
     }
 }
 
 extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // Because lowering the capture device's FPS looks ugly in the preview,
-        // we capture at full speed but only call the delegate at its desired
-        // framerate.
+
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-        NSLog("timestamp = %f", CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sampleBuffer)));
-        let deltaTime = timestamp - lastTimestamp
-        
-        if deltaTime >= CMTimeMake(value: 1, timescale: Int32(fps)) {
-            lastTimestamp = timestamp
-            let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-            delegate?.videoCapture(self, didCaptureVideoFrame: imageBuffer, timestamp: timestamp)
-        }
+        NSLog("timestamp = %f", CMTimeGetSeconds(timestamp));
+        delegate?.videoCapture(self, didCaptureVideoFrame: CMSampleBufferGetImageBuffer(sampleBuffer))
     }
 }
 

@@ -22,7 +22,6 @@ class MyViewController: UIViewController {
     
     var predictions: [VNRecognizedObjectObservation] = []
     
-    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,11 +38,10 @@ class MyViewController: UIViewController {
         setUpCamera()
     }
     
-    // MARK: - Setup Core ML
     func setUpModel() {
-        let objectDectectionModel = TennisDetectorV2();
+        guard let modelURL = Bundle.main.url(forResource: "TennisDetectorV2", withExtension: "mlmodelc") else { return }
         
-        if let visionModel = try? VNCoreMLModel(for: objectDectectionModel.model) {
+        if let visionModel = try? VNCoreMLModel(for: MLModel(contentsOf: modelURL)) {
             self.visionModel = visionModel
             request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
             request?.imageCropAndScaleOption = .scaleFill
@@ -52,7 +50,6 @@ class MyViewController: UIViewController {
         }
     }
 
-    // MARK: - SetUp Video
     func setUpCamera() {
         videoCapture = VideoCapture()
         videoCapture.delegate = self
@@ -78,7 +75,7 @@ class MyViewController: UIViewController {
 
 // MARK: - VideoCaptureDelegate
 extension MyViewController: VideoCaptureDelegate {
-    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?, timestamp: CMTime) {
+    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?) {
         // the captured image from camera is contained on pixelBuffer
         if !self.isInferencing, let pixelBuffer = pixelBuffer {
             self.isInferencing = true
