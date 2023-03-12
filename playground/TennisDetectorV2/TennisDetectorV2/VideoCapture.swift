@@ -19,9 +19,7 @@ public class VideoCapture: NSObject {
     let captureSession = AVCaptureSession()
     let videoOutput = AVCaptureVideoDataOutput()
     let queue = DispatchQueue(label: "Jason Camera Queue")
-    private var fps = 60 // default setting, will be override later on with the maximum fps from system
-    
-    var lastTimestamp = CMTime()
+    private let fps = 60
     
     public func setUp(completion: @escaping (Bool) -> Void) {
         self.setUpCamera(completion: { success in
@@ -34,21 +32,13 @@ public class VideoCapture: NSObject {
         // captureSession.sessionPreset = .vga640x480
         captureSession.beginConfiguration()
         
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+        guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera,
+                                                          for: .video,
+                                                          position: .back) else {
             print("Error: no video devices available")
             return
         }
-        
-        let (activeFormat, maxRate) = findMaxFpsFormat(camera: captureDevice)
-        fps = Int(maxRate)
-        
-        try! captureDevice.lockForConfiguration()
-        captureDevice.activeFormat = activeFormat
-        captureDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
-        captureDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
-        
-        captureDevice.unlockForConfiguration()
-        
+
         guard let videoInput = try? AVCaptureDeviceInput(device: captureDevice) else {
             print("Error: could not create AVCaptureDeviceInput")
             return
@@ -58,10 +48,9 @@ public class VideoCapture: NSObject {
             captureSession.addInput(videoInput)
         }
         
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = AVLayerVideoGravity.resize
-        previewLayer.connection?.videoOrientation = .portrait
-        self.previewLayer = previewLayer
+        setCameraFPS(camera: captureDevice)
+        
+        setPreviewLayer()
         
         videoOutput.alwaysDiscardsLateVideoFrames = false
 
@@ -90,6 +79,25 @@ public class VideoCapture: NSObject {
         if captureSession.isRunning {
             captureSession.stopRunning()
         }
+    }
+    
+    private func setPreviewLayer(){
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.videoGravity = AVLayerVideoGravity.resize
+        previewLayer.connection?.videoOrientation = .portrait
+        self.previewLayer = previewLayer
+    }
+    
+    private func setCameraFPS(camera: AVCaptureDevice) {
+        let (activeFormat, maxRate) = findMaxFpsFormat(camera: camera)
+        
+        try! camera.lockForConfiguration()
+        camera.activeFormat = activeFormat
+        // If the rate is set to maxRate(240), then there is a delay of boundingBox Drawing, so best to set to 60 to get better
+        camera.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 60)
+        camera.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 60)
+        
+        camera.unlockForConfiguration()
     }
     
     private func findMaxFpsFormat(camera: AVCaptureDevice) -> (AVCaptureDevice.Format, Float64) {
