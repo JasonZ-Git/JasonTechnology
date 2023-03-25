@@ -15,7 +15,7 @@ class DrawingBoundingBoxView: UIView {
     public var predictedObjects: [VNRecognizedObjectObservation] = [] {
         didSet {
             self.drawBoxs(with: predictedObjects)
-            self.setNeedsDisplay()
+            //self.setNeedsDisplay()
         }
     }
     

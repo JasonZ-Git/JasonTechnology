@@ -38,7 +38,7 @@ class MyViewController: UIViewController {
         setUpCamera()
     }
     
-    func setUpModel() {
+    private func setUpModel() {
         guard let modelURL = Bundle.main.url(forResource: "TennisDetectorV2", withExtension: "mlmodelc") else { return }
         
         if let visionModel = try? VNCoreMLModel(for: MLModel(contentsOf: modelURL)) {
@@ -50,7 +50,7 @@ class MyViewController: UIViewController {
         }
     }
 
-    func setUpCamera() {
+   private func setUpCamera() {
         videoCapture = VideoCapture()
         videoCapture.delegate = self
         videoCapture.setUp() { success in
@@ -73,7 +73,6 @@ class MyViewController: UIViewController {
     }
 }
 
-// MARK: - VideoCaptureDelegate
 extension MyViewController: VideoCaptureDelegate {
     func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?) {
         // the captured image from camera is contained on pixelBuffer

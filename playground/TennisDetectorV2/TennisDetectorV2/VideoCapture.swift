@@ -29,17 +29,17 @@ public class VideoCapture: NSObject {
     
     func setUpCamera(completion: @escaping (_ success: Bool) -> Void) {
         
-        // captureSession.sessionPreset = .vga640x480
+        captureSession.sessionPreset = .vga640x480
         captureSession.beginConfiguration()
         
-        guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera,
+        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera,
                                                           for: .video,
                                                           position: .back) else {
             print("Error: no video devices available")
             return
         }
 
-        guard let videoInput = try? AVCaptureDeviceInput(device: captureDevice) else {
+        guard let videoInput = try? AVCaptureDeviceInput(device: camera) else {
             print("Error: could not create AVCaptureDeviceInput")
             return
         }
@@ -48,7 +48,7 @@ public class VideoCapture: NSObject {
             captureSession.addInput(videoInput)
         }
         
-        setCameraFPS(camera: captureDevice)
+        setCameraFPS(camera: camera)
         
         setPreviewLayer()
         
