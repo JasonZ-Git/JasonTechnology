@@ -21,7 +21,8 @@ class DrawingBoundingBoxView: UIView {
         subviews.forEach({ $0.removeFromSuperview() })
         
         for prediction in predictions {
-            createLabelAndBox(prediction: prediction)
+            // createLabelAndBox(prediction: prediction)
+            createRouteBox(prediction: prediction)
         }
     }
     
@@ -49,5 +50,23 @@ class DrawingBoundingBoxView: UIView {
                              width: label.frame.width, height: label.frame.height)
         
         addSubview(label)
+    }
+    
+    private func createRouteBox(prediction: VNRecognizedObjectObservation) {
+        let color: UIColor = UIColor(hue: 0.5, saturation: 1, brightness: 1, alpha: 0.8)
+        
+        let scale = CGAffineTransform.identity.scaledBy(x: bounds.width, y: bounds.height)
+        let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
+        let bgRect = prediction.boundingBox.applying(transform).applying(scale)
+    
+        let bgView = UIView(frame: bgRect)
+        bgView.layer.borderColor = color.cgColor
+        bgView.layer.borderWidth = 4
+        bgView.backgroundColor = UIColor.clear
+        
+        bgView.layer.cornerRadius = bgView.layer.bounds.width / 2
+        bgView.clipsToBounds = true
+        
+        addSubview(bgView)
     }
 }
