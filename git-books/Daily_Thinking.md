@@ -78,6 +78,16 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+9 April 2023
+-----------
+Make the route drawing function out for the tennis app.
+
+
+8 April 2023
+-----------
+Company's restructure has come to a stable stage - Now it is time to focus on AI for the lont term goal
+
+
 22 Sep 2022 ===== A challenge for myself to get a full demo related to tennis detection during this 4 day holiday session
 -----------
   -- 1 Choose a tool to label image and generate annotation file
