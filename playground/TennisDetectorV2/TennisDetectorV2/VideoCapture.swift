@@ -124,7 +124,7 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-        NSLog("timestamp = %f", CMTimeGetSeconds(timestamp));
+        // NSLog("timestamp = %f", CMTimeGetSeconds(timestamp));
         delegate?.videoCapture(self, didCaptureVideoFrame: CMSampleBufferGetImageBuffer(sampleBuffer))
     }
 }

@@ -1,5 +1,3 @@
-//
-//  DrawingBoundingBoxView.swift
 //  TennisDetectorV2
 //
 //  Created by Jason Zhang on 11/3/2023.
@@ -83,7 +81,7 @@ class DrawingBoundingBoxView: UIView {
         return bgRect
     }
     
-    var routePoints: [CGPoint] = []
+    private var routePoints: [CGPoint] = []
     private func drawRoute(prediction: VNRecognizedObjectObservation) {
         let bgRect = getTransformedBoundingBox(prediction.boundingBox)
         
@@ -91,12 +89,16 @@ class DrawingBoundingBoxView: UIView {
         
         let path = processPath(cgPoints: routePoints);
         
-        let pathView = generatePathView(cgPath: path.cgPath)
+        let pathView = createPathView(cgPath: path.cgPath)
     
         addSubview(pathView)
     }
     
     private func addToRoute(newRoutePoint: CGPoint) {
+        routePoints.append(newRoutePoint)
+    }
+    
+    private func addToRoute__1(newRoutePoint: CGPoint) {
         if routePoints.count <= 1 {
             routePoints.append(newRoutePoint)
             
@@ -107,12 +109,17 @@ class DrawingBoundingBoxView: UIView {
         
         let lastDistance = distance(routePoints[routePoints.count - 2], routePoints[routePoints.count - 1])
         
-        //if newDistance < lastDistance * 3 {
+        NSLog("new distance is %f", newDistance);
+        NSLog("last distance is %f", lastDistance);
+        if newDistance < 3 {
             routePoints.append(newRoutePoint)
-        //}
+        }
     }
     
     private func processPath(cgPoints: [CGPoint]) -> UIBezierPath {
+        
+        // let filteredPath = filterValidPathPoints();
+        
         let path = UIBezierPath()
         if cgPoints.isEmpty {
             return path
@@ -126,7 +133,7 @@ class DrawingBoundingBoxView: UIView {
         return path
     }
     
-    private func generatePathView(cgPath: CGPath) -> UIView {
+    private func createPathView(cgPath: CGPath) -> UIView {
         let shape = CAShapeLayer()
         shape.path = cgPath
         shape.lineWidth = 11.0
