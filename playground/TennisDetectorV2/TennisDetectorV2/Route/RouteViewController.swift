@@ -1,4 +1,13 @@
 //
+//  File.swift
+//  TennisDetectorV2
+//
+//  Created by Jason Zhang on 23/4/2023.
+//
+
+import Foundation
+
+//
 //  MyViewController.swift
 //  TennisDetectorV2
 //
@@ -9,9 +18,9 @@ import UIKit
 import Vision
 import CoreMedia
 
-class MyViewController: UIViewController {
+class RouteViewController: UIViewController {
     private var cameraView = UIView()
-    private var boundingBoxView = DrawingBoundingBoxView()
+    private var routeView = RouteView()
     
     var request: VNCoreMLRequest?
     var visionModel: VNCoreMLModel?
@@ -28,8 +37,8 @@ class MyViewController: UIViewController {
         cameraView.frame = self.view.frame
         self.view.addSubview(cameraView)
         
-        boundingBoxView.frame = self.view.frame
-        self.view.addSubview(boundingBoxView)
+        routeView.frame = self.view.frame
+        self.view.addSubview(routeView)
         
         // setup the model
         setUpModel()
@@ -73,7 +82,7 @@ class MyViewController: UIViewController {
     }
 }
 
-extension MyViewController: VideoCaptureDelegate {
+extension RouteViewController: VideoCaptureDelegate {
     func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?) {
         // the captured image from camera is contained on pixelBuffer
         if !self.isInferencing, let pixelBuffer = pixelBuffer {
@@ -85,7 +94,7 @@ extension MyViewController: VideoCaptureDelegate {
     }
 }
 
-extension MyViewController {
+extension RouteViewController {
     func predictUsingVision(pixelBuffer: CVPixelBuffer) {
         guard let request = request else { fatalError() }
         // vision framework configures the input size of image following our model's input configuration automatically
@@ -100,7 +109,7 @@ extension MyViewController {
             
             self.predictions = predictions
             DispatchQueue.main.async {
-                self.boundingBoxView.predictedObjects = predictions
+                self.routeView.predictedObjects = predictions
                 self.isInferencing = false
             }
         } else {
