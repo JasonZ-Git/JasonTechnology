@@ -8,9 +8,6 @@
 import Foundation
 
 //
-//  MyViewController.swift
-//  TennisDetectorV2
-//
 //  Created by Jason Zhang on 11/3/2023.
 //
 

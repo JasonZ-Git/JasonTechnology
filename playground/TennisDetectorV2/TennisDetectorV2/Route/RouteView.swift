@@ -54,10 +54,10 @@ class RouteView: UIView {
     
     private func processPath(cgPoints: [CGPoint]) -> UIBezierPath {
         
-        // let filteredPath = filterValidPathPoints();
+        let filteredPoints = filterValidPathPoints(originalPoints: cgPoints);
         
         let path = UIBezierPath()
-        if cgPoints.isEmpty {
+        if filteredPoints.isEmpty {
             return path
         }
         
@@ -67,6 +67,64 @@ class RouteView: UIView {
         }
         
         return path
+    }
+    
+    private var arrayPointGroups: [[CGPoint]] = []
+    private func filterValidPathPoints(originalPoints: [CGPoint]) -> [CGPoint] {
+        
+        for currentPoint in originalPoints {
+            let isAddedToGroup = addToGroup (point: currentPoint, groups: &arrayPointGroups);
+            if (!isAddedToGroup) {
+                print("Create a new group for point \(currentPoint)")
+                
+                let newGroup: [CGPoint] = [currentPoint]
+                arrayPointGroups.append(newGroup)
+            }
+        }
+        print("")
+        
+        var maxLength = 0;
+        var resultGroup: [CGPoint] = []
+        for currentGroup in arrayPointGroups {
+            if currentGroup.count > maxLength {
+                maxLength = currentGroup.count
+                resultGroup = currentGroup
+            }
+        }
+        
+        return resultGroup
+    }
+    
+    private func addToGroup(point: CGPoint, groups: inout [[CGPoint]]) -> Bool {
+        var candidateGroup: [CGPoint] = []
+        print("groups is  \(groups)")
+        print("point is  \(point)")
+        if groups.isEmpty {
+            return false;
+        }
+        
+        var minDistance: CGFloat = 20.0
+        for currentGroup in groups {
+            let distanceOfCurrentGroup = distance(currentGroup.last!, point)
+            if distanceOfCurrentGroup < minDistance {
+                minDistance = distanceOfCurrentGroup
+                candidateGroup = currentGroup
+            }
+        }
+        
+        print("Minimal Distance is \(minDistance)")
+        if (minDistance < 2) {
+            if (minDistance > 0.1) {
+                candidateGroup.append(point)
+                print("new groups is  \(groups)")
+            } else {
+                print("ignore point as it is close to existing ones")
+            }
+            
+            return true
+        }
+        
+        return false
     }
     
     private func createPathView(cgPath: CGPath) -> UIView {

@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isOn = true
     var body: some View {
         VStack {
-            // BoundingBoxUIViewAdaptor()
-            RouteUIViewAdaptor()
-        }.ignoresSafeArea()
+            HStack {
+                Toggle(isOn: $isOn) {
+                }
+                .padding(.trailing, 20)
+                Text("\(isOn ? "BoundingBox" : "Route" )")
+                        .foregroundColor(isOn ? Color.blue : Color.red)
+            }
+            if isOn {
+                BoundingBoxUIViewAdaptor()
+            } else {
+                RouteUIViewAdaptor()
+            }
+            
+        }
     }
 }
 
