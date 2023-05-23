@@ -89,3 +89,27 @@ parse_git_branch() {
 }
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 ```
+
+## format json in gedit
+preferences->Plugins-> check 'External Tools'
+Manager External Tools -> All languages -> add one:
+ -- input - Current Docuemtn
+ -- OUtput - Replace Current Document
+ -- ShortCut Key - Ctrl + Shift + F
+ -- Contents as follows:
+```BASH
+#!/usr/bin/env python3
+
+import json
+import sys
+
+j = json.load(sys.stdin)
+print (json.dumps(j, sort_keys=True, indent=2))
+```
+
+
+## Convert Video into images in Linux
+```BASH
+sudo install ffmpeg
+ffmpeg -i IMG_6357.MOV image-%03d.png
+```
