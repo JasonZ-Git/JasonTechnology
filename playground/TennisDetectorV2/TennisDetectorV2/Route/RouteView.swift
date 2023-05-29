@@ -19,6 +19,8 @@ import SwiftUI
 
 class RouteView: UIView {
     
+    private let DISTANCE_UPPER_THRESHOLD = 10.0;
+    private let DISTANCE_LOWER_THRESHOLD = 1.0;
     public var predictedObjects: [VNRecognizedObjectObservation] = [] {
         didSet {
             self.drawRoute(with: predictedObjects)
@@ -33,36 +35,37 @@ class RouteView: UIView {
         }
     }
     
-
-    
-    private var routePoints: [CGPoint] = []
+    private var detectionPositions: [CGPoint] = []
     private func drawRoute(prediction: VNRecognizedObjectObservation) {
         let bgRect = getTransformedBoundingBox(prediction.boundingBox)
         
-        addToRoute(newRoutePoint: CGPoint(x: bgRect.midX, y: bgRect.midY))
+        detectionPositions.append(CGPoint(x: bgRect.midX, y: bgRect.midY))
         
-        let path = processPath(cgPoints: routePoints);
+        let path = processPath(positions: detectionPositions);
         
         let pathView = createPathView(cgPath: path.cgPath)
     
         addSubview(pathView)
     }
     
-    private func addToRoute(newRoutePoint: CGPoint) {
-        routePoints.append(newRoutePoint)
-    }
-    
-    private func processPath(cgPoints: [CGPoint]) -> UIBezierPath {
+    private func processPath(positions: [CGPoint]) -> UIBezierPath {
         
-        let filteredPoints = filterValidPathPoints(originalPoints: cgPoints);
+        let groupedPoints = filterValidPathPoints(originalPoints: positions);
         
         let path = UIBezierPath()
-        if filteredPoints.isEmpty {
+        if groupedPoints.isEmpty {
             return path
         }
         
-        path.move(to: routePoints.first!)
-        routePoints.forEach {route in
+        for currentGroup in groupedPoints {
+            path.move(to: currentGroup.first!)
+            currentGroup.forEach { currentPoint in
+                path.addLine(to: currentPoint)
+            }
+        }
+        
+        path.move(to: detectionPositions.first!)
+        detectionPositions.forEach { route in
             path.addLine(to: route)
         }
         
@@ -70,25 +73,24 @@ class RouteView: UIView {
     }
     
     private var arrayPointGroups: [[CGPoint]] = []
-    private func filterValidPathPoints(originalPoints: [CGPoint]) -> [CGPoint] {
+    private func filterValidPathPoints(originalPoints: [CGPoint]) -> [[CGPoint]] {
         
         for currentPoint in originalPoints {
-            let isAddedToGroup = addToGroup (point: currentPoint, groups: &arrayPointGroups);
-            if (!isAddedToGroup) {
-                print("Create a new group for point \(currentPoint)")
-                
+            let foundGroupToAdd = addToGroup (point: currentPoint, groups: &arrayPointGroups);
+            if (!foundGroupToAdd) {
+                print("Create a new group for point: ")
+                printOne(currentPoint)
                 let newGroup: [CGPoint] = [currentPoint]
                 arrayPointGroups.append(newGroup)
             }
         }
         print("")
         
-        var maxLength = 0;
-        var resultGroup: [CGPoint] = []
+        var resultGroup: [[CGPoint]] = []
+        
         for currentGroup in arrayPointGroups {
-            if currentGroup.count > maxLength {
-                maxLength = currentGroup.count
-                resultGroup = currentGroup
+            if currentGroup.count > 10 {
+                resultGroup.append(currentGroup)
             }
         }
         
@@ -96,35 +98,36 @@ class RouteView: UIView {
     }
     
     private func addToGroup(point: CGPoint, groups: inout [[CGPoint]]) -> Bool {
-        var candidateGroup: [CGPoint] = []
-        print("groups is  \(groups)")
-        print("point is  \(point)")
+        
         if groups.isEmpty {
             return false;
         }
         
-        var minDistance: CGFloat = 20.0
-        for currentGroup in groups {
+        var minDistance: CGFloat = CGFloat.infinity
+        var candidateGroupIndex = -1;
+        for (index, currentGroup) in groups.enumerated() {
             let distanceOfCurrentGroup = distance(currentGroup.last!, point)
             if distanceOfCurrentGroup < minDistance {
                 minDistance = distanceOfCurrentGroup
-                candidateGroup = currentGroup
+                candidateGroupIndex = index
             }
         }
+        print("point is \(String(format: "(%.1f, %.1f)", point.x, point.y))")
+        print("minDistance is \(String(format: "%.1f", minDistance))")
         
-        print("Minimal Distance is \(minDistance)")
-        if (minDistance < 2) {
-            if (minDistance > 0.1) {
-                candidateGroup.append(point)
-                print("new groups is  \(groups)")
-            } else {
-                print("ignore point as it is close to existing ones")
-            }
-            
-            return true
+        if (minDistance > DISTANCE_UPPER_THRESHOLD) { return false }
+        
+        if (minDistance > DISTANCE_LOWER_THRESHOLD) {
+            groups[candidateGroupIndex].append(point)
+            print("new groups is: ")
+            printAll(groups)
+            print("")
+        } else {
+            print("ignore \(String(format: "(%.1f, %.1f)", point.x, point.y))) as it is close to existing ones, minimal distance is \(String(format: "%.1f", minDistance))")
+            print("")
         }
         
-        return false
+        return true
     }
     
     private func createPathView(cgPath: CGPath) -> UIView {
@@ -155,4 +158,38 @@ class RouteView: UIView {
         let yDist = a.y - b.y
         return CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
     }
+    
+    private func printOne(_ aPoint: CGPoint) {
+        let formattedNumber = String(format: "(%.1f, %.1f)", aPoint.x, aPoint.y)
+        print(formattedNumber)
+    }
+    
+    private func printAll(_ points: [CGPoint]) {
+        
+        var result = "  ["
+        print("[")
+        for aPoint in points {
+            let formattedNumber = String(format: "    (%.1f, %.1f), ", aPoint.x, aPoint.y)
+            result +=  formattedNumber
+        }
+        result += "]"
+        print(result)
+    }
+    
+    private func printAll(_ points: [[CGPoint]]) {
+        print("[")
+        for aPoint in points {
+            printAll(aPoint)
+        }
+        print("]")
+    }
+    
+    
+    private var colorIndex = 0;
+    private func randomColor() -> UIColor {
+       let colors: [UIColor] = [UIColor.black, UIColor.red, UIColor.green, UIColor.blue, UIColor.yellow]
+       colorIndex = colorIndex + 1
+       return colors[colorIndex%(colors.count - 1)]
+    }
+    
 }

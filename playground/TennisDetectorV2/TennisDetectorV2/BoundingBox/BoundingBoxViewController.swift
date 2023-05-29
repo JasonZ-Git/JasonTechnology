@@ -39,7 +39,7 @@ class BoundingBoxViewController: UIViewController {
     }
     
     private func setUpModel() {
-        guard let modelURL = Bundle.main.url(forResource: "TennisDetectorV2", withExtension: "mlmodelc") else { return }
+        guard let modelURL = Bundle.main.url(forResource: "TennisDetectorV4", withExtension: "mlmodelc") else { return }
         
         if let visionModel = try? VNCoreMLModel(for: MLModel(contentsOf: modelURL)) {
             self.visionModel = visionModel

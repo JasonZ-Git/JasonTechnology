@@ -14,16 +14,16 @@ struct ContentView: View {
             HStack {
                 Toggle(isOn: $isOn) {
                 }
-                .padding(.trailing, 20)
-                Text("\(isOn ? "BoundingBox" : "Route" )")
+                .padding(.trailing, 50)
+                Text("\(isOn ? "Bounding" : "Route" )")
                         .foregroundColor(isOn ? Color.blue : Color.red)
+                        .padding(.trailing, 50)
             }
             if isOn {
                 BoundingBoxUIViewAdaptor()
             } else {
                 RouteUIViewAdaptor()
             }
-            
         }
     }
 }
