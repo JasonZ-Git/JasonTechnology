@@ -112,4 +112,6 @@ print (json.dumps(j, sort_keys=True, indent=2))
 ```BASH
 sudo install ffmpeg
 ffmpeg -i IMG_6357.MOV image-%03d.png
+ffmpeg -i IMG_6357.MOV -vf fps=1 image-%03d.png
+
 ```
