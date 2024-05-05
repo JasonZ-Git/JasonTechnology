@@ -3,6 +3,7 @@ This file is used to record my random brain storm
 
 TODO List - All the finished ones will be moved to separate pages.
 ---------
+* Summary AI algorithms and write some example code using scikit-learn
 * Create a project to explore how to merge Eureka Server and API gateway together to make a better architect.
 * Should write a technical proposal to JCP regarding using annotation to replace no-method interface such as Serializable
 * Rust and Golang is pretty fast in lambda - It is good to explore it a bit more.
@@ -77,6 +78,14 @@ TODO List - All the finished ones will be moved to separate pages.
 * Bean Validation - How to improve the cross-parameter validation.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
+
+26 April 2024
+-----------
+AI study summary:
+ - Finish 2 Udemy courses
+ - A third AI course on edx is in progress
+ - AI books - finish ''The Hundred-page machine learning book' by the end of May
+ - Summary the Machine learning Algorithms and create a doc
 
 9 April 2023
 -----------
