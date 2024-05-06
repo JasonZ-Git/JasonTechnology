@@ -10,7 +10,8 @@
 
 
 # Machine Learning Algorithms
-| Name        |  Category  | Information | Scenarios           |
+
+| Name        |  Category  | Detail | Scenarios           |
 | ------------- |:-------------:|:-------------:|:-----|
 | Linear Regression | Supervised | Continous Regression Line |
 | Logistic Regression | Supervised | Yes - No |
