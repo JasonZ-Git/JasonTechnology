@@ -2,15 +2,15 @@
 # Machine Learning Algorithm category
 
 | Category        |  Explain  | Scenarios           |
-| ------------- |:-------------:|:-------------:|:-----|
+| ------------- |:-------------:|:----------|
 | Supervised Learning | data is labeled | Auto Driving, Image Recognization |
 | UnSupervised Learning | Data is not labeled | spam email detection |
-| Semi-Supervised Learning |  |
-| Reinforcement Learning | Adjust according to feedback to gain maximum reword |
+| Semi-Supervised Learning |  |  |
+| Reinforcement Learning | Adjust according to feedback to gain maximum reword |  |
 
 
 # Machine Learning Algorithms
-| Name        |  Category  | Information |Scenarios           |
+| Name        |  Category  | Information | Scenarios           |
 | ------------- |:-------------:|:-------------:|:-----|
 | Linear Regression | Supervised | Continous Regression Line |
 | Logistic Regression | Supervised | Yes - No |
