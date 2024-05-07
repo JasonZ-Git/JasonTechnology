@@ -1,7 +1,8 @@
 
 # Machine Learning Algorithm category
+
 | Category        |  Explain  | Scenarios           |
-| ------------- |:-------------:|:----------|
+| ------------- |:-------------:|----------|
 | Supervised Learning | Training data is labeled | Auto Driving <br> Image Recognization |
 | UnSupervised Learning | Training Data is not labeled | Clustering <br> Anomaly detection <br> Dimensionality Reduction |
 | Semi-Supervised Learning | Trained on labeled and unlabeled data | self-training <br> co-training |
@@ -10,7 +11,7 @@
 
 # Machine Learning Algorithms
 | Name          |  Category     | Detail        | Scenarios  |
-| ------------- |:-------------:|:-------------:|:-----------|
+| ------------- |:-------------:|:-------------:|-----------|
 | Linear Regression | Supervised | Continous Regression Line |  |
 | Logistic Regression | Supervised | Yes - No | Binary Classification <br> Medication Dignosis <br> Political Forecasting |
 | Naive Bayes |  | |
