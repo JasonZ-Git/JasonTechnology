@@ -11,6 +11,8 @@
 
 - [Jason Daily Brain Storm](./Daily_Thinking.md)
 
+- [Machine Learning](./Machine_Learning_In_One.md)
+
 - [JavaEE 8 Technology Stack](./JavaEE_8.md)
 
 - [Java Terminalogy - JavaEE 8, JavaEE Web Profile, Servlet, JavaSE 8](./JavaEE8_JavaSE8_Servlet_Full.md)
@@ -38,3 +40,5 @@
 - [Bazel - Simple](./Bazel_Simple.md)
 
 - [OpenCV - Quick](./OpenCV.md)
+
+
