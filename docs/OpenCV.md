@@ -1,12 +1,14 @@
 
 # Popular Terms
+
 |       Name   |                 |
 | -----------  | --------------- |
 |    CUDA      | Compute Unified Device Architecture - A technology to use GPU to process image |
 
 # Popular AI framework that support Object detection
+
 | Name         | Supported Language | Feature |
-| -----------  | --------------- | ----- |
+| -----------  | :---------------: | ----- |
 | OpenCV | C++, Python, Java |  |
 | TensorFlow | Java |  |
 | Pytorch| Python | |
@@ -18,8 +20,9 @@
 
 
 # OpenCV Object Detection
+
 | Name         | Neural Network || Real time detection |  Feature  |
-| -----------  | ---------------   | -----   |
+| -----------  | :---------------: | -----   |
 | Haar Cascade |  N | Y |Old way, good for running, but training needs openCV<4.0, not recommended |
 | RCNN | | |
 | RFCN | | |
