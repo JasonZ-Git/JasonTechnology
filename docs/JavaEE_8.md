@@ -1,4 +1,6 @@
 
+# JavaEE 8 technologies
+
 Java Platform is evolving fast, with more and more technologies standarlized.
 Some of the technology is actually inactive for long, some are very exciting.
 It is meaningful to have a overall check of all the Java EE technologies.
@@ -10,12 +12,10 @@ JavaEE 8 contains a total of 32 JSR, plus 8 related JSR in JavaSE, and a summary
 I originally summerrize on confluence, now I bring it here to continue maintain (Not finished yet)
 
 
-# This is the the full picture of all JavaEE 8 technologies
-
-| Java EE 8 Technology  | Version   |     JSR  | Releaes Date  | JavaEE 8 API  | Implementation |Spring5/SpringBoot 2.2  |
+| Java EE 8 Technology  | Version   |     JSR  | Releaes Date  | JavaEE 8 API  | Implementation | Spring5/SpringBoot 2.2  |
 | --------------------- | --------- | -------- | ------------- | ---------- | -------------- | ------------- |
 | Servlet               | 4.0                | JSR-369       | Sep 2017     | javax.servlet:javax.servlet-api:4.0.0  | Servlet Glassfish 5 Tomcat Jetty Wildfly |Spring can be configured with embedded Servlet Servers such as Tomcat or Jetty. | 
-|CDI|2.0|JSR-365|May 2017|javax.enterprise:cdi-api:2.0 | Full Implement CDI 2: Weld 3(Seam)  - Used by JBOSS;Apache OpenWebBeans  - Used by TomEE | Spring/SpringBoot implements CDI in its own way.Spring doesn't implement Java EE CDI 2.0 and is confirmed that they will support CDI 2 in the near future.|
+|CDI|2.0|JSR-365|May 2017|javax.enterprise:cdi-api:2.0 | Full Implement CDI 2: Weld 3(Seam)  - Used by JBOSS <br> Apache OpenWebBeans  - Used by TomEE | Spring/SpringBoot implements CDI in its own way. <br> Spring doesn't implement Java EE CDI 2.0 and is confirmed that they will support CDI 2 in the near future.|
 |DI (Included in CDI 2)|1.0|JSR-330|Oct 2009 | javax.inject:javax.inject:1|Implementation of DI: Spring Guice Dagger|Spring implements DI 1.0 (JSR-330) which is a subset of CDI 2.|
 |JSON-P|1.1|JSR-374|May 2017|javax.json:javax.json-api:1.1|Implementation of JSON-P: Glassfish javax.json - Used by JBoss| |
 |JAX-RS|2.1|JSR-370|Aug 2017|javax.ws.rs:javax.ws.rs-api:2.1| Full Implementation: Jersey(2.27) - Eclipse-RESTeasy - Used by JBOSS; Apache-CXF(3.2.0) - used by TomEE+| |
