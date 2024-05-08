@@ -6,7 +6,7 @@
 | Supervised Learning | Training data is labeled | Auto Driving <br> Image Recognization |
 | UnSupervised Learning | Training Data is not labeled | Clustering <br> Anomaly detection <br> Dimensionality Reduction |
 | Semi-Supervised Learning | Trained on labeled and unlabeled data | self-training <br> co-training |
-| Reinforcement Learning | Adjust according to feedback to gain maximum reword |  |
+| Reinforcement Learning | Adjust according to feedback to gain maximum reword | game playing <br> Reward such as Finance <br> natural language process |
 
 
 # Machine Learning Algorithms
@@ -17,11 +17,11 @@
 | Logistic Regression | Supervised | Yes - No | Binary Classification <br> Medication Dignosis <br> Political Forecasting |
 | Naive Bayes |  | |
 | Decision Tree | Supervised | |
-| Random Forest | Supervised |  |
+| Random Forest | Supervised | Use a set of sub-forest to vote |
 | KNN - K-Nearest Neighbor | Supervised | Use the K nearst neighbor to decide where it belongs | classification |
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
 | SVM - Supported Vector Machine | Supervised |  | Classification and regression |
-| XGBoost | Supervised | Large dataset,  complex problems |  |
+| XGBoost | Supervised | Large dataset,  complex problems | classification <br> Regression <br> Feature selecion <br> abnormal detection <br> natural language processing <br> feature selection |
 
 ### Linear Regression
 ![alt text](images/Linear_Regression.png "Linear Regression - classification")
@@ -34,5 +34,8 @@
 
 ### Decision Tree
 ![alt text](images/Decision_Tree.png "Decision Tree")
+
+### Random Forest
+![alt text](images/Random_Forest.png "Random Forest")
 
 ## XGBoost - ?
