@@ -39,3 +39,16 @@
 ![alt text](images/Random_Forest.png "Random Forest")
 
 ## XGBoost - ?
+
+
+## The importance of data versus algorithms
+![alt text](images/data_versus_algorithms.png "Data Versus Algorithms")
+
+
+## Real Datasets
+* OpenML.org - openml.org
+* Kaggle.com - kaggle.com/datasets
+* PapersWithCode.com - paterswithcode.com/datasets
+* UC Irvine Machine Learning Repository - archive.ics.uci.edu/ml
+* Amazon's AWS datasets - registry.opendata.aws
+* TensorFlow datasets - tensorflow.org/datasets
