@@ -10,11 +10,16 @@ $ ssh-keygen
 $ ssh-copy-id -i ~/.ssh/id_rsa.pub user@remote-host
 ```
 
-
 ##  Search file content
 ```BASH
 $ find -name '*.*' | xargs grep '<pattern>' .
 ```
+
+### Search directory with pattern for files
+```BASH
+$ find . -type d -name 'industries-fulfillment-orchestrator*' | xargs -I {} find {} -name ownership.yaml
+```
+
 
 ### Use awk and sed to replace string in files
 ### Replace Pom Version for all files
@@ -25,6 +30,12 @@ $ git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' |
 ```BASH
 $ git grep 'org.apache.commons.lang.' -- '*.java' | awk -F ':' '\{print $1}' | xargs sed -i 's/org.apache.commons.lang./org.apache.commons.lang3./1'
 ```
+
+### Git - compare a file changes in 2 commits
+```BASH
+git diff HEAD:{file with path} HEAD~1:{file with path}
+```
+
 ### AWK command
 ```BASH
 $ awk -F ',' '{print "$0 $1 $2"}' source.txt >output.txt
