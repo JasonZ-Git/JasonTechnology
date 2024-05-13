@@ -38,14 +38,14 @@
 ### Random Forest
 ![alt text](images/Random_Forest.png "Random Forest")
 
-## XGBoost - ?
+### XGBoost - ?? TOOD
 
 
-## The importance of data versus algorithms
+# Importance of data versus algorithms
 ![alt text](images/data_versus_algorithms.png "Data Versus Algorithms")
 
 
-## Real Datasets
+# Real Datasets
 * OpenML.org - openml.org
 * Kaggle.com - kaggle.com/datasets
 * PapersWithCode.com - paterswithcode.com/datasets
