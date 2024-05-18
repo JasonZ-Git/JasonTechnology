@@ -28,7 +28,11 @@ $ git grep 'version>9.9.0-SNAPSHOT' | awk '{print substr($1,0, length($1)-1)}' |
 
 ### Replace org.apache.commons.lang to org.apache.commons.lang3 for all java files
 ```BASH
-$ git grep 'org.apache.commons.lang.' -- '*.java' | awk -F ':' '\{print $1}' | xargs sed -i 's/org.apache.commons.lang./org.apache.commons.lang3./1'
+$ git grep 'org.apache.commons.lang.' -- '*.java' | awk -F ':' '{print $1}' | xargs sed -i 's/org.apache.commons.lang./org.apache.commons.lang3./1'
+
+or
+
+$ git grep -l 'OldString' | xargs sed -i '' -e 's/OldString/NewString/g'
 ```
 
 ### Git - compare a file changes in 2 commits
