@@ -15,7 +15,7 @@
 | ------------- |:-------------:|:-------------:|-----------|
 | Linear Regression | Supervised | Continous Regression Line |  |
 | Logistic Regression | Supervised | Yes - No | Binary Classification <br> Medication Dignosis <br> Political Forecasting |
-| Naive Bayes |  | |
+| Naive Bayes |  | Supervised | Based on Bayes-theory | |
 | Decision Tree | Supervised | |
 | Random Forest | Supervised | Use a set of sub-forest to vote |
 | KNN - K-Nearest Neighbor | Supervised | Use the K nearst neighbor to decide where it belongs | classification |
@@ -30,7 +30,10 @@
 ![alt text](images/SVM.png "SVM - classification")
 
 ### KNN
-![alt text](images/KNN.png "SVM - classification")
+![alt text](images/KNN.png "KNN - classification")
+
+### K-means
+![alt text](images/k-means.png "K-means - classification")
 
 ### Decision Tree
 ![alt text](images/Decision_Tree.png "Decision Tree")
