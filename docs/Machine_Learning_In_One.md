@@ -41,7 +41,8 @@
 ### Random Forest
 ![alt text](images/Random_Forest.png "Random Forest")
 
-### XGBoost - ?? TOOD
+### XGBoost
+![alt text](images/XGBoost.png "XGBoost")
 
 
 # Importance of data versus algorithms
