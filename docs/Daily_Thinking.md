@@ -79,6 +79,10 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+27 May 2024
+-----------
+I feel I have opened the door for AI and come to the door gate with NN now
+
 26 April 2024
 -----------
 AI study summary:

@@ -15,13 +15,25 @@
 | ------------- |:-------------:|:-------------:|-----------|
 | Linear Regression | Supervised | Continous Regression Line |  |
 | Logistic Regression | Supervised | Yes - No | Binary Classification <br> Medication Dignosis <br> Political Forecasting |
-| Naive Bayes |  | Supervised | Based on Bayes-theory | |
+| Naive Bayes |  Supervised | Based on Bayes-theory | |
 | Decision Tree | Supervised | |
 | Random Forest | Supervised | Use a set of sub-forest to vote |
 | KNN - K-Nearest Neighbor | Supervised | Use the K nearst neighbor to decide where it belongs | classification |
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
 | SVM - Supported Vector Machine | Supervised |  | Classification and regression |
 | XGBoost | Supervised | Large dataset,  complex problems | classification <br> Regression <br> Feature selecion <br> abnormal detection <br> natural language processing <br> feature selection |
+
+# Popular Machine Learning library
+
+| Library          |  Short Description     |
+| ------------- | ----------- |
+| Scikit-Learn | Traditional Machine Learning Algorithms, such as XGBoost |
+| TensorFlow | Deep Learning Framework |
+| Pytorch |  |   |
+| Keras | Deep Learning Library | Popular choice and supported multiple platform |
+| Numpy | Numeric computing |  |
+| Matplotlib | Visualize 2-D data |
+| Pandas | Read and Analysis structured data |
 
 ### Linear Regression
 ![alt text](images/Linear_Regression.png "Linear Regression - classification")
@@ -56,3 +68,7 @@
 * UC Irvine Machine Learning Repository - archive.ics.uci.edu/ml
 * Amazon's AWS datasets - registry.opendata.aws
 * TensorFlow datasets - tensorflow.org/datasets
+
+
+# ChatGPT
+* How does chatGPT works - https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/
