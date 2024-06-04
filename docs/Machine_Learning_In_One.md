@@ -22,6 +22,14 @@
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
 | SVM - Supported Vector Machine | Supervised |  | Classification and regression |
 | XGBoost | Supervised | Large dataset,  complex problems | classification <br> Regression <br> Feature selecion <br> abnormal detection <br> natural language processing <br> feature selection |
+| CNN Convolutional Neural Networks | Supervised, Deep Learning |  | Image Classification <br> Object Detection <br> Image Segmentation |
+| RNN - Recurrent Neural Networks | Supervised, Deep Learning| | Sequential Data Processing <br> Time series preication <br>Speech Recognition |
+| GAN - Generative Adversarial Network | Supervised, unsupervised, Deep Learning | | Image Generation <br> Image to image translation <br> abormal detection |
+| Deep Belief Network | UnSupervised, Deep Learning | |
+| Autoencoders | Unsupervised, Deep Learning | | data denoising <br> dimensionality reduction <br> anomaly detection |
+| DRL  - Deep Reinforcement Learning | Reinforcement, Deep Learning | Combining deep learning with reinforcement learning | Feature Learning <br> |
+| Transformer Network | Semi-supervised, Deep Learning |  | Natural Language Processing, including BERT, GPT | 
+| Yolo - You only look once | Supervised, Deep Learning | | Real time object detection <br> Traffic Monitoring <br> Retail Analysis |
 
 # Popular Machine Learning library
 

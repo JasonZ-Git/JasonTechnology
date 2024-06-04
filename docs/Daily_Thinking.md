@@ -82,6 +82,7 @@ TODO List - All the finished ones will be moved to separate pages.
 27 May 2024
 -----------
 I feel I have opened the door for AI and come to the door gate with NN now
+First step achieved - A basic model with machine learning 
 
 26 April 2024
 -----------
@@ -90,6 +91,7 @@ AI study summary:
  - A third AI course on edx is in progress
  - AI books - finish ''The Hundred-page machine learning book' by the end of May
  - Summary the Machine learning Algorithms and create a doc
+
 
 9 April 2023
 -----------
