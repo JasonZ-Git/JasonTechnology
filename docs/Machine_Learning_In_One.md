@@ -36,10 +36,10 @@
 | Library          |  Short Description     |
 | ------------- | ----------- |
 | Scikit-Learn | Traditional Machine Learning Algorithms, such as XGBoost |
-| TensorFlow | Deep Learning Framework |
-| Pytorch |  |   |
-| Keras | Deep Learning Library | Popular choice and supported multiple platform |
-| Numpy | Numeric computing |  |
+| TensorFlow | Deep Learning Framework, Google backed |
+| Pytorch | Deep Learning Framework, Facebook backed |
+| Keras | Deep Learning Library, Popular choice and supported multiple platform |
+| Numpy | Numeric computing  |
 | Matplotlib | Visualize 2-D data |
 | Pandas | Read and Analysis structured data |
 
@@ -67,6 +67,14 @@
 
 # Importance of data versus algorithms
 ![alt text](images/data_versus_algorithms.png "Data Versus Algorithms")
+
+
+# Popular Encoder - from text to numeric
+
+| Name          | Detail  | Scenarios  |
+| ------------- |:-------------:|-----------|
+| LabelEncoder  | Encode each category into a unique number, like 2 | Quick <br> Preserver the order |
+| OneHotEncoder | Encode each category into a vector such as [0,0,1]| Doesn't assume the order <br> Can handle unseen label |
 
 
 # Real Datasets
