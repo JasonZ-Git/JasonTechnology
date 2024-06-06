@@ -73,8 +73,11 @@
 
 | Name          | Detail  | Scenarios  |
 | ------------- |:-------------:|-----------|
-| LabelEncoder  | Encode each category into a unique number, like 2 | Quick <br> Preserver the order |
-| OneHotEncoder | Encode each category into a vector such as [0,0,1]| Doesn't assume the order <br> Can handle unseen label |
+| LabelEncoder  | Convert category data into a number, like 2 | Quick <br> Preserver the order |
+| OneHotEncoder | Convert category data into a binary vector such as [0,0,1]| Doesn't assume the order <br> Can handle unseen label |
+| Binary Encoder | Convert category data into a binary vector such as [0,0] [0,1], [1,1] | has less dimensionality compared to one-hot-code |
+| Target Encoder (Mean-Encoder) | Encode category data by the mean value of each category | Useful when there is strong relation between category and target variable |
+| Frequency Encoder | Encodes each category by its frequency | Useful when frequency is a valuable feature |
 
 
 # Real Datasets
