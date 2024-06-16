@@ -89,5 +89,11 @@
 * TensorFlow datasets - tensorflow.org/datasets
 
 
+# Keras Model
+## Sequential Model
+![alt text](images/Keras_Sequential.svg "Sequential Model")
+## Functional Model
+![alt text](images/Keras_Functional_2.png "Functional Model")
+
 # ChatGPT
 * How does chatGPT works - https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/
