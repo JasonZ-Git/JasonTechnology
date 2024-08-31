@@ -12,11 +12,11 @@
 # Machine Learning Algorithms
 
 | Name          |  Category     | Detail        | Scenarios  |
-| ------------- |:-------------:|:-------------:|-----------|
+| ------------- |:-------------:|:-------------|-----------|
 | Linear Regression | Supervised | Continous Regression Line |  |
 | Logistic Regression | Supervised | Yes - No | Binary Classification <br> Medication Dignosis <br> Political Forecasting |
 | Naive Bayes |  Supervised | Based on Bayes-theory | |
-| Decision Tree | Supervised | |
+| Decision Tree | Supervised | Decision boundary is when the possibility is equal for both side in 1-0 scenario <br> Classification error, Gini and Entropy to meaure the algorithm <br> stopping condition|
 | Random Forest | Supervised | Use a set of sub-forest to vote |
 | KNN - K-Nearest Neighbor | Supervised | Use the K nearst neighbor to decide where it belongs | classification |
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
@@ -94,6 +94,11 @@
 ![alt text](images/Keras_Sequential.svg "Sequential Model")
 ## Functional Model
 ![alt text](images/Keras_Functional_2.png "Functional Model")
+
+
+# Visualliization Tool
+* Matplotlib
+* TensorBoard - TensorFlows's visulization tool
 
 # ChatGPT
 * How does chatGPT works - https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/
