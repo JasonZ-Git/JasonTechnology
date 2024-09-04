@@ -64,6 +64,12 @@
 ### XGBoost
 ![alt text](images/XGBoost.png "XGBoost")
 
+### Gradient Boost
+| Name          | Detail  | Scenarios  | Developer |
+| ------------- |:-------------:|-----------|-----------|
+| XGBoost | optimized distributed gradient boosting library | many scenarios, default choice |
+| LGBM | tree based learning algorithms | | Microsoft|
+| CatBoost | Decision tree based boost framework | search, recommendation systems, personal assistant, self-driving cars, weather prediction | Yondex|
 
 # Importance of data versus algorithms
 ![alt text](images/data_versus_algorithms.png "Data Versus Algorithms")
@@ -78,6 +84,7 @@
 | Binary Encoder | Convert category data into a binary vector such as [0,0] [0,1], [1,1] | has less dimensionality compared to one-hot-code |
 | Target Encoder (Mean-Encoder) | Encode category data by the mean value of each category | Useful when there is strong relation between category and target variable |
 | Frequency Encoder | Encodes each category by its frequency | Useful when frequency is a valuable feature |
+
 
 
 # Real Datasets
