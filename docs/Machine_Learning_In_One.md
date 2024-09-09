@@ -17,7 +17,7 @@
 | Logistic Regression | Supervised | Yes - No | Binary Classification <br> Medication Dignosis <br> Political Forecasting |
 | Naive Bayes |  Supervised | Based on Bayes-theory | |
 | Decision Tree | Supervised | Decision boundary is when the possibility is equal for both side in 1-0 scenario <br> Classification error, Gini and Entropy to meaure the algorithm <br> stopping condition|
-| Random Forest | Supervised | Use a set of sub-forest to vote |
+| Random Forest | Supervised | Use a set of sub-forest to vote | Robost, default for many scenarios |
 | KNN - K-Nearest Neighbor | Supervised | Use the K nearst neighbor to decide where it belongs | classification |
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
 | SVM - Supported Vector Machine | Supervised |  | Classification and regression |
@@ -42,6 +42,7 @@
 | Numpy | Numeric computing  |
 | Matplotlib | Visualize 2-D data |
 | Pandas | Read and Analysis structured data |
+| dtreeviz | A python library to visualize deep-tree process in details |
 
 ### Linear Regression
 ![alt text](images/Linear_Regression.png "Linear Regression - classification")
