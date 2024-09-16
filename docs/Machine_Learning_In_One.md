@@ -18,7 +18,7 @@
 | Naive Bayes |  Supervised | Based on Bayes-theory | |
 | Decision Tree | Supervised | Decision boundary is when the possibility is equal for both side in 1-0 scenario <br> Classification error, Gini and Entropy to meaure the algorithm <br> stopping condition|
 | Random Forest | Supervised | Use a set of sub-forest to vote | Robost, default for many scenarios |
-| KNN - K-Nearest Neighbor | Supervised | Use the K nearst neighbor to decide where it belongs | classification |
+| KNN - K-Nearest Neighbor | Unsupervised | Use the K nearst neighbor to decide where it belongs | classification |
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
 | SVM - Supported Vector Machine | Supervised |  | Classification and regression |
 | XGBoost | Supervised | Large dataset,  complex problems | classification <br> Regression <br> Feature selecion <br> abnormal detection <br> natural language processing <br> feature selection |
@@ -44,28 +44,44 @@
 | Pandas | Read and Analysis structured data |
 | dtreeviz | A python library to visualize deep-tree process in details |
 
-### Linear Regression
+# Algorithm in Chart
+### Linear Regression 
+* supervised
+* continous regression line
 ![alt text](images/Linear_Regression.png "Linear Regression - classification")
 
 ### SVM
+* Can be used for both linear and non-linear scenario
+* Maximum the distance(margin) between different classes
 ![alt text](images/SVM.png "SVM - classification")
 
 ### KNN
+* Unsupervised - no need to train
+* Use the K nearst neighbor to decide where it belongs
 ![alt text](images/KNN.png "KNN - classification")
 
 ### K-means
+* Unsupervised
+* Use a ‘center’ to define each cluster
 ![alt text](images/k-means.png "K-means - classification")
 
 ### Decision Tree
+* Decision boundary is when the possibility is equal for both side in 1-0 scenario
+* Classification error, Gini and Entropy to meaure the algorithm stopping condition
 ![alt text](images/Decision_Tree.png "Decision Tree")
 
 ### Random Forest
+* creates multiple subsets
+* trained with a random subset of features to get trees
+* each tree votes(majority vote or average prediction) to get the result
 ![alt text](images/Random_Forest.png "Random Forest")
 
 ### XGBoost
+* Gradient Boosting - each model is build on the error of the previous models
+* It uses decision tree as the base learner
 ![alt text](images/XGBoost.png "XGBoost")
 
-### Gradient Boost
+### Gradient Boost Algorithms
 | Name          | Detail  | Scenarios  | Developer |
 | ------------- |:-------------:|-----------|-----------|
 | XGBoost | optimized distributed gradient boosting library | many scenarios, default choice |
