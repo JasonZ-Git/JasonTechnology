@@ -1,4 +1,4 @@
-The object detector model, located at BreakfastFinder/ObjectDetector.mlmodel, is based on arXiv’s article, "YOLO9000: Better, Faster, Stronger" by Joseph Redmon, Ali Farhadi (CVPR 2017).
+The object detector model, located at TennisEagleVision/ObjectDetector.mlmodel, is based on arXiv’s article, "YOLO9000: Better, Faster, Stronger" by Joseph Redmon, Ali Farhadi (CVPR 2017).
 
 The following license applies to the source code, and other elements of this package:
 

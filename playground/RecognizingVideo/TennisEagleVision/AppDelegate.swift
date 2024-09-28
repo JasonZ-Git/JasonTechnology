@@ -2,7 +2,7 @@
 See the LICENSE.txt file for this sample’s licensing information.
 
 Abstract:
-Contains the app delegate for the Breakfast Finder.
+Contains the app delegate for the Tennis Eagle Vision.
 */
 
 import UIKit
@@ -16,6 +16,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         return true
     }
-
 }
 

@@ -2,7 +2,7 @@
 See the LICENSE.txt file for this sample’s licensing information.
 
 Abstract:
-Contains the object recognition view controller for the Breakfast Finder.
+Contains the object recognition view controller for the Tennis Eagle Vision.
 */
 
 import UIKit
