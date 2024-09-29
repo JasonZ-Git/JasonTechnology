@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class VisionObjectRecognitionViewController: ViewController {
+class VisionObjectRecognitionViewController: CameraViewController {
     
     private var detectionOverlay: CALayer! = nil
     
@@ -66,7 +66,7 @@ class VisionObjectRecognitionViewController: ViewController {
         CATransaction.commit()
     }
     
-    override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
@@ -81,8 +81,8 @@ class VisionObjectRecognitionViewController: ViewController {
         }
     }
     
-    override func setupAVCapture() {
-        super.setupAVCapture()
+    override func setupCamera() {
+        super.setupCamera()
         
         // setup Vision parts
         setupLayers()
@@ -124,7 +124,6 @@ class VisionObjectRecognitionViewController: ViewController {
         detectionOverlay.position = CGPoint(x: bounds.midX, y: bounds.midY)
         
         CATransaction.commit()
-        
     }
     
     func createTextSubLayerInBounds(_ bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
