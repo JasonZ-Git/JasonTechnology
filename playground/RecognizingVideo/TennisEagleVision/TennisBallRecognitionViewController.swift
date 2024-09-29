@@ -9,12 +9,14 @@ import UIKit
 import AVFoundation
 import Vision
 
-class VisionObjectRecognitionViewController: CameraViewController {
+class TennisBallRecognitionViewController: CameraViewController {
     
     private var detectionOverlay: CALayer! = nil
     
     // Vision parts
     private var requests = [VNRequest]()
+    
+    var ballPositions: [CGPoint] = []
     
     @discardableResult
     func setupVision() -> NSError? {
@@ -22,7 +24,7 @@ class VisionObjectRecognitionViewController: CameraViewController {
         let error: NSError! = nil
         
         guard let modelURL = Bundle.main.url(forResource: "ObjectDetector", withExtension: "mlmodelc") else {
-            return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
+            return NSError(domain: "TennisBallRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
         do {
             let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
@@ -152,6 +154,30 @@ class VisionObjectRecognitionViewController: CameraViewController {
         shapeLayer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 0.2, 0.4])
         shapeLayer.cornerRadius = 7
         return shapeLayer
+    }
+    
+    func drawTrajectory() {
+        let path = UIBezierPath()
+        
+        guard let firstPosition = ballPositions.first else { return }
+        path.move(to: firstPosition)
+        
+        for position in ballPositions {
+            path.addLine(to: position)
+        }
+
+        let trajectoryLayer = CAShapeLayer()
+        trajectoryLayer.path = path.cgPath
+        trajectoryLayer.strokeColor = UIColor.green.cgColor
+        trajectoryLayer.lineWidth = 2.0
+        trajectoryLayer.fillColor = UIColor.clear.cgColor
+
+        // Remove old trajectory layers
+        if let existingLayer = view.layer.sublayers?.first(where: { $0 is CAShapeLayer }) {
+            existingLayer.removeFromSuperlayer()
+        }
+
+        view.layer.addSublayer(trajectoryLayer)
     }
     
 }

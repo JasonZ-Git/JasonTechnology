@@ -21,12 +21,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
-    /*
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // to be implemented in the subclass
-    }
-    */
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCamera()
@@ -34,7 +29,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setupCamera() {
@@ -98,10 +92,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func teardownAVCapture() {
         previewLayer.removeFromSuperlayer()
         previewLayer = nil
-    }
-    
-    func captureOutput(_ captureOutput: AVCaptureOutput, didDrop didDropSampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // print("frame dropped")
     }
     
     public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
