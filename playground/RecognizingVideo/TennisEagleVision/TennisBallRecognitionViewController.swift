@@ -16,7 +16,22 @@ class TennisBallRecognitionViewController: CameraViewController {
     // Vision parts
     private var requests = [VNRequest]()
     
-    var ballPositions: [CGPoint] = []
+    private var ballPositions: [CGPoint] = []
+    
+    private let MAX_POINTS: Int = 30;
+    
+    
+    override func viewDidLoad(){
+        super.viewDidLoad();
+        
+        super.setupCamera()
+        
+        setupLayers()
+        updateLayerGeometry()
+        setupVision()
+        
+        super.startCaptureSession()
+    }
     
     @discardableResult
     func setupVision() -> NSError? {
@@ -61,8 +76,13 @@ class TennisBallRecognitionViewController: CameraViewController {
             let textLayer = self.createTextSubLayerInBounds(objectBounds,
                                                             identifier: topLabelObservation.identifier,
                                                             confidence: topLabelObservation.confidence)
+            
+            let routeLayer = self.drawRoutine(objectBounds)
+            
             shapeLayer.addSublayer(textLayer)
+            shapeLayer.addSublayer(routeLayer)
             detectionOverlay.addSublayer(shapeLayer)
+            
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -82,18 +102,7 @@ class TennisBallRecognitionViewController: CameraViewController {
             print(error)
         }
     }
-    
-    override func setupCamera() {
-        super.setupCamera()
-        
-        // setup Vision parts
-        setupLayers()
-        updateLayerGeometry()
-        setupVision()
-        
-        // start the capture
-        startCaptureSession()
-    }
+
     
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
@@ -156,28 +165,39 @@ class TennisBallRecognitionViewController: CameraViewController {
         return shapeLayer
     }
     
-    func drawTrajectory() {
-        let path = UIBezierPath()
+    func drawRoutine(_ bounds: CGRect) -> CAShapeLayer {
         
-        guard let firstPosition = ballPositions.first else { return }
+        print("Found object, position is \(bounds.midX), there are \(ballPositions.count) points")
+        
+        if (ballPositions.count > MAX_POINTS) {
+            ballPositions.removeFirst()
+        }
+        
+        let ballPosition = CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        ballPositions.append(ballPosition)
+        
+        let path = UIBezierPath()
+        let routineLayer = CAShapeLayer()
+        
+        guard let firstPosition = ballPositions.first else { return routineLayer}
         path.move(to: firstPosition)
         
         for position in ballPositions {
             path.addLine(to: position)
         }
 
-        let trajectoryLayer = CAShapeLayer()
-        trajectoryLayer.path = path.cgPath
-        trajectoryLayer.strokeColor = UIColor.green.cgColor
-        trajectoryLayer.lineWidth = 2.0
-        trajectoryLayer.fillColor = UIColor.clear.cgColor
+        routineLayer.path = path.cgPath
+        routineLayer.strokeColor = UIColor.green.cgColor
+        routineLayer.lineWidth = 2.0
+        routineLayer.fillColor = UIColor.clear.cgColor
 
-        // Remove old trajectory layers
+
         if let existingLayer = view.layer.sublayers?.first(where: { $0 is CAShapeLayer }) {
             existingLayer.removeFromSuperlayer()
         }
 
-        view.layer.addSublayer(trajectoryLayer)
+        return routineLayer
     }
     
 }
