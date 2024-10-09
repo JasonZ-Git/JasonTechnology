@@ -38,7 +38,7 @@ class TennisBallRecognitionViewController: CameraViewController {
         // Setup Vision parts
         let error: NSError! = nil
         
-        guard let modelURL = Bundle.main.url(forResource: "ObjectDetector", withExtension: "mlmodelc") else {
+        guard let modelURL = Bundle.main.url(forResource: "TennisDetectorV2", withExtension: "mlmodelc") else {
             return NSError(domain: "TennisBallRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
         do {
@@ -71,18 +71,11 @@ class TennisBallRecognitionViewController: CameraViewController {
             let topLabelObservation = objectObservation.labels[0]
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
+            /**
             let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
-            
-            let textLayer = self.createTextSubLayerInBounds(objectBounds,
-                                                            identifier: topLabelObservation.identifier,
-                                                            confidence: topLabelObservation.confidence)
-            
-            let routeLayer = self.drawRoutine(objectBounds)
-            
-            shapeLayer.addSublayer(textLayer)
-            shapeLayer.addSublayer(routeLayer)
-            detectionOverlay.addSublayer(shapeLayer)
-            
+            **/
+            setupRoutineLayer(objectBounds)
+            setupBallLayer(objectBounds)
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -105,7 +98,7 @@ class TennisBallRecognitionViewController: CameraViewController {
 
     
     func setupLayers() {
-        detectionOverlay = CALayer() // container layer that has all the renderings of the observations
+        detectionOverlay = CALayer()
         detectionOverlay.name = "DetectionOverlay"
         detectionOverlay.bounds = CGRect(x: 0.0,
                                          y: 0.0,
@@ -137,24 +130,6 @@ class TennisBallRecognitionViewController: CameraViewController {
         CATransaction.commit()
     }
     
-    func createTextSubLayerInBounds(_ bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
-        let textLayer = CATextLayer()
-        textLayer.name = "Object Label"
-        let formattedString = NSMutableAttributedString(string: String(format: "\(identifier)\nConfidence:  %.2f", confidence))
-        let largeFont = UIFont(name: "Helvetica", size: 24.0)!
-        formattedString.addAttributes([NSAttributedString.Key.font: largeFont], range: NSRange(location: 0, length: identifier.count))
-        textLayer.string = formattedString
-        textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.size.height - 10, height: bounds.size.width - 10)
-        textLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        textLayer.shadowOpacity = 0.7
-        textLayer.shadowOffset = CGSize(width: 2, height: 2)
-        textLayer.foregroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 1.0])
-        textLayer.contentsScale = 2.0 // retina rendering
-        // rotate the layer into screen orientation and scale and mirror
-        textLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: 1.0, y: -1.0))
-        return textLayer
-    }
-    
     func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
         let shapeLayer = CALayer()
         shapeLayer.bounds = bounds
@@ -165,7 +140,7 @@ class TennisBallRecognitionViewController: CameraViewController {
         return shapeLayer
     }
     
-    func drawRoutine(_ bounds: CGRect) -> CAShapeLayer {
+    func setupRoutineLayer(_ bounds: CGRect) {
         
         print("Found object, position is \(bounds.midX), there are \(ballPositions.count) points")
         
@@ -180,24 +155,52 @@ class TennisBallRecognitionViewController: CameraViewController {
         let path = UIBezierPath()
         let routineLayer = CAShapeLayer()
         
-        guard let firstPosition = ballPositions.first else { return routineLayer}
+        guard let firstPosition = ballPositions.first else { return }
+        
         path.move(to: firstPosition)
         
         for position in ballPositions {
             path.addLine(to: position)
         }
-
+        
         routineLayer.path = path.cgPath
         routineLayer.strokeColor = UIColor.green.cgColor
         routineLayer.lineWidth = 2.0
         routineLayer.fillColor = UIColor.clear.cgColor
-
-
-        if let existingLayer = view.layer.sublayers?.first(where: { $0 is CAShapeLayer }) {
-            existingLayer.removeFromSuperlayer()
-        }
-
-        return routineLayer
+        
+        detectionOverlay.addSublayer(routineLayer)
     }
     
+    func setupBallLayer(_ bounds: CGRect) {
+        
+        let ballPosition = CGPoint(x: bounds.midX, y: bounds.midY)
+        var ballLayer = CALayer()
+        ballLayer.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
+        ballLayer.position = ballPosition
+        ballLayer.backgroundColor = UIColor.green.cgColor
+        ballLayer.cornerRadius = 15 // Make it circular
+
+        animateBallAlongTrajectory(ballLayer)
+        
+        detectionOverlay.addSublayer(ballLayer)
+    }
+    
+    func animateBallAlongTrajectory(_ ballLayer: CALayer) {
+        // Create the keyframe animation
+        let path = UIBezierPath()
+        path.move(to: ballPositions[0])
+        
+        for point in ballPositions {
+            path.addLine(to: point)
+        }
+        
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.path = path.cgPath
+        animation.duration = 2.0 // Adjust the duration as needed
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.repeatCount = .infinity // Repeat the animation if needed
+        
+        // Add the animation to the ball layer
+        ballLayer.add(animation, forKey: "trajectory")
+    }
 }
