@@ -21,7 +21,7 @@ class TennisBallRecognitionViewController: CameraViewController {
     private let MAX_POINTS: Int = 30;
     
     
-    override func viewDidLoad(){
+    override func viewDidLoad() {
         super.viewDidLoad();
         
         super.setupCamera()
@@ -71,11 +71,10 @@ class TennisBallRecognitionViewController: CameraViewController {
             let topLabelObservation = objectObservation.labels[0]
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
-            /**
-            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
-            **/
-            setupRoutineLayer(objectBounds)
-            setupBallLayer(objectBounds)
+            let path = calculatePath(objectBounds)
+            
+            setupTrajectoryLayer(path)
+            setupBallLayer(objectBounds, path)
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -99,7 +98,7 @@ class TennisBallRecognitionViewController: CameraViewController {
     
     func setupLayers() {
         detectionOverlay = CALayer()
-        detectionOverlay.name = "DetectionOverlay"
+        detectionOverlay.name = "TennisOverlay"
         detectionOverlay.bounds = CGRect(x: 0.0,
                                          y: 0.0,
                                          width: bufferSize.width,
@@ -134,16 +133,13 @@ class TennisBallRecognitionViewController: CameraViewController {
         let shapeLayer = CALayer()
         shapeLayer.bounds = bounds
         shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        shapeLayer.name = "Found Object"
+        shapeLayer.name = "Found Tennis Ball"
         shapeLayer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 0.2, 0.4])
         shapeLayer.cornerRadius = 7
         return shapeLayer
     }
     
-    func setupRoutineLayer(_ bounds: CGRect) {
-        
-        print("Found object, position is \(bounds.midX), there are \(ballPositions.count) points")
-        
+    func calculatePath(_ bounds: CGRect) -> CGPath {
         if (ballPositions.count > MAX_POINTS) {
             ballPositions.removeFirst()
         }
@@ -153,17 +149,21 @@ class TennisBallRecognitionViewController: CameraViewController {
         ballPositions.append(ballPosition)
         
         let path = UIBezierPath()
-        let routineLayer = CAShapeLayer()
-        
-        guard let firstPosition = ballPositions.first else { return }
-        
-        path.move(to: firstPosition)
+                
+        path.move(to: ballPositions[0])
         
         for position in ballPositions {
             path.addLine(to: position)
         }
         
-        routineLayer.path = path.cgPath
+        return path.cgPath;
+    }
+    
+    func setupTrajectoryLayer(_ path: CGPath) {
+
+        let routineLayer = CAShapeLayer()
+        
+        routineLayer.path = path
         routineLayer.strokeColor = UIColor.green.cgColor
         routineLayer.lineWidth = 2.0
         routineLayer.fillColor = UIColor.clear.cgColor
@@ -171,36 +171,23 @@ class TennisBallRecognitionViewController: CameraViewController {
         detectionOverlay.addSublayer(routineLayer)
     }
     
-    func setupBallLayer(_ bounds: CGRect) {
+    func setupBallLayer(_ bounds: CGRect, _ path: CGPath) {
         
         let ballPosition = CGPoint(x: bounds.midX, y: bounds.midY)
-        var ballLayer = CALayer()
-        ballLayer.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let ballLayer = CALayer()
+        ballLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
         ballLayer.position = ballPosition
         ballLayer.backgroundColor = UIColor.green.cgColor
-        ballLayer.cornerRadius = 15 // Make it circular
-
-        animateBallAlongTrajectory(ballLayer)
-        
-        detectionOverlay.addSublayer(ballLayer)
-    }
-    
-    func animateBallAlongTrajectory(_ ballLayer: CALayer) {
-        // Create the keyframe animation
-        let path = UIBezierPath()
-        path.move(to: ballPositions[0])
-        
-        for point in ballPositions {
-            path.addLine(to: point)
-        }
+        ballLayer.cornerRadius = min(bounds.width, bounds.height)/2
         
         let animation = CAKeyframeAnimation(keyPath: "position")
-        animation.path = path.cgPath
+        animation.path = path
         animation.duration = 2.0 // Adjust the duration as needed
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.repeatCount = .infinity // Repeat the animation if needed
         
-        // Add the animation to the ball layer
         ballLayer.add(animation, forKey: "trajectory")
+        
+        detectionOverlay.addSublayer(ballLayer)
     }
 }

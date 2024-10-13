@@ -25,20 +25,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    /* NOT WORKING
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        print("Disappeared")
-    }
-     */
-    
-    /* Not Working
-    deinit {
-        print("deinit")
-    }
-    */
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
