@@ -24,8 +24,9 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupCamera()
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

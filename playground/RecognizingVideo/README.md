@@ -2,6 +2,14 @@
 
 Apply Vision algorithms to identify objects in real-time video.
 
+# TODO list
+-----------------------------------------------------------
+* Determine the landing position when it touched the ground
+* Improve the program to be able to read from an video file alongside with camera
+* Able to detect tennis court lines
+* Judge whether the ball is out or not
+
+
 ## Overview
 
 

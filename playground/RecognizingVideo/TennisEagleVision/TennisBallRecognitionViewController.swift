@@ -18,13 +18,10 @@ class TennisBallRecognitionViewController: CameraViewController {
     
     private var ballPositions: [CGPoint] = []
     
-    private let MAX_POINTS: Int = 30;
-    
+    private let MAX_POINTS: Int = 100;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        super.setupCamera()
         
         setupLayers()
         updateLayerGeometry()
@@ -68,7 +65,6 @@ class TennisBallRecognitionViewController: CameraViewController {
                 continue
             }
             // Select only the label with the highest confidence.
-            let topLabelObservation = objectObservation.labels[0]
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
             let path = calculatePath(objectBounds)
@@ -79,7 +75,7 @@ class TennisBallRecognitionViewController: CameraViewController {
         self.updateLayerGeometry()
         CATransaction.commit()
     }
-    
+
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
@@ -95,7 +91,6 @@ class TennisBallRecognitionViewController: CameraViewController {
         }
     }
 
-    
     func setupLayers() {
         detectionOverlay = CALayer()
         detectionOverlay.name = "TennisOverlay"
@@ -109,12 +104,11 @@ class TennisBallRecognitionViewController: CameraViewController {
     
     func updateLayerGeometry() {
         let bounds = rootLayer.bounds
-        var scale: CGFloat
         
         let xScale: CGFloat = bounds.size.width / bufferSize.height
         let yScale: CGFloat = bounds.size.height / bufferSize.width
         
-        scale = fmax(xScale, yScale)
+        var scale = fmax(xScale, yScale)
         if scale.isInfinite {
             scale = 1.0
         }
@@ -129,16 +123,6 @@ class TennisBallRecognitionViewController: CameraViewController {
         CATransaction.commit()
     }
     
-    func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
-        let shapeLayer = CALayer()
-        shapeLayer.bounds = bounds
-        shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        shapeLayer.name = "Found Tennis Ball"
-        shapeLayer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 0.2, 0.4])
-        shapeLayer.cornerRadius = 7
-        return shapeLayer
-    }
-    
     func calculatePath(_ bounds: CGRect) -> CGPath {
         if (ballPositions.count > MAX_POINTS) {
             ballPositions.removeFirst()
@@ -147,6 +131,8 @@ class TennisBallRecognitionViewController: CameraViewController {
         let ballPosition = CGPoint(x: bounds.midX, y: bounds.midY)
         
         ballPositions.append(ballPosition)
+        
+        print(ballPositions)
         
         let path = UIBezierPath()
                 
