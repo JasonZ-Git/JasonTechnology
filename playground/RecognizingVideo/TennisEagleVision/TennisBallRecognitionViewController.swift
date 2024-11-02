@@ -18,7 +18,7 @@ class TennisBallRecognitionViewController: CameraViewController {
     
     private var ballPositions: [CGPoint] = []
     
-    private let MAX_POINTS: Int = 100;
+    private let MAX_POINTS: Int = 30;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -69,7 +69,7 @@ class TennisBallRecognitionViewController: CameraViewController {
             
             let path = calculatePath(objectBounds)
             
-            setupTrajectoryLayer(path)
+            setupPathLayer(path)
             setupBallLayer(objectBounds, path)
         }
         self.updateLayerGeometry()
@@ -124,28 +124,25 @@ class TennisBallRecognitionViewController: CameraViewController {
     }
     
     func calculatePath(_ bounds: CGRect) -> CGPath {
-        if (ballPositions.count > MAX_POINTS) {
+        
+        
+        if (ballPositions.count >= MAX_POINTS) {
             ballPositions.removeFirst()
         }
         
         let ballPosition = CGPoint(x: bounds.midX, y: bounds.midY)
         
+        let ballDiameter = (bounds.size.width + bounds.size.height)/2;
+        
         ballPositions.append(ballPosition)
         
-        print(ballPositions)
+        friendlyPrint(ballPositions)
         
-        let path = UIBezierPath()
-                
-        path.move(to: ballPositions[0])
+        return TennisPathUtil.calculatePath(ballPositions, ballDiameter);
         
-        for position in ballPositions {
-            path.addLine(to: position)
-        }
-        
-        return path.cgPath;
     }
     
-    func setupTrajectoryLayer(_ path: CGPath) {
+    func setupPathLayer(_ path: CGPath) {
 
         let routineLayer = CAShapeLayer()
         
@@ -176,4 +173,31 @@ class TennisBallRecognitionViewController: CameraViewController {
         
         detectionOverlay.addSublayer(ballLayer)
     }
+    
+    func friendlyPrint(_ data: [CGPoint]) {
+        
+        let bounds = rootLayer.bounds
+        let xScale: CGFloat = bounds.size.width / bufferSize.height
+        let yScale: CGFloat = bounds.size.height / bufferSize.width
+        let scale = fmax(xScale, yScale)
+        
+        let reversedData: [CGPoint] = data.map { (current) in
+            // Unscale the coordinates
+            let unscaledX = current.x / scale
+            let unscaledY = current.y / -scale // Undo mirroring
+
+            // Unrotate by 90 degrees (counterclockwise)
+            let rotatedX = unscaledY
+            let rotatedY = bounds.size.width - unscaledX // Adjust for screen dimensions
+
+            return CGPoint(x:rotatedX, y:rotatedY)
+        }
+        
+        let bouncingPoint = TennisPathUtil.findBouncingPoint(reversedData)
+        
+        if(bouncingPoint != nil) {
+            print("bouncing point found: \(String(describing: bouncingPoint))")
+        }
+    }
+
 }
