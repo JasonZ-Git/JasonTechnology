@@ -11,31 +11,31 @@ class TennisPathUtil {
     
     private static let MAX_POINTS: Int = 30;
     
-    public static func calculatePath(_ ballPositions: [CGPoint] , _ ballDiameter: CGFloat) -> CGPath {
-
+    public static func calculatePath(_ ballPositions: [TimedPosition] , _ ballDiameter: CGFloat) -> CGPath {
+        
         let path = UIBezierPath()
         
-        let startingPoint: CGPoint = ballPositions[0];
+        let startingPoint: CGPoint = ballPositions[0].position;
         
         path.move(to: startingPoint);
         
         var lastPoint = startingPoint;
-        for position in ballPositions.dropFirst() {
+        for currentTimedPosition in ballPositions.dropFirst() {
             
-            if (distance(position, lastPoint) > ballDiameter * 5){
+            if (distance(currentTimedPosition.position, lastPoint) > ballDiameter * 5){
                 path.close()
-                path.move(to: position)
+                path.move(to: currentTimedPosition.position)
             }
             
-            path.addLine(to: position)
-            lastPoint = position
+            path.addLine(to: currentTimedPosition.position)
+            lastPoint = currentTimedPosition.position
         }
         
         return path.cgPath;
     }
     
     // Function to find the bouncing point using average slopes
-    public static func findBouncingPoint(_ data: [CGPoint]) -> CGPoint? {
+    public static func findBouncingPoint_1(_ data: [CGPoint]) -> CGPoint? {
         let windowSize = 5
         
         if (data.count < windowSize * 2 ) { return nil }
@@ -43,7 +43,7 @@ class TennisPathUtil {
         for i in 0...(data.count - windowSize * 2) {
             let avgSlope1 = averageSlope(points: data, start: i)
             let avgSlope2 = averageSlope(points: data, start: i + windowSize)
-
+            
             // Check for direction change (sign change)
             
             if avgSlope1 * avgSlope2 < 0 {
@@ -52,6 +52,26 @@ class TennisPathUtil {
             }
         }
         return nil // No bounce point found
+    }
+    
+    public static func findBouncingPoint(_ points: [TimedPosition]) -> CGPoint? {
+        let referenceMean: CGFloat = 0.0
+        let threshold: CGFloat = 1.5
+        var cumulativeSum: CGFloat = 0.0
+
+        for point in points {
+            // Calculate the deviation from the reference mean
+            cumulativeSum += (point.position.y - referenceMean)
+            
+            // Check if cumulative sum exceeds the threshold (upwards or downwards)
+            if cumulativeSum > threshold || cumulativeSum < -threshold {
+                // Return the CGPoint of the first bounce detected
+                return point.position
+            }
+        }
+
+        // Return nil if no bounce is detected
+        return nil
     }
     
     private static func averageSlope(points: [CGPoint], start: Int) -> CGFloat {
@@ -65,5 +85,4 @@ class TennisPathUtil {
         let deltaY = point2.y - point1.y
         return sqrt(deltaX * deltaX + deltaY * deltaY)
     }
-    
 }

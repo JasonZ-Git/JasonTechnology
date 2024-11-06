@@ -16,7 +16,7 @@ class TennisBallRecognitionViewController: CameraViewController {
     // Vision parts
     private var requests = [VNRequest]()
     
-    private var ballPositions: [CGPoint] = []
+    private var ballPositions: [TimedPosition] = []
     
     private let MAX_POINTS: Int = 30;
     
@@ -71,6 +71,7 @@ class TennisBallRecognitionViewController: CameraViewController {
             
             setupPathLayer(path)
             setupBallLayer(objectBounds, path)
+            setupBouncingPointLayer(objectBounds);
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -125,7 +126,6 @@ class TennisBallRecognitionViewController: CameraViewController {
     
     func calculatePath(_ bounds: CGRect) -> CGPath {
         
-        
         if (ballPositions.count >= MAX_POINTS) {
             ballPositions.removeFirst()
         }
@@ -134,12 +134,11 @@ class TennisBallRecognitionViewController: CameraViewController {
         
         let ballDiameter = (bounds.size.width + bounds.size.height)/2;
         
-        ballPositions.append(ballPosition)
+        ballPositions.append(TimedPosition(position: ballPosition, timestamp: Date()))
         
         friendlyPrint(ballPositions)
         
         return TennisPathUtil.calculatePath(ballPositions, ballDiameter);
-        
     }
     
     func setupPathLayer(_ path: CGPath) {
@@ -174,17 +173,31 @@ class TennisBallRecognitionViewController: CameraViewController {
         detectionOverlay.addSublayer(ballLayer)
     }
     
-    func friendlyPrint(_ data: [CGPoint]) {
+    func setupBouncingPointLayer (_ bounds: CGRect) {
+        let bouncingPoint = TennisPathUtil.findBouncingPoint(ballPositions)
+        
+        if(bouncingPoint == nil) { return; }
+        
+        let bouncingBallLayer = CALayer()
+        bouncingBallLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        bouncingBallLayer.position = bouncingPoint!
+        bouncingBallLayer.backgroundColor = UIColor.red.cgColor
+        bouncingBallLayer.cornerRadius = min(bounds.width, bounds.height)/2
+            
+        detectionOverlay.addSublayer(bouncingBallLayer)
+    }
+    
+    func friendlyPrint(_ timePositions: [TimedPosition]) {
         
         let bounds = rootLayer.bounds
         let xScale: CGFloat = bounds.size.width / bufferSize.height
         let yScale: CGFloat = bounds.size.height / bufferSize.width
         let scale = fmax(xScale, yScale)
         
-        let reversedData: [CGPoint] = data.map { (current) in
+        let reversedData: [CGPoint] = timePositions.map { current in
             // Unscale the coordinates
-            let unscaledX = current.x / scale
-            let unscaledY = current.y / -scale // Undo mirroring
+            let unscaledX = current.position.x / scale
+            let unscaledY = current.position.y / -scale // Undo mirroring
 
             // Unrotate by 90 degrees (counterclockwise)
             let rotatedX = unscaledY
@@ -193,11 +206,39 @@ class TennisBallRecognitionViewController: CameraViewController {
             return CGPoint(x:rotatedX, y:rotatedY)
         }
         
-        let bouncingPoint = TennisPathUtil.findBouncingPoint(reversedData)
+        print("====== original data ======")
+        print(timePositions)
+        let difference = calculateDifferences(timePositions);
+        print("====== difference ======")
+        print(difference)
+        
+        let bouncingPoint = TennisPathUtil.findBouncingPoint(timePositions)
         
         if(bouncingPoint != nil) {
             print("bouncing point found: \(String(describing: bouncingPoint))")
         }
     }
+    
+    func calculateDifferences(_ points: [TimedPosition]) -> [CGPoint] {
+        var differences: [CGPoint] = []
+        
+        guard points.count > 1 else {
+            return differences // Return empty if there are not enough points
+        }
 
+        for i in 1..<points.count {
+            let previousPoint = points[i - 1]
+            let currentPoint = points[i]
+            
+            // Calculate the difference
+            let dx = currentPoint.position.x - previousPoint.position.x
+            let dy = currentPoint.position.y - previousPoint.position.y
+            
+            // Create a new CGPoint representing the difference
+            let difference = CGPoint(x: dx, y: dy)
+            differences.append(difference)
+        }
+
+        return differences
+    }
 }
