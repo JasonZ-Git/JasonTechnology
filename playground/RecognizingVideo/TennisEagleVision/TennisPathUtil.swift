@@ -34,51 +34,36 @@ class TennisPathUtil {
         return path.cgPath;
     }
     
-    // Function to find the bouncing point using average slopes
-    public static func findBouncingPoint_1(_ data: [CGPoint]) -> CGPoint? {
-        let windowSize = 5
-        
-        if (data.count < windowSize * 2 ) { return nil }
-        
-        for i in 0...(data.count - windowSize * 2) {
-            let avgSlope1 = averageSlope(points: data, start: i)
-            let avgSlope2 = averageSlope(points: data, start: i + windowSize)
-            
-            // Check for direction change (sign change)
-            
-            if avgSlope1 * avgSlope2 < 0 {
-                print("slop1 is \(avgSlope1), slop2 is \(avgSlope2)")
-                return data[i + 2] // Return the middle point of the first window as the bounce point
-            }
-        }
-        return nil // No bounce point found
-    }
-    
     public static func findBouncingPoint(_ points: [TimedPosition]) -> CGPoint? {
-        let referenceMean: CGFloat = 0.0
-        let threshold: CGFloat = 1.5
-        var cumulativeSum: CGFloat = 0.0
-
-        for point in points {
-            // Calculate the deviation from the reference mean
-            cumulativeSum += (point.position.y - referenceMean)
+        guard points.count > 5 else { return nil }
+        
+        var previousPoint = points.first!
+        
+        // Loop through points, starting from the second element
+        for (index, point) in points.enumerated().dropFirst(3) {
+            // Calculate the differences safely
+            let xDiff: CGFloat = point.position.x - previousPoint.position.x
+            let yDiff: CGFloat = point.position.y - previousPoint.position.y
+            let timestampDiff = point.timestamp.timeIntervalSince(previousPoint.timestamp)
             
-            // Check if cumulative sum exceeds the threshold (upwards or downwards)
-            if cumulativeSum > threshold || cumulativeSum < -threshold {
-                // Return the CGPoint of the first bounce detected
-                return point.position
+            if (xDiff < -1.5 && index < points.count - 3) {
+                let diff_1 = points[index - 1].position.x - points[index - 2].position.x;
+                let diff_2 = points[index].position.x - points[index].position.y;
+                let diff_3 = points[index+1].position.x - points[index].position.y;
+                let diff_4 = points[index+2].position.x - points[index+1].position.y;
+                
+                if (diff_1 > 1.5 && diff_2 > 1.5 && diff_3 < -1.5 && diff_4 < -1.5) {
+                    return point.position;
+                }
             }
+                        
+            // Update previousPoint for the next iteration
+            previousPoint = point
         }
-
-        // Return nil if no bounce is detected
+        
         return nil
     }
-    
-    private static func averageSlope(points: [CGPoint], start: Int) -> CGFloat {
-        let p1 = points[start]
-        let p5 = points[start + 4]
-        return (p5.y - p1.y) / (p5.x - p1.x)
-    }
+
     
     private static func distance(_ point1: CGPoint, _ point2: CGPoint) -> CGFloat {
         let deltaX = point2.x - point1.x

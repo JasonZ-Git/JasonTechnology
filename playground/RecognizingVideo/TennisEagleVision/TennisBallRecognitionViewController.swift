@@ -70,7 +70,7 @@ class TennisBallRecognitionViewController: CameraViewController {
             let path = calculatePath(objectBounds)
             
             setupPathLayer(path)
-            setupBallLayer(objectBounds, path)
+            //setupBallLayer(objectBounds, path)
             setupBouncingPointLayer(objectBounds);
         }
         self.updateLayerGeometry()
@@ -167,7 +167,6 @@ class TennisBallRecognitionViewController: CameraViewController {
         animation.duration = 2.0 // Adjust the duration as needed
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.repeatCount = .infinity // Repeat the animation if needed
-        
         ballLayer.add(animation, forKey: "trajectory")
         
         detectionOverlay.addSublayer(ballLayer)
@@ -176,14 +175,19 @@ class TennisBallRecognitionViewController: CameraViewController {
     func setupBouncingPointLayer (_ bounds: CGRect) {
         let bouncingPoint = TennisPathUtil.findBouncingPoint(ballPositions)
         
-        if(bouncingPoint == nil) { return; }
+        if(bouncingPoint == nil) {
+            print("Nothing found")
+            return;
+        }
+        
+        print("bouncing point is \(bouncingPoint)")
         
         let bouncingBallLayer = CALayer()
-        bouncingBallLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        bouncingBallLayer.bounds = CGRect(x: bouncingPoint!.x, y: bouncingPoint!.y, width: bounds.width, height: bounds.height)
         bouncingBallLayer.position = bouncingPoint!
         bouncingBallLayer.backgroundColor = UIColor.red.cgColor
         bouncingBallLayer.cornerRadius = min(bounds.width, bounds.height)/2
-            
+        
         detectionOverlay.addSublayer(bouncingBallLayer)
     }
     

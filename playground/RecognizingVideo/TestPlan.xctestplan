@@ -1,0 +1,18 @@
+{
+  "configurations" : [
+    {
+      "id" : "EBA74ABC-AC33-4AC6-800E-21826A4F4675",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}

@@ -90,9 +90,9 @@
 
 ### Gradient Boost Algorithms
 | Name          | Detail  | Scenarios  | Developer |
-| ------------- |:-------------:|-----------|-----------|
-| XGBoost | optimized distributed gradient boosting library | many scenarios, default choice |
-| LGBM | tree based learning algorithms | | Microsoft|
+| ------------- |:-------------:|:-------------|-----------|
+| XGBoost | optimized distributed gradient boosting library | many scenarios, default choice | XGBoost.ai |
+| LGBM | tree based learning algorithms | Large Dataset, high performace | Microsoft|
 | CatBoost | Decision tree based boost framework | search, recommendation systems, personal assistant, self-driving cars, weather prediction | Yondex|
 
 # Importance of data versus algorithms

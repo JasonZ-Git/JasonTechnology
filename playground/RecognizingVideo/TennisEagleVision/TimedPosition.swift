@@ -21,7 +21,7 @@ struct TimedPosition : CustomStringConvertible {
     }
     
     var description: String {
-            return "Position: (\(position.x), \(position.y)), Timestamp: \(formattedTimestamp)"
+            return "Position: (\(position.x), \(position.y))"
      }
     
     private var formattedTimestamp: String {
