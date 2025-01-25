@@ -88,7 +88,21 @@
 
 ![alt text](images/XGBoost.png "XGBoost")
 
+## Neural Network
+
+### ANN
+* https://www.superdatascience.com/blogs/the-ultimate-guide-to-artificial-neural-networks-ann
+
+![alt text](images/ann.webp "ANN")
+
+### CNN
+* https://www.superdatascience.com/the-ultimate-guide-to-convolutional-neural-networks-cnn/
+
+![alt text](images/cnn.webp "CNN")
+
+
 ### Gradient Boost Algorithms
+
 | Name          | Detail  | Scenarios  | Developer |
 | ------------- |:-------------:|:-------------|-----------|
 | XGBoost | optimized distributed gradient boosting library | many scenarios, default choice | XGBoost.ai |
