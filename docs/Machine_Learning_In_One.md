@@ -147,3 +147,5 @@
 
 # ChatGPT
 * How does chatGPT works - https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/
+* Deepseek V3 source code - https://github.com/deepseek-ai/DeepSeek-V3
+* Deepseek research - https://github.com/deepseek-ai/DeepSeek-V3/blob/main/DeepSeek_V3.pdf
