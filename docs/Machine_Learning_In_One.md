@@ -1,4 +1,4 @@
-
+f
 # Machine Learning Algorithm category
 
 | Category        |  Explain  | Scenarios           |
@@ -44,7 +44,7 @@
 | Pandas | Read and Analysis structured data |
 | dtreeviz | A python library to visualize deep-tree process in details |
 
-# Algorithm in Chart
+# Machine Learning in Chart
 ### Linear Regression 
 * supervised
 * continous regression line
@@ -88,18 +88,6 @@
 
 ![alt text](images/XGBoost.png "XGBoost")
 
-## Neural Network
-
-### ANN
-* https://www.superdatascience.com/blogs/the-ultimate-guide-to-artificial-neural-networks-ann
-
-![alt text](images/ann.webp "ANN")
-
-### CNN
-* https://www.superdatascience.com/the-ultimate-guide-to-convolutional-neural-networks-cnn/
-
-![alt text](images/cnn.webp "CNN")
-
 
 ### Gradient Boost Algorithms
 
@@ -108,6 +96,29 @@
 | XGBoost | optimized distributed gradient boosting library | many scenarios, default choice | XGBoost.ai |
 | LGBM | tree based learning algorithms | Large Dataset, high performace | Microsoft|
 | CatBoost | Decision tree based boost framework | search, recommendation systems, personal assistant, self-driving cars, weather prediction | Yondex|
+
+## Deep Learning - Neural Network
+
+### ANN
+* This is the most basic type of neural network, often referred to as a feedforward neural network
+* Suitable for problems where input features are independent and don't depend on the sequence or spatial relationships (e.g., tabular data, classification tasks)
+* https://www.superdatascience.com/blogs/the-ultimate-guide-to-artificial-neural-networks-ann
+
+![alt text](images/ann.webp "ANN")
+
+### CNN
+* Designed specifically for processing grid-like data, such as images
+* Primarily used in image processing, computer vision
+* https://www.superdatascience.com/the-ultimate-guide-to-convolutional-neural-networks-cnn/
+
+![alt text](images/cnn.webp "CNN")
+
+### RNN
+* Designed for processing sequential data or data with order
+* Suitable for tasks involving sequences, such as speech recognition, language translation, text generation, and time series forecasting
+* https://www.superdatascience.com/blogs/the-ultimate-guide-to-recurrent-neural-networks-rnn
+
+
 
 # Importance of data versus algorithms
 ![alt text](images/data_versus_algorithms.png "Data Versus Algorithms")
@@ -149,3 +160,11 @@
 * How does chatGPT works - https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/
 * Deepseek V3 source code - https://github.com/deepseek-ai/DeepSeek-V3
 * Deepseek research - https://github.com/deepseek-ai/DeepSeek-V3/blob/main/DeepSeek_V3.pdf
+* The 9 Deep Learning Paper you need to know - https://adeshpande3.github.io/The-9-Deep-Learning-Papers-You-Need-To-Know-About.html
+* Cross-Entropy Loss (Mean model's efficienty) - https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/
+
+# Install Jupiter Notebook
+* Use Anaconda to install tensorflow
+* Install keras
+* Install anaconda https://www.anaconda.com
+* Launch jupiter from anaconda

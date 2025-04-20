@@ -38,6 +38,9 @@ class TennisPathUtil {
         guard points.count > 5 else { return nil }
         
         var previousPoint = points.first!
+        var slopes: [CGFloat] = []
+        var xDiffs: [CGFloat] = []
+        var yDiffs: [CGFloat] = []
         
         // Loop through points, starting from the second element
         for (index, point) in points.enumerated().dropFirst(3) {
@@ -46,22 +49,24 @@ class TennisPathUtil {
             let yDiff: CGFloat = point.position.y - previousPoint.position.y
             let timestampDiff = point.timestamp.timeIntervalSince(previousPoint.timestamp)
             
-            if (xDiff < -1.5 && index < points.count - 3) {
-                let diff_1 = points[index - 1].position.x - points[index - 2].position.x;
-                let diff_2 = points[index].position.x - points[index].position.y;
-                let diff_3 = points[index+1].position.x - points[index].position.y;
-                let diff_4 = points[index+2].position.x - points[index+1].position.y;
-                
-                if (diff_1 > 1.5 && diff_2 > 1.5 && diff_3 < -1.5 && diff_4 < -1.5) {
-                    return point.position;
-                }
-            }
-                        
+            let slope = yDiff/xDiff
+            slopes.append(slope)
+            xDiffs.append(xDiff)
+            yDiffs.append(yDiff)
+            
             // Update previousPoint for the next iteration
-            previousPoint = point
+            previousPoint = points[index-2]
         }
         
+        print("xDiffs are \(xDiffs)")
+        print("yDiffs are \(yDiffs)")
+        print("slopes are \(slopes)")
+        
         return nil
+    }
+    
+    private static func findBoucingPointIndex(_ xDiffs: [CGFloat], _ yDiffs: [CGFloat]) -> Int {
+        
     }
 
     

@@ -136,7 +136,7 @@ class TennisBallRecognitionViewController: CameraViewController {
         
         ballPositions.append(TimedPosition(position: ballPosition, timestamp: Date()))
         
-        friendlyPrint(ballPositions)
+        //friendlyPrint(ballPositions)
         
         return TennisPathUtil.calculatePath(ballPositions, ballDiameter);
     }
@@ -215,12 +215,6 @@ class TennisBallRecognitionViewController: CameraViewController {
         let difference = calculateDifferences(timePositions);
         print("====== difference ======")
         print(difference)
-        
-        let bouncingPoint = TennisPathUtil.findBouncingPoint(timePositions)
-        
-        if(bouncingPoint != nil) {
-            print("bouncing point found: \(String(describing: bouncingPoint))")
-        }
     }
     
     func calculateDifferences(_ points: [TimedPosition]) -> [CGPoint] {
