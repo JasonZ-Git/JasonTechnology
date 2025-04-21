@@ -9,16 +9,18 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
+from datetime import datetime
 
 # =======================
 # Parameters
 # =======================
 STOCK = 'GOOG'
 START = '2015-01-01'
-END = '2024-12-31'
+END = datetime.today().strftime('%Y-%m-%d')
 SEQ_LEN = 60
 EPOCHS = 50
 BATCH_SIZE = 32
+FUTURE_DAYS = 30
 
 
 # Step 3: Download stock data
@@ -58,11 +60,29 @@ predicted = model.predict(X_test)
 predicted_prices = scaler.inverse_transform(predicted)
 actual_prices = scaler.inverse_transform(y_test)
 
+# === STEP 8: Predict Future Prices ===
+last_sequence = scaled_data[-SEQ_LEN:].reshape(1, SEQ_LEN, 1)
+future_predictions = []
+
+for _ in range(FUTURE_DAYS):
+    next_pred = model.predict(last_sequence, verbose=0)[0][0]
+    future_predictions.append(next_pred)
+
+    # Append new prediction and update sequence
+    last_sequence = np.append(last_sequence[:, 1:, :], [[[next_pred]]], axis=1)
+
+# Inverse scale future predictions
+future_prices = scaler.inverse_transform(np.array(future_predictions).reshape(-1, 1))
+# Generate future dates
+last_date = df.index[-1]
+future_dates = pd.date_range(last_date + pd.Timedelta(days=1), periods=FUTURE_DAYS, freq='B')
 
 # Step 9: Plotting
 plt.figure(figsize=(14,6))
-plt.plot(actual_prices, label="Actual")
-plt.plot(predicted_prices, label="Predicted")
+plt.plot(df.index[-200:], actual_prices, label="Actual")
+plt.plot(df.index[-200:], predicted_prices, label="Predicted")
+# Plot future prediction
+plt.plot(future_dates, future_prices, label='Forecast (Future)', linestyle='dashed')
 plt.title(f"{STOCK} Stock Price Prediction (Keras LSTM)")
 plt.xlabel("Time")
 plt.ylabel("Price")

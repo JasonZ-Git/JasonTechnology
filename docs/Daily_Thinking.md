@@ -81,7 +81,7 @@ TODO List - All the finished ones will be moved to separate pages.
 
 21 April 2025
 -----------
-I built 2 simple programmes to predict stock price using RNN - with TensorFlow and Pytorch seperately, amazingly simple and accurate
+I built 2 simple programmes to predict stock price using RNN - with TensorFlow and Pytorch seperately
 ![Keras Version](images/GoogleStockPricePredication_Keras.png)
 ![Pytorch Version](images/GoogleStockPricePredication_Pytorch.png)
 

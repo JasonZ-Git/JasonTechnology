@@ -12,12 +12,12 @@ import matplotlib.pyplot as plt
 # =======================
 # Parameters
 # =======================
-STOCK = 'AAPL'
+STOCK = 'GOOG'
 START = '2015-01-01'
 END = '2024-12-31'
 SEQ_LEN = 60
 EPOCHS = 50
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 LR = 0.001
 
 # =======================
@@ -101,4 +101,5 @@ plt.legend()
 plt.title(f'{STOCK} Price Prediction (LSTM)')
 plt.xlabel('Days')
 plt.ylabel('Price')
+plt.grid(True)
 plt.show()
