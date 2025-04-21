@@ -114,7 +114,7 @@ f
 ![alt text](images/cnn.webp "CNN")
 
 ### RNN
-* Designed for processing sequential data or data with order
+* Designed for processing sequential data or data with order - usually use optimised LSTM algorithm
 * Suitable for tasks involving sequences, such as speech recognition, language translation, text generation, and time series forecasting
 * https://www.superdatascience.com/blogs/the-ultimate-guide-to-recurrent-neural-networks-rnn
 
@@ -168,3 +168,9 @@ f
 * Install keras
 * Install anaconda https://www.anaconda.com
 * Launch jupiter from anaconda
+
+# Best Python IDE
+* VS Code - Suitable for general programming
+* Spyder - Best for data science
+* Jupyter Notebook - Data Science
+* PyCharm - big projects, heavy

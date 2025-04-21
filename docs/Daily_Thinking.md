@@ -79,6 +79,12 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+21 April 2025
+-----------
+I built 2 simple programmes to predict stock price using RNN - with TensorFlow and Pytorch seperately, amazingly simple and accurate
+![Keras Version](images/GoogleStockPricePredication_Keras.png)
+![Pytorch Version](images/GoogleStockPricePredication_Pytorch.png)
+
 17 Nov 2024
 -----------
 Different algorithms to determine the turning point:
@@ -86,7 +92,6 @@ Different algorithms to determine the turning point:
   -- Do not need large amount of data
 - RNN or 1-D CNN 
   -- They need large amount of data for training - 10,000 to 50,000 is the starting point
-
 
 27 May 2024
 -----------
