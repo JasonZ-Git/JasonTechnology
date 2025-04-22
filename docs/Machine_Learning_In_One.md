@@ -1,4 +1,3 @@
-f
 # Machine Learning Algorithm category
 
 | Category        |  Explain  | Scenarios           |

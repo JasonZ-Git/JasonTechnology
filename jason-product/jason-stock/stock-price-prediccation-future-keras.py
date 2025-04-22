@@ -1,3 +1,5 @@
+# This program will predict the stock price of Google for the next 30 days, it can be run in colab directly
+
 # 📦 Step 1: Install requirements (run this first)
 # !pip install yfinance pandas scikit-learn matplotlib
 
