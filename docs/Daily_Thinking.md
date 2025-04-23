@@ -79,6 +79,13 @@ TODO List - All the finished ones will be moved to separate pages.
 * JSR 356 - Java API for WebSocket - Server Push - How is it implemented? - This task should be finished by 24 May
 * JSR 365 - CDI 2 and RI Seam - More some more explore about CDI2 and Seam
 
+23 April 2025
+-----------
+Speed comaration with a CNN training in a colab environment
+CPU(Intel) - 86ms/step
+T4-GPU(Nvidia) - 5ms/step
+v2-8 TPU(Google) - 70ms/step
+
 21 April 2025
 -----------
 I built 2 simple programmes to predict stock price using RNN - with TensorFlow and Pytorch seperately

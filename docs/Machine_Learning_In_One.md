@@ -21,8 +21,10 @@
 | K-means | Unsupervised | Use a 'center' to define each cluster | Clustering |
 | SVM - Supported Vector Machine | Supervised |  | Classification and regression |
 | XGBoost | Supervised | Large dataset,  complex problems | classification <br> Regression <br> Feature selecion <br> abnormal detection <br> natural language processing <br> feature selection |
-| CNN Convolutional Neural Networks | Supervised, Deep Learning |  | Image Classification <br> Object Detection <br> Image Segmentation |
+| ANN - Artificial Neural Network | Supervised, Deep Learning | An ANN is made up of layers of nodes (neurons) that process data and "learn" patterns from it |  |
+| CNN - Convolutional Neural Networks | Supervised, Deep Learning |  | Image Classification <br> Object Detection <br> Image Segmentation |
 | RNN - Recurrent Neural Networks | Supervised, Deep Learning| | Sequential Data Processing <br> Time series preication <br>Speech Recognition |
+| SOM - Self Organised Map | unsupervised, Deep Learning| | Dimensionality reduction and visualization of high-dimensional data |
 | GAN - Generative Adversarial Network | Supervised, unsupervised, Deep Learning | | Image Generation <br> Image to image translation <br> abormal detection |
 | Deep Belief Network | UnSupervised, Deep Learning | |
 | Autoencoders | Unsupervised, Deep Learning | | data denoising <br> dimensionality reduction <br> anomaly detection |
@@ -118,6 +120,10 @@
 * https://www.superdatascience.com/blogs/the-ultimate-guide-to-recurrent-neural-networks-rnn
 
 
+### SOM - Self Organised Map
+* SOMs map high-dimensional data onto a 2D grid (like a map), preserving the topology — meaning similar input data ends up close together on the grid.
+* Mainly used for dimensionality reduction and visualization of high-dimensional data
+* https://ai-junkie.com/ann/som/som1.html
 
 # Importance of data versus algorithms
 ![alt text](images/data_versus_algorithms.png "Data Versus Algorithms")
@@ -173,3 +179,4 @@
 * Spyder - Best for data science
 * Jupyter Notebook - Data Science
 * PyCharm - big projects, heavy
+* Google Colab - Online, easy to use
