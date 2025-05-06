@@ -10,13 +10,13 @@ torch.cuda.is_available()
 
 from ultralytics import YOLO
 
-#  Step 2 | Load a YOLOv8 model (choose: yolov8n, yolov8s, yolov8m, yolov8l, yolov8x)
+#  Step 2 | Load a YOLOv8 model (choose: yolov8n, yolov8s, yolov8m, yolov8l, yolov8x, yolo11n.pt)
 model = YOLO("yolov8s.yaml")  # 'n' = nano, fast and light
 
 # Train the model - 200 is a magic number
 results = model.train(
-    data="/content/drive/MyDrive/AI/tennis_yolov8/data.yaml",  # or use dataset.location + "/data.yaml"
-    epochs=200,
+    data="/content/drive/MyDrive/AI/tennis_yolo/data.yaml",  # or use dataset.location + "/data.yaml"
+    epochs=500,
     imgsz=640,
     batch=16,
     device=0,  # Use GPU
@@ -56,3 +56,6 @@ img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 plt.imshow(img)
 plt.axis('off')
 plt.show()
+
+
+# Step 6 | Convert yolo model to mlmodel

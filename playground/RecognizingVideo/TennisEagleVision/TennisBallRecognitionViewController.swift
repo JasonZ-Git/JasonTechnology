@@ -20,6 +20,11 @@ class TennisBallRecognitionViewController: CameraViewController {
     
     private let MAX_POINTS: Int = 30;
     
+    private let kalmanFilter = KalmanFilter2D(
+        processNoise: 0.01,        // ball trajectory is relatively smooth
+        measurementNoise: 1.5      // real-world detection might jitter ±1-2 pixels
+    )
+        
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -36,8 +41,9 @@ class TennisBallRecognitionViewController: CameraViewController {
         let error: NSError! = nil
         
         guard let modelURL = Bundle.main.url(forResource: "TennisDetectorV2", withExtension: "mlmodelc") else {
-            return NSError(domain: "TennisBallRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
+             return NSError(domain: "TennisBallRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
+
         do {
             let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
             let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
@@ -118,8 +124,9 @@ class TennisBallRecognitionViewController: CameraViewController {
         
         // rotate the layer into screen orientation and scale and mirror
         detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
-        // center the layer
-        detectionOverlay.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        let smoothedPoint = kalmanFilter.update(measurement: CGPoint(x: bounds.midX, y: bounds.midY))
+        detectionOverlay.position = smoothedPoint
         
         CATransaction.commit()
     }
@@ -135,8 +142,6 @@ class TennisBallRecognitionViewController: CameraViewController {
         let ballDiameter = (bounds.size.width + bounds.size.height)/2;
         
         ballPositions.append(TimedPosition(position: ballPosition, timestamp: Date()))
-        
-        //friendlyPrint(ballPositions)
         
         return TennisPathUtil.calculatePath(ballPositions, ballDiameter);
     }
@@ -180,7 +185,7 @@ class TennisBallRecognitionViewController: CameraViewController {
             return;
         }
         
-        print("bouncing point is \(bouncingPoint)")
+        print("bouncing point is \(String(describing: bouncingPoint))")
         
         let bouncingBallLayer = CALayer()
         bouncingBallLayer.bounds = CGRect(x: bouncingPoint!.x, y: bouncingPoint!.y, width: bounds.width, height: bounds.height)

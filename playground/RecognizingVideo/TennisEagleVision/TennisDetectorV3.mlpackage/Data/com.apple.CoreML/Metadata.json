@@ -1,0 +1,20 @@
+{
+  "MLModelVersionStringKey" : "8.3.127",
+  "MLModelDescriptionKey" : "Ultralytics YOLO11n model trained on \/content\/drive\/MyDrive\/AI\/tennis_yolov\/data.yaml",
+  "MLModelCreatorDefinedKey" : {
+    "batch" : "1",
+    "docs" : "https:\/\/docs.ultralytics.com",
+    "com.github.apple.coremltools.version" : "8.3.0",
+    "imgsz" : "[640, 640]",
+    "names" : "{0: 'tennis'}",
+    "channels" : "3",
+    "stride" : "32",
+    "date" : "2025-05-06T09:09:19.479393",
+    "args" : "{'batch': 1, 'half': False, 'int8': False, 'nms': False}",
+    "com.github.apple.coremltools.source_dialect" : "TorchScript",
+    "com.github.apple.coremltools.source" : "torch==2.6.0+cu124",
+    "task" : "detect"
+  },
+  "MLModelAuthorKey" : "Ultralytics",
+  "MLModelLicenseKey" : "AGPL-3.0 License (https:\/\/ultralytics.com\/license)"
+}
