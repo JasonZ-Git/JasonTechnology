@@ -23,7 +23,7 @@ class TennisPathUtil {
         for currentTimedPosition in ballPositions.dropFirst() {
             
             if (distance(currentTimedPosition.position, lastPoint) > ballDiameter * 5){
-                path.close()
+                path.removeAllPoints()
                 path.move(to: currentTimedPosition.position)
             }
             
@@ -34,6 +34,7 @@ class TennisPathUtil {
         return path.cgPath;
     }
     
+    // This bouncing point should be predicated by deep learning method
     public static func findBouncingPoint(_ points: [TimedPosition]) -> CGPoint? {
         guard points.count > 5 else { return nil }
         
@@ -41,15 +42,20 @@ class TennisPathUtil {
         var slopes: [CGFloat] = []
         var xDiffs: [CGFloat] = []
         var yDiffs: [CGFloat] = []
+        var previousSlope: CGFloat = 0.0
         
         // Loop through points, starting from the second element
         for (index, point) in points.enumerated().dropFirst(3) {
             // Calculate the differences safely
             let xDiff: CGFloat = point.position.x - previousPoint.position.x
             let yDiff: CGFloat = point.position.y - previousPoint.position.y
-            let timestampDiff = point.timestamp.timeIntervalSince(previousPoint.timestamp)
+
             
             let slope = yDiff/xDiff
+            
+            if (previousSlope * slope < 0.0) { return previousPoint.position; }
+            
+            previousSlope = slope
             slopes.append(slope)
             xDiffs.append(xDiff)
             yDiffs.append(yDiff)
@@ -57,15 +63,9 @@ class TennisPathUtil {
             // Update previousPoint for the next iteration
             previousPoint = points[index-2]
         }
-        
-        print("xDiffs are \(xDiffs)")
-        print("yDiffs are \(yDiffs)")
-        print("slopes are \(slopes)")
-        
+
         return nil
     }
-    
-
 
     
     private static func distance(_ point1: CGPoint, _ point2: CGPoint) -> CGFloat {
