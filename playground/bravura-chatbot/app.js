@@ -1,22 +1,38 @@
-var restify = require('restify');
-var builder = require('botbuilder');
+const restify = require('restify');
+const {
+    ActivityHandler,
+    CloudAdapter,
+    ConfigurationBotFrameworkAuthentication
+} = require('botbuilder');
 
 // Setup Restify Server
-var server = restify.createServer();
+const server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
 
-// Create chat connector for communicating with the Bot Framework Service
-var connector = new builder.ChatConnector({
-    appId: process.env.MicrosoftAppId,
-    appPassword: process.env.MicrosoftAppPassword
-});
+const botFrameworkAuthentication = new ConfigurationBotFrameworkAuthentication(process.env);
+const adapter = new CloudAdapter(botFrameworkAuthentication);
 
-// Listen for messages from users 
-server.post('/api/messages', connector.listen());
+adapter.onTurnError = async function (context, error) {
+    console.error(error);
+    await context.sendActivity('The bot encountered an error.');
+};
 
-// Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("You said: %s", session.message.text);
+class EchoBot extends ActivityHandler {
+    constructor() {
+        super();
+        this.onMessage(async function (context, next) {
+            await context.sendActivity(`You said: ${context.activity.text}`);
+            await next();
+        });
+    }
+}
+
+const bot = new EchoBot();
+
+server.post('/api/messages', async function (req, res) {
+    await adapter.process(req, res, async function (context) {
+        await bot.run(context);
+    });
 });

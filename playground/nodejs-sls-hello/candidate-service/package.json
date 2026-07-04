@@ -1,8 +1,14 @@
 {
+  "scripts": {
+    "test": "node --check candidate.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
-    "@aws-sdk/node-http-handler": "^3.32.0",
-    "aws-sdk": "^2.1061.0",
+    "@aws-sdk/node-http-handler": "^3.374.0",
+    "aws-sdk": "^2.1693.0",
     "bluebird": "^3.7.2",
-    "uuid": "^8.3.2"
+    "uuid": "^14.0.1"
   }
 }

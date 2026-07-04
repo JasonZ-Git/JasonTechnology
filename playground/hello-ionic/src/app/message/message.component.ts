@@ -5,9 +5,10 @@ import { Message } from '../services/data.service';
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
+  standalone: false,
 })
 export class MessageComponent implements OnInit {
-  @Input() message: Message;
+  @Input() message!: Message;
 
   constructor() { }
 

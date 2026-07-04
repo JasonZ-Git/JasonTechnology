@@ -35,18 +35,17 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
-		<project.version>3.3</project.version>
+		<project.version>3.8</project.version>
 		<powermock.version>1.4.10</powermock.version>
 		<springframework.version>6.0.0</springframework.version>
-		<junit-version>5.8.2</junit-version>
-		<log4j2.version>2.17.1</log4j2.version>
+		<junit-version>5.13.4</junit-version>
+		<log4j2.version>2.25.2</log4j2.version>
 		<springboot.version>2.5.12</springboot.version>
 		<hibernate.version>5.4.24.Final</hibernate.version>
 		<jsonb-api.version>1.1.4</jsonb-api.version>
 		<jsonb-glassfish-impl.version>1.1</jsonb-glassfish-impl.version>
-		<apache-commons-langs.version>3.12.0</apache-commons-langs.version>
-		<selenium.version>4.1.1</selenium.version>
-		<selenium.server.version>4.0.0-alpha-2</selenium.server.version>
+		<apache-commons-langs.version>3.19.0</apache-commons-langs.version>
+		<selenium.version>4.39.0</selenium.version>
 	</properties>
 
 	<build>
@@ -54,7 +53,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.14.1</version>
 			</plugin>
 		</plugins>
 	</build>
@@ -112,12 +111,12 @@
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.11.0</version>
+				<version>2.21.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-math3</artifactId>
-				<version>3.3</version>
+				<version>3.6.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -134,20 +133,20 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.5.13</version>
+				<version>4.5.14</version>
 			</dependency>
 
 			<!-- Guava -->
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>29.0-jre</version>
+				<version>33.5.0-jre</version>
 			</dependency>
 			<!-- Google - GSON, calendar, api-client, oauth -->
 			<dependency>
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
-				<version>2.8.9</version>
+				<version>2.13.2</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.apis</groupId>
@@ -184,7 +183,7 @@
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<scope>runtime</scope>
-				<version>8.0.28</version>
+				<version>8.0.33</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -245,26 +244,15 @@
 			</dependency>
 
 			<dependency>
-				<groupId>maven</groupId>
+				<groupId>org.dom4j</groupId>
 				<artifactId>dom4j</artifactId>
-				<version>1.7-20060614</version>
+				<version>2.2.0</version>
 			</dependency>
 
-			<!-- should be replaced by eclipe-jetty -->
-			<dependency>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty</artifactId>
-				<version>6.1.23</version>
-			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>htmlunit-driver</artifactId>
 				<version>${selenium.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-server</artifactId>
-				<version>${selenium.server.version}</version>
 			</dependency>
 
 			<dependency>
@@ -327,7 +315,7 @@
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>3.3.0</version>
+				<version>5.20.0</version>
 			</dependency>
 
 			<dependency>

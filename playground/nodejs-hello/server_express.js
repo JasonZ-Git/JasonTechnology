@@ -26,7 +26,7 @@ app.get('/list_user', function (req, res) {
 })
 
 // This responds a GET request for abcd, abxcd, ab123cd, and so on
-app.get('/ab*cd', function(req, res) {   
+app.get(/^\/ab.*cd$/, function(req, res) {
    console.log("Got a GET request for /ab*cd");
    res.send('Page Pattern Match');
 })

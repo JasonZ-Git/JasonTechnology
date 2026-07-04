@@ -1,73 +1,44 @@
-apply plugin: 'com.android.model.application'
+plugins {
+    id 'com.android.application'
+}
 
-model {
-    android {
-        compileSdkVersion = 23
-        buildToolsVersion = "23.0.2"
+android {
+    namespace 'org.jason.android.calculator'
+    compileSdk 36
 
-        defaultConfig.with {
-            applicationId = "org.jason.android.calculator"
-            minSdkVersion.apiLevel = 21
-            targetSdkVersion.apiLevel = 23
-            testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    defaultConfig {
+        applicationId 'org.jason.android.calculator'
+        minSdk 21
+        targetSdk 36
+        versionCode 1
+        versionName '1.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
         }
     }
 
-    /*
-     * native build settings
-     */
-    android.ndk {
-        moduleName = "calculator"
-    }
-    android.buildTypes {
-        release {
-            minifyEnabled = false
-            proguardFiles.add(file('proguard-rules.txt'))
+    externalNativeBuild {
+        cmake {
+            path file('CMakeLists.txt')
         }
-    }
-    android.productFlavors {
-        /* create("arm") {
-             ndk.abiFilters.add("armeabi")
-         }
-         create("arm7") {
-             ndk.abiFilters.add("armeabi-v7a")
-         }
-         create("arm8") {
-             ndk.abiFilters.add("arm64-v8a")
-         }
-         create("x86") {
-             ndk.abiFilters.add("x86")
-         }
-         create("x86-64") {
-             ndk.abiFilters.add("x86_64")
-         }
-         create("mips") {
-             ndk.abiFilters.add("mips")
-         }
-         create("mips-64") {
-             ndk.abiFilters.add("mips64")
-         }
-         // To include all cpu architectures, leaves abiFilters empty
-         create("all")*/
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:design:23.2.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    compile 'org.powermock:powermock:1.6.4'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
+    testImplementation 'org.powermock:powermock-core:2.0.9'
 
-    androidTestCompile 'com.android.support:support-annotations:23.2.1'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
-    androidTestCompile 'com.android.support.test:rules:0.4.1'
-    // Optional -- Hamcrest library
-    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
-    // Optional -- UI testing with Espresso
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    // Optional -- UI testing with UI Automator
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test:runner:1.7.0'
+    androidTestImplementation 'androidx.test:rules:1.7.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.4.0'
 }

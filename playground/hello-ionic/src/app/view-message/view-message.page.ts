@@ -6,9 +6,10 @@ import { DataService, Message } from '../services/data.service';
   selector: 'app-view-message',
   templateUrl: './view-message.page.html',
   styleUrls: ['./view-message.page.scss'],
+  standalone: false,
 })
 export class ViewMessagePage implements OnInit {
-  public message: Message;
+  public message!: Message;
 
   constructor(
     private data: DataService,
@@ -17,7 +18,7 @@ export class ViewMessagePage implements OnInit {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.message = this.data.getMessageById(parseInt(id, 10));
+    this.message = this.data.getMessageById(parseInt(id ?? '0', 10));
   }
 
   getBackButtonText() {
