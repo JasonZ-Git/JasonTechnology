@@ -1,15 +1,12 @@
-const restify = require('restify');
+const express = require('express');
 const {
     ActivityHandler,
     CloudAdapter,
     ConfigurationBotFrameworkAuthentication
 } = require('botbuilder');
 
-// Setup Restify Server
-const server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function () {
-   console.log('%s listening to %s', server.name, server.url); 
-});
+const app = express();
+app.use(express.json());
 
 const botFrameworkAuthentication = new ConfigurationBotFrameworkAuthentication(process.env);
 const adapter = new CloudAdapter(botFrameworkAuthentication);
@@ -31,8 +28,13 @@ class EchoBot extends ActivityHandler {
 
 const bot = new EchoBot();
 
-server.post('/api/messages', async function (req, res) {
+app.post('/api/messages', async function (req, res) {
     await adapter.process(req, res, async function (context) {
         await bot.run(context);
     });
+});
+
+const port = process.env.port || process.env.PORT || 3978;
+app.listen(port, function () {
+    console.log('bravura-bot listening on %s', port);
 });
